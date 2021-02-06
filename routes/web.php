@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//CombinedRoute::resourceRoute('/product', 'ProductController', []);
+CombinedRoute::resourceRoute('/product', 'ProductController', []);
 
-Route::get('/product',	'ProductController@retrieve');
+//Route::get('/product',	'ProductController@retrieve');

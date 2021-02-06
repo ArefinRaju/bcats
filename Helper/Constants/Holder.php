@@ -9,10 +9,10 @@ use ReflectionClass;
 
 class Holder extends Enum
 {
-    /*public static function getConstants(): ReflectionClass
+    public static function getConstants(): ReflectionClass
     {
         return new ReflectionClass(static::class); // TODO : FWTLD
-    }*/
+    }
 
     public static function values(): array
     {

@@ -15,7 +15,7 @@ class CombinedRoute
         array $middlewares,
         array $rules = []
     ): void {
-        $actionTaggedSlug = $slug.'/{id}[/{action}]';
+        $actionTaggedSlug = $slug.'/{id}'; // TODO : $slug.'/{id}[/{action}]'
 
         if (!self::ActionAllowed($rules, CRUD::RETRIEVE)) {
             Route::get($actionTaggedSlug,
