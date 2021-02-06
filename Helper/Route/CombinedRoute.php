@@ -13,20 +13,20 @@ class CombinedRoute
         string $slug,
         string $controller,
         array $middlewares,
-        array $rules = []
+        array $except = []
     ): void {
         $actionTaggedSlug = $slug.'/{id}'; // TODO : $slug.'/{id}[/{action}]'
 
-        if (!self::ActionAllowed($rules, CRUD::RETRIEVE)) {
+        if (!self::ActionAllowed($except, CRUD::RETRIEVE)) {
             Route::get($actionTaggedSlug,
                 self::generateRouteOptions($slug, $controller, CRUD::RETRIEVE, $middlewares));
         }
     }
 
-    private static function ActionAllowed(array $rules, string $action): bool
+    private static function ActionAllowed(array $except, string $action): bool
     {
-        if (isset($rules['excluded'])) {
-            return is_array($rules['excluded']) ? in_array($action, $rules['excluded']) : $action == $rules['excluded'];
+        if (!empty($except)) {
+            return is_array($except) ? in_array($action, $except) : $action == $except;
         }
 
         return false;
