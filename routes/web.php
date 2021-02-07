@@ -1,5 +1,6 @@
 <?php
 
+use Helper\Route\CombinedRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',
+    function () {
+        return view('welcome');
+    }
+);
+
+CombinedRoute::resourceRoute('/product', 'ProductController', []);
+
+//Route::get('/product',	'ProductController@retrieve');
