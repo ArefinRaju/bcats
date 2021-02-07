@@ -9,17 +9,28 @@ use Illuminate\Support\Facades\Route;
 
 class CombinedRoute
 {
-    public static function resourceRoute(
-        string $slug,
-        string $controller,
-        array $middlewares,
-        array $except = []
-    ): void {
-        $actionTaggedSlug = $slug.'/{id}'; // TODO : $slug.'/{id}[/{action}]'
+    public static function resourceRoute(string $slug, string $controller, array $middlewares, array $except = [], array $rules = []): void
+    {
+        $actionTaggedSlug = $slug . '/{id}'; // TODO : $slug.'/{id}[/{action}]'
+
+        if (!self::ActionAllowed($rules, CRUD::VALIDATION)) {
+            Route::get($slug . '/' . CRUD::VALIDATION, self::generateRouteOptions($slug, $controller, CRUD::VALIDATION, $middlewares));
+        }
 
         if (!self::ActionAllowed($except, CRUD::RETRIEVE)) {
-            Route::get($actionTaggedSlug,
-                self::generateRouteOptions($slug, $controller, CRUD::RETRIEVE, $middlewares));
+            Route::get($actionTaggedSlug, self::generateRouteOptions($slug, $controller, CRUD::RETRIEVE, $middlewares));
+        }
+
+        if (!self::ActionAllowed($rules, CRUD::CREATE)) {
+            Route::post($slug, self::generateRouteOptions($slug, $controller, CRUD::CREATE, $middlewares));
+        }
+
+        if (!self::ActionAllowed($rules, CRUD::UPDATE)) {
+            Route::put($actionTaggedSlug, self::generateRouteOptions($slug, $controller, CRUD::UPDATE, $middlewares));
+        }
+
+        if (!self::ActionAllowed($rules, CRUD::DESTROY)) {
+            Route::delete($actionTaggedSlug, self::generateRouteOptions($slug, $controller, CRUD::DESTROY, $middlewares));
         }
     }
 
@@ -40,7 +51,7 @@ class CombinedRoute
     ): array {
         $options = [
             'uses' => $controller.'@'.$action,
-            'as' => $slug.'_'.$action
+            'as'   => $slug.'_'.$action
         ];
 
         if (count($middlewares) != 0) {
