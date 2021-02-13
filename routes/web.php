@@ -16,7 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',
     function () {
-        return view('welcome');
+        return view('admin.dashboard');
+    }
+);
+Route::get('/form',
+    function () {
+        return view('admin.pages.blank.form');
+    }
+);
+Route::get('/table',
+    function () {
+        return view('admin.pages.blank.table');
     }
 );
 
