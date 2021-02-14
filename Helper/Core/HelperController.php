@@ -72,7 +72,7 @@ class HelperController extends Controller
 
     public function validate(Request $request, array $rules)
     {
-        $validation = Validator::make($request->all(), $rules); // Todo : Response base on web or API
+        $validation = Validator::make($request->all(), $rules);
         if ($validation->fails()) {
             if (self::isAPI($request)){
                 throw new UserFriendlyException(Messages::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY, $validation->errors()->messages());
