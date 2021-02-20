@@ -13,4 +13,5 @@ class Errors extends Holder
     public const UNAUTHORIZED                   = 'UNAUTHORIZED';
     public const AUTHENTICATION_TOKEN_EXPIRED   = 'AUTHENTICATION_TOKEN_EXPIRED';
     public const AUTHENTICATION_TOKEN_INVALID   = 'AUTHENTICATION_TOKEN_INVALID';
+    public const ACTION_NOT_SUPPORTED           = 'ACTION_NOT_SUPPORTED';
 }

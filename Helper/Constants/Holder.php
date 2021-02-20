@@ -18,7 +18,7 @@ class Holder extends Enum
     {
         $values = [];
         foreach (parent::values() as $name => $value) {
-            $out[] = $value;
+            $values[] = $value;
         }
         return $values;
     }

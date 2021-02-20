@@ -7,6 +7,7 @@ use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -18,11 +19,6 @@ class HelperController extends Controller
     protected string $resource;
     protected string $rawResource;
     protected array  $commonValidationRules;
-
-    public function validation(): array
-    {
-        return $this->commonValidationRules;
-    }
 
     public function respond(
         $data = null,
@@ -61,20 +57,35 @@ class HelperController extends Controller
         return response()->json($response, $statusCode, $headers, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
-    public function validateCherryPickAndAssign(Request $request, $rules, $model, ...$blockUpdate): object
+    /**
+     * @param  Request  $request
+     * @param  array  $rules
+     * @param  Model  $model
+     * @param  mixed  ...$blockUpdate
+     * @return object
+     * @throws UserFriendlyException
+     */
+
+    public function validateCherryPickAndAssign(Request $request, array $rules, Model $model, ...$blockUpdate): object
     {
         $this->validate($request, $rules);
         $input = $this->cherryPick($request, $rules);
-        //$input = $request->toArray();
         $model = $this->assignAfterCherryPick($model, $input, ...$blockUpdate);
         return $model;
     }
+
+    /**
+     * @param  Request  $request
+     * @param  array  $rules
+     * @return bool|RedirectResponse
+     * @throws UserFriendlyException
+     */
 
     public function validate(Request $request, array $rules)
     {
         $validation = Validator::make($request->all(), $rules);
         if ($validation->fails()) {
-            if (self::isAPI($request)){
+            if (self::isAPI($request)) {
                 throw new UserFriendlyException(Messages::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY, $validation->errors()->messages());
             }
             return back()->withErrors($validation->errors());
@@ -84,7 +95,7 @@ class HelperController extends Controller
 
     public function isAPI(Request $request): bool
     {
-        if ($request->header('content-type') === 'application/json'){
+        if ($request->header('content-type') === 'application/json') {
             return true;
         }
         return false;
@@ -126,5 +137,65 @@ class HelperController extends Controller
     {
         $this->rawResource = $resource;
         $this->resource    = class_basename($resource);
+    }
+
+    // Basic controller methods
+
+    public function validation(): array
+    {
+        return $this->commonValidationRules;
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  string  $id
+     * @throws UserFriendlyException
+     */
+
+    public function retrieve(Request $request, string $id)
+    {
+        throw new NotSupportedException();
+    }
+
+    /**
+     * @param  Request  $request
+     * @throws UserFriendlyException
+     */
+
+    public function list(Request $request)
+    {
+        throw new NotSupportedException();
+    }
+
+    /**
+     * @param  Request  $request
+     * @throws UserFriendlyException
+     */
+
+    public function create(Request $request)
+    {
+        throw new NotSupportedException();
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  string  $id
+     * @throws UserFriendlyException
+     */
+
+    public function update(Request $request, string $id)
+    {
+        throw new NotSupportedException();
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  string  $id
+     * @throws UserFriendlyException
+     */
+
+    public function destroy(Request $request, string $id)
+    {
+        throw new NotSupportedException();
     }
 }
