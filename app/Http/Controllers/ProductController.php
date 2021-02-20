@@ -16,7 +16,7 @@ class ProductController extends HelperController
     public function __construct()
     {
         $this->commonValidationRules = [
-            'ids' => V::NUMBER,
+            'ids'  => V::NUMBER,
             'idss' => V::NUMBER
         ];
         //$this->setResource(Model here);
@@ -24,6 +24,9 @@ class ProductController extends HelperController
 
     public function retrieve(Request $request, string $id = '')
     {
+        //dd($request->header('Authorization'));
+        $token = str_replace('Bearer ', '', $request->header('Authorization'));
+        dd($token);
         $rules = $this->commonValidationRules;
         $model = $this->validateCherryPickAndAssign($request, $rules, new \stdClass());
         // $this->repo->saveOrFail($model);

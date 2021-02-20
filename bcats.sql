@@ -1,17 +1,20 @@
 -- ---
 -- Table 'users'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `users`;
-    
+
 CREATE TABLE `users` (
   `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(70) NOT NULL,
+  `remember_token` VARCHAR(100) NOT NULL,
   `mobile` VARCHAR(15) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `acl` VARCHAR(255) NOT NULL,
+  `email_verified_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `acl` JSON NOT NULL,
+  CHECK (JSON_VALID(acl)),
   `contribution` DECIMAL(14,2) NULL DEFAULT NULL,
   `on_hold` DECIMAL(14,2) NOT NULL DEFAULT 0,
   `due` DECIMAL(14,2) NULL DEFAULT NULL,
@@ -23,11 +26,11 @@ CREATE TABLE `users` (
 
 -- ---
 -- Table 'projects'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `projects`;
-    
+
 CREATE TABLE `projects` (
   `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -42,11 +45,11 @@ CREATE TABLE `projects` (
 
 -- ---
 -- Table 'project_users'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `project_users`;
-    
+
 CREATE TABLE `project_users` (
   `id` INTEGER AUTO_INCREMENT,
   `user_id` INTEGER NULL DEFAULT NULL,
@@ -59,11 +62,11 @@ CREATE TABLE `project_users` (
 
 -- ---
 -- Table 'accounts'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `accounts`;
-    
+
 CREATE TABLE `accounts` (
   `id` INTEGER AUTO_INCREMENT,
   `payee_id` INTEGER NULL DEFAULT NULL,
@@ -85,11 +88,11 @@ CREATE TABLE `accounts` (
 
 -- ---
 -- Table 'materials'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `materials`;
-    
+
 CREATE TABLE `materials` (
   `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -101,11 +104,11 @@ CREATE TABLE `materials` (
 
 -- ---
 -- Table 'material_histories'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `material_histories`;
-    
+
 CREATE TABLE `material_histories` (
   `id` INTEGER AUTO_INCREMENT,
   `payees_id` INTEGER NULL DEFAULT NULL,
@@ -124,11 +127,11 @@ CREATE TABLE `material_histories` (
 
 -- ---
 -- Table 'payees'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `payees`;
-    
+
 CREATE TABLE `payees` (
   `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -142,7 +145,7 @@ CREATE TABLE `payees` (
 );
 
 -- ---
--- Foreign Keys 
+-- Foreign Keys
 -- ---
 
 ALTER TABLE `users` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);

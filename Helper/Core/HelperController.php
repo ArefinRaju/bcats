@@ -61,7 +61,7 @@ class HelperController extends Controller
         return response()->json($response, $statusCode, $headers, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
-    public function validateCherryPickAndAssign(Request $request, $rules, $model, ...$blockUpdate): Model
+    public function validateCherryPickAndAssign(Request $request, $rules, $model, ...$blockUpdate): object
     {
         $this->validate($request, $rules);
         $input = $this->cherryPick($request, $rules);
@@ -111,7 +111,7 @@ class HelperController extends Controller
         return $result;
     }
 
-    public function assignAfterCherryPick($model, $input, ...$blockUpdate): Model
+    public function assignAfterCherryPick($model, $input, ...$blockUpdate): object
     {
         foreach ($input as $prop => $value) {
             if (in_array($prop, $blockUpdate, true)) {
