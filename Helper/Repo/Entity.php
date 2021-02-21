@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
 /**
- * @mixin Collection
+ * @method static Collection where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method static Collection create(array $attributes = [])
+ * @method static Collection findOrFail(string $attributes, $value = null)
+ * @method public Builder update(array $values)
  */
 class Entity extends Model
 {

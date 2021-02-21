@@ -6,6 +6,7 @@ namespace Helper\Core;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Helper\Config\JWTConfig;
 use Helper\Constants\JWTTokenStatus;
 use Helper\Transform\Strings;
 use Lcobucci\JWT\Builder;
@@ -40,14 +41,14 @@ class JWT
 
     private static function getSigningKey(): Key
     {
-        return new Key(JWTConfig::JWT_SIGNING_KEY);
+        return new Key(JWTConfig::$signingKey);
     }
 
     public static function resolveUserFromToken($token): User
     {
         /** @var Token $token */
-        $serializedUser = $token->getClaim(JWTConfig::USER_ID);
-        $serializedAcl  = $token->getClaim(JWTConfig::ACL);
+        $serializedUser = $token->getClaim(JWTConfig::$userId);
+        $serializedAcl  = $token->getClaim(JWTConfig::$acl);
         $instance       = new User();
         $acl            = unserialize($serializedAcl);
         $instance->setAcl($acl); // TODO : Do ACL
@@ -61,18 +62,18 @@ class JWT
     {
         $time    = Carbon::now();
         $nowUnix = $time->unix();
-        /** @var Acl $acl */  // Todo : Do ACL
+        /** @var Acl $acl */  // Todo : Do ACL and sync below code
         $acl           = $user->getAcl();
         $sanitizedUser = $user->getSanitized();
         return (new Builder())->issuedBy($issuedBy) // Configures the issuer (iss claim)
                               ->identifiedBy(Strings::uuidv4(), true) // Configures the id (jti claim), replicating as a header item
                               ->issuedAt($nowUnix) // Configures the time that the token was issue (iat claim)
                               ->canOnlyBeUsedAfter($nowUnix) // Configures the time that the token can be used (nbf claim)
-                              ->expiresAt($time->addSeconds(JWTConfig::JWT_TOKEN_EXPIRY_IN_SECONDS)->unix()) // Configures the expiration time of the token (exp claim)
-                              ->withClaim(JWTConfig::USER_ID, $user->id) // Configures a new claim, called "uid"
-                              ->withClaim(JWTConfig::USER, $sanitizedUser)
-                              ->withClaim(JWTConfig::ACL, serialize($acl))
-                              ->withClaim(JWTConfig::JWT_REFRESH, $time->addSeconds(JWTConfig::JWT_REFRESH_CLAIM_EXPIRY_IN_SECONDS)->unix())
+                              ->expiresAt($time->addSeconds(JWTConfig::$idTokenExpiryInSeconds)->unix()) // Configures the expiration time of the token (exp claim)
+                              ->withClaim(JWTConfig::$userId, $user->id) // Configures a new claim, called "uid"
+                              ->withClaim(JWTConfig::$user, $sanitizedUser)
+                              ->withClaim(JWTConfig::$acl, serialize($acl))
+                              ->withClaim(JWTConfig::$refresh, $time->addSeconds(JWTConfig::$refreshTokenExpiryInSeconds)->unix())
                               ->getToken(self::getSigner(), self::getSigningKey()); // Retrieves the generated token
     }
 }

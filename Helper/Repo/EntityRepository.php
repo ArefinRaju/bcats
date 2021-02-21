@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class EntityRepository
 {
-    protected Model $entity;
+    protected string $entity;
 
-    protected function setEntity(Model $entity): void
+    protected function setEntity(string $entity): void
     {
         $this->entity = $entity;
+    }
+
+    public function save($input)
+    {
+        return $input->save();
     }
 }
