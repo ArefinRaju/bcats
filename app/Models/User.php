@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static Builder where($column, $operator = null, $value = null, $boolean = 'and')
  * @method static Builder create(array $attributes = [])
  * @method public Builder update(array $values)
+ * @property mixed|string acl
  */
 
 class User extends Entity implements Authenticatable

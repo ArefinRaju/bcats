@@ -21,4 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Route::get('/apitest', 'ProductController@retrieve');
 CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
+
+/*Route::middleware(['apiAuth'])->group(function () {
+    CombinedRoute::resourceRoute('/user', 'UserController', []);
+});*/
+
 CombinedRoute::resourceRoute('/user', 'UserController', []);

@@ -12,15 +12,24 @@ class Acl
 {
     /**
      * @param  Request  $request
-     * @param  string  $permission
+     * @param  array|string  $permissions
      * @return bool
      * @throws UserFriendlyException
      */
 
-    public static function authorize(Request $request, string $permission): bool
+    public static function authorize(Request $request, $permissions): bool
     {
-        $accessList = constant('Helper\ACL\AccessMap::'.self::getUserRole($request));
-        return in_array($permission, $accessList);
+        if (is_array($permissions)){
+            foreach ($permissions as $permission) {
+                if (!self::isAuthorized($request, $permission)) {
+                    throw new UserFriendlyException(Errors::UNAUTHORIZED);
+                }
+            }
+        }
+        if (!self::isAuthorized($request, $permissions)) {
+            throw new UserFriendlyException(Errors::UNAUTHORIZED);
+        }
+        return true;
     }
 
     public static function getUser(Request $request): object
@@ -46,5 +55,18 @@ class Acl
     public static function createUserRole(string $userRole = Roles::EMPLOYEE): string
     {
         return base64_encode($userRole);
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  string  $permission
+     * @return bool
+     * @throws UserFriendlyException
+     */
+
+    public static function isAuthorized(Request $request, string $permission): bool
+    {
+        $accessList = constant('Helper\ACL\AccessMap::'.self::getUserRole($request));
+        return in_array($permission, $accessList);
     }
 }

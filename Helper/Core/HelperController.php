@@ -86,11 +86,20 @@ class HelperController extends Controller
         $validation = Validator::make($request->all(), $rules);
         if ($validation->fails()) {
             if (self::isAPI($request)) {
-                throw new UserFriendlyException(Messages::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY, $validation->errors()->messages());
+                throw new UserFriendlyException($this->getSerializedValidationError($validation), ResponseType::UNPROCESSABLE_ENTITY, $validation->errors()->messages());
             }
             return back()->withErrors($validation->errors());
         }
         return true;
+    }
+
+    private function getSerializedValidationError(object $validation): string
+    {
+        $out = '';
+        foreach ($validation->errors()->toArray() as $key => $value){
+            $out = "{$out} {$value[0]}";
+        }
+        return $out;
     }
 
     public function isAPI(Request $request): bool

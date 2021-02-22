@@ -14,5 +14,4 @@ class AccessMap extends Holder
     public const PROJECT_ADMIN  = [Permission::ADD_RESOURCE, Permission::ADD_FUND, Permission::PAY_BILLS, Permission::UPDATE_PROJECT_USER_ROLE, ...self::FUND_COLLECTOR];
     public const MANAGER        = [Permission::CREATE_PROJECT, Permission::CREATE_PROJECT_USER];
     public const ADMIN          = [Permission::CREATE_MANAGER, ...self::MANAGER];
-
 }
