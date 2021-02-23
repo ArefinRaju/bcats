@@ -68,7 +68,7 @@ class JWT
     {
         $time          = Carbon::now();
         $nowUnix       = $time->unix();
-        $acl           = $user->acl;
+        $acl           = Acl::decodeRole($user->acl);
         $sanitizedUser = $user->getSanitized();
         $token         = (new Builder())->issuedBy($issuedBy) // Configures the issuer (iss claim)
                                         ->identifiedBy(Strings::uuidv4(), true) // Configures the id (jti claim), replicating as a header item

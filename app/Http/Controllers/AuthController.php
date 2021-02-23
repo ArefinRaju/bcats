@@ -34,7 +34,7 @@ class AuthController extends HelperController
      * @return mixed
      * @throws UserFriendlyException
      */
-    public function login(Request $request)
+    public function apiLogin(Request $request)
     {
         $this->validate($request, $this->commonValidationRules);
         $input = $this->cherryPick($request, $this->commonValidationRules);

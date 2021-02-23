@@ -51,11 +51,11 @@ class Acl
 
     public static function getUserRole(Request $request): string
     {
-        $decodedRole = self::decodeRole(self::getUser($request)->acl);
-        if (!in_array($decodedRole, Roles::values())) {
+        $role = self::getUser($request)->acl;
+        if (!in_array($role, Roles::values())) {
             throw new UserFriendlyException(Errors::AUTHENTICATION_TOKEN_MALFORMED);
         }
-        return $decodedRole;
+        return $role;
     }
 
     public static function decodeRole(string $string): string
