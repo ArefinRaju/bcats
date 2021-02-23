@@ -30,7 +30,8 @@ class UserController extends HelperController
             'name'     => [V::REQUIRED, ...V::NAME],
             'email'    => [V::REQUIRED, V::EMAIL],
             'password' => [V::SOMETIMES, V::REQUIRED, ...V::PASS],
-            'mobile'   => [V::REQUIRED, ...V::PHONE]
+            'mobile'   => [V::REQUIRED, ...V::PHONE],
+            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in(Roles::values())]
         ];
         $this->aclPathParamName      = 'acl';
     }
@@ -44,7 +45,8 @@ class UserController extends HelperController
      */
     public function create(Request $request, string $action = null)
     {
-        //Acl::authorize($request, Permission::CREATE_MANAGER);
+        // Todo : check name and email and throw proper error
+        Acl::authorize($request, [Permission::CREATE_MANAGER, Permission::CREATE_PROJECT_USER]);
         $rules = $this->commonValidationRules;
         $this->validate($request, $rules);
         $input = $this->cherryPick($request, $rules);
@@ -55,11 +57,12 @@ class UserController extends HelperController
             }
             $user->{$prop} = $value;
         }
-        $this->repo->findByEmail('someEmail');
-        /*if (!$user->acl) {
-            $user->acl = Acl::createUserRole();
-        }*/
-        //$this->repo->save($user);
+        if (!$user->acl) {
+            $user->acl = Roles::EMPLOYEE;
+        }
+        $user->acl = Acl::createUserRole($user->acl);
+        // TOdo : do try and catch to intercept sql fail error
+        $this->repo->save($user);
         return $this->respond($user->toArray(), [], Messages::USER_CREATED, ResponseType::CREATED);
     }
 }

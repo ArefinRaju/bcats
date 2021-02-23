@@ -19,12 +19,18 @@ class Acl
 
     public static function authorize(Request $request, $permissions): bool
     {
-        if (is_array($permissions)){
+        $out = false;
+        if (is_array($permissions)) {
             foreach ($permissions as $permission) {
-                if (!self::isAuthorized($request, $permission)) {
-                    throw new UserFriendlyException(Errors::UNAUTHORIZED);
+                if (self::isAuthorized($request, $permission)) {
+                    $out = true;
+                    break;
                 }
             }
+            if (!$out) {
+                throw new UserFriendlyException(Errors::UNAUTHORIZED);
+            }
+            return true;
         }
         if (!self::isAuthorized($request, $permissions)) {
             throw new UserFriendlyException(Errors::UNAUTHORIZED);
@@ -45,14 +51,19 @@ class Acl
 
     public static function getUserRole(Request $request): string
     {
-        $decodedRole = base64_decode(self::getUser($request)->acl);
+        $decodedRole = self::decodeRole(self::getUser($request)->acl);
         if (!in_array($decodedRole, Roles::values())) {
             throw new UserFriendlyException(Errors::AUTHENTICATION_TOKEN_MALFORMED);
         }
         return $decodedRole;
     }
 
-    public static function createUserRole(string $userRole = Roles::EMPLOYEE): string
+    public static function decodeRole(string $string): string
+    {
+        return base64_decode($string);
+    }
+
+    public static function createUserRole(string $userRole): string
     {
         return base64_encode($userRole);
     }

@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Helper\Repo\Entity;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -14,7 +14,6 @@ use Illuminate\Notifications\Notifiable;
  * @method public Builder update(array $values)
  * @property mixed|string acl
  */
-
 class User extends Entity implements Authenticatable
 {
     use HasFactory;
@@ -50,28 +49,6 @@ class User extends Entity implements Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function setAcl(Acl $acl)
-    {
-        $this->attributes['acl'] = serialize($acl);
-        $this->_acl              = $acl;
-    }
-
-    public function getAcl(): Acl
-    {
-        if (isset($this->_acl)) {
-            return $this->_acl;
-        }
-
-        // Raw data
-        if (!$this->acl) {
-            // Return default ACL which will deny everything
-            return new Acl();
-        }
-
-        $this->_acl = unserialize($this->acl);
-        return $this->_acl;
-    }
 
 
     /**
@@ -120,5 +97,16 @@ class User extends Entity implements Authenticatable
     public function getRememberTokenName()
     {
         // TODO: Implement getRememberTokenName() method.
+    }
+
+    public function getSanitized(): User
+    {
+        $out         = new User();
+        $out->id     = $this->id;
+        $out->name   = $this->name;
+        $out->email  = $this->email;
+        $out->mobile = $this->mobile;
+
+        return $out;
     }
 }
