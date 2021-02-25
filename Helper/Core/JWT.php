@@ -70,16 +70,15 @@ class JWT
         $nowUnix       = $time->unix();
         $acl           = Acl::decodeRole($user->acl);
         $sanitizedUser = $user->getSanitized();
-        $token         = (new Builder())->issuedBy($issuedBy) // Configures the issuer (iss claim)
-                                        ->identifiedBy(Strings::uuidv4(), true) // Configures the id (jti claim), replicating as a header item
-                                        ->issuedAt($nowUnix) // Configures the time that the token was issue (iat claim)
-                                        ->canOnlyBeUsedAfter($nowUnix) // Configures the time that the token can be used (nbf claim)
-                                        ->expiresAt($time->addSeconds(JWTConfig::$idTokenExpiryInSeconds)->unix()) // Configures the expiration time of the token (exp claim)
-                                        ->withClaim(JWTConfig::$userId, $user->id) // Configures a new claim, called "uid"
-                                        ->withClaim(JWTConfig::$user, $sanitizedUser)
-                                        ->withClaim(JWTConfig::$acl, serialize($acl))
-                                        ->withClaim(JWTConfig::$refresh, $time->addSeconds(JWTConfig::$refreshTokenExpiryInSeconds)->unix())
-                                        ->getToken(self::getSigner(), self::getSigningKey()); // Retrieves the generated token
-        return $token;
+        return (new Builder())->issuedBy($issuedBy)
+                              ->identifiedBy(Strings::uuidv4(), true)
+                              ->issuedAt($nowUnix)
+                              ->canOnlyBeUsedAfter($nowUnix)
+                              ->expiresAt($time->addSeconds(JWTConfig::$idTokenExpiryInSeconds)->unix())
+                              ->withClaim(JWTConfig::$userId, $user->id)
+                              ->withClaim(JWTConfig::$user, $sanitizedUser)
+                              ->withClaim(JWTConfig::$acl, serialize($acl))
+                              ->withClaim(JWTConfig::$refresh, $time->addSeconds(JWTConfig::$refreshTokenExpiryInSeconds)->unix())
+                              ->getToken(self::getSigner(), self::getSigningKey());
     }
 }
