@@ -1,4 +1,13 @@
-@extends('admin.Layouts.app')
+@extends('admin.Layouts.master')
+@section('title')
+Dashboard
+@endsection
+@section('css')
+
+@endsection
+@section('js')
+
+@endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Subheader-->

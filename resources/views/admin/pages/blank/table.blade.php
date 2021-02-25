@@ -1,4 +1,10 @@
-@extends('admin.Layouts.app')
+@extends('admin.Layouts.master')
+@section('title')
+Dashboard
+@endsection
+@section('js')
+
+@endsection
 @section('css')
 <link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
 @endsection

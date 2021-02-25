@@ -1,4 +1,14 @@
 @extends('admin.Layouts.app')
+@section('title')
+Dashboard
+@endsection
+@section('css')
+
+@endsection
+@section('js')
+<script src="{{asset('admin')}}/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.4"></script>
+<script src="{{asset('admin')}}/assets/js/pages/widgets.js?v=7.0.4"></script>
+@endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Subheader-->
