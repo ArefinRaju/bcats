@@ -19,11 +19,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/auth/login', 'AuthController@apiLogin');
+
 //Route::get('/apitest', 'ProductController@retrieve');
 CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
 
-/*Route::middleware(['apiAuth'])->group(function () {
+Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
-});*/
-
-CombinedRoute::resourceRoute('/user', 'UserController', []);
+});

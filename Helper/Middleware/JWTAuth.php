@@ -12,19 +12,24 @@ use Helper\Core\JWT;
 use Helper\Transform\Strings;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Lcobucci\JWT\Token;
 
 class JWTAuth
 {
-    public function handle(Request $request, Closure $next): JsonResponse
+    /**
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @return JsonResponse|Response
+     */
+    public function handle(Request $request, Closure $next)
     {
         $token = $request->header('Authorization');
         if (!$token) {
             return HelperController::generateResponse(null, [Errors::AUTHENTICATION_FAILED => Errors::AUTHENTICATION_TOKEN_MISSING], Errors::UNAUTHORIZED, 1, ResponseType::NOT_AUTHORIZED);
         }
-
         if (!Strings::hasPrefix($token, 'Bearer ')) {
             return HelperController::generateResponse(null, [Errors::AUTHENTICATION_FAILED => Errors::AUTHENTICATION_TOKEN_MALFORMED], Errors::UNAUTHORIZED, 1, ResponseType::NOT_AUTHORIZED);
         }
