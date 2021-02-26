@@ -26,4 +26,5 @@ CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
 
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
+    CombinedRoute::resourceRoute('/material', 'MaterialController', []);
 });
