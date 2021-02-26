@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use Auth;
 use Helper\Config\ConfigInit;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Errors;
@@ -49,4 +50,33 @@ class AuthController extends HelperController
         }
         throw new UserFriendlyException(Errors::AUTHENTICATION_FAILED, ResponseType::FORBIDDEN);
     }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended();
+        }
+        return back()->withErrors([Errors::AUTHENTICATION_FAILED]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
+    public function loginPage()
+    {
+        return view('admin.layouts.login');
+    }
+
+
 }

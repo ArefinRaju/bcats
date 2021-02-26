@@ -15,16 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/',
-    function () {
-        return view('admin.dashboard');
-    }
-);
-Route::get('/login',
-    function () {
-        return view('admin.layouts.login');
-    }
-);
+Route::get('login', 'AuthController@loginPage')->name('login');
+
+Route::post('/login', 'AuthController@login');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/logout', 'AuthController@logout');
+    Route::get('/',
+        function () {
+            return view('admin.dashboard');
+        }
+    );
+});
 Route::get('/form',
     function () {
         return view('admin.pages.blank.form');
