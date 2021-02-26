@@ -3,6 +3,7 @@
     <PHPCodeStyleSettings>
       <option name="ALIGN_KEY_VALUE_PAIRS" value="true" />
       <option name="ALIGN_ASSIGNMENTS" value="true" />
+      <option name="ALIGN_INLINE_COMMENTS" value="true" />
       <option name="CONCAT_SPACES" value="false" />
       <option name="BLANK_LINES_BETWEEN_IMPORTS" value="1" />
       <option name="PHPDOC_PARAM_SPACES_BETWEEN_TAG_AND_TYPE" value="2" />
@@ -18,8 +19,11 @@
     <editorconfig>
       <option name="ENABLED" value="false" />
     </editorconfig>
+    <codeStyleSettings language="HTML">
+      <option name="RIGHT_MARGIN" value="500" />
+    </codeStyleSettings>
     <codeStyleSettings language="PHP">
-      <option name="RIGHT_MARGIN" value="180" />
+      <option name="RIGHT_MARGIN" value="500" />
       <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />
       <option name="BLANK_LINES_AFTER_PACKAGE" value="1" />
       <option name="ELSE_ON_NEW_LINE" value="true" />
