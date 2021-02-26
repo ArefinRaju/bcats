@@ -27,6 +27,16 @@ Route::middleware(['auth'])->group(function () {
         }
     );
 });
+Route::get('/payee/create',
+    function () {
+        return view('admin.pages.payee.create');
+    }
+);
+Route::get('/payee/list',
+    function () {
+        return view('admin.pages.payee.index');
+    }
+);
 Route::get('/form',
     function () {
         return view('admin.pages.blank.form');
