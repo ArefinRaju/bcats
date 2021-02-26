@@ -30,6 +30,7 @@ class MaterialController extends HelperController
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
         $this->repo->save($material);
-        dd($material->toArray());
+        $material = $this->repo->getById($request, 1);
+        //dd($material->toArray());
     }
 }

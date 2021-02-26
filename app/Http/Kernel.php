@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use Helper\Middleware\Employee;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -62,6 +63,7 @@ class Kernel extends HttpKernel
         'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'apiAuth'          => \Helper\Middleware\JWTAuth::class
+        'apiAuth'          => \Helper\Middleware\JWTAuth::class,
+        'employee'         => Employee::class
     ];
 }
