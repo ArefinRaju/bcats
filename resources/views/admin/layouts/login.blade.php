@@ -77,6 +77,9 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="pb-13 pt-lg-0 pt-5">
                             <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">Welcome to BCATS</h3>
                         </div>
+                        @if(count($errors))
+                            <?php var_dump($errors->all()); ?>
+                        @endif
                         <!--begin::Title-->
                         <!--begin::Form group-->
                         <div class="form-group">

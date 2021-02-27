@@ -62,7 +62,7 @@ class AuthController extends HelperController
             $request->session()->regenerate();
             return redirect()->intended();
         }
-        return back()->withErrors([Errors::AUTHENTICATION_FAILED]);
+        return $this->respond([], [Errors::AUTHENTICATION_FAILED]);
     }
 
     public function logout(Request $request)
