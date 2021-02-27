@@ -1,6 +1,6 @@
 @extends('admin.Layouts.master')
 @section('title')
-Dashboard
+User
 @endsection
 @section('css')
 
