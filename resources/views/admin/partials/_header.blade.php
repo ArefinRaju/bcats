@@ -165,7 +165,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{url('/payee/create')}}" class="menu-link">
                                         <span class="menu-text">Add Payee</span>
                                         <span class="menu-desc"></span>
                                     </a>
