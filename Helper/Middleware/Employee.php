@@ -23,7 +23,7 @@ class Employee
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Acl::isAuthorized($request, Permission::VIEW_RESOURCE)) {
+        if (Acl::authorize($request, [Permission::VIEW_RESOURCE, Permission::USE_RESOURCE])) {
             return $next($request);
         }
         throw new UserFriendlyException(Errors::FORBIDDEN);
