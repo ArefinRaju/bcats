@@ -27,6 +27,11 @@ Route::middleware(['auth'])->group(function () {
         }
     );
 });
+Route::get('/profile',
+    function () {
+        return view('admin.pages.profile.create');
+    }
+);
 Route::get('/payee/create',
     function () {
         return view('admin.pages.payee.create');

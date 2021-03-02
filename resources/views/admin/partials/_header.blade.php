@@ -71,40 +71,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">My Accounts</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="index.html" class="menu-link">
-                                        <span class="menu-text">My Transactions</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
-                                        <span class="menu-text">My Payments</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
-                                        <span class="menu-text">My EMIs</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
-                                        <span class="menu-text">My Due</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                  
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="menu-text">EMI</span>
@@ -181,20 +148,14 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="index.html" class="menu-link">
+                                    <a href="{{route('user.index')}}" class="menu-link">
                                         <span class="menu-text">All User</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{route('user.create')}}" class="menu-link">
                                         <span class="menu-text">Add User</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
-                                        <span class="menu-text">Profile</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
@@ -799,16 +760,16 @@
                 <!--begin::Nav-->
                 <div class="navi navi-spacer-x-0 pt-5">
                     <!--begin::Item-->
-                    <a href="custom/apps/user/profile-1/personal-information.html" class="navi-item px-8">
+                    <a href="{{ url('/profile') }}" class="navi-item px-8">
                         <div class="navi-link">
                             <div class="navi-icon mr-2">
                                 <i class="flaticon2-calendar-3 text-success"></i>
                             </div>
                             <div class="navi-text">
-                                <div class="font-weight-bold">My Profile</div>
-                                <div class="text-muted">Account settings and more
+                                <div class="font-weight-bold">My Transactions</div>
+                                <!-- <div class="text-muted">Account settings and more
                                     <span class="label label-light-danger label-inline font-weight-bold">update</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </a>
@@ -820,8 +781,8 @@
                                 <i class="flaticon2-mail text-warning"></i>
                             </div>
                             <div class="navi-text">
-                                <div class="font-weight-bold">My Messages</div>
-                                <div class="text-muted">Inbox and tasks</div>
+                                <div class="font-weight-bold">My Payments</div>
+                                <!-- <div class="text-muted">Inbox and tasks</div> -->
                             </div>
                         </div>
                     </a>
@@ -833,8 +794,8 @@
                                 <i class="flaticon2-rocket-1 text-danger"></i>
                             </div>
                             <div class="navi-text">
-                                <div class="font-weight-bold">My Activities</div>
-                                <div class="text-muted">Logs and notifications</div>
+                                <div class="font-weight-bold">My EMIs</div>
+                                <!-- <div class="text-muted">Logs and notifications</div> -->
                             </div>
                         </div>
                     </a>
@@ -846,8 +807,8 @@
                                 <i class="flaticon2-hourglass text-primary"></i>
                             </div>
                             <div class="navi-text">
-                                <div class="font-weight-bold">My Tasks</div>
-                                <div class="text-muted">latest tasks and projects</div>
+                                <div class="font-weight-bold">My Dues</div>
+                                <!-- <div class="text-muted">latest tasks and projects</div> -->
                             </div>
                         </div>
                     </a>
@@ -856,7 +817,7 @@
                     <div class="navi-separator mt-3"></div>
                     <div class="navi-footer px-8 py-5">
                         <a href="/logout" class="btn btn-light-primary font-weight-bold">Sign Out</a>
-                        <a href="custom/user/login-v2.html" target="_blank" class="btn btn-clean font-weight-bold">Upgrade Plan</a>
+                        <a href="{{url('/profile')}}" class="btn btn-light-success font-weight-bold">Profile</a>
                     </div>
                     <!--end::Footer-->
                 </div>
