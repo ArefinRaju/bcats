@@ -16,6 +16,6 @@ class MaterialRepository extends EntityRepository
 
     public function getById(Request $request, int $id)
     {
-        return Material::where('id', $id)->first;
+        return Material::where('id', $id)->first();
     }
 }
