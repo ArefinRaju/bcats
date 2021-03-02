@@ -32,8 +32,15 @@ class MaterialController extends HelperController
     public function create(Request $request, string $action = null)
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
-        //$this->repo->save($material);
-        return $this->respond();
-        //dd($material->toArray());
+        $this->repo->save($material);
+        return $this->respond($material->toArray(), [], 'admin.dashboard');
+    }
+
+    public function update(Request $request, string $id = null)
+    {
+        $material = $this->repo->getById($request, $id);
+        $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $material);
+        $this->repo->save($material);
+        return $this->respond($material->toArray(), [], 'admin.dashboard');
     }
 }
