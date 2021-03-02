@@ -5,6 +5,9 @@ namespace Helper\Core;
 
 use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -20,16 +23,26 @@ class HelperController extends Controller
     protected string $rawResource;
     protected array  $commonValidationRules;
 
-    public function respond(
-        $data = null,
-        array $errors = [],
-        string $message = Messages::OK,
-        int $statusCode = ResponseType::OK,
-        array $headers = [],
-        array $paginationParams = []
-    ): JsonResponse
+    /**
+     * @param  array  $data
+     * @param  array  $errors
+     * @param  string  $view
+     * @param  string  $message
+     * @param  int  $statusCode
+     * @param  array  $headers
+     * @param  array  $paginationParams
+     * @return Application|Factory|View|JsonResponse|RedirectResponse
+     */
+
+    public function respond($data = [], array $errors = [], string $view = '/', string $message = Messages::OK, int $statusCode = ResponseType::OK, array $headers = [], array $paginationParams = [])
     {
-        return self::generateResponse($data, $errors, $message, $this->version, $statusCode, $headers, $paginationParams);
+        if (self::isAPI()) {
+            return self::generateResponse($data, $errors, $message, $this->version, $statusCode, $headers, $paginationParams);
+        }
+        elseif (!empty($errors)) {
+            return back()->withErrors($errors);
+        }
+        return view($view)->with($data);
     }
 
 
@@ -85,7 +98,7 @@ class HelperController extends Controller
     {
         $validation = Validator::make($request->all(), $rules);
         if ($validation->fails()) {
-            if (self::isAPI($request)) {
+            if (self::isAPI()) {
                 throw new UserFriendlyException($this->getSerializedValidationError($validation), ResponseType::UNPROCESSABLE_ENTITY, $validation->errors()->messages());
             }
             return back()->withErrors($validation->errors());
@@ -96,19 +109,20 @@ class HelperController extends Controller
     private function getSerializedValidationError(object $validation): string
     {
         $out = '';
-        foreach ($validation->errors()->toArray() as $key => $value){
+        foreach ($validation->errors()->toArray() as $key => $value) {
             $out = "{$out} {$value[0]}";
         }
         return $out;
     }
 
-    public function isAPI(Request $request): bool
+    public function isAPI(): bool
     {
-        if ($request->header('content-type') === 'application/json') {
+        if (Request()->header('content-type') === 'application/json') {
             return true;
         }
         return false;
     }
+
 
     public function cherryPick(Request $request, array $validationRules): array
     {
