@@ -1,6 +1,6 @@
 @extends('admin.Layouts.master')
 @section('title')
-Material
+Dashboard
 @endsection
 @section('js')
 
@@ -19,7 +19,7 @@ Material
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Material</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">payment</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ Material
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Material List</h3>
+                        <h3 class="card-label">payment List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -86,7 +86,7 @@ Material
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/material/create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -98,16 +98,17 @@ Material
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Enum</th>
-                               
+                                <th>Mobile</th>
+                                <th>Address</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>1</td>
+                                <td>Ali</td>
+                                <td>01710355789</td>
+                                <td>Dhaka</td>
                                 <td nowrap="nowrap"></td>
                             </tr>
                         </tbody>

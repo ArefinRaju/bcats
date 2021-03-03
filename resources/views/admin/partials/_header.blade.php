@@ -3,7 +3,7 @@
     <div class="d-flex align-items-stretch mr-3">
         <!--begin::Header Logo-->
         <div class="header-logo">
-            <a href="index.html">
+            <a href="{{url('/')}}">
                 <img alt="Logo" src="{{asset('admin')}}/assets/media/logos/bcats-big.png" class="logo-default max-h-40px" />
                 <img alt="Logo" src="{{asset('admin')}}/assets/media/logos/bcats-big.png" class="logo-sticky max-h-40px" />
             </a>
@@ -23,13 +23,13 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="index.html" class="menu-link">
+                                    <a href="{{url('balance-overview')}}" class="menu-link">
                                         <span class="menu-text">Balance Overview</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{url('add-member-payments')}}" class="menu-link">
                                         <span class="menu-text">Add Member Payments</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -45,25 +45,31 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="index.html" class="menu-link">
+                                    <a href="{{ url('/material/create') }}" class="menu-link">
+                                        <span class="menu-text">Add Material</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{ url('/material/current-stock') }}" class="menu-link">
                                         <span class="menu-text">Current Stock</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="/material/used-stock" class="menu-link">
                                         <span class="menu-text">Used Stock</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{url('/material/use-material')}}" class="menu-link">
                                         <span class="menu-text">Use Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{url('/material/required-material')}}" class="menu-link">
                                         <span class="menu-text">Required Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -80,25 +86,25 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="index.html" class="menu-link">
+                                    <a href="{{ url('emi/list') }}" class="menu-link">
                                         <span class="menu-text">All EMI</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{ url('emi/create') }}" href="" class="menu-link">
                                         <span class="menu-text">Add EMI</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{ url('emi/unpaid') }}" class="menu-link">
                                         <span class="menu-text">Unpaid EMI</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{ url('emi/pay') }}" class="menu-link">
                                         <span class="menu-text">Pay EMI</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -114,19 +120,19 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="index.html" class="menu-link">
+                                    <a href="{{url('/payment/list')}}" class="menu-link">
                                         <span class="menu-text">All Payment</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{url('/payment/create')}}" class="menu-link">
                                         <span class="menu-text">Add Payments</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
+                                    <a href="{{url('/payee/list')}}" class="menu-link">
                                         <span class="menu-text">All Payee</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -148,13 +154,13 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{route('user.index')}}" class="menu-link">
+                                    <a href="{{url('user/list')}}" class="menu-link">
                                         <span class="menu-text">All User</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('user.create')}}" class="menu-link">
+                                    <a href="{{url('user/create')}}" class="menu-link">
                                         <span class="menu-text">Add User</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -734,10 +740,10 @@
             <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
                 <div class="btn btn-icon btn-hover-transparent-white d-flex align-items-center btn-lg px-md-2 w-md-auto">
                     <span class="text-white opacity-70 font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                    <span class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4">Sean</span>
-                    <span class="symbol symbol-35">
+                    <span class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4">{{Auth::user()->name}}</span>
+                    <!-- <span class="symbol symbol-35">
                         <span class="symbol-label text-white font-size-h5 font-weight-bold bg-white-o-30">S</span>
-                    </span>
+                    </span> -->
                 </div>
             </div>
             <!--end::Toggle-->
@@ -751,8 +757,8 @@
                     </div>
                     <!--end::Symbol-->
                     <!--begin::Text-->
-                    <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">Sean Stone</div>
-                    <span class="label label-light-success label-lg font-weight-bold label-inline">3 messages</span>
+                    <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">{{Auth::user()->name}}</div>
+                    <!-- <span class="label label-light-success label-lg font-weight-bold label-inline">3 messages</span> -->
                     <!--end::Text-->
                 </div>
                 <div class="separator separator-solid"></div>

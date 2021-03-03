@@ -63,6 +63,6 @@ class UserController extends HelperController
         $user->acl = Acl::createUserRole($user->acl);
         // TOdo : do try and catch to intercept sql fail error
         $this->repo->save($user);
-        return $this->respond($user->toArray(), [], Messages::USER_CREATED, ResponseType::CREATED);
+        return $this->respond($user->toArray(), [],'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
     }
 }
