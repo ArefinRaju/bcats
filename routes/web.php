@@ -121,13 +121,13 @@ Route::get(
 Route::get(
     '/emi/unpaid',
     function () {
-        return view('admin.pages.emi.index');
+        return view('admin.pages.emi.unpaid_emi');
     }
 );
 Route::get(
     '/emi/pay',
     function () {
-        return view('admin.pages.emi.index');
+        return view('admin.pages.emi.pay_emi');
     }
 );
 Route::get(
