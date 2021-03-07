@@ -157,5 +157,7 @@ Route::get(
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
 CombinedRoute::resourceRoute('user', 'UserController', []);
+CombinedRoute::resourceRoute('payee', 'PayeeController', []);
+CombinedRoute::resourceRoute('material', 'MaterialController', []);
 
 //Route::get('/product',	'ProductController@retrieve');

@@ -46,22 +46,20 @@ Material
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="">
+                        <form class="form" method="POST" action="{{url('material')}}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Name:</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter Name" />
-                                            <span class="form-text text-muted">Please enter name</span>
+                                            <input name="name" type="text" class="form-control form-control-solid" placeholder="Enter Name" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Enum:</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter Enum" />
-                                            <span class="form-text text-muted">Please enter enum</span>
+                                            <input name="enum" type="text" class="form-control form-control-solid" placeholder="Enter Enum" />
                                         </div>
                                     </div>
                                  

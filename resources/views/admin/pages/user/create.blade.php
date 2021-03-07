@@ -54,21 +54,24 @@ User
                                         <div class="form-group">
                                             <label>Name:</label>
                                             <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter Name" />
-                                            <span class="form-text text-muted">Please enter your full name</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Email:</label>
                                             <input type="text" name="email" class="form-control form-control-solid" placeholder="Enter Email" />
-                                            <span class="form-text text-muted">Please enter your full name</span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Mobile:</label>
                                             <input type="text" name="mobile" class="form-control form-control-solid" placeholder="Enter Mobile" />
-                                            <span class="form-text text-muted">We'll never share your email with anyone else</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Password:</label>
+                                            <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter Password" />
                                         </div>
                                     </div>
                                 </div>

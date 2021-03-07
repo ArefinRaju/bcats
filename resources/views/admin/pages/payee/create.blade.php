@@ -46,35 +46,44 @@ Dashboard
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="">
+                        <form class="form" method="POST" action="{{url('payee')}}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Name:</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter Name" />
-                                            <span class="form-text text-muted">Please enter your full name</span>
+                                            <input name="name" type="text" class="form-control form-control-solid" placeholder="Enter Name" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Mobile:</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter Mobile" />
-                                            <span class="form-text text-muted">We'll never share your email with anyone else</span>
+                                            <input name="mobile" type="text" class="form-control form-control-solid" placeholder="Enter Mobile" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Address:</label>
-                                            <input type="email" class="form-control form-control-solid" placeholder="Enter Address" />
-                                            <span class="form-text text-muted">We'll never share your email with anyone else</span>
+                                            <input name="address" type="text" class="form-control form-control-solid" placeholder="Enter Address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Paid:</label>
+                                            <input name="address" type="number" class="form-control form-control-solid" placeholder="Enter Address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Type:</label>
+                                            <input name="address" type="text" class="form-control form-control-solid" placeholder="Enter Address" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="reset" class="btn btn-primary mr-2">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Cancel</button>
                             </div>
                         </form>
