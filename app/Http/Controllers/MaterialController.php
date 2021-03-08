@@ -33,7 +33,7 @@ class MaterialController extends HelperController
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
         $this->repo->save($material);
-        return $this->respond($material->toArray(), [], 'admin.dashboard');
+        return $this->respond($material->toArray(), [], 'admin.pages.material.create');
     }
 
     public function update(Request $request, string $id = null)

@@ -34,13 +34,13 @@ class HelperController extends Controller
      * @return Application|Factory|View|JsonResponse|RedirectResponse
      */
 
-    public function respond($data = [], array $errors = [], string $view = '/', string $message = Messages::OK, int $statusCode = ResponseType::OK, array $headers = [], array $paginationParams = [])
+    public function respond($data = [], array $errors = [], string $view = 'admin.dashboard', string $message = Messages::OK, int $statusCode = ResponseType::OK, array $headers = [], array $paginationParams = [])
     {
         if (self::isAPI()) {
             return self::generateResponse($data, $errors, $message, $this->version, $statusCode, $headers, $paginationParams);
         }
         elseif (!empty($errors)) {
-            return back()->withErrors($errors);
+            return view('admin.dashboard')->withErrors($errors);
         }
         return view($view)->with($data);
     }
@@ -101,7 +101,7 @@ class HelperController extends Controller
             if (self::isAPI()) {
                 throw new UserFriendlyException($this->getSerializedValidationError($validation), ResponseType::UNPROCESSABLE_ENTITY, $validation->errors()->messages());
             }
-            return back()->withErrors($validation->errors());
+            $request->validate($rules);
         }
         return true;
     }
