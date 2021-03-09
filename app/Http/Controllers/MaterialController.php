@@ -36,6 +36,7 @@ class MaterialController extends HelperController
         return view('admin.pages.material.create');
     }
 
+    // Todo : Delete this as list already defined @line 59
     public function materialList()
     {
         $materials = Material::all();
@@ -73,6 +74,6 @@ class MaterialController extends HelperController
     public function destroy(Request $request, string $id)
     {
         $this->repo->destroyById($id);
-        return $this->respond(null, [], 'dashboard', Messages::DESTROYED, ResponseType::NO_CONTENT);
+        return $this->respond(null, [], 'admin.pages.material.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
     }
 }
