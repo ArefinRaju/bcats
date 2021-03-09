@@ -57,7 +57,7 @@ class MaterialController extends HelperController
 
     public function list(Request $request)
     {
-        $pagination = $this->pagination($request);
+        $pagination = $this->paginationManager($request);
         $material   = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($material->toArray(), []);
     }

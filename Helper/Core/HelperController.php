@@ -182,7 +182,7 @@ class HelperController extends Controller
      * @throws UserFriendlyException
      */
 
-    public function pagination(Request $request): object
+    public function paginationManager(Request $request): object
     {
         $rules              = [
             'per_page' => [V::SOMETIMES, V::REQUIRED, V::INTEGER],
