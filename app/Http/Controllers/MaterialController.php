@@ -55,18 +55,18 @@ class MaterialController extends HelperController
         return $this->respond($material->toArray(), []);
     }
 
+    public function list(Request $request)
+    {
+        $pagination = $this->pagination($request);
+        $material   = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($material->toArray(), []);
+    }
+
     public function update(Request $request, string $id = null)
     {
         $material = $this->repo->getById($request, $id);
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $material);
         $this->repo->save($material);
-        return $this->respond($material->toArray(), []);
-    }
-
-    public function list(Request $request)
-    {
-        $pagination = $this->pagination($request);
-        $material   = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($material->toArray(), []);
     }
 
