@@ -252,22 +252,6 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Settings</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a target="_blank" href="" class="menu-link">
-                                        <span class="menu-text">My Due</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
                 </ul>
                 <!--end::Header Nav-->
             </div>
