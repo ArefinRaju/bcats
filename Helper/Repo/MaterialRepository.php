@@ -21,7 +21,7 @@ class MaterialRepository extends EntityRepository
 
     public function list(int $perPage = null, int $page = null)
     {
-        return Material::orderBy('updated_at', 'desc')->paginate($perPage, ['*'], 'page', $page);
+        return Material::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
     }
 
     public function destroyById(string $id)

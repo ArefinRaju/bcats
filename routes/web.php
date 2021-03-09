@@ -164,6 +164,8 @@ Route::get('/users/list',	'UserController@userList');
 CombinedRoute::resourceRoute('payee', 'PayeeController', []);
 CombinedRoute::resourceRoute('material', 'MaterialController', []);
 Route::get('/materials/create',	'MaterialController@createForm');
-Route::get('/materials/list',	'MaterialController@materialList');
+
+// No need because material's resourceRoute has list with pagination
+//Route::get('/materials/list',	'MaterialController@materialList');
 
 //Route::get('/product',	'ProductController@retrieve');
