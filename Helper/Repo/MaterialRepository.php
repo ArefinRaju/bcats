@@ -24,7 +24,11 @@ class MaterialRepository extends EntityRepository
         return Material::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
     }
 
-    public function destroyById(string $id)
+    /**
+     * @param  string  $id
+     * @return bool
+     */
+    public function destroyById(string $id): bool
     {
         return Material::destroy($id);
     }
