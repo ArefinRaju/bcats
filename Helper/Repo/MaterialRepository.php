@@ -18,4 +18,14 @@ class MaterialRepository extends EntityRepository
     {
         return Material::where('id', $id)->first();
     }
+
+    public function list(int $perPage = null, int $page = null)
+    {
+        return Material::orderBy('updated_at', 'desc')->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function destroyById(string $id)
+    {
+        return Material::destroy($id);
+    }
 }

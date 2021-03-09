@@ -3,8 +3,10 @@
 
 namespace Helper\Core;
 
+use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
+use Helper\Transform\Arrays;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -81,10 +83,22 @@ class HelperController extends Controller
 
     public function validateCherryPickAndAssign(Request $request, array $rules, Model $model, ...$blockUpdate): object
     {
-        $this->validate($request, $rules);
-        $input = $this->cherryPick($request, $rules);
+        $input = $this->validateCherryPick($request, $rules);
         $model = $this->assignAfterCherryPick($model, $input, ...$blockUpdate);
         return $model;
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  array  $rules
+     * @return array
+     * @throws UserFriendlyException
+     */
+
+    public function validateCherryPick(Request $request, array $rules): array
+    {
+        $this->validate($request, $rules);
+        return $this->cherryPick($request, $rules);
     }
 
     /**
@@ -160,6 +174,24 @@ class HelperController extends Controller
     {
         $this->rawResource = $resource;
         $this->resource    = class_basename($resource);
+    }
+
+    /**
+     * @param  Request  $request
+     * @return object
+     * @throws UserFriendlyException
+     */
+
+    public function pagination(Request $request): object
+    {
+        $rules              = [
+            'per_page' => [V::SOMETIMES, V::REQUIRED, V::INTEGER],
+            'page'     => [V::SOMETIMES, V::REQUIRED, V::INTEGER]
+        ];
+        $inputs             = $this->validateCherryPick($request, $rules);
+        $inputs['per_page'] = $inputs['per_page'] ?? null;
+        $inputs['page']     = $inputs['page'] ?? null;
+        return Arrays::toObject($inputs);
     }
 
     // Basic controller methods

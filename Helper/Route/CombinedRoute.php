@@ -13,6 +13,10 @@ class CombinedRoute
     {
         $actionTaggedSlug = $slug . '/{id}'; // TODO : $slug.'/{id}[/{action}]'
 
+        if (!self::ActionAllowed($rules, CRUD::LIST)) {
+            Route::get($slug, self::generateRouteOptions($slug, $controller, CRUD::LIST, $middlewares));
+        }
+
         if (!self::ActionAllowed($rules, CRUD::VALIDATION)) {
             Route::get($slug . '/' . CRUD::VALIDATION, self::generateRouteOptions($slug, $controller, CRUD::VALIDATION, $middlewares));
         }

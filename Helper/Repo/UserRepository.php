@@ -15,19 +15,11 @@ class UserRepository extends EntityRepository
 
     public function firstOrNewByEmail(string $email)
     {
-        return User::query()->firstOrNew(
-            [
-                'email' => $email
-            ]
-        );
+        return User::query()->firstOrNew(['email' => $email]);
     }
 
     public function findByEmail(string $email)
     {
-        return User::where(
-            [
-                'email' => $email
-            ]
-        )->First();
+        return User::where(['email' => $email])->First();
     }
 }

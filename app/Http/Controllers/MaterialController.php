@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\Material;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Enum;
+use Helper\Constants\Messages;
+use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Repo\MaterialHistoryRepository;
 use Helper\Repo\MaterialRepository;
@@ -31,14 +33,15 @@ class MaterialController extends HelperController
 
     public function createForm()
     {
-
         return view('admin.pages.material.create');
     }
+
     public function materialList()
     {
         $materials = Material::all();
         return view('admin.pages.material.index', compact('materials'));
     }
+
     public function create(Request $request, string $action = null)
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
@@ -46,11 +49,30 @@ class MaterialController extends HelperController
         return $this->respond($material->toArray(), [], 'admin.pages.material.index');
     }
 
+    public function retrieve(Request $request, string $id)
+    {
+        $material = $this->repo->getById($request, $id);
+        return $this->respond($material->toArray(), []);
+    }
+
     public function update(Request $request, string $id = null)
     {
         $material = $this->repo->getById($request, $id);
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $material);
         $this->repo->save($material);
-        return $this->respond($material->toArray(), [], 'admin.dashboard');
+        return $this->respond($material->toArray(), []);
+    }
+
+    public function list(Request $request)
+    {
+        $pagination = $this->pagination($request);
+        $material   = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($material->toArray(), []);
+    }
+
+    public function destroy(Request $request, string $id)
+    {
+        $this->repo->destroyById($id);
+        return $this->respond(null, [], 'dashboard', Messages::DESTROYED, ResponseType::NO_CONTENT);
     }
 }
