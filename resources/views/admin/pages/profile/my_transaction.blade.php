@@ -1,6 +1,6 @@
 @extends('admin.Layouts.master')
 @section('title')
-User
+Dashboard
 @endsection
 @section('js')
 
@@ -19,7 +19,7 @@ User
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">User</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">my-transaction</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ User
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">User List</h3>
+                        <h3 class="card-label">my-transaction List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -86,7 +86,7 @@ User
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/users/create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/payee/create') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -98,21 +98,19 @@ User
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Email</th>
                                 <th>Mobile</th>
+                                <th>Address</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->mobile }}</td>
+                                <td>1</td>
+                                <td>Ali</td>
+                                <td>01710355789</td>
+                                <td>Dhaka</td>
                                 <td nowrap="nowrap"></td>
                             </tr>
-                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

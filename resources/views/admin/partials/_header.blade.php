@@ -45,7 +45,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/material/create') }}" class="menu-link">
+                                    <a href="{{ url('/materials/create') }}" class="menu-link">
                                         <span class="menu-text">Add Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -154,13 +154,13 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('user/list')}}" class="menu-link">
+                                    <a href="{{url('users/list')}}" class="menu-link">
                                         <span class="menu-text">All User</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{url('user/create')}}" class="menu-link">
+                                    <a href="{{url('users/create')}}" class="menu-link">
                                         <span class="menu-text">Add User</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -766,7 +766,7 @@
                 <!--begin::Nav-->
                 <div class="navi navi-spacer-x-0 pt-5">
                     <!--begin::Item-->
-                    <a href="{{ url('/profile') }}" class="navi-item px-8">
+                    <a href="{{ url('/my-transaction') }}" class="navi-item px-8">
                         <div class="navi-link">
                             <div class="navi-icon mr-2">
                                 <i class="flaticon2-calendar-3 text-success"></i>
@@ -781,7 +781,7 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="custom/apps/user/profile-3.html" class="navi-item px-8">
+                    <a href="{{ url('my-payment') }}" class="navi-item px-8">
                         <div class="navi-link">
                             <div class="navi-icon mr-2">
                                 <i class="flaticon2-mail text-warning"></i>
@@ -794,7 +794,7 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="custom/apps/user/profile-2.html" class="navi-item px-8">
+                    <a href="{{ url('my-emi') }}" class="navi-item px-8">
                         <div class="navi-link">
                             <div class="navi-icon mr-2">
                                 <i class="flaticon2-rocket-1 text-danger"></i>
@@ -807,7 +807,7 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="custom/apps/userprofile-1/overview.html" class="navi-item px-8">
+                    <a href="{{ url('my-due') }}" class="navi-item px-8">
                         <div class="navi-link">
                             <div class="navi-icon mr-2">
                                 <i class="flaticon2-hourglass text-primary"></i>

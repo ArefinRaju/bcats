@@ -1,6 +1,6 @@
 @extends('admin.Layouts.master')
 @section('title')
-Material
+Dashboard
 @endsection
 @section('css')
 
@@ -18,7 +18,7 @@ Material
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Material</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">profile</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -37,16 +37,16 @@ Material
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Material Create</h3>
+                            <h3 class="card-title">profile Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/materials/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/payee/list') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{url('material')}}">
+                        <form class="form" method="POST" action="{{url('payee')}}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -58,11 +58,28 @@ Material
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Enum:</label>
-                                            <input name="enum" type="text" class="form-control form-control-solid" placeholder="Enter Enum" />
+                                            <label>Mobile:</label>
+                                            <input name="mobile" type="text" class="form-control form-control-solid" placeholder="Enter Mobile" />
                                         </div>
                                     </div>
-                                 
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Address:</label>
+                                            <input name="address" type="text" class="form-control form-control-solid" placeholder="Enter Address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Paid:</label>
+                                            <input name="address" type="number" class="form-control form-control-solid" placeholder="Enter Address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Type:</label>
+                                            <input name="address" type="text" class="form-control form-control-solid" placeholder="Enter Address" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

@@ -86,7 +86,7 @@ Material
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/material/create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/materials/create') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -99,17 +99,18 @@ Material
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Enum</th>
-                               
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($materials as $material)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$material->name}}</td>
+                                <td>{{$material->enum}}</td>
                                 <td nowrap="nowrap"></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

@@ -40,7 +40,7 @@ User
                             <h3 class="card-title">User Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/user/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/users/list') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>
@@ -53,25 +53,25 @@ User
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Name:</label>
-                                            <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter Name" />
+                                            <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter Name" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Email:</label>
-                                            <input type="text" name="email" class="form-control form-control-solid" placeholder="Enter Email" />
+                                            <input type="text" name="email" class="form-control form-control-solid" placeholder="Enter Email" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Mobile:</label>
-                                            <input type="text" name="mobile" class="form-control form-control-solid" placeholder="Enter Mobile" />
+                                            <input type="text" name="mobile" class="form-control form-control-solid" placeholder="Enter Mobile" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Password:</label>
-                                            <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter Password" />
+                                            <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter Password" required>
                                         </div>
                                     </div>
                                 </div>

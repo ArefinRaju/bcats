@@ -29,11 +29,21 @@ class MaterialController extends HelperController
         ];
     }
 
+    public function createForm()
+    {
+
+        return view('admin.pages.material.create');
+    }
+    public function materialList()
+    {
+        $materials = Material::all();
+        return view('admin.pages.material.index', compact('materials'));
+    }
     public function create(Request $request, string $action = null)
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
         $this->repo->save($material);
-        return $this->respond($material->toArray(), [], 'admin.dashboard');
+        return $this->respond($material->toArray(), [], 'admin.pages.material.index');
     }
 
     public function update(Request $request, string $id = null)

@@ -37,6 +37,18 @@ class UserController extends HelperController
     }
 
 
+    public function createForm()
+    {
+
+        return view('admin.pages.user.create');
+    }
+    public function userList()
+    {
+
+        $users = User::all();
+        return view('admin.pages.user.index', compact('users'));
+    }
+
     /**
      * @param  Request  $request
      * @param  string|null  $action
@@ -65,4 +77,6 @@ class UserController extends HelperController
         $this->repo->save($user);
         return $this->respond($user->toArray(), [],'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
     }
+
+
 }

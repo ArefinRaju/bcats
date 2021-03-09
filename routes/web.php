@@ -35,6 +35,30 @@ Route::get(
     }
 );
 Route::get(
+    '/my-transaction',
+    function () {
+        return view('admin.pages.profile.my_transaction');
+    }
+);
+Route::get(
+    '/my-payment',
+    function () {
+        return view('admin.pages.profile.my_payment');
+    }
+);
+Route::get(
+    '/my-emi',
+    function () {
+        return view('admin.pages.profile.my_emi');
+    }
+);
+Route::get(
+    '/my-due',
+    function () {
+        return view('admin.pages.profile.my_due');
+    }
+);
+Route::get(
     '/balance-overview',
     function () {
         return view('admin.pages.building_accounts.balance_overview');
@@ -46,18 +70,7 @@ Route::get(
         return view('admin.pages.building_accounts.add_member_payment');
     }
 );
-Route::get(
-    '/material/create',
-    function () {
-        return view('admin.pages.material.create');
-    }
-);
-Route::get(
-    '/material/list',
-    function () {
-        return view('admin.pages.material.index');
-    }
-);
+
 Route::get(
     '/material/current-stock',
     function () {
@@ -131,18 +144,6 @@ Route::get(
     }
 );
 Route::get(
-    '/user/create',
-    function () {
-        return view('admin.pages.user.create');
-    }
-);
-Route::get(
-    '/user/list',
-    function () {
-        return view('admin.pages.user.index');
-    }
-);
-Route::get(
     '/form',
     function () {
         return view('admin.pages.blank.form');
@@ -157,7 +158,12 @@ Route::get(
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
 CombinedRoute::resourceRoute('user', 'UserController', []);
+Route::get('/users/create',	'UserController@createForm');
+Route::get('/users/list',	'UserController@userList');
+
 CombinedRoute::resourceRoute('payee', 'PayeeController', []);
 CombinedRoute::resourceRoute('material', 'MaterialController', []);
+Route::get('/materials/create',	'MaterialController@createForm');
+Route::get('/materials/list',	'MaterialController@materialList');
 
 //Route::get('/product',	'ProductController@retrieve');
