@@ -39,12 +39,11 @@ class UserController extends HelperController
 
     public function createForm()
     {
-
         return view('admin.pages.user.create');
     }
+
     public function userList()
     {
-
         $users = User::all();
         return view('admin.pages.user.index', compact('users'));
     }
@@ -57,12 +56,46 @@ class UserController extends HelperController
      */
     public function create(Request $request, string $action = null)
     {
-        // Todo : check name and email and throw proper error
+        // Todo : check name, role(Admin not allowed) and email and throw proper error
         Acl::authorize($request, [Permission::CREATE_MANAGER, Permission::CREATE_PROJECT_USER]);
-        $rules = $this->commonValidationRules;
-        $this->validate($request, $rules);
-        $input = $this->cherryPick($request, $rules);
-        $user  = new User();
+        $user = new User();
+        $user = $this->filterAssign($request, $user);
+        $this->repo->save($user);
+        return $this->respond($user->toArray(), [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
+    }
+
+    public function retrieve(Request $request, string $id)
+    {
+        $user = $this->repo->getById($request, $id);
+        return $this->respond($user->toArray(), []);
+    }
+
+    public function list(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $user       = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($user->toArray(), []);
+    }
+
+    public function update(Request $request, string $id = null)
+    {
+        $user = $this->repo->getById($request, $id);
+        $user = $this->filterAssign($request, $user);
+        $this->repo->save($user);
+        return $this->respond($user->toArray(), []);
+    }
+
+    /**
+     * @param  Request  $request
+     * @param  object  $user
+     * @return mixed
+     * @throws UserFriendlyException
+     */
+
+    private function filterAssign(Request $request, object $user): object
+    {
+        $this->validate($request, $this->commonValidationRules);
+        $input = $this->cherryPick($request, $this->commonValidationRules);
         foreach ($input as $prop => $value) {
             if ($prop === 'password' && $value !== "") {
                 $value = Hash::make($value);
@@ -73,10 +106,12 @@ class UserController extends HelperController
             $user->acl = Roles::EMPLOYEE;
         }
         $user->acl = Acl::createUserRole($user->acl);
-        // TOdo : do try and catch to intercept sql fail error
-        $this->repo->save($user);
-        return $this->respond($user->toArray(), [],'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
+        return $user;
     }
 
-
+    public function destroy(Request $request, string $id)
+    {
+        $this->repo->destroyById($id);
+        return $this->respond(null, [], 'admin.pages.material.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
+    }
 }
