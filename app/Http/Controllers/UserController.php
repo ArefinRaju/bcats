@@ -91,7 +91,6 @@ class UserController extends HelperController
      * @return mixed
      * @throws UserFriendlyException
      */
-
     private function filterAssign(Request $request, object $user): object
     {
         $this->validate($request, $this->commonValidationRules);
