@@ -1,10 +1,9 @@
 <?php
 
 
-namespace Helper\Interfaces;
+namespace Helper\Calculator;
 
 
 interface Calculator
 {
-
 }

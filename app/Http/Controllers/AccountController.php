@@ -4,10 +4,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Account;
+use App\Models\Account as Model;
+use Helper\Calculator\Account;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
 use Helper\Repo\AccountRepository;
+use Helper\Transform\Objects;
+use Illuminate\Http\Request;
 
 class AccountController extends HelperController
 {
@@ -17,10 +20,15 @@ class AccountController extends HelperController
     public function __construct(AccountRepository $repo)
     {
         $this->repo = $repo;
-        $this->setResource(Account::class);
+        $this->setResource(Model::class);
         $this->commonValidationRules = [
             'credit' => [V::SOMETIMES, V::REQUIRED, V::NUMBER],
             'debit'  => [V::SOMETIMES, V::REQUIRED, V::NUMBER]
         ];
+    }
+
+    public function create(Request $request)
+    {
+        dd(Objects::toArray(Account::credit($request, false, 25, 1)));
     }
 }

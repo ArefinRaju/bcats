@@ -12,4 +12,9 @@ class AccountRepository extends EntityRepository
     {
         parent::setEntity(Account::class);
     }
+
+    public function getLatestRecord(int $project_id)
+    {
+        return Account::where('project_id', $project_id)->latest()->first();
+    }
 }

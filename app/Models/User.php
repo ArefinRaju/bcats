@@ -17,6 +17,8 @@ use Illuminate\Notifications\Notifiable;
  * @property int id
  * @property string name
  * @property string email
+ * @property int project_id
+ * @property string mobile
  */
 class User extends Entity implements Authenticatable
 {
@@ -105,11 +107,12 @@ class User extends Entity implements Authenticatable
 
     public function getSanitized(): User
     {
-        $out         = new User();
-        $out->id     = $this->id;
-        $out->name   = $this->name;
-        $out->email  = $this->email;
-        $out->mobile = $this->mobile;
+        $out             = new User();
+        $out->id         = $this->id;
+        $out->name       = $this->name;
+        $out->email      = $this->email;
+        $out->mobile     = $this->mobile;
+        $out->project_id = $this->project_id;
 
         return $out;
     }

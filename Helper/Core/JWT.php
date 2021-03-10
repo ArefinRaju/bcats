@@ -48,14 +48,15 @@ class JWT
     public static function resolveUserFromToken($token): User
     {
         /** @var Token $token */
-        $serializedUser  = $token->getClaim(JWTConfig::$user);
-        $serializedAcl   = $token->getClaim(JWTConfig::$acl);
-        $instance        = new User();
-        $acl             = unserialize($serializedAcl);
-        $instance->acl   = $acl;
-        $instance->name  = $serializedUser->name;
-        $instance->id    = $serializedUser->id;
-        $instance->email = $serializedUser->email;
+        $serializedUser       = $token->getClaim(JWTConfig::$user);
+        $serializedAcl        = $token->getClaim(JWTConfig::$acl);
+        $instance             = new User();
+        $acl                  = unserialize($serializedAcl);
+        $instance->acl        = $acl;
+        $instance->name       = $serializedUser->name;
+        $instance->id         = $serializedUser->id;
+        $instance->email      = $serializedUser->email;
+        $instance->project_id = $serializedUser->project_id;
         return $instance;
     }
 
