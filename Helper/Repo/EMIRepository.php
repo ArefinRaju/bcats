@@ -4,24 +4,24 @@
 namespace Helper\Repo;
 
 
-use App\Models\EMIs;
+use App\Models\Emis;
 use Illuminate\Http\Request;
 
 class EMIRepository extends EntityRepository
 {
     public function __construct()
     {
-        parent::setEntity(EMIs::class);
+        parent::setEntity(Emis::class);
     }
 
     public function getById(Request $request, int $id)
     {
-        return EMIs::where('id', $id)->first();
+        return Emis::where('id', $id)->first();
     }
 
     public function list(int $perPage = null, int $page = null)
     {
-        return EMIs::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
+        return Emis::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
     }
 
     /**
@@ -30,6 +30,6 @@ class EMIRepository extends EntityRepository
      */
     public function destroyById(string $id): bool
     {
-        return EMIs::destroy($id);
+        return Emis::destroy($id);
     }
 }

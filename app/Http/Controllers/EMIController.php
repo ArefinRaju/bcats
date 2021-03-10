@@ -20,9 +20,13 @@ class EMIController extends HelperController
     public function __construct(EMIRepository $repo)
     {
         $this->repo = $repo;
-        $this->setResource(EMIs::class);
+        $this->setResource(Emis::class);
         $this->commonValidationRules = [
-            'name' => [V::REQUIRED, V::TEXT],
+            "user_id"    => [V::REQUIRED, V::INTEGER],
+            "value"      => [V::REQUIRED, V::INTEGER],
+            "status"     => [V::REQUIRED, V::TEXT],
+            "date"       => [V::REQUIRED, V::DATE],
+            "project_id" => [V::REQUIRED, V::INTEGER],
         ];
     }
 
