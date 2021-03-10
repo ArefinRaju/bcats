@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static Builder where($column, $operator = null, $value = null, $boolean = 'and')
  * @method static Builder create(array $attributes = [])
  * @method public Builder update(array $values)
+ * @method static orderBy(string $string, string $string1)
  * @property string acl
  * @property int id
  * @property string name

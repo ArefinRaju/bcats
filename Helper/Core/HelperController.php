@@ -26,7 +26,7 @@ class HelperController extends Controller
     protected array  $commonValidationRules;
 
     /**
-     * @param  array  $data
+     * @param  object|array  $data
      * @param  array  $errors
      * @param  string  $view
      * @param  string  $message
@@ -39,6 +39,9 @@ class HelperController extends Controller
     public function respond($data = [], array $errors = [], string $view = 'admin.dashboard', string $message = Messages::OK, int $statusCode = ResponseType::OK, array $headers = [], array $paginationParams = [])
     {
         if (self::isAPI()) {
+            if (!is_array($data)) {
+                $data = $data->toArray();
+            }
             return self::generateResponse($data, $errors, $message, $this->version, $statusCode, $headers, $paginationParams);
         }
         elseif (!empty($errors)) {

@@ -47,20 +47,20 @@ class MaterialController extends HelperController
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
         $this->repo->save($material);
-        return $this->respond($material->toArray(), [], 'admin.pages.material.index');
+        return $this->respond($material, [], 'admin.pages.material.index');
     }
 
     public function retrieve(Request $request, string $id)
     {
         $material = $this->repo->getById($request, $id);
-        return $this->respond($material->toArray(), []);
+        return $this->respond($material, []);
     }
 
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
         $material   = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($material->toArray(), []);
+        return $this->respond($material, []);
     }
 
     public function update(Request $request, string $id = null)
@@ -68,7 +68,7 @@ class MaterialController extends HelperController
         $material = $this->repo->getById($request, $id);
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $material);
         $this->repo->save($material);
-        return $this->respond($material->toArray(), []);
+        return $this->respond($material, []);
     }
 
     public function destroy(Request $request, string $id)

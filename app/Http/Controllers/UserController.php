@@ -61,20 +61,20 @@ class UserController extends HelperController
         $user = new User();
         $user = $this->filterAssign($request, $user);
         $this->repo->save($user);
-        return $this->respond($user->toArray(), [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
+        return $this->respond($user, [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
     }
 
     public function retrieve(Request $request, string $id)
     {
         $user = $this->repo->getById($request, $id);
-        return $this->respond($user->toArray(), []);
+        return $this->respond($user, []);
     }
 
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
         $user       = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($user->toArray(), []);
+        return $this->respond($user, [], 'view');
     }
 
     public function update(Request $request, string $id = null)
@@ -82,7 +82,7 @@ class UserController extends HelperController
         $user = $this->repo->getById($request, $id);
         $user = $this->filterAssign($request, $user);
         $this->repo->save($user);
-        return $this->respond($user->toArray(), []);
+        return $this->respond($user, []);
     }
 
     /**

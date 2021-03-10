@@ -34,20 +34,20 @@ class EMIController extends HelperController
     {
         $emi = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new EMIs());
         $this->repo->save($emi);
-        return $this->respond($emi->toArray(), [], 'bladeFile');
+        return $this->respond($emi, [], 'bladeFile');
     }
 
     public function retrieve(Request $request, string $id)
     {
         $emi = $this->repo->getById($request, $id);
-        return $this->respond($emi->toArray(), [], 'bladeFile');
+        return $this->respond($emi, [], 'bladeFile');
     }
 
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
         $emi        = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($emi->toArray(), [], 'bladeFile');
+        return $this->respond($emi, [], 'bladeFile');
     }
 
     public function update(Request $request, string $id = null)
@@ -55,7 +55,7 @@ class EMIController extends HelperController
         $emi = $this->repo->getById($request, $id);
         $emi = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $emi);
         $this->repo->save($emi);
-        return $this->respond($emi->toArray(), [], 'bladeFile');
+        return $this->respond($emi, [], 'bladeFile');
     }
 
     public function destroy(Request $request, string $id)
