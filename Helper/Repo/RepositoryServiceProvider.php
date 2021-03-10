@@ -17,5 +17,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(MaterialRepository::class, MaterialRepository::class);
         $this->app->bind(MaterialHistoryRepository::class, MaterialHistoryRepository::class);
         $this->app->bind(PayeeRepository::class, PayeeRepository::class);
+        $this->app->bind(EMIRepository::class, EMIRepository::class);
     }
 }
