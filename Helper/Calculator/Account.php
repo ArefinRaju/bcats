@@ -9,32 +9,37 @@ use Helper\Constants\Transaction;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\UserRepository;
+use Helper\Transform\Objects;
 use Illuminate\Http\Request;
 
 final class Account implements Calculator
 {
-    private Request $request;
-    private Model   $oldRecord;
-    private Model   $newRecord;
-    public int      $payee_id;
-    public int      $emi_id;
-    public int      $total;
-    public int      $due;
-    public int      $required;
-    public int      $credit;
-    public int      $debit;
-    public string   $type;
-    public string   $comment;
-    public ?string  $image;
-    public int      $is_fund;
-    public int      $by_user;
-    public int      $user_id;
-    public int      $project_id;
+    private Request           $request;
+    private Model             $oldRecord;
+    private Model             $newRecord;
+    private AccountRepository $repo;
+    private UserRepository    $userRepo;
+    public int                $payee_id;
+    public int                $emi_id;
+    public int                $total;
+    public int                $due;
+    public int                $required;
+    public int                $credit;
+    public int                $debit;
+    public string             $type;
+    public string             $comment;
+    public ?string            $image;
+    public int                $is_fund;
+    public int                $by_user;
+    public int                $user_id;
+    public int                $project_id;
 
     final private function __construct(Request $request)
     {
         $this->request    = $request;
         $this->newRecord  = new Model();
+        $this->repo       = new AccountRepository();
+        $this->userRepo   = new UserRepository();
         $this->user_id    = $request->user()->id;
         $this->project_id = $request->user()->project_id;
         $this->oldRecord  = $this->getLastRecord();
@@ -43,8 +48,7 @@ final class Account implements Calculator
 
     private function getLastRecord(): Model
     {
-        $repo = new AccountRepository();
-        return $repo->getLatestRecord($this->project_id);
+        return $this->repo->getLatestRecord($this->project_id);
     }
 
     /**
@@ -60,36 +64,37 @@ final class Account implements Calculator
      */
     public static function credit(Request $request, bool $is_fund, int $amount, int $emi_id, int $by_user = null, string $image = null, string $comment = ''): object
     {
-        $account          = new Account($request);
-        $account->emi_id  = $emi_id;
-        $account->type    = Transaction::CREDIT;
-        $account->comment = $comment;
-        $account->image   = $image;
-        $account->isFund($account, $is_fund, $amount, $by_user);
+        $instance          = new Account($request);
+        $instance->emi_id  = $emi_id;
+        $instance->type    = Transaction::CREDIT;
+        $instance->comment = $comment;
+        $instance->image   = $image;
+        $instance->isFund($instance, $is_fund, $amount, $by_user);
         // Todo : Convert it to model and save
-        return $account;
+        return $instance;
     }
 
     /**
-     * @param  Account  $account
+     * @param  Account  $instance
      * @param  bool  $is_fund
      * @param  int  $amount
      * @param  int|null  $by_user
      * @throws UserFriendlyException
      */
-    private function isFund(Account $account, bool $is_fund, int $amount, ?int $by_user): void
+    private function isFund(Account $instance, bool $is_fund, int $amount, ?int $by_user): void
     {
         if ($is_fund && $by_user) {
-            $account->total    = $account->oldRecord->total;
-            $account->required = $account->oldRecord->required;
-            $account->due      = $account->oldRecord->due + $amount;
-            $account->by_user  = $by_user;
+            $instance->total    = (float)$instance->oldRecord->total;
+            $instance->required = (float)$instance->oldRecord->required;
+            $instance->due      = (float)$instance->oldRecord->due + $amount;
+            $instance->by_user  = (int)$by_user;
+            $this->updateUserData($instance, Transaction::CREDIT);
             // Todo : Add it to user's due
         }
         elseif (!$is_fund) {
-            $account->total    = $account->oldRecord->total + $amount;
-            $account->required = $account->oldRecord->required - $amount;
-            $account->by_user  = $account->user_id;
+            $instance->total    = (float)$instance->oldRecord->total + $amount;
+            $instance->required = (float)$instance->oldRecord->required - $amount;
+            $instance->by_user  = (int)$instance->user_id;
             // Todo : Remove from user's due
         }
         else {
@@ -102,10 +107,25 @@ final class Account implements Calculator
         // Todo : Get user data
     }
 
-    private function getUserData()
+    private function updateUserData(Account $instance, string $type)
     {
-        $userRepo = new UserRepository();
-        $userData = $userRepo->getById($this->request, $this->user_id);
+        $byUser = $instance->userRepo->getById($instance->request, $instance->by_user);
+        $user   = $instance->userRepo->getById($instance->request, $instance->user_id);
+        switch ($type) {
+            case Transaction::CREDIT:
+                $byUser->due = $byUser->due - $instance->due;
+                $user->due   = $user->due + $instance->due;
+                $instance->assignAndSave($instance);
+                $instance->userRepo->save($byUser);
+                $instance->userRepo->save($user);
+                break;
+            case Transaction::DEBIT:
+        }
+    }
+
+    private function assignAndSave(Account $instance)
+    {
+        dd(Objects::toArray($instance));
     }
 
     public function debit()
