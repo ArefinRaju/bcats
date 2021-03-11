@@ -7,6 +7,7 @@ namespace Helper\Calculator;
 use App\Models\Account as Model;
 use Helper\Constants\Transaction;
 use Helper\Repo\AccountRepository;
+use Helper\Repo\PayeeRepository;
 use Helper\Repo\UserRepository;
 use Helper\Transform\Objects;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ final class Account implements Calculator
     private Model             $newRecord;
     private AccountRepository $repo;
     private UserRepository    $userRepo;
+    private PayeeRepository   $payeeRepo;
     private int               $amount;
     public int                $payee_id;
     public int                $emi_id;
@@ -39,7 +41,6 @@ final class Account implements Calculator
         $this->request    = $request;
         $this->newRecord  = new Model();
         $this->repo       = new AccountRepository();
-        $this->userRepo   = new UserRepository();
         $this->user_id    = $request->user()->id;
         $this->project_id = $request->user()->project_id;
         $this->oldRecord  = $this->getLastRecord();
@@ -54,6 +55,7 @@ final class Account implements Calculator
     public static function credit(Request $request, int $amount, string $image = null, string $comment = ''): Account
     {
         $instance           = new Account($request);
+        $instance->userRepo = new UserRepository();
         $instance->type     = Transaction::CREDIT;
         $instance->is_fund  = false;
         $instance->amount   = $amount;
@@ -67,9 +69,17 @@ final class Account implements Calculator
         return $instance;
     }
 
+    private function debitUserOnHoldAmount(Account $instance): void
+    {
+        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
+        $user->on_hold -= $instance->credit;
+        $instance->userRepo->save($user);
+    }
+
     public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $image = null, string $comment = ''): Account
     {
         $instance           = new Account($request);
+        $instance->userRepo = new UserRepository();
         $instance->emi_id   = $emi_id;
         $instance->type     = Transaction::EMI;
         $instance->is_fund  = true;
@@ -85,9 +95,19 @@ final class Account implements Calculator
         return $instance;
     }
 
-    public static function debit()
+    private function creditUserOnHoldAmount(Account $instance): void
     {
-        // TODO: Implement debit() method.
+        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
+        $user->on_hold += $instance->amount;
+        $instance->userRepo->save($user);
+    }
+
+    private function updateUsersDueAndContribution(Account $instance): void
+    {
+        $user               = $instance->userRepo->getById($instance->request, $instance->by_user);
+        $user->due          -= $instance->due;
+        $user->contribution += $instance->amount;
+        $instance->userRepo->save($user);
     }
 
     private function updateUserData(Account $instance, string $type): void
@@ -102,31 +122,28 @@ final class Account implements Calculator
         }
     }
 
-    private function creditUserOnHoldAmount(Account $instance): void
+    public static function debit(Request $request, int $amount, int $payeeId, string $image = null, string $comment = ''): Account
     {
-        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
-        $user->on_hold = $user->on_hold + $instance->amount;
-        $instance->userRepo->save($user);
+        $instance            = new Account($request);
+        $instance->payeeRepo = new PayeeRepository();
+        $instance->type      = Transaction::DEBIT;
+        $instance->is_fund   = false;
+        $instance->payee_id  = $payeeId;
+        $instance->amount    = $amount;
+        $instance->comment   = $comment;
+        $instance->debit     = $instance->amount;
+        $instance->image     = $image; // Todo : Job > Upload image
+        $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
+        $instance->updatePayeeData($instance);
+        $instance->assignAndSave($instance);
+        return $instance;
     }
 
-    private function updateUsersDueAndContribution(Account $instance): void
+    private function updatePayeeData(Account $instance): void
     {
-        $user               = $instance->userRepo->getById($instance->request, $instance->by_user);
-        $user->due          = $user->due - $instance->due;
-        $user->contribution = $user->contribution + $instance->amount;
-        $instance->userRepo->save($user);
-    }
-
-    private function debitUserOnHoldAmount(Account $instance): void
-    {
-        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
-        $user->on_hold = $user->on_hold - $instance->credit;
-        $instance->userRepo->save($user);
-    }
-
-    public function toArray(): array
-    {
-        return Objects::toArray($this);
+        $payee       = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
+        $payee->paid += $instance->amount;
+        $instance->payeeRepo->save($payee);
     }
 
     private function assignAndSave(Account $instance): void
@@ -136,5 +153,10 @@ final class Account implements Calculator
             $account->{$key} = $value;
         }
         $instance->repo->save($account);
+    }
+
+    public function toArray(): array
+    {
+        return Objects::toArray($this);
     }
 }
