@@ -25,6 +25,4 @@ class ProjectController extends HelperController
             'status'   => [V::REQUIRED, V::TEXT],
         ];
     }
-
-    // Todo : When Creating project, open one account for calculation
 }
