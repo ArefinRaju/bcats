@@ -49,7 +49,21 @@ final class Account implements Calculator
 
     private function getLastRecord(): Model
     {
-        return $this->repo->getLatestRecord($this->project_id);
+        $lastRecord = $this->repo->getLatestRecord($this->project_id);
+        if (empty($lastRecord)) {
+            $account             = new Model();
+            $account->total      = 0;
+            $account->due        = 0;
+            $account->required   = 0;
+            $account->credit     = 0;
+            $account->debit      = 0;
+            $account->type       = Transaction::CREDIT;
+            $account->is_fund    = false;
+            $account->user_id    = $this->user_id;
+            $account->project_id = $this->project_id;
+            $lastRecord          = $this->repo->save($account);
+        }
+        return $lastRecord;
     }
 
     public static function credit(Request $request, int $amount, string $image = null, string $comment = ''): Account
