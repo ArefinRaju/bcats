@@ -5,7 +5,9 @@ namespace Helper\Repo;
 
 
 use App\Models\User;
+use Helper\Constants\CRUD;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class UserRepository extends EntityRepository
 {
@@ -41,5 +43,10 @@ class UserRepository extends EntityRepository
     public function findByEmail(string $email)
     {
         return User::where(['email' => $email])->First();
+    }
+
+    public function getUsersByProjectId(Request $request, int $projectId): Collection
+    {
+        return User::where('project_id', $projectId)->get();
     }
 }

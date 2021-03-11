@@ -8,6 +8,7 @@ use App\Models\Account as Model;
 use Helper\Constants\Transaction;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
+use Helper\Repo\UserRepository;
 use Illuminate\Http\Request;
 
 final class Account implements Calculator
@@ -94,6 +95,17 @@ final class Account implements Calculator
         else {
             throw new UserFriendlyException('Development Error');
         }
+    }
+
+    private function userDue()
+    {
+        // Todo : Get user data
+    }
+
+    private function getUserData()
+    {
+        $userRepo = new UserRepository();
+        $userData = $userRepo->getById($this->request, $this->user_id);
     }
 
     public function debit()

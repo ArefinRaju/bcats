@@ -21,7 +21,7 @@ class EMIRepository extends EntityRepository
 
     public function list(int $perPage = null, int $page = null)
     {
-        return Emis::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
+        return Emis::where('project_id', Request()->user()->project_id)->paginate($perPage, ['*'], 'page', $page);
     }
 
     /**
