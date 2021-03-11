@@ -6,34 +6,41 @@ namespace Helper\Calculator;
 
 use App\Models\Account as Model;
 use Helper\Constants\Transaction;
-use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
+use Helper\Repo\PayeeRepository;
+use Helper\Repo\UserRepository;
+use Helper\Transform\Objects;
 use Illuminate\Http\Request;
 
 final class Account implements Calculator
 {
-    private Request $request;
-    private Model   $oldRecord;
-    private Model   $newRecord;
-    public int      $payee_id;
-    public int      $emi_id;
-    public int      $total;
-    public int      $due;
-    public int      $required;
-    public int      $credit;
-    public int      $debit;
-    public string   $type;
-    public string   $comment;
-    public ?string  $image;
-    public int      $is_fund;
-    public int      $by_user;
-    public int      $user_id;
-    public int      $project_id;
+    private Request           $request;
+    private Model             $oldRecord;
+    private Model             $newRecord;
+    private AccountRepository $repo;
+    private UserRepository    $userRepo;
+    private PayeeRepository   $payeeRepo;
+    private int               $amount;
+    public int                $payee_id;
+    public int                $emi_id;
+    public int                $total;
+    public int                $due;
+    public int                $required;
+    public int                $credit;
+    public int                $debit;
+    public string             $type;
+    public string             $comment;
+    public ?string            $image;
+    public int                $is_fund;
+    public int                $by_user;
+    public int                $user_id;
+    public int                $project_id;
 
     final private function __construct(Request $request)
     {
         $this->request    = $request;
         $this->newRecord  = new Model();
+        $this->repo       = new AccountRepository();
         $this->user_id    = $request->user()->id;
         $this->project_id = $request->user()->project_id;
         $this->oldRecord  = $this->getLastRecord();
@@ -42,62 +49,114 @@ final class Account implements Calculator
 
     private function getLastRecord(): Model
     {
-        $repo = new AccountRepository();
-        return $repo->getLatestRecord($this->project_id);
+        return $this->repo->getLatestRecord($this->project_id);
     }
 
-    /**
-     * @param  Request  $request
-     * @param  bool  $is_fund
-     * @param  int  $amount
-     * @param  int  $emi_id
-     * @param  int|null  $by_user
-     * @param  string|null  $image
-     * @param  string  $comment
-     * @return object
-     * @throws UserFriendlyException
-     */
-    public static function credit(Request $request, bool $is_fund, int $amount, int $emi_id, int $by_user = null, string $image = null, string $comment = ''): object
+    public static function credit(Request $request, int $amount, string $image = null, string $comment = ''): Account
     {
-        $account          = new Account($request);
-        $account->emi_id  = $emi_id;
-        $account->type    = Transaction::CREDIT;
-        $account->comment = $comment;
-        $account->image   = $image;
-        $account->isFund($account, $is_fund, $amount, $by_user);
-        // Todo : Convert it to model and save
-        return $account;
+        $instance           = new Account($request);
+        $instance->userRepo = new UserRepository();
+        $instance->type     = Transaction::CREDIT;
+        $instance->is_fund  = false;
+        $instance->amount   = $amount;
+        $instance->comment  = $comment;
+        $instance->credit   = $instance->amount;
+        $instance->image    = $image; // Todo : Job > Upload image
+        $instance->total    = (float)$instance->oldRecord->total + $instance->amount;
+        $instance->required = (float)$instance->oldRecord->required - $instance->amount;
+        $instance->updateUserData($instance, Transaction::CREDIT);
+        $instance->assignAndSave($instance);
+        return $instance;
     }
 
-    /**
-     * @param  Account  $account
-     * @param  bool  $is_fund
-     * @param  int  $amount
-     * @param  int|null  $by_user
-     * @throws UserFriendlyException
-     */
-    private function isFund(Account $account, bool $is_fund, int $amount, ?int $by_user): void
+    private function debitUserOnHoldAmount(Account $instance): void
     {
-        if ($is_fund && $by_user) {
-            $account->total    = $account->oldRecord->total;
-            $account->required = $account->oldRecord->required;
-            $account->due      = $account->oldRecord->due + $amount;
-            $account->by_user  = $by_user;
-            // Todo : Add it to user's due
-        }
-        elseif (!$is_fund) {
-            $account->total    = $account->oldRecord->total + $amount;
-            $account->required = $account->oldRecord->required - $amount;
-            $account->by_user  = $account->user_id;
-            // Todo : Remove from user's due
-        }
-        else {
-            throw new UserFriendlyException('Development Error');
+        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
+        $user->on_hold -= $instance->credit;
+        $instance->userRepo->save($user);
+    }
+
+    public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $image = null, string $comment = ''): Account
+    {
+        $instance           = new Account($request);
+        $instance->userRepo = new UserRepository();
+        $instance->emi_id   = $emi_id;
+        $instance->type     = Transaction::EMI;
+        $instance->is_fund  = true;
+        $instance->comment  = $comment;
+        $instance->amount   = $amount;
+        $instance->image    = $image; // Todo : Job > Upload image
+        $instance->total    = (float)$instance->oldRecord->total;
+        $instance->required = (float)$instance->oldRecord->required;
+        $instance->due      = (float)$instance->oldRecord->due + $instance->amount;
+        $instance->by_user  = (int)$by_user;
+        $instance->updateUserData($instance, Transaction::EMI);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    private function creditUserOnHoldAmount(Account $instance): void
+    {
+        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
+        $user->on_hold += $instance->amount;
+        $instance->userRepo->save($user);
+    }
+
+    private function updateUsersDueAndContribution(Account $instance): void
+    {
+        $user               = $instance->userRepo->getById($instance->request, $instance->by_user);
+        $user->due          -= $instance->due;
+        $user->contribution += $instance->amount;
+        $instance->userRepo->save($user);
+    }
+
+    private function updateUserData(Account $instance, string $type): void
+    {
+        switch ($type) {
+            case Transaction::EMI:
+                $this->creditUserOnHoldAmount($instance);
+                $this->updateUsersDueAndContribution($instance);
+                break;
+            case Transaction::CREDIT:
+                $this->debitUserOnHoldAmount($instance);
         }
     }
 
-    public function debit()
+    public static function debit(Request $request, int $amount, int $payeeId, string $image = null, string $comment = ''): Account
     {
-        // TODO: Implement debit() method.
+        $instance            = new Account($request);
+        $instance->payeeRepo = new PayeeRepository();
+        $instance->type      = Transaction::DEBIT;
+        $instance->is_fund   = false;
+        $instance->payee_id  = $payeeId;
+        $instance->amount    = $amount;
+        $instance->comment   = $comment;
+        $instance->debit     = $instance->amount;
+        $instance->image     = $image; // Todo : Job > Upload image
+        $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
+        $instance->updatePayeeData($instance);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    private function updatePayeeData(Account $instance): void
+    {
+        $payee       = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
+        $payee->paid += $instance->amount;
+        $instance->payeeRepo->save($payee);
+    }
+
+    private function assignAndSave(Account $instance): void
+    {
+        $account = new Model();
+        foreach (Objects::toArray($instance) as $key => $value) {
+            $account->{$key} = $value;
+        }
+        $instance->repo->save($account);
+    }
+
+    public function toArray(): array
+    {
+        return Objects::toArray($this);
     }
 }
