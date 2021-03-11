@@ -80,6 +80,7 @@ CREATE TABLE `accounts` (
     `debit` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `type` VARCHAR(30) NOT NULL,
     `comment` VARCHAR(255) NULL DEFAULT NULL,
+    `image` VARCHAR(255) NULL DEFAULT NULL,
     `is_fund` TINYINT(1) NOT NULL,
     `by_user` INTEGER NULL DEFAULT NULL,
     `user_id` INTEGER NULL DEFAULT NULL,

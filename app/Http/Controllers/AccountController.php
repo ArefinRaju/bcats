@@ -29,6 +29,6 @@ class AccountController extends HelperController
 
     public function create(Request $request)
     {
-        dd(Objects::toArray(Account::credit($request, true, 25, 1, 1)));
+        dd(Objects::toArray(Account::credit($request, 25)));
     }
 }
