@@ -35,14 +35,6 @@ class MaterialController extends HelperController
     {
         return view('admin.pages.material.create');
     }
-
-    // Todo : Delete this as list already defined @line 59
-    public function materialList()
-    {
-        $materials = Material::all();
-        return view('admin.pages.material.index', compact('materials'));
-    }
-
     public function create(Request $request, string $action = null)
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
@@ -60,7 +52,7 @@ class MaterialController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $material   = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($material, []);
+        return $this->respond($material, [],'admin.pages.material.index');
     }
 
     public function update(Request $request, string $id = null)

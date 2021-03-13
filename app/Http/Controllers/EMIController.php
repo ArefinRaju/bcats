@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\EMIs;
+use App\Models\User;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\CRUD;
 use Helper\Constants\Errors;
@@ -33,6 +34,12 @@ class EMIController extends HelperController
         ];
     }
 
+
+    public function createForm()
+    {
+        $users = User::all();
+        return view('admin.pages.emi.create',compact('users'));
+    }
     public function create(Request $request, string $action = null)
     {
         $emi = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new EMIs());
@@ -51,7 +58,7 @@ class EMIController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $emi        = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($emi, [], 'bladeFile');
+        return $this->respond($emi, [], 'admin.pages.emi.index');
     }
 
     public function update(Request $request, string $id = null)

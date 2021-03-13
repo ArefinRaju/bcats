@@ -45,7 +45,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/materials/create') }}" class="menu-link">
+                                    <a href="{{ url('/material-create') }}" class="menu-link">
                                         <span class="menu-text">Add Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -92,7 +92,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ url('emi/create') }}" href="" class="menu-link">
+                                    <a href="{{ url('emi-create') }}" href="" class="menu-link">
                                         <span class="menu-text">Add EMI</span>
                                         <span class="menu-desc"></span>
                                     </a>
