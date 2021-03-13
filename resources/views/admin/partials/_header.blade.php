@@ -86,7 +86,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('emi/list') }}" class="menu-link">
+                                    <a href="{{ url('emi') }}" class="menu-link">
                                         <span class="menu-text">All EMI</span>
                                         <span class="menu-desc"></span>
                                     </a>

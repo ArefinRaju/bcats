@@ -47,7 +47,7 @@ class HelperController extends Controller
         elseif (!empty($errors)) {
             return view('admin.dashboard')->withErrors($errors);
         }
-        return view($view)->with($data);
+        return view($view)->with('data', $data);
     }
 
 
