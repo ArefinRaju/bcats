@@ -74,7 +74,7 @@ class UserController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $user       = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($user, [], 'view');
+        return $this->respond($user, [], 'admin.pages.user.index');
     }
 
     public function update(Request $request, string $id = null)

@@ -67,7 +67,9 @@ Route::get(
 Route::get(
     '/add-member-payments',
     function () {
-        return view('admin.pages.building_accounts.add_member_payment');
+        $users = \App\Models\User::all();
+      
+        return view('admin.pages.building_accounts.add_member_payment',compact('users'));
     }
 );
 
@@ -153,6 +155,7 @@ Route::get('/users/list',	'UserController@userList');
 
 CombinedRoute::resourceRoute('payee', 'PayeeController', []);
 CombinedRoute::resourceRoute('material', 'MaterialController', []);
+CombinedRoute::resourceRoute('account', 'AccountController', []);
 CombinedRoute::resourceRoute('emi', 'EmiController', []);
 Route::get('/emi-create',	'EMIController@createForm');
 Route::get('/material-create',	'MaterialController@createForm');
