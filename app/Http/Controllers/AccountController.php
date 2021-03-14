@@ -48,7 +48,7 @@ class AccountController extends HelperController
             'amount'  => [V::REQUIRED, V::NUMBER]
         ];
         $this->validate($request, $rules);
-        $log = Account::debit($request, $request->amount, $request->payeeId);
+        $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'));
         return $this->respond($log, [], '');
     }
 }
