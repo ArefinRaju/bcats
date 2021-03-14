@@ -148,6 +148,7 @@ final class Account implements Calculator
         $instance->debit     = $instance->amount;
         $instance->image     = $image; // Todo : Job > Upload image
         $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
+        $instance->required  = (float)$instance->oldRecord->required;
         $instance->updatePayeeData($instance);
         $instance->assignAndSave($instance);
         return $instance;
