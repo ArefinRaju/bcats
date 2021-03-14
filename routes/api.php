@@ -26,6 +26,7 @@ CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
 
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
+    Route::post('/debit', 'AccountController@payPayee');
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
     CombinedRoute::resourceRoute('/account', 'AccountController', []);

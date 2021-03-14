@@ -20,7 +20,7 @@ class CommonValidations extends Holder
     public const EMAIL       = 'email';
     public const PASS        = ['min:5', 'max:72'];
     public const PHONE       = ['regex:/(^((\+88)?01))[1|3-9]{1}(\d){8}$/'];
-    public const ID          = 'min:16|max:24';
+    public const ID          = 'min:1';
     public const IDRef       = ['size:24'];   // MongoDB support 12bytes ID (24 char)
     public const MIN1        = 'min:1';
     public const INTEGER     = 'integer';

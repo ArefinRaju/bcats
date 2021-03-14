@@ -8,8 +8,8 @@ use App\Models\Account as Model;
 use Helper\Calculator\Account;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
+use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
-use Helper\Transform\Objects;
 use Illuminate\Http\Request;
 
 class AccountController extends HelperController
@@ -33,5 +33,22 @@ class AccountController extends HelperController
         //Account::credit($request, 200);
         //Account::debit($request, 100, 1);
         //dd(Objects::toArray(Account::debit($request, 25, 1)));
+    }
+
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws UserFriendlyException
+     */
+    public function payPayee(Request $request)
+    {
+        $rules = [
+            'payeeId' => [V::REQUIRED, V::NUMBER],
+            'amount'  => [V::REQUIRED, V::NUMBER]
+        ];
+        $this->validate($request, $rules);
+        $log = Account::debit($request, $request->amount, $request->payeeId);
+        return $this->respond($log, [], '');
     }
 }
