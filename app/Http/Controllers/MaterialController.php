@@ -33,12 +33,19 @@ class MaterialController extends HelperController
 
     public function createForm()
     {
-        return view('admin.pages.material.create');
+        $enumList = Enum::toArray();
+        return view('admin.pages.material.create')->with('data', $enumList);
     }
+
     public function create(Request $request, string $action = null)
     {
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Material());
         $this->repo->save($material);
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $materials  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.material.index')->with('data', $materials);
+        }
         return $this->respond($material, [], 'admin.pages.material.index');
     }
 
@@ -51,8 +58,8 @@ class MaterialController extends HelperController
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $material   = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($material, [],'admin.pages.material.index');
+        $materials  = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($materials, [], 'admin.pages.material.index');
     }
 
     public function update(Request $request, string $id = null)

@@ -52,14 +52,19 @@ Material
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Name:</label>
-                                            <input name="name" type="text" class="form-control form-control-solid" placeholder="Enter Name" />
+                                            <label for="name">Name:</label>
+                                            <input name="name" id="name" type="text" class="form-control form-control-solid" placeholder="Enter Name" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Enum:</label>
-                                            <input name="enum" type="text" class="form-control form-control-solid" placeholder="Enter Enum" />
+                                            <label for="enum">Enum:</label>
+                                            <select class="form-control form-control-solid" name="enum" id="enum">
+                                                @foreach($data as $option)
+                                                    <option value="{!! $option !!}">{!! $option !!}</option>
+                                                @endforeach
+                                            </select>
+                                            {{--<input name="enum" type="text" class="form-control form-control-solid" placeholder="Enter Enum" />--}}
                                         </div>
                                     </div>
                                  

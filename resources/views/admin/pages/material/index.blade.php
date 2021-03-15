@@ -104,7 +104,9 @@ Material
                         </thead>
                         <tbody>
 
+                        {{$data}}
                             @foreach($data as $material)
+                                <?= 'test' ?>
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$material->name??''}}</td>
