@@ -136,18 +136,21 @@ Route::get(
 );
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
+
 CombinedRoute::resourceRoute('user', 'UserController', []);
 Route::get('/users/create',	'UserController@createForm');
 Route::get('/users/list',	'UserController@userList');
 
 CombinedRoute::resourceRoute('payee', 'PayeeController', []);
+Route::get('/payee-create',	'PayeeController@createForm');
+
 CombinedRoute::resourceRoute('material', 'MaterialController', []);
-CombinedRoute::resourceRoute('account', 'AccountController', []);
-CombinedRoute::resourceRoute('emi', 'EmiController', []);
-Route::get('/emi-create',	'EMIController@createForm');
 Route::get('/material-create',	'MaterialController@createForm');
 Route::get('/material-edit/{id}',	'MaterialController@editForm');
-Route::get('/payee-create',	'PayeeController@createForm');
+
+CombinedRoute::resourceRoute('emi', 'EmiController', []);
+Route::get('/emi-create',	'EMIController@createForm');
+CombinedRoute::resourceRoute('account', 'AccountController', []);
 
 // No need because material's resourceRoute has list with pagination
 //Route::get('/materials/list',	'MaterialController@materialList');
