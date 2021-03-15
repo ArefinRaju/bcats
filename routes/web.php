@@ -146,6 +146,7 @@ CombinedRoute::resourceRoute('account', 'AccountController', []);
 CombinedRoute::resourceRoute('emi', 'EmiController', []);
 Route::get('/emi-create',	'EMIController@createForm');
 Route::get('/material-create',	'MaterialController@createForm');
+Route::get('/material-edit/{id}',	'MaterialController@editForm');
 Route::get('/payee-create',	'PayeeController@createForm');
 
 // No need because material's resourceRoute has list with pagination

@@ -103,18 +103,25 @@ Material
                             </tr>
                         </thead>
                         <tbody>
-
-                        {{$data}}
                             @foreach($data as $material)
-                                <?= 'test' ?>
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$material->name??''}}</td>
                                 <td>{{$material->enum ?? ''}}</td>
                                 <td nowrap="nowrap">
                                     <div class="float-right">
-                                        <button class="btn btn-primary">Edit</button>
-                                        <button class="btn btn-danger">Delete</button>
+
+                                        <form action="{{url('material', $material->id)}}" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            @csrf
+                                            <a href="{{ url('material-edit', $material->id) }}" class="btn btn-primary">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                    Edit
+                                                </a>
+                                            <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                        </form>
+
+                                      
                                     </div>
 
                                 </td>

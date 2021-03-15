@@ -37,7 +37,7 @@ Material
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Material Create</h3>
+                            <h3 class="card-title">Material Edit</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
                                 <a href="{{ url('/material') }}" class="btn btn-primary font-weight-bolder">
@@ -46,27 +46,33 @@ Material
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{url('material')}}">
+                        <form class="form" method="POST" action="{{url('material',$material->id)}}">
                             @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Name:</label>
-                                            <input name="name" type="text" class="form-control form-control-solid" placeholder="Enter Name" />
+                                            <label for="name">Name:</label>
+                                            <input name="name" id="name" value="{{$material->name}}" type="text" class="form-control form-control-solid" placeholder="Enter Name" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Enum:</label>
-                                            <input name="enum" type="text" class="form-control form-control-solid" placeholder="Enter Enum" />
+                                            <label for="enum">Enum:</label>
+                                            <select class="form-control form-control-solid" name="enum" id="enum">
+                                                @foreach($data as $option)
+                                                    <option {{ $material->enum == $option ? 'selected' : '' }} value="{!! $option !!}">{!! $option !!}</option>
+                                                @endforeach
+                                            </select>
+                                            {{--<input name="enum" type="text" class="form-control form-control-solid" placeholder="Enter Enum" />--}}
                                         </div>
                                     </div>
                                  
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2">Update</button>
                                 <button type="reset" class="btn btn-secondary">Cancel</button>
                             </div>
                         </form>

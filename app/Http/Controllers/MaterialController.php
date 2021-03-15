@@ -36,6 +36,12 @@ class MaterialController extends HelperController
         $enumList = Enum::toArray();
         return view('admin.pages.material.create')->with('data', $enumList);
     }
+    public function editForm($id)
+    {
+        $material=Material::find($id);
+        $data = Enum::toArray();
+        return view('admin.pages.material.edit',compact('data','material'));
+    }
 
     public function create(Request $request, string $action = null)
     {
@@ -67,12 +73,24 @@ class MaterialController extends HelperController
         $material = $this->repo->getById($request, $id);
         $material = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $material);
         $this->repo->save($material);
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $materials  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.material.index')->with('data', $materials);
+        }
         return $this->respond($material, []);
     }
 
     public function destroy(Request $request, string $id)
     {
+
+     //   dd($id);
         $this->repo->destroyById($id);
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $materials  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.material.index')->with('data', $materials);
+        }
         return $this->respond(null, [], 'admin.pages.material.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
     }
 }
