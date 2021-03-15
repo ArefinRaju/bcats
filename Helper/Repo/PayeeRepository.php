@@ -22,4 +22,12 @@ class PayeeRepository extends EntityRepository
     {
         return Payee::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
     }
+    /**
+     * @param  string  $id
+     * @return bool
+     */
+    public function destroyById(string $id): bool
+    {
+        return Payee::destroy($id);
+    }
 }

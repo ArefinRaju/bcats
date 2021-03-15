@@ -21,7 +21,7 @@ class PayeeController extends HelperController
         $this->commonValidationRules = [
             'name'    => [V::REQUIRED, V::TEXT],
             'address' => [V::REQUIRED, V::TEXT],
-            'mobile'  => [V::REQUIRED, V::PHONE],
+           
             'paid'    => [V::REQUIRED, V::NUMBER],
             'type'    => [V::REQUIRED, V::TEXT],
         ];
