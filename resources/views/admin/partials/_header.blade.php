@@ -132,13 +132,13 @@
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{url('/payee/list')}}" class="menu-link">
+                                    <a href="{{url('/payee')}}" class="menu-link">
                                         <span class="menu-text">All Payee</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{url('/payee/create')}}" class="menu-link">
+                                    <a href="{{url('/payee-create')}}" class="menu-link">
                                         <span class="menu-text">Add Payee</span>
                                         <span class="menu-desc"></span>
                                     </a>

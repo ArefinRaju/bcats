@@ -40,7 +40,7 @@ Dashboard
                             <h3 class="card-title">Payee Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/payee/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/payee') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>
@@ -71,13 +71,13 @@ Dashboard
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Paid:</label>
-                                            <input name="address" type="number" class="form-control form-control-solid" placeholder="Enter Address" />
+                                            <input name="address" type="number" class="form-control form-control-solid" placeholder="Enter Amount" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Type:</label>
-                                            <input name="address" type="text" class="form-control form-control-solid" placeholder="Enter Address" />
+                                            <input name="address" type="text" class="form-control form-control-solid" placeholder="Enter Type" />
                                         </div>
                                     </div>
                                 </div>

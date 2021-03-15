@@ -7,6 +7,7 @@ use App\Models\Payee;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
 use Helper\Repo\PayeeRepository;
+use Illuminate\Http\Request;
 
 class PayeeController extends HelperController
 {
@@ -24,5 +25,16 @@ class PayeeController extends HelperController
             'paid'    => [V::REQUIRED, V::NUMBER],
             'type'    => [V::REQUIRED, V::TEXT],
         ];
+    }
+    public function createForm()
+    {
+        return view('admin.pages.payee.create');
+    }
+
+    public function create(Request $request, string $action = null)
+    {
+        $payee = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Payee());
+        $this->repo->save($payee);
+        return $this->respond($payee, [], 'admin.pages.payee.index');
     }
 }

@@ -109,19 +109,6 @@ Route::get(
         return view('admin.pages.payment.index');
     }
 );
-Route::get(
-    '/payee/create',
-    function () {
-        return view('admin.pages.payee.create');
-    }
-);
-Route::get(
-    '/payee/list',
-    function () {
-        return view('admin.pages.payee.index');
-    }
-);
-
 
 Route::get(
     '/emi/unpaid',
@@ -159,6 +146,7 @@ CombinedRoute::resourceRoute('account', 'AccountController', []);
 CombinedRoute::resourceRoute('emi', 'EmiController', []);
 Route::get('/emi-create',	'EMIController@createForm');
 Route::get('/material-create',	'MaterialController@createForm');
+Route::get('/payee-create',	'PayeeController@createForm');
 
 // No need because material's resourceRoute has list with pagination
 //Route::get('/materials/list',	'MaterialController@materialList');

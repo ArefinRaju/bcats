@@ -18,4 +18,8 @@ class PayeeRepository extends EntityRepository
     {
         return Payee::where('id', $id)->first();
     }
+    public function list(int $perPage = null, int $page = null)
+    {
+        return Payee::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
+    }
 }
