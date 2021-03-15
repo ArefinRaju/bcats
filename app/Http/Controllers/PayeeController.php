@@ -21,7 +21,7 @@ class PayeeController extends HelperController
         $this->commonValidationRules = [
             'name'    => [V::REQUIRED, V::TEXT],
             'address' => [V::REQUIRED, V::TEXT],
-           
+            'mobile'  => [V::REQUIRED, V::PHONE],
             'paid'    => [V::REQUIRED, V::NUMBER],
             'type'    => [V::REQUIRED, V::TEXT],
         ];
@@ -35,6 +35,11 @@ class PayeeController extends HelperController
     {
         $payee = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Payee());
         $this->repo->save($payee);
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $payees  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.payee.index')->with('data', $payees);
+        }
         return $this->respond($payee, [], 'admin.pages.payee.index');
     }
 }
