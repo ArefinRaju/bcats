@@ -139,7 +139,7 @@ DROP TABLE IF EXISTS `payees`;
 CREATE TABLE `payees` (
     `id` INTEGER AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
-    `adresses` VARCHAR(255) NOT NULL,
+    `address` VARCHAR(255) NOT NULL,
     `mobile` VARCHAR(255) NOT NULL,
     `paid` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `type` VARCHAR(30) NOT NULL,

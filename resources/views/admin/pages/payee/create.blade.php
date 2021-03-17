@@ -70,14 +70,8 @@ Dashboard
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Paid:</label>
-                                            <input name="address" type="number" class="form-control form-control-solid" placeholder="Enter Amount" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
                                             <label>Type:</label>
-                                            <input name="address" type="text" class="form-control form-control-solid" placeholder="Enter Type" />
+                                            <input name="type" type="text" class="form-control form-control-solid" placeholder="Enter Type" />
                                         </div>
                                     </div>
                                 </div>
