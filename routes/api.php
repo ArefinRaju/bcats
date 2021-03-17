@@ -1,8 +1,8 @@
 <?php
 
+use Helper\Route\CombinedRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Helper\Route\CombinedRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,10 @@ use Helper\Route\CombinedRoute;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->get('/user',
+    function (Request $request) {
+        return $request->user();
+    });
 
 Route::post('/auth/login', 'AuthController@apiLogin');
 
@@ -27,6 +28,9 @@ CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
     Route::post('/debit', 'AccountController@payPayee');
+    Route::post('/addFund', 'AccountController@addFund');
+    Route::post('/credit', 'AccountController@credit');
+    Route::post('/demand', 'AccountController@demand');
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
     CombinedRoute::resourceRoute('/account', 'AccountController', []);

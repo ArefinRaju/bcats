@@ -77,7 +77,8 @@ final class Account implements Calculator
         $instance->credit   = $instance->amount;
         $instance->image    = $image; // Todo : Job > Upload image
         $instance->total    = (float)$instance->oldRecord->total + $instance->amount;
-        $instance->required = (float)$instance->oldRecord->required - $instance->amount;
+        $instance->due      = (float)$instance->oldRecord->due - $instance->amount;
+        $instance->required = $instance->negativeChecker((float)$instance->oldRecord->required - $instance->amount);
         $instance->updateUserData($instance, Transaction::CREDIT);
         $instance->assignAndSave($instance);
         return $instance;
@@ -147,9 +148,24 @@ final class Account implements Calculator
         $instance->comment   = $comment;
         $instance->debit     = $instance->amount;
         $instance->image     = $image; // Todo : Job > Upload image
+        $instance->due       = (float)$instance->oldRecord->due;
         $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
         $instance->required  = (float)$instance->oldRecord->required;
         $instance->updatePayeeData($instance);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    public static function demand(Request $request, int $amount, string $comment = ''): Account
+    {
+        $instance           = new Account($request);
+        $instance->type     = Transaction::CREDIT;
+        $instance->is_fund  = false;
+        $instance->amount   = $amount;
+        $instance->comment  = $comment;
+        $instance->due      = (float)$instance->oldRecord->due;
+        $instance->total    = (float)$instance->oldRecord->total;
+        $instance->required = (float)$instance->amount;
         $instance->assignAndSave($instance);
         return $instance;
     }
@@ -173,5 +189,13 @@ final class Account implements Calculator
     public function toArray(): array
     {
         return Objects::toArray($this);
+    }
+
+    private function negativeChecker(int $amount): int
+    {
+        if ($amount < 0) {
+            return 0;
+        }
+        return $amount;
     }
 }

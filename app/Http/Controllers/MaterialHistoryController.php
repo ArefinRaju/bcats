@@ -22,4 +22,6 @@ class MaterialHistoryController extends HelperController
             'debit'  => [V::SOMETIMES, V::REQUIRED, V::NUMBER]
         ];
     }
+
+    //public function
 }

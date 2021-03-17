@@ -51,4 +51,47 @@ class AccountController extends HelperController
         $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'));
         return $this->respond($log, [], '');
     }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws UserFriendlyException
+     */
+    public function addFund(Request $request)
+    {
+        $rules = [
+            'emiId'  => [V::REQUIRED, V::NUMBER],
+            'amount' => [V::REQUIRED, V::NUMBER],
+            'byUser' => [V::REQUIRED, V::NUMBER]
+        ];
+        $this->validate($request, $rules);
+        $log = Account::fund($request, $request->input('amount'), $request->input('emiId'), $request->input('byUser'));
+        return $this->respond($log, [], '');
+    }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws UserFriendlyException
+     */
+    public function credit(Request $request)
+    {
+        $rules = ['amount' => [V::REQUIRED, V::NUMBER]];
+        $this->validate($request, $rules);
+        $log = Account::credit($request, $request->input('amount'));
+        return $this->respond($log, [], '');
+    }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws UserFriendlyException
+     */
+    public function demand(Request $request)
+    {
+        $rules = ['amount' => [V::REQUIRED, V::NUMBER]];
+        $this->validate($request, $rules);
+        $log = Account::demand($request, $request->input('amount'));
+        return $this->respond($log, [], '');
+    }
 }
