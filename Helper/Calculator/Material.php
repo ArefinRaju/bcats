@@ -25,17 +25,18 @@ final class Material implements Calculator
     public string                     $comment;
     public int                        $project_id;
 
-    final private function __construct(Request $request)
+    final private function __construct(Request $request, int $materialId)
     {
-        $this->request    = $request;
-        $this->repo       = new MaterialHistoryRepository();
-        $this->user_id    = $request->user()->id;
-        $this->project_id = $request->user()->project_id;
-        $this->oldRecord  = $this->getLastRecord();
+        $this->request     = $request;
+        $this->material_id = $materialId;
+        $this->repo        = new MaterialHistoryRepository();
+        $this->user_id     = $request->user()->id;
+        $this->project_id  = $request->user()->project_id;
+        $this->oldRecord   = $this->getLastRecord();
         return $this;
     }
 
-    private function getLastRecord()
+    private function getLastRecord(): MaterialHistory
     {
         $lastRecord = $this->repo->getLastRecord($this->request, $this->material_id, $this->project_id);
         if (empty($lastRecord)) {
@@ -49,46 +50,44 @@ final class Material implements Calculator
             $materialHistory->debit       = 0;
             $materialHistory->comment     = $this->comment ?? '';
             $materialHistory->project_id  = $this->project_id;
-            $lastRecord                   = $this->repo->save($materialHistory);
+            $this->repo->save($materialHistory);
+            return $materialHistory;
         }
         return $lastRecord;
     }
 
     public static function credit(Request $request, int $materialId, int $amount, int $payeeId, string $comment = ''): Material
     {
-        $instance              = new Material($request);
-        $instance->material_id = $materialId;
-        $instance->amount      = $amount;
-        $instance->credit      = $instance->amount;
-        $instance->payee_id    = $payeeId;
-        $instance->comment     = $comment;
-        $instance->total       = $instance->oldRecord->total + $instance->credit;
-        $instance->required    = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
+        $instance           = new Material($request, $materialId);
+        $instance->amount   = $amount;
+        $instance->credit   = $instance->amount;
+        $instance->payee_id = $payeeId;
+        $instance->comment  = $comment;
+        $instance->total    = $instance->oldRecord->total + $instance->credit;
+        $instance->required = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
         $instance->assignAndSave($instance);
         return $instance;
     }
 
     public static function debit(Request $request, int $materialId, int $amount, string $comment = ''): Material
     {
-        $instance              = new Material($request);
-        $instance->material_id = $materialId;
-        $instance->amount      = $amount;
-        $instance->debit       = $instance->amount;
-        $instance->comment     = $comment;
-        $instance->total       = $instance->oldRecord->total - $instance->debit;
-        $instance->required    = $instance->oldRecord->required;
+        $instance           = new Material($request, $materialId);
+        $instance->amount   = $amount;
+        $instance->debit    = $instance->amount;
+        $instance->comment  = $comment;
+        $instance->total    = $instance->oldRecord->total - $instance->debit;
+        $instance->required = $instance->oldRecord->required;
         $instance->assignAndSave($instance);
         return $instance;
     }
 
     public static function demand(Request $request, int $materialId, int $amount, string $comment = ''): Material
     {
-        $instance              = new Material($request);
-        $instance->material_id = $materialId;
-        $instance->amount      = $amount;
-        $instance->comment     = $comment;
-        $instance->total       = $instance->oldRecord->total;
-        $instance->required    = $instance->amount;
+        $instance           = new Material($request, $materialId);
+        $instance->amount   = $amount;
+        $instance->comment  = $comment;
+        $instance->total    = $instance->oldRecord->total;
+        $instance->required = $instance->amount;
         $instance->assignAndSave($instance);
         return $instance;
     }
@@ -108,5 +107,10 @@ final class Material implements Calculator
             return 0;
         }
         return $amount;
+    }
+
+    public function toArray(): array
+    {
+        return Objects::toArray($this);
     }
 }

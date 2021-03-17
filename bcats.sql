@@ -115,7 +115,7 @@ DROP TABLE IF EXISTS `material_histories`;
 
 CREATE TABLE `material_histories` (
     `id` INTEGER AUTO_INCREMENT,
-    `payees_id` INTEGER NULL DEFAULT NULL,
+    `payee_id` INTEGER NULL DEFAULT NULL,
     `user_id` INTEGER NOT NULL,
     `material_id` INTEGER NULL DEFAULT NULL,
     `total` DECIMAL(14,2) NOT NULL DEFAULT 0,
