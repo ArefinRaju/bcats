@@ -74,4 +74,14 @@ class MaterialHistoryController extends HelperController
         $log = Material::demand($request, $request->input('materialId'), $request->input('amount'));
         return $this->respond($log, [], '');
     }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     */
+    public function stock(Request $request)
+    {
+        $log = Material::demand($request, $request->input('materialId'), $request->input('amount'));
+        return $this->respond($log, [], ''); // Todo : Stock Management
+    }
 }
