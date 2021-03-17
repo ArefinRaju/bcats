@@ -86,7 +86,7 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payee/create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/payee-create') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -104,13 +104,30 @@ Dashboard
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($data as $payee)
                             <tr>
-                                <td>1</td>
-                                <td>Ali</td>
-                                <td>01710355789</td>
-                                <td>Dhaka</td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$payee->name??''}}</td>
+                                <td>{{$payee->mobile??''}}</td>
+                                <td>{{$payee->address??''}}</td>
+                                <td nowrap="nowrap">
+                                    <div class="float-right">
+
+                                        <form action="{{url('payee', $payee->id)}}" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            @csrf
+                                            <a href="{{ url('payee-edit', $payee->id) }}" class="btn btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Edit
+                                            </a>
+                                            <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                        </form>
+
+
+                                    </div>
+                                </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
