@@ -25,4 +25,14 @@ class ProjectController extends HelperController
             'status'   => [V::REQUIRED, V::TEXT],
         ];
     }
+
+    public function createForm()
+    {
+        return view('admin.pages.project.create');
+    }
+    public function editForm($id)
+    {
+        $project = Project::find($id);
+        return view('admin.pages.project.edit', compact('project'));
+    }
 }

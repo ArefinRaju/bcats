@@ -67,9 +67,9 @@ Route::get(
 Route::get(
     '/add-member-payments',
     function () {
-        $users = \App\Models\User::all();
+        $payees = \App\Models\Payee::all();
       
-        return view('admin.pages.building_accounts.add_member_payment',compact('users'));
+        return view('admin.pages.building_accounts.add_member_payment',compact('payees'));
     }
 );
 
@@ -138,8 +138,9 @@ Route::get(
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
 
 CombinedRoute::resourceRoute('user', 'UserController', []);
-Route::get('/users/create',	'UserController@createForm');
-Route::get('/users/list',	'UserController@userList');
+Route::get('/user-create',	'UserController@createForm');
+Route::get('/user-edit/{id}',	'UserController@editForm');
+
 
 CombinedRoute::resourceRoute('payee', 'PayeeController', []);
 Route::get('/payee-create',	'PayeeController@createForm');
@@ -153,6 +154,8 @@ Route::get('/material-edit/{id}',	'MaterialController@editForm');
 CombinedRoute::resourceRoute('emi', 'EmiController', []);
 Route::get('/emi-create',	'EMIController@createForm');
 CombinedRoute::resourceRoute('account', 'AccountController', []);
+CombinedRoute::resourceRoute('project', 'ProjectController', []);
+Route::get('/project-create',	'ProjectController@createForm');
 
 // No need because material's resourceRoute has list with pagination
 //Route::get('/materials/list',	'MaterialController@materialList');

@@ -154,13 +154,13 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('users/list')}}" class="menu-link">
+                                    <a href="{{url('/user')}}" class="menu-link">
                                         <span class="menu-text">All User</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{url('users/create')}}" class="menu-link">
+                                    <a href="{{url('/user-create')}}" class="menu-link">
                                         <span class="menu-text">Add User</span>
                                         <span class="menu-desc"></span>
                                     </a>

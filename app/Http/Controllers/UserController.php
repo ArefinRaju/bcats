@@ -41,11 +41,10 @@ class UserController extends HelperController
     {
         return view('admin.pages.user.create');
     }
-
-    public function userList()
+    public function editForm($id)
     {
-        $users = User::all();
-        return view('admin.pages.user.index', compact('users'));
+        $user = User::find($id);
+        return view('admin.pages.user.edit', compact('user'));
     }
 
     /**
@@ -61,6 +60,11 @@ class UserController extends HelperController
         $user = new User();
         $user = $this->filterAssign($request, $user);
         $this->repo->save($user);
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $users  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.user.index')->with('data', $users);
+        }
         return $this->respond($user, [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
     }
 
@@ -82,6 +86,11 @@ class UserController extends HelperController
         $user = $this->repo->getById($request, $id);
         $user = $this->filterAssign($request, $user);
         $this->repo->save($user);
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $users  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.user.index')->with('data', $users);
+        }
         return $this->respond($user, []);
     }
 
@@ -110,7 +119,14 @@ class UserController extends HelperController
 
     public function destroy(Request $request, string $id)
     {
+
+        //   dd($id);
         $this->repo->destroyById($id);
-        return $this->respond(null, [], 'admin.pages.material.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $materials  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.user.index')->with('data', $materials);
+        }
+        return $this->respond(null, [], 'admin.pages.user.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
     }
 }
