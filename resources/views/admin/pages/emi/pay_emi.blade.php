@@ -1,4 +1,4 @@
-@extends('admin.Layouts.master')
+@extends('admin.layouts.master')
 @section('title')
 Dashboard
 @endsection
@@ -86,7 +86,7 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payee/create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/emi-create') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -97,18 +97,22 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
+                                <th>User</th>
+                                <th>Project</th>
+                                <th>value</th>
+                                <th>status</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>Ali</td>
-                                <td>01710355789</td>
-                                <td>Dhaka</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td nowrap="nowrap"></td>
                             </tr>
                         </tbody>

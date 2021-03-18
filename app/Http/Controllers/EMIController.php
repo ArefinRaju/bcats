@@ -6,13 +6,14 @@ namespace App\Http\Controllers;
 
 use App\Models\EMIs;
 use App\Models\User;
-use Helper\Constants\CommonValidations as V;
+use App\Models\Project;
 use Helper\Constants\CRUD;
 use Helper\Constants\Errors;
-use Helper\Core\HelperController;
+use Illuminate\Http\Request;
 use Helper\Repo\EMIRepository;
 use Helper\Repo\UserRepository;
-use Illuminate\Http\Request;
+use Helper\Core\HelperController;
+use Helper\Constants\CommonValidations as V;
 
 class EMIController extends HelperController
 {
@@ -38,14 +39,20 @@ class EMIController extends HelperController
     public function createForm()
     {
         $users = User::all();
-        return view('admin.pages.emi.create',compact('users'));
+        $projects = Project::all();
+        return view('admin.pages.emi.create',compact('users','projects'));
     }
     public function create(Request $request, string $action = null)
     {
         $emi = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new EMIs());
         $this->emiInit($request, (float)$emi->value, $emi->project_id, CRUD::CREATE);
         $this->repo->save($emi);
-        return $this->respond($emi, [], 'bladeFile');
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $emis     = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.emi.index')->with('data', $emis);
+        }
+        return $this->respond($emi, [], 'admin.pages.emi.index');
     }
 
     public function retrieve(Request $request, string $id)

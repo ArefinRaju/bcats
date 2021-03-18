@@ -148,6 +148,28 @@
                     </li>
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="menu-text">Project</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                            <ul class="menu-subnav">
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{url('/project')}}" class="menu-link">
+                                        <span class="menu-text">All Project</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/project-create')}}" class="menu-link">
+                                        <span class="menu-text">Add Project</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+                        <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="menu-text">Users</span>
                             <i class="menu-arrow"></i>
                         </a>

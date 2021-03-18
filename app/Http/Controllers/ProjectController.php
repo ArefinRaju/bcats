@@ -72,8 +72,8 @@ class ProjectController extends HelperController
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $payees  = $this->repo->list($pagination->per_page, $pagination->page);
-            return view('admin.pages.payee.index')->with('data', $payees);
+            $projects  = $this->repo->list($pagination->per_page, $pagination->page);
+            return view('admin.pages.project.index')->with('data', $projects);
         }
         return $this->respond(null, [], 'admin.pages.project.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
     }

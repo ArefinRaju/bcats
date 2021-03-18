@@ -100,7 +100,9 @@ Route::get(
 Route::get(
     '/payment/create',
     function () {
-        return view('admin.pages.payment.create');
+        $payees = \App\Models\Payee::all();
+        $projects = \App\Models\Project::all();
+        return view('admin.pages.payment.create',compact('payees','projects'));
     }
 );
 Route::get(
@@ -151,11 +153,12 @@ Route::get('/material-create',	'MaterialController@createForm');
 Route::get('/material-edit/{id}',	'MaterialController@editForm');
 
 
-CombinedRoute::resourceRoute('emi', 'EmiController', []);
+CombinedRoute::resourceRoute('emi', 'EMIController', []);
 Route::get('/emi-create',	'EMIController@createForm');
 CombinedRoute::resourceRoute('account', 'AccountController', []);
 CombinedRoute::resourceRoute('project', 'ProjectController', []);
 Route::get('/project-create',	'ProjectController@createForm');
+Route::get('/project-edit/{id}',	'ProjectController@editForm');
 
 // No need because material's resourceRoute has list with pagination
 //Route::get('/materials/list',	'MaterialController@materialList');

@@ -1,6 +1,6 @@
-@extends('admin.Layouts.master')
+@extends('admin.layouts.master')
 @section('title')
-Dashboard
+Project
 @endsection
 @section('js')
 
@@ -19,7 +19,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Payee</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Project</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Payee List</h3>
+                        <h3 class="card-label">Project List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -86,7 +86,7 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payee-create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/project-create') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -98,25 +98,29 @@ Dashboard
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
+                                <th>type</th>
+                                <th>budget</th>
+                                <th>status</th>
+                                <th>deadline</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $payee)
+                            @foreach($data as $project)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$payee->name??''}}</td>
-                                <td>{{$payee->mobile??''}}</td>
-                                <td>{{$payee->address??''}}</td>
+                                <td>{{$project->name??''}}</td>
+                                <td>{{$project->type??''}}</td>
+                                <td>{{$project->budget??''}}</td>
+                                <td>{{$project->status??''}}</td>
+                                <td>{{$project->deadline??''}}</td>
                                 <td nowrap="nowrap">
                                     <div class="float-right">
 
-                                        <form action="{{url('payee', $payee->id)}}" method="post">
+                                        <form action="{{url('project', $project->id)}}" method="post">
                                             <input type="hidden" name="_method" value="DELETE">
                                             @csrf
-                                            <a href="{{ url('payee-edit', $payee->id) }}" class="btn btn-primary">
+                                            <a href="{{ url('project-edit', $project->id) }}" class="btn btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Edit
                                             </a>

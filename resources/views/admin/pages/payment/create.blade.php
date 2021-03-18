@@ -1,4 +1,4 @@
-@extends('admin.Layouts.master')
+@extends('admin.layouts.master')
 @section('title')
 Dashboard
 @endsection
@@ -18,7 +18,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">payment</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Payment</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -37,7 +37,7 @@ Dashboard
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">payment Create</h3>
+                            <h3 class="card-title">Payment Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
                                 <a href="{{ url('/payment/list') }}" class="btn btn-primary font-weight-bolder">
@@ -52,23 +52,29 @@ Dashboard
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Name:</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter Name" />
-                                            <span class="form-text text-muted">Please enter your full name</span>
+                                            <label>Payee:</label>
+                                            <select class="form-control form-control-solid" name="payee_id">
+                                                @foreach($payees as $payee)
+                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Mobile:</label>
-                                            <input type="text" class="form-control form-control-solid" placeholder="Enter Mobile" />
-                                            <span class="form-text text-muted">We'll never share your email with anyone else</span>
+                                            <label>Project:</label>
+                                          <select class="form-control form-control-solid" name="project_id">
+                                          @foreach($projects as $project)
+                                          <option value="{{$project->id}}">{{ $project->name }}</option>
+                                          @endforeach
+                                          </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Address:</label>
-                                            <input type="email" class="form-control form-control-solid" placeholder="Enter Address" />
-                                            <span class="form-text text-muted">We'll never share your email with anyone else</span>
+                                            <label>Amount:</label>
+                                            <input type="text" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
+                                         
                                         </div>
                                     </div>
                                 </div>

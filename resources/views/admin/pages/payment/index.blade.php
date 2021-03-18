@@ -1,4 +1,4 @@
-@extends('admin.Layouts.master')
+@extends('admin.layouts.master')
 @section('title')
 Dashboard
 @endsection
@@ -39,7 +39,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">payment List</h3>
+                        <h3 class="card-label">Payment List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -97,18 +97,18 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
+                                <th>Payee</th>
+                                <th>Project</th>
+                                <th>Amount</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>Ali</td>
-                                <td>01710355789</td>
-                                <td>Dhaka</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td nowrap="nowrap"></td>
                             </tr>
                         </tbody>
