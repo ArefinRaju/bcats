@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Helper\Calculator;
-
 
 use App\Models\MaterialHistory;
 use Helper\Repo\MaterialHistoryRepository;
