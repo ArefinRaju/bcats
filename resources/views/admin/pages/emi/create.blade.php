@@ -1,4 +1,4 @@
-@extends('admin.Layouts.master')
+@extends('admin.layouts.master')
 @section('title')
 Dashboard
 @endsection
@@ -40,7 +40,7 @@ Dashboard
                             <h3 class="card-title">EMI Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/emi/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/emi') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>
@@ -62,8 +62,32 @@ Dashboard
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>value:</label>
+                                            <label>Project:</label>
+                                          <select class="form-control form-control-solid" name="project_id">
+                                          @foreach($projects as $project)
+                                          <option value="{{$project->id}}">{{ $project->name }}</option>
+                                          @endforeach
+                                          </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Value:</label>
                                             <input type="text" name="value" class="form-control form-control-solid" placeholder="Enter value" />
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <input type="text" name="status" class="form-control form-control-solid" placeholder="Enter value" />
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Date:</label>
+                                            <input type="text" name="date" class="form-control form-control-solid" placeholder="Enter value" />
                                          
                                         </div>
                                     </div>

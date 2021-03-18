@@ -1,6 +1,6 @@
-@extends('admin.Layouts.master')
+@extends('admin.layouts.master')
 @section('title')
-Dashboard
+EMI
 @endsection
 @section('js')
 
@@ -86,7 +86,7 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payee/create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/emi-create') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -97,20 +97,41 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
+                                <th>User</th>
+                                <th>Project</th>
+                                <th>value</th>
+                                <th>status</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($data as $emi)
                             <tr>
-                                <td>1</td>
-                                <td>Ali</td>
-                                <td>01710355789</td>
-                                <td>Dhaka</td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$emi->user_id??''}}</td>
+                                <td>{{$emi->project_id??''}}</td>
+                                <td>{{$emi->value??''}}</td>
+                                <td>{{$emi->status??''}}</td>
+                                <td>{{$emi->date??''}}</td>
+                                <td nowrap="nowrap">
+                                    <div class="float-right">
+
+                                        <form action="{{url('emi', $emi->id)}}" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            @csrf
+                                            <a href="{{ url('emi-edit', $emi->id) }}" class="btn btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Edit
+                                            </a>
+                                            <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                        </form>
+
+
+                                    </div>
+                                </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

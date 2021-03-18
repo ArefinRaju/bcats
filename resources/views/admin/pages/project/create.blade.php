@@ -1,6 +1,6 @@
-@extends('admin.Layouts.master')
+@extends('admin.layouts.master')
 @section('title')
-Dashboard
+Project Create
 @endsection
 @section('css')
 
@@ -66,6 +66,18 @@ Dashboard
                                         <div class="form-group">
                                             <label>Budget:</label>
                                             <input name="budget" type="text" class="form-control form-control-solid" placeholder="Enter Budget" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <input name="status" type="text" class="form-control form-control-solid" placeholder="Enter Budget" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Deadline:</label>
+                                            <input name="deadline" type="text" class="form-control form-control-solid" placeholder="Enter Budget" />
                                         </div>
                                     </div>
                                 </div>
