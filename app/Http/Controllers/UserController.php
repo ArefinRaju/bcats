@@ -41,9 +41,10 @@ class UserController extends HelperController
     {
         return view('admin.pages.user.create');
     }
-    public function editForm($id)
+
+    public function editForm(Request $request, int $id)
     {
-        $user = User::find($id);
+        $user = $this->repo->getById($request, $id);
         return view('admin.pages.user.edit', compact('user'));
     }
 
@@ -62,7 +63,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users  = $this->repo->list($pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
@@ -88,7 +89,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users  = $this->repo->list($pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, []);
@@ -119,8 +120,6 @@ class UserController extends HelperController
 
     public function destroy(Request $request, string $id)
     {
-
-        //   dd($id);
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);

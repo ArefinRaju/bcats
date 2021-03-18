@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Helper\Constants\CommonValidations as V;
+use Helper\Constants\Messages;
+use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Repo\ProjectRepository;
 use Illuminate\Http\Request;
@@ -31,28 +33,32 @@ class ProjectController extends HelperController
     {
         return view('admin.pages.project.create');
     }
-    public function editForm($id)
+
+    public function editForm(Request $request, int $id)
     {
-        $project = Project::find($id);
+        $project = $this->repo->getById($request, $id);
         return view('admin.pages.project.edit', compact('project'));
     }
+
     public function create(Request $request, string $action = null)
     {
         $project = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Project());
         $this->repo->save($project);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $projects     = $this->repo->list($pagination->per_page, $pagination->page);
+            $projects   = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.project.index')->with('data', $projects);
         }
         return $this->respond($project, [], 'admin.pages.project.index');
     }
+
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $Projects  = $this->repo->list($pagination->per_page, $pagination->page);
+        $Projects   = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($Projects, [], 'admin.pages.project.index');
     }
+
     public function update(Request $request, string $id = null)
     {
         $project = $this->repo->getById($request, $id);
@@ -60,19 +66,18 @@ class ProjectController extends HelperController
         $this->repo->save($project);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $projects  = $this->repo->list($pagination->per_page, $pagination->page);
+            $projects   = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.project.index')->with('data', $projects);
         }
         return $this->respond($project, []);
     }
+
     public function destroy(Request $request, string $id)
     {
-
-     //   dd($id);
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $projects  = $this->repo->list($pagination->per_page, $pagination->page);
+            $projects   = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.project.index')->with('data', $projects);
         }
         return $this->respond(null, [], 'admin.pages.project.index', Messages::DESTROYED, ResponseType::NO_CONTENT);

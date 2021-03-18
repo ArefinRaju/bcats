@@ -36,11 +36,12 @@ class MaterialController extends HelperController
         $enumList = Enum::toArray();
         return view('admin.pages.material.create')->with('data', $enumList);
     }
+
     public function editForm($id)
     {
-        $material=Material::find($id);
-        $data = Enum::toArray();
-        return view('admin.pages.material.edit',compact('data','material'));
+        $material = Material::find($id);
+        $data     = Enum::toArray();
+        return view('admin.pages.material.edit', compact('data', 'material'));
     }
 
     public function create(Request $request, string $action = null)
@@ -83,8 +84,6 @@ class MaterialController extends HelperController
 
     public function destroy(Request $request, string $id)
     {
-
-     //   dd($id);
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
