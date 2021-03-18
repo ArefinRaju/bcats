@@ -40,7 +40,7 @@ User
                             <h3 class="card-title">User Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/users/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/user') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>

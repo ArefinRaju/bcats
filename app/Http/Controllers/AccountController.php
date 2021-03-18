@@ -29,7 +29,10 @@ class AccountController extends HelperController
 
     public function create(Request $request)
     {
+
+        dd($request->all());
         //Account::fund($request, 20, 1, 3);
+      //  Account::debit($request, $request->amount, $request->payee_id,1);
         //Account::credit($request, 200);
         //Account::debit($request, 100, 1);
         //dd(Objects::toArray(Account::debit($request, 25, 1)));

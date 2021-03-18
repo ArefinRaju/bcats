@@ -18,7 +18,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Add Payment Member</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Project</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -37,34 +37,35 @@ Dashboard
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Add Payment Member Create</h3>
+                            <h3 class="card-title">Project Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/account') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/project') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{url('account')}}">
+                        <form class="form" method="POST" action="{{url('project')}}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Name:</label>
-                                            <select class="form-control form-control-solid" name="payee_id">
-                                                @foreach($payees as $payee)
-                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input name="name" type="text" class="form-control form-control-solid" placeholder="Enter Name" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Amount:</label>
-                                            <input type="text" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
-                                        
+                                            <label>Type:</label>
+                                            <input name="type" type="text" class="form-control form-control-solid" placeholder="Enter Type" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Budget:</label>
+                                            <input name="budget" type="text" class="form-control form-control-solid" placeholder="Enter Budget" />
                                         </div>
                                     </div>
                                 </div>
