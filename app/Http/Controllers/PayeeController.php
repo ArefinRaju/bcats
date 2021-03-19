@@ -43,6 +43,7 @@ class PayeeController extends HelperController
         $payee = $this->repo->getById($request, $id);
         return view('admin.pages.payee.edit', compact('payee'));
     }
+
     public function create(Request $request, string $action = null)
     {
         $payee             = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Payee());
