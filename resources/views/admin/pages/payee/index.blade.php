@@ -100,6 +100,7 @@ Dashboard
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Address</th>
+                                <th>Type</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -110,6 +111,7 @@ Dashboard
                                 <td>{{$payee->name??''}}</td>
                                 <td>{{$payee->mobile??''}}</td>
                                 <td>{{$payee->address??''}}</td>
+                                <td>{{$payee->type??''}}</td>
                                 <td nowrap="nowrap">
                                     <div class="float-right">
 
