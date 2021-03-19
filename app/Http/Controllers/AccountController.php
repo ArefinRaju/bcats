@@ -11,7 +11,6 @@ use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
-use Helper\Repo\ProjectRepository;
 use Illuminate\Http\Request;
 
 class AccountController extends HelperController
@@ -22,8 +21,8 @@ class AccountController extends HelperController
 
     public function __construct(AccountRepository $repo, PayeeRepository $payeeRepo)
     {
-        $this->repo        = $repo;
-        $this->payeeRepo   = $payeeRepo;
+        $this->repo      = $repo;
+        $this->payeeRepo = $payeeRepo;
         $this->setResource(Model::class);
         $this->commonValidationRules = [
             'credit' => [V::SOMETIMES, V::REQUIRED, V::NUMBER],
