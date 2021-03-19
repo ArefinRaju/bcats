@@ -39,7 +39,7 @@ class ProjectController extends HelperController
         $project = $this->repo->getById($request, $id);
         return view('admin.pages.project.edit', compact('project'));
     }
-
+  
     public function create(Request $request, string $action = null)
     {
         $project = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Project());
@@ -58,7 +58,7 @@ class ProjectController extends HelperController
         $Projects   = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($Projects, [], 'admin.pages.project.index');
     }
-
+  
     public function update(Request $request, string $id = null)
     {
         $project = $this->repo->getById($request, $id);

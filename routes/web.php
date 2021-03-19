@@ -68,7 +68,6 @@ Route::get(
     '/add-member-payments',
     function () {
         $payees = \App\Models\Payee::all();
-
         return view('admin.pages.building_accounts.add_member_payment',compact('payees'));
     }
 );
