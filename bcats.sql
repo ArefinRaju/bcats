@@ -58,7 +58,7 @@ CREATE TABLE `project_users` (
     `role` VARCHAR(255) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `project_id` INTEGER NULL DEFAULT NULL,
+    `project_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -86,7 +86,7 @@ CREATE TABLE `accounts` (
     `user_id` INTEGER NULL DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `project_id` INTEGER NULL DEFAULT NULL,
+    `project_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -125,7 +125,7 @@ CREATE TABLE `material_histories` (
     `comment` VARCHAR(255) NULL DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `project_id` INTEGER NULL DEFAULT NULL,
+    `project_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -145,6 +145,7 @@ CREATE TABLE `payees` (
     `type` VARCHAR(30) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `project_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -163,7 +164,7 @@ CREATE TABLE `emis` (
     `date` DATE NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `project_id` INTEGER NULL DEFAULT NULL,
+    `project_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -179,7 +180,7 @@ ALTER TABLE `accounts` ADD FOREIGN KEY (emi_id) REFERENCES `emis` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (by_user) REFERENCES `users` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
-ALTER TABLE `material_histories` ADD FOREIGN KEY (payees_id) REFERENCES `payees` (`id`);
+ALTER TABLE `material_histories` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);

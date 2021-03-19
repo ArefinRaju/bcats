@@ -42,7 +42,7 @@ final class Account implements Calculator
         $this->newRecord  = new Model();
         $this->repo       = new AccountRepository();
         $this->user_id    = $request->user()->id;
-        $this->project_id = $request->user()->project_id;
+        $this->project_id = $request->user()->project_id ?? 1000; // Todo : Remove default 1000 here
         $this->oldRecord  = $this->getLastRecord();
         return $this;
     }
@@ -61,7 +61,8 @@ final class Account implements Calculator
             $account->is_fund    = false;
             $account->user_id    = $this->user_id;
             $account->project_id = $this->project_id;
-            $lastRecord          = $this->repo->save($account);
+            $this->repo->save($account);
+            return $account;
         }
         return $lastRecord;
     }

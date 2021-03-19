@@ -18,10 +18,12 @@ class PayeeRepository extends EntityRepository
     {
         return Payee::where('id', $id)->first();
     }
+
     public function list(int $perPage = null, int $page = null)
     {
         return Payee::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
     }
+
     /**
      * @param  string  $id
      * @return bool
@@ -29,5 +31,10 @@ class PayeeRepository extends EntityRepository
     public function destroyById(string $id): bool
     {
         return Payee::destroy($id);
+    }
+
+    public function payeeList(Request $request)
+    {
+        return Payee::where('project_id', $request->user()->project_id ?? 1000)->get(); // Todo : Remove default 1000 here
     }
 }

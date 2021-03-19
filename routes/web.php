@@ -68,7 +68,7 @@ Route::get(
     '/add-member-payments',
     function () {
         $payees = \App\Models\Payee::all();
-      
+
         return view('admin.pages.building_accounts.add_member_payment',compact('payees'));
     }
 );
@@ -97,14 +97,8 @@ Route::get(
         return view('admin.pages.material.required_material');
     }
 );
-Route::get(
-    '/payment/create',
-    function () {
-        $payees = \App\Models\Payee::all();
-        $projects = \App\Models\Project::all();
-        return view('admin.pages.payment.create',compact('payees','projects'));
-    }
-);
+Route::get('/payment/create', 'AccountController@payeePaymentForm');
+Route::post('/debit', 'AccountController@payPayee');
 Route::get(
     '/payment/list',
     function () {
