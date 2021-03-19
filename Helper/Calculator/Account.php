@@ -42,7 +42,7 @@ final class Account implements Calculator
         $this->newRecord  = new Model();
         $this->repo       = new AccountRepository();
         $this->user_id    = $request->user()->id;
-        $this->project_id = $request->user()->project_id;
+        $this->project_id = $request->user()->project_id ?? 1000; // Todo : Remove default 1000 here
         $this->oldRecord  = $this->getLastRecord();
         return $this;
     }
@@ -61,7 +61,8 @@ final class Account implements Calculator
             $account->is_fund    = false;
             $account->user_id    = $this->user_id;
             $account->project_id = $this->project_id;
-            $lastRecord          = $this->repo->save($account);
+            $this->repo->save($account);
+            return $account;
         }
         return $lastRecord;
     }
@@ -77,7 +78,8 @@ final class Account implements Calculator
         $instance->credit   = $instance->amount;
         $instance->image    = $image; // Todo : Job > Upload image
         $instance->total    = (float)$instance->oldRecord->total + $instance->amount;
-        $instance->required = (float)$instance->oldRecord->required - $instance->amount;
+        $instance->due      = (float)$instance->oldRecord->due - $instance->amount;
+        $instance->required = $instance->negativeChecker((float)$instance->oldRecord->required - $instance->amount);
         $instance->updateUserData($instance, Transaction::CREDIT);
         $instance->assignAndSave($instance);
         return $instance;
@@ -147,9 +149,24 @@ final class Account implements Calculator
         $instance->comment   = $comment;
         $instance->debit     = $instance->amount;
         $instance->image     = $image; // Todo : Job > Upload image
+        $instance->due       = (float)$instance->oldRecord->due;
         $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
         $instance->required  = (float)$instance->oldRecord->required;
         $instance->updatePayeeData($instance);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    public static function demand(Request $request, int $amount, string $comment = ''): Account
+    {
+        $instance           = new Account($request);
+        $instance->type     = Transaction::CREDIT;
+        $instance->is_fund  = false;
+        $instance->amount   = $amount;
+        $instance->comment  = $comment;
+        $instance->due      = (float)$instance->oldRecord->due;
+        $instance->total    = (float)$instance->oldRecord->total;
+        $instance->required = (float)$instance->amount;
         $instance->assignAndSave($instance);
         return $instance;
     }
@@ -173,5 +190,13 @@ final class Account implements Calculator
     public function toArray(): array
     {
         return Objects::toArray($this);
+    }
+
+    private function negativeChecker(int $amount): int
+    {
+        if ($amount < 0) {
+            return 0;
+        }
+        return $amount;
     }
 }

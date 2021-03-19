@@ -46,28 +46,18 @@ Dashboard
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="">
+                        <form class="form" method="POST" action="{{ url('/debit') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Payee:</label>
-                                            <select class="form-control form-control-solid" name="payee_id">
+                                            <select class="form-control form-control-solid" name="payeeId">
                                                 @foreach($payees as $payee)
                                                 <option value="{{$payee->id}}">{{ $payee->name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label>Project:</label>
-                                          <select class="form-control form-control-solid" name="project_id">
-                                          @foreach($projects as $project)
-                                          <option value="{{$project->id}}">{{ $project->name }}</option>
-                                          @endforeach
-                                          </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -80,7 +70,7 @@ Dashboard
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="reset" class="btn btn-primary mr-2">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Cancel</button>
                             </div>
                         </form>

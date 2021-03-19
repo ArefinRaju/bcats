@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\EMIs;
+use App\Models\Project;
 use App\Models\User;
 use App\Models\Project;
 use Helper\Constants\CRUD;
@@ -38,10 +39,11 @@ class EMIController extends HelperController
 
     public function createForm()
     {
-        $users = User::all();
+        $users    = User::all();
         $projects = Project::all();
-        return view('admin.pages.emi.create',compact('users','projects'));
+        return view('admin.pages.emi.create', compact('users', 'projects'));
     }
+
     public function create(Request $request, string $action = null)
     {
         $emi = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new EMIs());
@@ -49,7 +51,7 @@ class EMIController extends HelperController
         $this->repo->save($emi);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $emis     = $this->repo->list($pagination->per_page, $pagination->page);
+            $emis       = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.emi.index')->with('data', $emis);
         }
         return $this->respond($emi, [], 'admin.pages.emi.index');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Payee;
 use Helper\Constants\CommonValidations as V;
+use Helper\Constants\Messages;
+use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Repo\PayeeRepository;
 use Illuminate\Http\Request;
@@ -30,14 +32,16 @@ class PayeeController extends HelperController
     {
         return view('admin.pages.payee.create');
     }
-    public function editForm($id)
+
+    public function editForm(Request $request, int $id)
     {
-        $payee=Payee::find($id);
-        return view('admin.pages.payee.edit',compact('payee'));
+        $payee = $this->repo->getById($request, $id);
+        return view('admin.pages.payee.edit', compact('payee'));
     }
     public function create(Request $request, string $action = null)
     {
-        $payee = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Payee());
+        $payee             = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Payee());
+        $payee->project_id = $request->user()->project_id ?? 1000; // Todo : Remove default 1000 here
         $this->repo->save($payee);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
@@ -46,12 +50,14 @@ class PayeeController extends HelperController
         }
         return $this->respond($payee, [], 'admin.pages.payee.index');
     }
+
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $payees  = $this->repo->list($pagination->per_page, $pagination->page);
+        $payees     = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($payees, [], 'admin.pages.payee.index');
     }
+  
     public function update(Request $request, string $id = null)
     {
         $payee = $this->repo->getById($request, $id);
@@ -59,19 +65,18 @@ class PayeeController extends HelperController
         $this->repo->save($payee);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $payees  = $this->repo->list($pagination->per_page, $pagination->page);
+            $payees     = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.payee.index')->with('data', $payees);
         }
         return $this->respond($payee, []);
     }
+
     public function destroy(Request $request, string $id)
     {
-
-     //   dd($id);
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $payees  = $this->repo->list($pagination->per_page, $pagination->page);
+            $payees     = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.payee.index')->with('data', $payees);
         }
         return $this->respond(null, [], 'admin.pages.payees.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
