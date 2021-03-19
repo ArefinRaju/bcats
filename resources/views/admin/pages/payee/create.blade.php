@@ -70,8 +70,12 @@ Dashboard
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Type:</label>
-                                            <input name="type" type="text" class="form-control form-control-solid" placeholder="Enter Type" />
+                                            <label for="type">Type:</label>
+                                            <select class="form-control form-control-solid" name="type" id="type">
+                                                @foreach($payeeType as $type)
+                                                    <option value="{{$type}}">{{$type}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

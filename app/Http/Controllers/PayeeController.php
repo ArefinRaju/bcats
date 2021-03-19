@@ -6,10 +6,12 @@ namespace App\Http\Controllers;
 use App\Models\Payee;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Messages;
+use Helper\Constants\PayeeType;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Repo\PayeeRepository;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PayeeController extends HelperController
 {
@@ -24,13 +26,16 @@ class PayeeController extends HelperController
             'name'    => [V::REQUIRED, V::TEXT],
             'address' => [V::REQUIRED, V::TEXT],
             'mobile'  => [V::REQUIRED, ...V::PHONE],
-            'type'    => [V::REQUIRED, V::TEXT],
+            'type'    => [V::REQUIRED, Rule::in(PayeeType::values())],
         ];
     }
 
     public function createForm()
     {
-        return view('admin.pages.payee.create');
+        $data = [
+            'payeeType' => PayeeType::toArray()
+        ];
+        return view('admin.pages.payee.create', $data);
     }
 
     public function editForm(Request $request, int $id)
