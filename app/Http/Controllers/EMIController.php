@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 
 
 use App\Models\EMIs;
-use App\Models\User;
 use App\Models\Project;
+use App\Models\User;
+use Helper\Constants\CommonValidations as V;
 use Helper\Constants\CRUD;
 use Helper\Constants\Errors;
-use Illuminate\Http\Request;
+use Helper\Core\HelperController;
 use Helper\Repo\EMIRepository;
 use Helper\Repo\UserRepository;
-use Helper\Core\HelperController;
-use Helper\Constants\CommonValidations as V;
+use Illuminate\Http\Request;
 
 class EMIController extends HelperController
 {
@@ -65,7 +65,7 @@ class EMIController extends HelperController
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $emis        = $this->repo->list($pagination->per_page, $pagination->page);
+        $emis       = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($emis, [], 'admin.pages.emi.index');
     }
 

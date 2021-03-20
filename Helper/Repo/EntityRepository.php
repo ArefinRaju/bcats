@@ -17,6 +17,7 @@ class EntityRepository
 
     public function save($input)
     {
-        return $input->save();
+        $input->save();
+        return $input;
     }
 }

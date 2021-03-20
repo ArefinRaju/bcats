@@ -161,6 +161,7 @@ Route::get('/material-history-stock', 'MaterialHistoryController@stockForm');
 Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
 Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
 Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');
+Route::get('/stock', 'MaterialHistoryController@stock');
 
 
 CombinedRoute::resourceRoute('emi', 'EMIController', []);
