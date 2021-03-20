@@ -36,18 +36,21 @@ class AccountController extends HelperController
         $projects = $request->user()->project_id ?? 1000;
         return view('admin.pages.fund.create', compact('payees', 'projects'));
     }
+
     public function creditForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
         $projects = $request->user()->project_id ?? 1000;
         return view('admin.pages.credit.create', compact('payees', 'projects'));
     }
+
     public function demandForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
         $projects = $request->user()->project_id ?? 1000;
         return view('admin.pages.demand.create', compact('payees', 'projects'));
     }
+
     public function payeePaymentForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
@@ -113,5 +116,17 @@ class AccountController extends HelperController
         $this->validate($request, $rules);
         $log = Account::demand($request, $request->input('amount'));
         return $this->respond($log, [], 'admin.pages.demand.index');
+    }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws UserFriendlyException
+     */
+    public function list(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($accounts, [], '');
     }
 }
