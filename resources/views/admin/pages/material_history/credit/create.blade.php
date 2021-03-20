@@ -18,7 +18,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Fund</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Credit</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -37,16 +37,16 @@ Dashboard
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Fund Create</h3>
+                            <h3 class="card-title">Credit</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/fund/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/credit/list') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{ url('/addFund') }}">
+                        <form class="form" method="POST" action="{{ url('/credit') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
