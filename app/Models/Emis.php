@@ -11,5 +11,12 @@ use Helper\Repo\Entity;
  */
 class Emis extends Entity
 {
-
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');  
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Models\Project');  
+    }
 }

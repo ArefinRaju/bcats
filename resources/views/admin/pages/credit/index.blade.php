@@ -19,7 +19,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">payment</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Credit</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Payment List</h3>
+                        <h3 class="card-label">Credit List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->

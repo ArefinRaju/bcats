@@ -18,7 +18,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Payment</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Demand</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -37,7 +37,7 @@ Dashboard
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">demand Create</h3>
+                            <h3 class="card-title">Demand Create</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
                                 <a href="{{ url('/demand/list') }}" class="btn btn-primary font-weight-bolder">

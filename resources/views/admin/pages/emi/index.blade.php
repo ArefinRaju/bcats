@@ -102,34 +102,17 @@ EMI
                                 <th>value</th>
                                 <th>status</th>
                                 <th>Date</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($data as $emi)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$emi->user_id??''}}</td>
-                                <td>{{$emi->project_id??''}}</td>
+                                <td>{{$emi->user->name??''}}</td>
+                                <td>{{$emi->project->name??''}}</td>
                                 <td>{{$emi->value??''}}</td>
                                 <td>{{$emi->status??''}}</td>
                                 <td>{{$emi->date??''}}</td>
-                                <td nowrap="nowrap">
-                                    <div class="float-right">
-
-                                        <form action="{{url('emi', $emi->id)}}" method="post">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            @csrf
-                                            <a href="{{ url('emi-edit', $emi->id) }}" class="btn btn-primary">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                                Edit
-                                            </a>
-                                            <button id="btnDelete" class="btn btn-danger">Delete</button>
-                                        </form>
-
-
-                                    </div>
-                                </td>
                             </tr>
                             @endforeach
                         </tbody>
