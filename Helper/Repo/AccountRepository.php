@@ -20,7 +20,7 @@ class AccountRepository extends EntityRepository
 
     public function list(int $perPage = null, int $page = null)
     {
-        return Account::where('project_id', Request()->user()->project_id ?? 1000) // Todo : Project ID
+        return Account::where('project_id', Request()->user()->project_id)
             ->latest()
             ->paginate($perPage, ['*'], 'page', $page);
     }

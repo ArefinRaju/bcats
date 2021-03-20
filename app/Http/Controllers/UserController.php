@@ -7,6 +7,7 @@ use Helper\ACL\Acl;
 use Helper\ACL\Permission;
 use Helper\ACL\Roles;
 use Helper\Constants\CommonValidations as V;
+use Helper\Constants\Errors;
 use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
@@ -90,6 +91,10 @@ class UserController extends HelperController
 
     public function update(Request $request, string $id = null)
     {
+        $userRole = Acl::getUserRole($request);
+        if ($userRole !== Roles::ADMIN || $userRole !== Roles::MANAGER || $request->user()->id !== $id){
+            return $this->respond([], [Errors::FORBIDDEN]);
+        }
         $user = $this->repo->getById($request, $id);
         $user = $this->filterAssign($request, $user);
         $this->repo->save($user);

@@ -35,6 +35,6 @@ class PayeeRepository extends EntityRepository
 
     public function payeeList(Request $request)
     {
-        return Payee::where('project_id', $request->user()->project_id ?? 1000)->get(); // Todo : Remove default 1000 here
+        return Payee::where('project_id', $request->user()->project_id);
     }
 }

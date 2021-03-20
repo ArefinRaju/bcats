@@ -47,7 +47,7 @@ class PayeeController extends HelperController
     public function create(Request $request, string $action = null)
     {
         $payee             = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Payee());
-        $payee->project_id = $request->user()->project_id ?? 1000; // Todo : Remove default 1000 here
+        $payee->project_id = $request->user()->project_id;
         $this->repo->save($payee);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
