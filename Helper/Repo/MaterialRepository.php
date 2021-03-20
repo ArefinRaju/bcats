@@ -32,4 +32,8 @@ class MaterialRepository extends EntityRepository
     {
         return Material::destroy($id);
     }
+    public function materialList(Request $request)
+    {
+        return Material::all(); // Todo : Remove default 1000 here
+    }
 }

@@ -8,6 +8,7 @@ use Helper\Calculator\Material;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
+use Helper\Repo\MaterialRepository;
 use Helper\Repo\MaterialHistoryRepository;
 use Illuminate\Http\Request;
 
@@ -15,22 +16,44 @@ class MaterialHistoryController extends HelperController
 {
     protected array                   $commonValidationRules;
     private MaterialHistoryRepository $repo;
+    private MaterialRepository        $materialRepo;
 
-    public function __construct(MaterialHistoryRepository $repo)
+    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo)
     {
         $this->repo = $repo;
+        $this->materialRepo = $materialRepo;
         $this->setResource(MaterialHistory::class);
         $this->commonValidationRules = [
             'credit' => [V::SOMETIMES, V::REQUIRED, V::NUMBER],
             'debit'  => [V::SOMETIMES, V::REQUIRED, V::NUMBER]
         ];
     }
-
+    public function creditForm(Request $request)
+    {
+        $materials   = $this->materialRepo->materialList($request);
+        return view('admin.pages.material_history.credit.create', compact('materials'));
+    }
+    public function debitForm(Request $request)
+    {
+        $materials   = $this->materialRepo->materialList($request);
+        return view('admin.pages.material_history.debit.create', compact('materials'));
+    }
+    public function demandForm(Request $request)
+    {
+        $materials   = $this->materialRepo->materialList($request);
+        return view('admin.pages.material_history.demand.create', compact('materials'));
+    }
+    public function stockForm(Request $request)
+    {
+        $materials   = $this->materialRepo->materialList($request);
+        return view('admin.pages.material_history.stock.create', compact('materials'));
+    }
     /**
      * @param  Request  $request
      * @return mixed
      * @throws UserFriendlyException
      */
+
     public function credit(Request $request)
     {
         $rules = [

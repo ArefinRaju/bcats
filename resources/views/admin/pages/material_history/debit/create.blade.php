@@ -18,7 +18,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Credit</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Debit</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -37,25 +37,25 @@ Dashboard
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Credit</h3>
+                            <h3 class="card-title">Debit</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/credit/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/debit/list') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{ url('/credit') }}">
+                        <form class="form" method="POST" action="{{ url('/debit') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Payee:</label>
+                                            <label>Material:</label>
                                             <select class="form-control form-control-solid" name="payeeId">
-                                                @foreach($payees as $payee)
-                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
+                                                @foreach($materials as $material)
+                                                <option value="{{$material->id}}">{{ $material->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
