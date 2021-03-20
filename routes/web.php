@@ -105,6 +105,14 @@ Route::get(
     }
 );
 
+Route::get('/addFund', 'AccountController@addFundForm');
+Route::post('/addFund', 'AccountController@addFund');
+
+Route::get('/credit', 'AccountController@creditForm');
+Route::post('/credit', 'AccountController@credit');
+Route::get('/demand', 'AccountController@demandForm');
+Route::post('/demand', 'AccountController@demand');
+
 Route::get(
     '/emi/unpaid',
     function () {

@@ -30,6 +30,24 @@ class AccountController extends HelperController
         ];
     }
 
+    public function addFundForm(Request $request)
+    {
+        $payees   = $this->payeeRepo->payeeList($request);
+        $projects = $request->user()->project_id ?? 1000;
+        return view('admin.pages.fund.create', compact('payees', 'projects'));
+    }
+    public function creditForm(Request $request)
+    {
+        $payees   = $this->payeeRepo->payeeList($request);
+        $projects = $request->user()->project_id ?? 1000;
+        return view('admin.pages.credit.create', compact('payees', 'projects'));
+    }
+    public function demandForm(Request $request)
+    {
+        $payees   = $this->payeeRepo->payeeList($request);
+        $projects = $request->user()->project_id ?? 1000;
+        return view('admin.pages.demand.create', compact('payees', 'projects'));
+    }
     public function payeePaymentForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
@@ -68,7 +86,7 @@ class AccountController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Account::fund($request, $request->input('amount'), $request->input('emiId'), $request->input('byUser'));
-        return $this->respond($log, [], '');
+        return $this->respond($log, [], 'admin.pages.fund.index');
     }
 
     /**
@@ -81,7 +99,7 @@ class AccountController extends HelperController
         $rules = ['amount' => [V::REQUIRED, V::NUMBER]];
         $this->validate($request, $rules);
         $log = Account::credit($request, $request->input('amount'));
-        return $this->respond($log, [], '');
+        return $this->respond($log, [], 'admin.pages.credit.index');
     }
 
     /**
@@ -94,6 +112,6 @@ class AccountController extends HelperController
         $rules = ['amount' => [V::REQUIRED, V::NUMBER]];
         $this->validate($request, $rules);
         $log = Account::demand($request, $request->input('amount'));
-        return $this->respond($log, [], '');
+        return $this->respond($log, [], 'admin.pages.demand.index');
     }
 }

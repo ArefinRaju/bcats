@@ -77,7 +77,7 @@
                             </ul>
                         </div>
                     </li>
-                  
+
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="menu-text">EMI</span>
@@ -119,6 +119,24 @@
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/addFund')}}" class="menu-link">
+                                        <span class="menu-text">Add Fund</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/credit')}}" class="menu-link">
+                                        <span class="menu-text">Credit</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/demand')}}" class="menu-link">
+                                        <span class="menu-text">Add Demand</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{url('/payment/list')}}" class="menu-link">
                                         <span class="menu-text">All Payment</span>

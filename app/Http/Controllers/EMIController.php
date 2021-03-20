@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 
 use App\Models\EMIs;
-use App\Models\Project;
 use App\Models\User;
 use App\Models\Project;
 use Helper\Constants\CRUD;
@@ -66,8 +65,8 @@ class EMIController extends HelperController
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $emi        = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($emi, [], 'admin.pages.emi.index');
+        $emis        = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($emis, [], 'admin.pages.emi.index');
     }
 
     public function update(Request $request, string $id = null)
