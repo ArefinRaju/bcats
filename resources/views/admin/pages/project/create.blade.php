@@ -58,8 +58,12 @@ Project Create
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Type:</label>
-                                            <input name="type" type="text" class="form-control form-control-solid" placeholder="Enter Type" />
+                                            <label for="type">Type:</label>
+                                            <select class="form-control form-control-solid" name="type" id="type">
+                                                @foreach($projectType as $type)
+                                                    <option value="{{$type}}">{{$type}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -70,14 +74,18 @@ Project Create
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Status:</label>
-                                            <input name="status" type="text" class="form-control form-control-solid" placeholder="Enter Budget" />
+                                            <label for="status">Status:</label>
+                                            <select class="form-control form-control-solid" name="status" id="status">
+                                                @foreach($status as $state)
+                                                    <option value="{{$state}}">{{$state}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Deadline:</label>
-                                            <input name="deadline" type="text" class="form-control form-control-solid" placeholder="Enter Budget" />
+                                            <input name="deadline" type="text" class="form-control form-control-solid" placeholder="Y/M/D" />
                                         </div>
                                     </div>
                                 </div>

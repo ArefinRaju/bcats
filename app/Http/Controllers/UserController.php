@@ -37,9 +37,15 @@ class UserController extends HelperController
     }
 
 
-    public function createForm()
+    public function createForm(Request $request)
     {
-        return view('admin.pages.user.create');
+        // Todo : filter by using middleware
+        $roles = Roles::toArray();
+        unset($roles[Roles::ADMIN]);
+        if (Acl::decodeRole($request->user()->acl) !== Roles::ADMIN) {
+            unset($roles[Roles::MANAGER]);
+        }
+        return view('admin.pages.user.create')->with('roles', $roles);
     }
 
     public function editForm(Request $request, int $id)
@@ -120,7 +126,6 @@ class UserController extends HelperController
 
     public function destroy(Request $request, string $id)
     {
-
         //   dd($id);
         $this->repo->destroyById($id);
         if (!self::isAPI()) {

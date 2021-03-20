@@ -74,6 +74,16 @@ User
                                             <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter Password" required>
                                         </div>
                                     </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="roles">Roles:</label>
+                                            <select class="form-control form-control-solid" name="acl" id="roles">
+                                                @foreach($roles as $role)
+                                                    <option value="{{$role}}">{{$role}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

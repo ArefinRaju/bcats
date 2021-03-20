@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string email
  * @property int project_id
  * @property string mobile
+ * @property string password
  */
 class User extends Entity implements Authenticatable
 {

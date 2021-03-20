@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
     `id` INTEGER AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL UNIQUE,
+    `name` VARCHAR(255) NOT NULL,
     `password` VARCHAR(70) NOT NULL,
     `remember_token` VARCHAR(100) NULL DEFAULT NULL,
     `mobile` VARCHAR(15) NOT NULL,
@@ -24,7 +24,9 @@ CREATE TABLE `users` (
 );
 
 INSERT INTO `users` (`id`, `name`, `password`, `remember_token`, `mobile`, `email`, `email_verified_at`, `acl`, `contribution`, `on_hold`, `due`, `created_at`, `updated_at`, `project_id`) VALUES
-(1, 'Admin', '$2y$10$PKtPFCI.3Mh.VKrCqnOqXuQKQ/4zpD0.VoiguzFw78N2J7e6htVDS', NULL, '+8801774444000', 'admin@bcats.net', CURRENT_TIMESTAMP, 'QURNSU4=', '0.00', '0.00', '0.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
+(1, 'Admin', '$2y$10$PKtPFCI.3Mh.VKrCqnOqXuQKQ/4zpD0.VoiguzFw78N2J7e6htVDS', NULL, '+8801774444000', 'admin@bcats.net', CURRENT_TIMESTAMP, 'QURNSU4=', '0.00', '0.00', '0.00', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(2, 'Manager', '$2y$10$kxosv25q/F3ByBkevrjHUuTu.lmOpLgZYROjhqC5t65iji3Q0fOwG', NULL, '01973939656', 'manager@bcats.net', '2021-03-20 10:06:12', 'TUFOQUdFUg==', '0.00', '0.00', '0.00', '2021-03-20 04:06:12', '2021-03-20 04:06:12', NULL),
+(3, 'Project Admin', '$2y$10$TX17HIKmBd/nP1gZHzE6CObNdg1YLjb/UNO5iktOf8LieEX5C020.', NULL, '01748986541', 'project-admin@bcats.net', '2021-03-20 12:21:14', 'UFJPSkVDVF9BRE1JTg==', '0.00', '0.00', '0.00', '2021-03-20 06:21:14', '2021-03-20 06:21:14', 1);
 
 -- ---
 -- Table 'projects'
@@ -35,7 +37,7 @@ DROP TABLE IF EXISTS `projects`;
 
 CREATE TABLE `projects` (
     `id` INTEGER AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL,
+    `name` VARCHAR(255) NOT NULL UNIQUE,
     `type` VARCHAR(255) NOT NULL,
     `budget` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `deadline` DATE NOT NULL,
@@ -44,6 +46,9 @@ CREATE TABLE `projects` (
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 );
+
+INSERT INTO `projects` (`id`, `name`, `type`, `budget`, `deadline`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Project', 'BUILDING', '20000.00', '2022-11-20', 'PLANNING', '2021-03-20 06:21:14', '2021-03-20 06:21:14');
 
 -- ---
 -- Table 'project_users'
@@ -184,5 +189,6 @@ ALTER TABLE `material_histories` ADD FOREIGN KEY (payee_id) REFERENCES `payees` 
 ALTER TABLE `material_histories` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
+ALTER TABLE `payees` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `emis` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `emis` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);

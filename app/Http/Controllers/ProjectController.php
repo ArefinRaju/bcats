@@ -4,12 +4,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
+use Helper\ACL\Acl;
+use Helper\ACL\Roles;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Messages;
+use Helper\Constants\ProjectStatus;
+use Helper\Constants\ProjectType;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Repo\ProjectRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProjectController extends HelperController
 {
@@ -31,7 +37,11 @@ class ProjectController extends HelperController
 
     public function createForm()
     {
-        return view('admin.pages.project.create');
+        $data = [
+            'projectType' => ProjectType::toArray(),
+            'status'      => ProjectStatus::toArray()
+        ];
+        return view('admin.pages.project.create', $data);
     }
 
     public function editForm(Request $request, int $id)
@@ -39,11 +49,12 @@ class ProjectController extends HelperController
         $project = $this->repo->getById($request, $id);
         return view('admin.pages.project.edit', compact('project'));
     }
-  
+
     public function create(Request $request, string $action = null)
     {
         $project = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Project());
-        $this->repo->save($project);
+        $project = $this->repo->save($project);
+        $this->createProjectUser($project);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $projects   = $this->repo->list($pagination->per_page, $pagination->page);
@@ -52,13 +63,25 @@ class ProjectController extends HelperController
         return $this->respond($project, [], 'admin.pages.project.index');
     }
 
+    public function createProjectUser(object $project): void
+    {
+        $user             = new User();
+        $user->name       = $project->name.' Admin';
+        $user->password   = Hash::make('123456');
+        $user->mobile     = '01748986541';
+        $user->email      = strtolower(str_replace(' ', '-', $user->name)).'@bcats.net';
+        $user->acl        = Acl::createUserRole(Roles::PROJECT_ADMIN);
+        $user->project_id = $project->id;
+        $user->save();
+    }
+
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
         $Projects   = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($Projects, [], 'admin.pages.project.index');
     }
-  
+
     public function update(Request $request, string $id = null)
     {
         $project = $this->repo->getById($request, $id);
