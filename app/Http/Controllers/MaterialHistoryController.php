@@ -10,7 +10,6 @@ use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\MaterialRepository;
 use Helper\Repo\MaterialHistoryRepository;
-use Helper\Repo\MaterialRepository;
 use Illuminate\Http\Request;
 
 class MaterialHistoryController extends HelperController

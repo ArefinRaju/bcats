@@ -138,7 +138,7 @@ final class Account implements Calculator
         }
     }
 
-    public static function debit(Request $request, int $amount, int $payeeId, string $image = null, string $comment = ''): Account
+    public static function debit(Request $request, int $amount, int $payeeId, string $comment = '', string $image = null): Account
     {
         $instance            = new Account($request);
         $instance->payeeRepo = new PayeeRepository();
