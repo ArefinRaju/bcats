@@ -33,28 +33,28 @@ class AccountController extends HelperController
     public function addFundForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
-        $projects = $request->user()->project_id ?? 1000;
+        $projects = $request->user()->project_id;
         return view('admin.pages.fund.create', compact('payees', 'projects'));
     }
 
     public function creditForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
-        $projects = $request->user()->project_id ?? 1000;
+        $projects = $request->user()->project_id;
         return view('admin.pages.credit.create', compact('payees', 'projects'));
     }
 
     public function demandForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
-        $projects = $request->user()->project_id ?? 1000;
+        $projects = $request->user()->project_id;
         return view('admin.pages.demand.create', compact('payees', 'projects'));
     }
 
     public function payeePaymentForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
-        $projects = $request->user()->project_id ?? 1000;
+        $projects = $request->user()->project_id;
         return view('admin.pages.payment.create', compact('payees', 'projects'));
     }
 
@@ -68,11 +68,16 @@ class AccountController extends HelperController
     {
         $rules = [
             'payeeId' => [V::REQUIRED, V::NUMBER],
-            'amount'  => [V::REQUIRED, V::NUMBER]
+            'amount'  => [V::REQUIRED, V::NUMBER],
+            'comment' => [V::SOMETIMES, V::REQUIRED, V::TEXT]
         ];
         $this->validate($request, $rules);
-        $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'));
-        return $this->respond($log, [], 'admin.pages.payment.index');
+        $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment'));
+        if (!self::isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $log        = $this->repo->list($pagination->per_page, $pagination->page);
+        }
+        return $this->respond($log, [], 'admin.pages.building_accounts.balance_overview');
     }
 
     /**
@@ -127,6 +132,6 @@ class AccountController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($accounts, [], '');
+        return $this->respond($accounts, [], 'admin.pages.building_accounts.balance_overview');
     }
 }

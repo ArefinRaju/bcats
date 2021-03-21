@@ -59,18 +59,14 @@ Route::get(
     }
 );
 Route::get(
-    '/balance-overview',
-    function () {
-        return view('admin.pages.building_accounts.balance_overview');
-    }
-);
-Route::get(
-    '/add-member-payments',
+    '/pay',
     function () {
         $payees = \App\Models\Payee::all();
         return view('admin.pages.building_accounts.add_member_payment',compact('payees'));
     }
 );
+
+Route::post('/payPayee', 'AccountController@payPayee');
 
 Route::get(
     '/material/current-stock',

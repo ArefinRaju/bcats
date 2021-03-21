@@ -23,14 +23,14 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('balance-overview')}}" class="menu-link">
+                                    <a href="{{url('account')}}" class="menu-link">
                                         <span class="menu-text">Balance Overview</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{url('add-member-payments')}}" class="menu-link">
-                                        <span class="menu-text">Add Member Payments</span>
+                                    <a href="{{url('pay')}}" class="menu-link">
+                                        <span class="menu-text">Pay</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
