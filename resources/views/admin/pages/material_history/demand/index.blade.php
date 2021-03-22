@@ -19,7 +19,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Credit</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Demand</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Credit List</h3>
+                        <h3 class="card-label">Demand List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -97,20 +97,20 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Payee</th>
-                                <th>Project</th>
+                                <th>Material</th>
                                 <th>Amount</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($data as $item)
                             <tr>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>$item->required ?? ''</td>
+                                <td>{{$item->required ?? ''}}</td>
                                 <td nowrap="nowrap"></td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
