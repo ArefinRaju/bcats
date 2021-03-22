@@ -37,4 +37,12 @@ class MaterialHistoryRepository extends EntityRepository
                               ->latest()
                               ->paginate($perPage, ['*'], 'page', $page);
     }
+
+    public function debitList(int $perPage = null, int $page = null)
+    {
+        return MaterialHistory::where('project_id', Request()->user()->project_id)
+                              ->whereNotIn('debit', [0.00])
+                              ->latest()
+                              ->paginate($perPage, ['*'], 'page', $page);
+    }
 }

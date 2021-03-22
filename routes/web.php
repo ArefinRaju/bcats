@@ -68,13 +68,14 @@ Route::get(
 
 Route::post('/payPayee', 'AccountController@payPayee');
 Route::post('/stock', 'MaterialHistoryController@stock');
+Route::post('/material/current-stock', 'MaterialHistoryController@stock');
 
-Route::get(
+/*Route::get(
     '/material/current-stock',
     function () {
         return view('admin.pages.material.current_stock');
     }
-);
+);*/
 Route::get(
     '/material/used-stock',
     function () {
@@ -108,6 +109,7 @@ Route::post('/addFund', 'AccountController@addFund');
 Route::get('/credit', 'AccountController@creditForm');
 Route::post('/credit', 'AccountController@credit');
 Route::get('/demand', 'AccountController@demandForm');
+Route::get('/demand/list', 'MaterialHistoryController@demandList');
 Route::post('/demand', 'AccountController@demand');
 
 Route::get(
@@ -137,23 +139,25 @@ Route::get(
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
 
-CombinedRoute::resourceRoute('user', 'UserController', []);
 Route::get('/user-create',	'UserController@createForm');
 Route::get('/user-edit/{id}',	'UserController@editForm');
+CombinedRoute::resourceRoute('user', 'UserController', []);
 
 
-CombinedRoute::resourceRoute('payee', 'PayeeController', []);
 Route::get('/payee-create',	'PayeeController@createForm');
 Route::get('/payee-edit/{id}',	'PayeeController@editForm');
+CombinedRoute::resourceRoute('payee', 'PayeeController', []);
 
-CombinedRoute::resourceRoute('material', 'MaterialController', []);
+Route::get('/material-create',	'MaterialController@createForm');
 Route::get('/material-create',	'MaterialController@createForm');
 Route::get('/material-edit/{id}',	'MaterialController@editForm');
+CombinedRoute::resourceRoute('material', 'MaterialController', []);
 
 
 Route::get('/debit-material', 'MaterialHistoryController@debitForm');
 Route::get('/credit-material', 'MaterialHistoryController@creditForm');
 Route::get('/demand-material', 'MaterialHistoryController@demandForm');
+Route::get('/material-debit-list', 'MaterialHistoryController@debitList');
 
 Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
 Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
@@ -161,12 +165,12 @@ Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');
 Route::get('/stock', 'MaterialHistoryController@stock');
 
 
-CombinedRoute::resourceRoute('emi', 'EMIController', []);
 Route::get('/emi-create',	'EMIController@createForm');
+CombinedRoute::resourceRoute('emi', 'EMIController', []);
 CombinedRoute::resourceRoute('account', 'AccountController', []);
-CombinedRoute::resourceRoute('project', 'ProjectController', []);
 Route::get('/project-create',	'ProjectController@createForm');
 Route::get('/project-edit/{id}',	'ProjectController@editForm');
+CombinedRoute::resourceRoute('project', 'ProjectController', []);
 
 // No need because material's resourceRoute has list with pagination
 //Route::get('/materials/list',	'MaterialController@materialList');

@@ -3,13 +3,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Material as MaterialModel;
 use App\Models\MaterialHistory;
+use Carbon\Carbon;
 use Helper\Calculator\Material;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
-use Helper\Repo\MaterialRepository;
 use Helper\Repo\MaterialHistoryRepository;
+use Helper\Repo\MaterialRepository;
+use Helper\Repo\UserRepository;
+use Helper\Transform\Arrays;
 use Illuminate\Http\Request;
 
 class MaterialHistoryController extends HelperController
@@ -17,11 +21,13 @@ class MaterialHistoryController extends HelperController
     protected array                   $commonValidationRules;
     private MaterialHistoryRepository $repo;
     private MaterialRepository        $materialRepo;
+    private UserRepository            $userRepo;
 
-    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo)
+    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo, UserRepository $userRepo)
     {
         $this->repo         = $repo;
         $this->materialRepo = $materialRepo;
+        $this->userRepo     = $userRepo;
         $this->setResource(MaterialHistory::class);
         $this->commonValidationRules = [
             'credit' => [V::SOMETIMES, V::REQUIRED, V::NUMBER],
@@ -52,6 +58,7 @@ class MaterialHistoryController extends HelperController
         $materials = $this->materialRepo->materialList($request);
         return view('admin.pages.material_history.stock.create', compact('materials'));
     }
+
     /**
      * @param  Request  $request
      * @return mixed
@@ -91,6 +98,42 @@ class MaterialHistoryController extends HelperController
      * @return mixed
      * @throws UserFriendlyException
      */
+    public function debitList(Request $request)
+    {
+        $out        = [];
+        $pagination = $this->paginationManager($request);
+        $debitList  = $this->repo->debitList($pagination->per_page, $pagination->page);
+        foreach ($debitList as $debit) {
+            $debitArray          = [];
+            $material            = $this->getMaterialById($request, $debit->material_id);
+            $user                = $this->getUserById($request, $debit->user_id);
+            $debitArray['id']    = $debit->id;
+            $debitArray['name']  = $material->name;
+            $debitArray['user']  = $user->name;
+            $debitArray['enum']  = $debit->enum;
+            $debitArray['total'] = $debit->total;
+            $debitArray['debit'] = $debit->debit;
+            $debitArray['date']  = Carbon::parse($debit->created_at)->diffForHumans();
+            $out[]               = Arrays::toObject($debitArray);
+        }
+        return $this->respond($out, [], 'admin.pages.material_history.debit.index');
+    }
+
+    private function getUserById(Request $request, int $id): object
+    {
+        return $this->userRepo->getById($request, $id);
+    }
+
+    private function getMaterialById(Request $request, int $id): MaterialModel
+    {
+        return $this->materialRepo->getById($request, $id);
+    }
+
+    /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws UserFriendlyException
+     */
     public function demand(Request $request)
     {
         $rules = [
@@ -99,6 +142,15 @@ class MaterialHistoryController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Material::demand($request, $request->input('materialId'), $request->input('amount'));
+        if (!self::isAPI()) {
+            $log = $this->getStockList($request);
+        }
+        return $this->respond($log, [], 'admin.pages.material_history.demand.index');
+    }
+
+    public function demandList(Request $request)
+    {
+        $log = $this->getStockList($request);
         return $this->respond($log, [], 'admin.pages.material_history.demand.index');
     }
 
@@ -107,6 +159,12 @@ class MaterialHistoryController extends HelperController
      * @return mixed
      */
     public function stock(Request $request)
+    {
+        $stockList = $this->getStockList($request);
+        return $this->respond($stockList, [], 'admin.pages.material.current_stock');
+    }
+
+    private function getStockList(Request $request): array
     {
         $stockList = [];
         $materials = $this->materialRepo->materialList($request);
@@ -120,9 +178,9 @@ class MaterialHistoryController extends HelperController
             $item['credit']   = $log->credit;
             $item['debit']    = $log->debit;
             $item['required'] = $log->required;
-            $stockList[]      = $item;
+            $stockList[]      = Arrays::toObject($item);
         }
-        return $this->respond($stockList, [], 'admin.pages.material.current_stock');
+        return $stockList;
     }
 
     public function list(Request $request)

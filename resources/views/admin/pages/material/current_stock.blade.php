@@ -98,18 +98,21 @@ Material
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Enum</th>
-                               
+                                <th>Total</th>
+                                <th>Required</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($data as $item)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->name}}</td>
+                                <td>{{$item->total.$item->enum}}</td>
+                                <td>{{$item->required.$item->enum}}</td>
                                 <td nowrap="nowrap"></td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

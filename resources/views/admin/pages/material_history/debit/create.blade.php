@@ -40,7 +40,7 @@ Dashboard
                             <h3 class="card-title">Debit</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/debit/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/material-debit-list') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>

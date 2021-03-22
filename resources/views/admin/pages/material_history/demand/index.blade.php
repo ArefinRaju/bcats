@@ -105,9 +105,9 @@ Dashboard
                         <tbody>
                             @foreach($data as $item)
                             <tr>
-                                <td></td>
-                                <td>$item->required ?? ''</td>
-                                <td>{{$item->required ?? ''}}</td>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->name}}</td>
+                                <td>{{$item->required.$item->enum}}</td>
                                 <td nowrap="nowrap"></td>
                             </tr>
                             @endforeach
