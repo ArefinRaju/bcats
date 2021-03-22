@@ -99,7 +99,7 @@ class MaterialHistoryController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Material::demand($request, $request->input('materialId'), $request->input('amount'));
-        return $this->respond($log, [], '');
+        return $this->respond($log, [], 'admin.pages.material_history.demand.index');
     }
 
     /**
@@ -122,7 +122,7 @@ class MaterialHistoryController extends HelperController
             $item['required'] = $log->required;
             $stockList[]      = $item;
         }
-        return $this->respond($stockList, [], '');
+        return $this->respond($stockList, [], 'admin.pages.material.current_stock');
     }
 
     public function list(Request $request)

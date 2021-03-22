@@ -50,8 +50,26 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/material/current-stock') }}" class="menu-link">
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/demand-material') }}" class="menu-link">
+                                        <span class="menu-text">Demand Material</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/debit-material') }}" class="menu-link">
+                                        <span class="menu-text">Debit Material</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/credit-material') }}" class="menu-link">
+                                        <span class="menu-text">Credit Material</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/stock') }}" class="menu-link">
                                         <span class="menu-text">Current Stock</span>
                                         <span class="menu-desc"></span>
                                     </a>

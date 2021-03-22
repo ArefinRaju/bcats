@@ -46,14 +46,14 @@ Dashboard
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{ url('/demand') }}">
+                        <form class="form" method="POST" action="{{ url('/materialHistoryDemand') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                 <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Material:</label>
-                                            <select class="form-control form-control-solid" name="payeeId">
+                                            <label for="materialId">Material:</label>
+                                            <select id="materialId" class="form-control form-control-solid" name="materialId">
                                                 @foreach($materials as $material)
                                                 <option value="{{$material->id}}">{{ $material->name }}</option>
                                                 @endforeach

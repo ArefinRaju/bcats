@@ -67,6 +67,7 @@ Route::get(
 );
 
 Route::post('/payPayee', 'AccountController@payPayee');
+Route::post('/stock', 'MaterialHistoryController@stock');
 
 Route::get(
     '/material/current-stock',
@@ -150,10 +151,10 @@ Route::get('/material-create',	'MaterialController@createForm');
 Route::get('/material-edit/{id}',	'MaterialController@editForm');
 
 
-Route::get('/material-history-debit', 'MaterialHistoryController@debitForm');
-Route::get('/material-history-credit', 'MaterialHistoryController@creditForm');
-Route::get('/material-history-demand', 'MaterialHistoryController@demandForm');
-Route::get('/material-history-stock', 'MaterialHistoryController@stockForm');
+Route::get('/debit-material', 'MaterialHistoryController@debitForm');
+Route::get('/credit-material', 'MaterialHistoryController@creditForm');
+Route::get('/demand-material', 'MaterialHistoryController@demandForm');
+
 Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
 Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
 Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');

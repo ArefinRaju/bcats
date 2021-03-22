@@ -46,7 +46,7 @@ Dashboard
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{ url('/debit') }}">
+                        <form class="form" method="POST" action="{{ url('/materialHistoryDebit') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
