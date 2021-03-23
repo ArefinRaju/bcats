@@ -107,6 +107,7 @@
                                 <th>Debit</th>
                                 <th>User</th>
                                 <th>Total</th>
+                                <th>Used</th>
                                 <th>Date</th>
                             </tr>
                             </thead>
@@ -118,6 +119,7 @@
                                     <td>{{$item->debit.$item->enum}}</td>
                                     <td>{{$item->user_name}}</td>
                                     <td>{{$item->total.$item->enum}}</td>
+                                    <td>{{$item->used.$item->enum}}</td>
                                     <td>{{$item->date}}</td>
                                 </tr>
                             @endforeach

@@ -21,20 +21,20 @@ class MaterialHistoryRepository extends EntityRepository
 
     public function getLatestById(Request $request, int $materialId)
     {
-        return MaterialHistory::where('material_id', $materialId)->latest()->first();
+        return MaterialHistory::where('material_id', $materialId)->orderBy('id', 'desc')->first();
     }
 
     public function getLastRecord(Request $request, int $materialId, int $projectId)
     {
         return MaterialHistory::where('material_id', $materialId)
                               ->where('project_id', $projectId)
-                              ->latest()->first();
+                              ->orderBy('id', 'desc')->first();
     }
 
     public function list(int $perPage = null, int $page = null)
     {
         return MaterialHistory::where('project_id', Request()->user()->project_id)
-                              ->latest()
+                              ->orderBy('id', 'desc')
                               ->paginate($perPage, ['*'], 'page', $page);
     }
 
@@ -42,7 +42,15 @@ class MaterialHistoryRepository extends EntityRepository
     {
         return MaterialHistory::where('project_id', Request()->user()->project_id)
                               ->whereNotIn('debit', [0.00])
-                              ->latest()
+                              ->orderBy('id', 'desc')
+                              ->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function creditList(int $perPage = null, int $page = null)
+    {
+        return MaterialHistory::where('project_id', Request()->user()->project_id)
+                              ->whereNotIn('credit', [0.00])
+                              ->orderBy('id', 'desc')
                               ->paginate($perPage, ['*'], 'page', $page);
     }
 }

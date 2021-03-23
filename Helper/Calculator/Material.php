@@ -25,6 +25,7 @@ final class Material implements Calculator
     public int                        $required;
     public int                        $credit;
     public int                        $debit;
+    public int                        $used;
     public string                     $comment;
     public int                        $project_id;
 
@@ -53,6 +54,7 @@ final class Material implements Calculator
             $materialHistory->required    = 0;
             $materialHistory->credit      = 0;
             $materialHistory->debit       = 0;
+            $materialHistory->used        = 0;
             $materialHistory->comment     = $this->comment ?? '';
             $materialHistory->project_id  = $this->project_id;
             $this->repo->save($materialHistory);
@@ -82,6 +84,7 @@ final class Material implements Calculator
         $instance->debit    = $instance->amount;
         $instance->comment  = $comment;
         $instance->total    = $instance->oldRecord->total - $instance->debit;
+        $instance->used     = $instance->oldRecord->used + $instance->debit;
         $instance->required = $instance->oldRecord->required;
         $instance->assignAndSave($instance);
         return $instance;

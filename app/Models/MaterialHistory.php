@@ -16,6 +16,7 @@ use Helper\Repo\Entity;
  * @property int debit
  * @property string comment
  * @property int project_id
+ * @property int used
  */
 class MaterialHistory extends Entity
 {

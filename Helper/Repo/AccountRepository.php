@@ -21,7 +21,7 @@ class AccountRepository extends EntityRepository
     public function list(int $perPage = null, int $page = null)
     {
         return Account::where('project_id', Request()->user()->project_id)
-            ->latest()
+            ->orderBy('id', 'desc')
             ->paginate($perPage, ['*'], 'page', $page);
     }
 }

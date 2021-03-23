@@ -100,7 +100,7 @@ Material
                                 <th>Name</th>
                                 <th>Total</th>
                                 <th>Required</th>
-                                <th>Actions</th>
+                                <th>Used</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,7 +110,7 @@ Material
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->total.$item->enum}}</td>
                                 <td>{{$item->required.$item->enum}}</td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$item->used.$item->enum}}</td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -96,6 +96,10 @@ class MaterialHistoryController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Material::debit($request, $request->input('materialId'), $request->input('amount'));
+        if (!$this->isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $log        = $this->repo->debitList($pagination->per_page, $pagination->page);
+        }
         return $this->respond($log, [], 'admin.pages.material_history.debit.index');
     }
 
@@ -150,8 +154,12 @@ class MaterialHistoryController extends HelperController
     {
         $stockList = [];
         $materials = $this->materialRepo->materialList($request);
+        $log = $this->repo->getLatestById($request, $materials[1]->id);
         foreach ($materials as $material) {
-            $log              = $this->repo->getLatestById($request, $material->id);
+            $log = $this->repo->getLatestById($request, $material->id);
+            if (empty($log)) {
+                continue;
+            }
             $item             = [];
             $item['id']       = $material->id;
             $item['name']     = $material->name;
@@ -160,6 +168,7 @@ class MaterialHistoryController extends HelperController
             $item['credit']   = $log->credit;
             $item['debit']    = $log->debit;
             $item['required'] = $log->required;
+            $item['used']     = $log->used;
             $stockList[]      = Arrays::toObject($item);
         }
         return $stockList;
