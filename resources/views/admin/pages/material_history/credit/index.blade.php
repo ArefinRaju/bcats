@@ -107,8 +107,8 @@ Dashboard
                             @foreach($data as $item)
                             <tr>
                                 <td>{{$item->id}}</td>
-                                <td>{{$item->payee_id}}</td>
-                                <td>{{$item->material_id}}</td>
+                                <td>{{$item->payee_name}}</td>
+                                <td>{{$item->material_name}}</td>
                                 <td>{{$item->credit}}</td>
                                 <td>{{$item->date}}</td>
                             </tr>

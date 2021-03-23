@@ -5,6 +5,7 @@ namespace Helper\Repo;
 
 
 use App\Models\Payee;
+use Helper\Constants\PayeeType;
 use Illuminate\Http\Request;
 
 class PayeeRepository extends EntityRepository
@@ -22,6 +23,11 @@ class PayeeRepository extends EntityRepository
     public function list(int $perPage = null, int $page = null)
     {
         return Payee::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function supplierList()
+    {
+        return Payee::where('type', PayeeType::SUPPLIER)->get();
     }
 
     /**

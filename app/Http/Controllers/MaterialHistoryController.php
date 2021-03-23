@@ -3,19 +3,17 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Helper\Transform\Arrays;
-use Illuminate\Http\Request;
 use App\Models\MaterialHistory;
 use Helper\Calculator\Material;
-use Helper\Repo\UserRepository;
-use Helper\Repo\PayeeRepository;
-use Helper\Core\HelperController;
-use Helper\Repo\MaterialRepository;
-use Helper\Core\UserFriendlyException;
-use App\Models\Material as MaterialModel;
-use Helper\Repo\MaterialHistoryRepository;
 use Helper\Constants\CommonValidations as V;
+use Helper\Core\HelperController;
+use Helper\Core\UserFriendlyException;
+use Helper\Repo\MaterialHistoryRepository;
+use Helper\Repo\MaterialRepository;
+use Helper\Repo\PayeeRepository;
+use Helper\Repo\UserRepository;
+use Helper\Transform\Arrays;
+use Illuminate\Http\Request;
 
 class MaterialHistoryController extends HelperController
 {
@@ -25,7 +23,7 @@ class MaterialHistoryController extends HelperController
     private UserRepository            $userRepo;
     private PayeeRepository           $payeeRepo;
 
-    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo, UserRepository $userRepo,PayeeRepository $payeeRepo)
+    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo, UserRepository $userRepo, PayeeRepository $payeeRepo)
     {
         $this->repo         = $repo;
         $this->materialRepo = $materialRepo;
@@ -41,8 +39,8 @@ class MaterialHistoryController extends HelperController
     public function creditForm(Request $request)
     {
         $materials = $this->materialRepo->materialList($request);
-        $payees  = $this->payeeRepo->list();
-        return view('admin.pages.material_history.credit.create', compact('materials','payees'));
+        $payees    = $this->payeeRepo->supplierList();
+        return view('admin.pages.material_history.credit.create', compact('materials', 'payees'));
     }
 
     public function debitForm(Request $request)
@@ -78,6 +76,10 @@ class MaterialHistoryController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Material::credit($request, $request->input('materialId'), $request->input('amount'), $request->input('payeeId'));
+        if (!$this->isAPI()) {
+            $pagination = $this->paginationManager($request);
+            $log        = $this->repo->list($pagination->per_page, $pagination->page);
+        }
         return $this->respond($log, [], 'admin.pages.material_history.credit.index');
     }
 
@@ -104,33 +106,9 @@ class MaterialHistoryController extends HelperController
      */
     public function debitList(Request $request)
     {
-        $out        = [];
         $pagination = $this->paginationManager($request);
         $debitList  = $this->repo->debitList($pagination->per_page, $pagination->page);
-        foreach ($debitList as $debit) {
-            $debitArray          = [];
-            $material            = $this->getMaterialById($request, $debit->material_id);
-            $user                = $this->getUserById($request, $debit->user_id);
-            $debitArray['id']    = $debit->id;
-            $debitArray['name']  = $material->name;
-            $debitArray['user']  = $user->name;
-            $debitArray['enum']  = $debit->enum;
-            $debitArray['total'] = $debit->total;
-            $debitArray['debit'] = $debit->debit;
-            $debitArray['date']  = Carbon::parse($debit->created_at)->diffForHumans();
-            $out[]               = Arrays::toObject($debitArray);
-        }
-        return $this->respond($out, [], 'admin.pages.material_history.debit.index');
-    }
-
-    private function getUserById(Request $request, int $id): object
-    {
-        return $this->userRepo->getById($request, $id);
-    }
-
-    private function getMaterialById(Request $request, int $id): MaterialModel
-    {
-        return $this->materialRepo->getById($request, $id);
+        return $this->respond($debitList, [], 'admin.pages.material_history.debit.index');
     }
 
     /**
@@ -191,6 +169,6 @@ class MaterialHistoryController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $materials  = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($materials, [], 'admin.pages.emi.index');
+        return $this->respond($materials, [], 'admin.pages.material_history.credit.index');
     }
 }

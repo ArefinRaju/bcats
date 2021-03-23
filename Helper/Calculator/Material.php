@@ -4,6 +4,8 @@ namespace Helper\Calculator;
 
 use App\Models\MaterialHistory;
 use Helper\Repo\MaterialHistoryRepository;
+use Helper\Repo\MaterialRepository;
+use Helper\Repo\PayeeRepository;
 use Helper\Transform\Objects;
 use Illuminate\Http\Request;
 
@@ -14,8 +16,11 @@ final class Material implements Calculator
     private MaterialHistory           $oldRecord;
     private int                       $amount;
     public int                        $payee_id;
+    public string                     $payee_name;
     public int                        $user_id;
+    public string                     $user_name;
     public int                        $material_id;
+    public string                     $material_name;
     public int                        $total;
     public int                        $required;
     public int                        $credit;
@@ -25,12 +30,14 @@ final class Material implements Calculator
 
     final private function __construct(Request $request, int $materialId)
     {
-        $this->request     = $request;
-        $this->material_id = $materialId;
-        $this->repo        = new MaterialHistoryRepository();
-        $this->user_id     = $request->user()->id;
-        $this->project_id  = $request->user()->project_id;
-        $this->oldRecord   = $this->getLastRecord();
+        $this->request       = $request;
+        $this->material_id   = $materialId;
+        $this->material_name = $this->getMaterial($request, $materialId)->name;
+        $this->repo          = new MaterialHistoryRepository();
+        $this->user_id       = $request->user()->id;
+        $this->user_name     = $request->user()->name;
+        $this->project_id    = $request->user()->project_id;
+        $this->oldRecord     = $this->getLastRecord();
         return $this;
     }
 
@@ -56,13 +63,14 @@ final class Material implements Calculator
 
     public static function credit(Request $request, int $materialId, int $amount, int $payeeId, string $comment = ''): Material
     {
-        $instance           = new Material($request, $materialId);
-        $instance->amount   = $amount;
-        $instance->credit   = $instance->amount;
-        $instance->payee_id = $payeeId;
-        $instance->comment  = $comment;
-        $instance->total    = $instance->oldRecord->total + $instance->credit;
-        $instance->required = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
+        $instance             = new Material($request, $materialId);
+        $instance->amount     = $amount;
+        $instance->credit     = $instance->amount;
+        $instance->payee_id   = $payeeId;
+        $instance->payee_name = $instance->getPayee($request, $payeeId)->name;
+        $instance->comment    = $comment;
+        $instance->total      = $instance->oldRecord->total + $instance->credit;
+        $instance->required   = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
         $instance->assignAndSave($instance);
         return $instance;
     }
@@ -97,6 +105,18 @@ final class Material implements Calculator
             $MaterialHistory->{$key} = $value;
         }
         $instance->repo->save($MaterialHistory);
+    }
+
+    private function getPayee(Request $request, int $id)
+    {
+        $payeeRepo = new PayeeRepository();
+        return $payeeRepo->getById($request, $id);
+    }
+
+    private function getMaterial(Request $request, int $id)
+    {
+        $material = new MaterialRepository();
+        return $material->getById($request, $id);
     }
 
     private function negativeChecker(int $amount): int

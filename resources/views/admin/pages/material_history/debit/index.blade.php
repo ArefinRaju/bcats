@@ -114,9 +114,9 @@
                             @foreach($data as $item)
                                 <tr>
                                     <td>{{$item->id}}</td>
-                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->material_name}}</td>
                                     <td>{{$item->debit.$item->enum}}</td>
-                                    <td>{{$item->user}}</td>
+                                    <td>{{$item->user_name}}</td>
                                     <td>{{$item->total.$item->enum}}</td>
                                     <td>{{$item->date}}</td>
                                 </tr>

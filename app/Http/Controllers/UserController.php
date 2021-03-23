@@ -44,7 +44,8 @@ class UserController extends HelperController
     public function createForm(Request $request)
     {
         // Todo : filter by using middleware
-        $roles = $this->getRules();
+        $this->request = $request;
+        $roles         = $this->getRules();
         return view('admin.pages.user.create')->with('roles', $roles);
     }
 
