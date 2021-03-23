@@ -20,32 +20,31 @@ use Illuminate\Validation\Rule;
 class UserController extends HelperController
 {
     private UserRepository $repo;
-    protected array        $commonValidationRules;
     private string         $aclPathParamName;
+    private Request        $request;
 
     public function __construct(UserRepository $repo)
     {
         $this->repo = $repo;
         $this->setResource(User::class);
-        $this->commonValidationRules = [
+        $this->aclPathParamName = 'acl';
+    }
+
+    private function commonValidationRules(): array
+    {
+        return [
             'name'     => [V::REQUIRED, ...V::NAME],
             'email'    => [V::REQUIRED, V::EMAIL],
             'password' => [V::SOMETIMES, V::REQUIRED, ...V::PASS],
             'mobile'   => [V::REQUIRED, ...V::PHONE],
-            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in(Roles::values())]
+            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in($this->getRules())]
         ];
-        $this->aclPathParamName      = 'acl';
     }
-
 
     public function createForm(Request $request)
     {
         // Todo : filter by using middleware
-        $roles = Roles::toArray();
-        unset($roles[Roles::ADMIN]);
-        if (Acl::decodeRole($request->user()->acl) !== Roles::ADMIN) {
-            unset($roles[Roles::MANAGER]);
-        }
+        $roles = $this->getRules();
         return view('admin.pages.user.create')->with('roles', $roles);
     }
 
@@ -92,7 +91,7 @@ class UserController extends HelperController
     public function update(Request $request, string $id = null)
     {
         $userRole = Acl::getUserRole($request);
-        if ($userRole !== Roles::ADMIN || $userRole !== Roles::MANAGER || $request->user()->id !== $id){
+        if ($userRole !== Roles::ADMIN || $userRole !== Roles::MANAGER || $request->user()->id !== $id) {
             return $this->respond([], [Errors::FORBIDDEN]);
         }
         $user = $this->repo->getById($request, $id);
@@ -114,8 +113,9 @@ class UserController extends HelperController
      */
     private function filterAssign(Request $request, object $user): object
     {
-        $this->validate($request, $this->commonValidationRules);
-        $input = $this->cherryPick($request, $this->commonValidationRules);
+        $this->request = $request;
+        $this->validate($request, $this->commonValidationRules());
+        $input = $this->cherryPick($request, $this->commonValidationRules());
         foreach ($input as $prop => $value) {
             if ($prop === 'password' && $value !== "") {
                 $value = Hash::make($value);
@@ -139,5 +139,18 @@ class UserController extends HelperController
             return view('admin.pages.user.index')->with('data', $materials);
         }
         return $this->respond(null, [], 'admin.pages.user.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
+    }
+
+    private function getRules(): array
+    {
+        $roles = Roles::toArray();
+        unset($roles[Roles::ADMIN]);
+        if (Acl::decodeRole($this->request->user()->acl) !== Roles::ADMIN) {
+            unset($roles[Roles::MANAGER]);
+        }
+        if (Acl::decodeRole($this->request->user()->acl) !== Roles::MANAGER) {
+            unset($roles[Roles::PROJECT_ADMIN]);
+        }
+        return $roles;
     }
 }
