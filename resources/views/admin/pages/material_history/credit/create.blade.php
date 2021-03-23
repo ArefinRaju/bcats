@@ -50,10 +50,20 @@ Dashboard
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                <div class="col-lg-4">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Payee:</label>
+                                            <select class="form-control form-control-solid" name="payeeId">
+                                                @foreach($payees as $payee)
+                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Material:</label>
-                                            <select class="form-control form-control-solid" name="payeeId">
+                                            <select class="form-control form-control-solid" name="materialId">
                                                 @foreach($materials as $material)
                                                 <option value="{{$material->id}}">{{ $material->name }}</option>
                                                 @endforeach
@@ -64,7 +74,7 @@ Dashboard
                                         <div class="form-group">
                                             <label>Amount:</label>
                                             <input type="text" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
-                                         
+
                                         </div>
                                     </div>
                                 </div>

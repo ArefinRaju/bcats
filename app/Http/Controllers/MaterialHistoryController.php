@@ -3,18 +3,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Material as MaterialModel;
-use App\Models\MaterialHistory;
 use Carbon\Carbon;
-use Helper\Calculator\Material;
-use Helper\Constants\CommonValidations as V;
-use Helper\Core\HelperController;
-use Helper\Core\UserFriendlyException;
-use Helper\Repo\MaterialHistoryRepository;
-use Helper\Repo\MaterialRepository;
-use Helper\Repo\UserRepository;
 use Helper\Transform\Arrays;
 use Illuminate\Http\Request;
+use App\Models\MaterialHistory;
+use Helper\Calculator\Material;
+use Helper\Repo\UserRepository;
+use Helper\Repo\PayeeRepository;
+use Helper\Core\HelperController;
+use Helper\Repo\MaterialRepository;
+use Helper\Core\UserFriendlyException;
+use App\Models\Material as MaterialModel;
+use Helper\Repo\MaterialHistoryRepository;
+use Helper\Constants\CommonValidations as V;
 
 class MaterialHistoryController extends HelperController
 {
@@ -22,12 +23,14 @@ class MaterialHistoryController extends HelperController
     private MaterialHistoryRepository $repo;
     private MaterialRepository        $materialRepo;
     private UserRepository            $userRepo;
+    private PayeeRepository           $payeeRepo;
 
-    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo, UserRepository $userRepo)
+    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo, UserRepository $userRepo,PayeeRepository $payeeRepo)
     {
         $this->repo         = $repo;
         $this->materialRepo = $materialRepo;
         $this->userRepo     = $userRepo;
+        $this->payeeRepo    = $payeeRepo;
         $this->setResource(MaterialHistory::class);
         $this->commonValidationRules = [
             'credit' => [V::SOMETIMES, V::REQUIRED, V::NUMBER],
@@ -38,7 +41,8 @@ class MaterialHistoryController extends HelperController
     public function creditForm(Request $request)
     {
         $materials = $this->materialRepo->materialList($request);
-        return view('admin.pages.material_history.credit.create', compact('materials'));
+        $payees  = $this->payeeRepo->list();
+        return view('admin.pages.material_history.credit.create', compact('materials','payees'));
     }
 
     public function debitForm(Request $request)
@@ -74,7 +78,7 @@ class MaterialHistoryController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Material::credit($request, $request->input('materialId'), $request->input('amount'), $request->input('payeeId'));
-        return $this->respond($log, [], '');
+        return $this->respond($log, [], 'admin.pages.material_history.credit.index');
     }
 
     /**
@@ -90,7 +94,7 @@ class MaterialHistoryController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Material::debit($request, $request->input('materialId'), $request->input('amount'));
-        return $this->respond($log, [], '');
+        return $this->respond($log, [], 'admin.pages.material_history.debit.index');
     }
 
     /**

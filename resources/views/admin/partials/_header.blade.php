@@ -51,7 +51,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ url('/demand-material') }}" class="menu-link">
+                                    <a href="{{ url('/demand/list') }}" class="menu-link">
                                         <span class="menu-text">Demand Material</span>
                                         <span class="menu-desc"></span>
                                     </a>

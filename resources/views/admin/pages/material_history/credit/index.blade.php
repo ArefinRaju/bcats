@@ -86,7 +86,7 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ url('/demand-material') }}" class="btn btn-primary font-weight-bolder">
                             <i class="la la-plus"></i>New Record</a>
                         <!--end::Button-->
                     </div>
@@ -98,19 +98,21 @@ Dashboard
                             <tr>
                                 <th>#</th>
                                 <th>Payee</th>
-                                <th>Project</th>
+                                <th>Material</th>
                                 <th>Amount</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($data as $item)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->payee_id}}</td>
+                                <td>{{$item->material_id}}</td>
+                                <td>{{$item->credit}}</td>
+                                <td>{{$item->date}}</td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
