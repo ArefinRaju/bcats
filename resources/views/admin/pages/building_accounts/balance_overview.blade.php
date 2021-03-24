@@ -116,9 +116,9 @@
                                     <td>{{$item->total}}</td>
                                     <td>
                                         @if($item->type === \Helper\Constants\Transaction::CREDIT)
-                                            {{'Credited ' . $item->credit . 'tk'}}
+                                            {{$item->credit . 'tk Credited'}}
                                         @elseif($item->type === \Helper\Constants\Transaction::DEBIT)
-                                            {{'debited ' . $item->debit . 'tk'}}
+                                            {{$item->debit . 'tk Debited'}}
                                         @else
                                             {{''}}
                                         @endif
@@ -130,7 +130,7 @@
                                             {{$item->comment}}
                                         @endif
                                     </td>
-                                    <td>{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</td>
+                                    <td>{{\Carbon\Carbon::parse($item->created_at)->format('Y-m-d h:i a')}}</td>
                                     <td nowrap="nowrap">
                                         {{-- Todo : Add button to show details --}}
                                     </td>
