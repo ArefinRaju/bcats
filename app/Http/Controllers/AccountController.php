@@ -34,21 +34,21 @@ class AccountController extends HelperController
     {
         $payees   = $this->payeeRepo->payeeList($request);
         $projects = $request->user()->project_id;
-        return view('admin.pages.fund.create', compact('payees', 'projects'));
+        return view('admin.pages.account.fund.create', compact('payees', 'projects'));
     }
 
     public function creditForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
         $projects = $request->user()->project_id;
-        return view('admin.pages.credit.create', compact('payees', 'projects'));
+        return view('admin.pages.account.credit.create', compact('payees', 'projects'));
     }
 
     public function demandForm(Request $request)
     {
         $payees   = $this->payeeRepo->payeeList($request);
         $projects = $request->user()->project_id;
-        return view('admin.pages.demand.create', compact('payees', 'projects'));
+        return view('admin.pages.account.demand.create', compact('payees', 'projects'));
     }
 
     public function payeePaymentForm(Request $request)

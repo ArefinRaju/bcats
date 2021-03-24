@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Dashboard
+Dedit
 @endsection
 @section('js')
 
@@ -20,7 +20,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">Credit</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Dedit</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-Dashboard
+Dedit
 @endsection
 @section('css')
 

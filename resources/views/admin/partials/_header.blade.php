@@ -51,19 +51,19 @@
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ url('/demand-list') }}" class="menu-link">
+                                    <a href="{{ url('/material-demand-list') }}" class="menu-link">
                                         <span class="menu-text">Demand Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ url('/debit-material') }}" class="menu-link">
+                                    <a href="{{ url('/material-debit-list') }}" class="menu-link">
                                         <span class="menu-text">Debit Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ url('/credit-material') }}" class="menu-link">
+                                    <a href="{{ url('/material-credit-list') }}" class="menu-link">
                                         <span class="menu-text">Credit Material</span>
                                         <span class="menu-desc"></span>
                                     </a>

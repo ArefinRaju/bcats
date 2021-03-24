@@ -82,7 +82,17 @@ class MaterialHistoryController extends HelperController
         }
         return $this->respond($log, [], 'admin.pages.material_history.credit.index');
     }
-
+ /**
+     * @param  Request  $request
+     * @return mixed
+     * @throws UserFriendlyException
+     */
+    public function creditList(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $creditList  = $this->repo->creditList($pagination->per_page, $pagination->page);
+        return $this->respond($creditList, [], 'admin.pages.material_history.credit.index');
+    }
     /**
      * @param  Request  $request
      * @return mixed

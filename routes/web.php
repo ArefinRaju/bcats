@@ -158,6 +158,8 @@ Route::get('/debit-material', 'MaterialHistoryController@debitForm');
 Route::get('/credit-material', 'MaterialHistoryController@creditForm');
 Route::get('/demand-material', 'MaterialHistoryController@demandForm');
 Route::get('/material-debit-list', 'MaterialHistoryController@debitList');
+Route::get('/material-demand-list', 'MaterialHistoryController@demandList');
+Route::get('/material-credit-list', 'MaterialHistoryController@creditList');
 
 Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
 Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
