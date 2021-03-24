@@ -86,8 +86,8 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/demand-material') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                        <a href="{{ url('/credit-material') }}" class="btn btn-primary font-weight-bolder">
+                            <i class="la la-plus"></i>Add Credit</a>
                         <!--end::Button-->
                     </div>
                 </div>

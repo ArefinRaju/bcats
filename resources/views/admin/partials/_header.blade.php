@@ -74,7 +74,7 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item" aria-haspopup="true">
+                                <!-- <li class="menu-item" aria-haspopup="true">
                                     <a href="/material/used-stock" class="menu-link">
                                         <span class="menu-text">Used Stock</span>
                                         <span class="menu-desc"></span>
@@ -91,7 +91,7 @@
                                         <span class="menu-text">Required Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </li>

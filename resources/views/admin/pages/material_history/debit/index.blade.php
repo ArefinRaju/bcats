@@ -92,7 +92,7 @@ Dedit
                             <!--end::Dropdown-->
                             <!--begin::Button-->
                             <a href="{{ url('/debit-material') }}" class="btn btn-primary font-weight-bolder">
-                                <i class="la la-plus"></i>New Record</a>
+                                <i class="la la-plus"></i>Add Debit</a>
                             <!--end::Button-->
                         </div>
                     </div>
