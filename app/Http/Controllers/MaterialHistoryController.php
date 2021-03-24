@@ -164,7 +164,6 @@ class MaterialHistoryController extends HelperController
     {
         $stockList = [];
         $materials = $this->materialRepo->materialList($request);
-        $log = $this->repo->getLatestById($request, $materials[1]->id);
         foreach ($materials as $material) {
             $log = $this->repo->getLatestById($request, $material->id);
             if (empty($log)) {
