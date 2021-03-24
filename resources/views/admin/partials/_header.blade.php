@@ -70,7 +70,7 @@
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
                                     <a href="{{ url('/stock') }}" class="menu-link">
-                                        <span class="menu-text">Current Stock</span>
+                                        <span class="menu-text">Current Stock Details</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
