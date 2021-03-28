@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Account as Model;
 use Helper\Calculator\Account;
 use Helper\Constants\CommonValidations as V;
+use Helper\Constants\Errors;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
@@ -104,7 +105,10 @@ class AccountController extends HelperController
      */
     public function credit(Request $request)
     {
-        $rules = ['amount' => [V::REQUIRED, V::NUMBER]];
+        $rules = [
+            'amount' => [V::REQUIRED, V::NUMBER],
+            'image'  => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
+        ];
         $this->validate($request, $rules);
         $log = Account::credit($request, $request->input('amount'));
         return $this->respond($log, [], 'admin.pages.credit.index');

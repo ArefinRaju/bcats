@@ -30,6 +30,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/debit', 'AccountController@payPayee');
     Route::post('/addFund', 'AccountController@addFund');
     Route::post('/credit', 'AccountController@credit');
+    Route::post('/upload', 'AccountController@upload');
     Route::post('/demand', 'AccountController@demand');
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
