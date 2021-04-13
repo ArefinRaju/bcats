@@ -7,11 +7,15 @@ namespace App\Http\Controllers;
 use App\Models\Account as Model;
 use Helper\Calculator\Account;
 use Helper\Constants\CommonValidations as V;
-use Helper\Constants\Errors;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AccountController extends HelperController
@@ -62,7 +66,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse|RedirectResponse
      * @throws UserFriendlyException
      */
     public function payPayee(Request $request)
@@ -83,7 +87,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function addFund(Request $request)
@@ -100,7 +104,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function credit(Request $request)
@@ -116,7 +120,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function demand(Request $request)
@@ -129,7 +133,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function list(Request $request)
