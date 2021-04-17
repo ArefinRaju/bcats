@@ -52,7 +52,17 @@ Dashboard
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label for="payeeId">Name:</label>
+                                            <label for="payeeId">Member's Name:</label>
+                                            <select class="form-control form-control-solid" name="payeeId" id="payeeId">
+                                                @foreach($payees as $payee)
+                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="payeeId">Type:</label>
                                             <select class="form-control form-control-solid" name="payeeId" id="payeeId">
                                                 @foreach($payees as $payee)
                                                 <option value="{{$payee->id}}">{{ $payee->name }}</option>
@@ -69,7 +79,14 @@ Dashboard
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label for="comment">Comment:</label>
+                                            <label for="message">Message:</label>
+                                            <input type="text" name="comment" id="message" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="comment">Deadline:</label>
                                             <input type="text" name="comment" id="comment" class="form-control form-control-solid" placeholder="Enter Amount" />
 
                                         </div>

@@ -29,6 +29,18 @@ Route::middleware(['auth'])->group(function () {
     );
 });
 Route::get(
+    '/payeed',
+    function () {
+        return view('admin.pages.profile.payee');
+    }
+);
+Route::get(
+    '/memberd',
+    function () {
+        return view('admin.pages.profile.member');
+    }
+);
+Route::get(
     '/profile',
     function () {
         return view('admin.pages.profile.create');

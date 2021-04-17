@@ -103,16 +103,19 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Total</th>
-                                <th>Payment</th>
+                                <th>Metarial Name</th>
+                                <th>Type </th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
                                 <th>Comment</th>
-                                <th>date</th>
+                                <th>Date</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($data as $item)
                                 <tr>
                                     <td>{{$item->id}}</td>
+                                    <td>{{$item->total}}</td>
                                     <td>{{$item->total}}</td>
                                     <td>
                                         @if($item->type === \Helper\Constants\Transaction::CREDIT)
