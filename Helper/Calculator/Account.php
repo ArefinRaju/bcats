@@ -10,6 +10,7 @@ use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
 use Helper\Repo\UserRepository;
 use Helper\Transform\Objects;
+use Helper\Transform\PhotoMod;
 use Illuminate\Http\Request;
 
 final class Account implements Calculator
@@ -67,16 +68,16 @@ final class Account implements Calculator
         return $lastRecord;
     }
 
-    public static function credit(Request $request, int $amount, string $image = null, string $comment = ''): Account
+    public static function credit(Request $request, int $amount = 0, string $image = null, string $comment = ''): Account
     {
         $instance           = new Account($request);
         $instance->userRepo = new UserRepository();
         $instance->type     = Transaction::CREDIT;
         $instance->is_fund  = false;
-        $instance->amount   = $amount;
-        $instance->comment  = $comment;
+        $instance->amount   = $request->input('amount') ?? $amount;
+        $instance->comment  = $request->input('comment') ?? $comment;
         $instance->credit   = $instance->amount;
-        $instance->image    = $image; // Todo : Job > Upload image
+        $instance->image    = PhotoMod::resizeAndUpload($request);
         $instance->total    = (float)$instance->oldRecord->total + $instance->amount;
         $instance->due      = (float)$instance->oldRecord->due - $instance->amount;
         $instance->required = $instance->negativeChecker((float)$instance->oldRecord->required - $instance->amount);
@@ -99,9 +100,9 @@ final class Account implements Calculator
         $instance->emi_id   = $emi_id;
         $instance->type     = Transaction::EMI;
         $instance->is_fund  = true;
-        $instance->comment  = $comment;
-        $instance->amount   = $amount;
-        $instance->image    = $image; // Todo : Job > Upload image
+        $instance->amount   = $request->input('amount') ?? $amount;
+        $instance->comment  = $request->input('comment') ?? $comment;
+        $instance->image    = PhotoMod::resizeAndUpload($request);
         $instance->total    = (float)$instance->oldRecord->total;
         $instance->required = (float)$instance->oldRecord->required;
         $instance->due      = (float)$instance->oldRecord->due + $instance->amount;
@@ -145,10 +146,10 @@ final class Account implements Calculator
         $instance->type      = Transaction::DEBIT;
         $instance->is_fund   = false;
         $instance->payee_id  = $payeeId;
-        $instance->amount    = $amount;
-        $instance->comment   = $comment;
+        $instance->amount    = $request->input('amount') ?? $amount;
+        $instance->comment   = $request->input('comment') ?? $comment;
         $instance->debit     = $instance->amount;
-        $instance->image     = $image; // Todo : Job > Upload image
+        $instance->image     = PhotoMod::resizeAndUpload($request);
         $instance->due       = (float)$instance->oldRecord->due;
         $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
         $instance->required  = (float)$instance->oldRecord->required;
@@ -162,8 +163,8 @@ final class Account implements Calculator
         $instance           = new Account($request);
         $instance->type     = Transaction::CREDIT;
         $instance->is_fund  = false;
-        $instance->amount   = $amount;
-        $instance->comment  = $comment;
+        $instance->amount   = $request->input('amount') ?? $amount;
+        $instance->comment  = $request->input('comment') ?? $comment;
         $instance->due      = (float)$instance->oldRecord->due;
         $instance->total    = (float)$instance->oldRecord->total;
         $instance->required = (float)$instance->amount;

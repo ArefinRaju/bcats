@@ -134,7 +134,7 @@ class HelperController extends Controller
 
     public function isAPI(): bool
     {
-        if (Request()->header('content-type') === 'application/json') {
+        if (Request()->header('content-type') === 'application/json' || explode('/', request()->path())[0] === 'api') {
             return true;
         }
         return false;

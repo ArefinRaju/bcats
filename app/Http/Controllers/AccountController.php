@@ -11,6 +11,11 @@ use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AccountController extends HelperController
@@ -61,7 +66,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse|RedirectResponse
      * @throws UserFriendlyException
      */
     public function payPayee(Request $request)
@@ -82,7 +87,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function addFund(Request $request)
@@ -99,12 +104,15 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function credit(Request $request)
     {
-        $rules = ['amount' => [V::REQUIRED, V::NUMBER]];
+        $rules = [
+            'amount' => [V::REQUIRED, V::NUMBER],
+            'image'  => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
+        ];
         $this->validate($request, $rules);
         $log = Account::credit($request, $request->input('amount'));
         return $this->respond($log, [], 'admin.pages.credit.index');
@@ -112,7 +120,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function demand(Request $request)
@@ -125,7 +133,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|JsonResponse|RedirectResponse|View
      * @throws UserFriendlyException
      */
     public function list(Request $request)
