@@ -13,6 +13,11 @@ use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\UserRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -20,32 +25,24 @@ use Illuminate\Validation\Rule;
 class UserController extends HelperController
 {
     private UserRepository $repo;
-    private string         $aclPathParamName;
-    private Request        $request;
 
     public function __construct(UserRepository $repo)
     {
         $this->repo = $repo;
         $this->setResource(User::class);
-        $this->aclPathParamName = 'acl';
-    }
-
-    private function commonValidationRules(): array
-    {
-        return [
+        $this->commonValidationRules = [
             'name'     => [V::REQUIRED, ...V::NAME],
             'email'    => [V::REQUIRED, V::EMAIL],
             'password' => [V::SOMETIMES, V::REQUIRED, ...V::PASS],
             'mobile'   => [V::REQUIRED, ...V::PHONE],
-            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in($this->getRules())]
+            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in(Roles::values())]
         ];
     }
 
     public function createForm(Request $request)
     {
         // Todo : filter by using middleware
-        $this->request = $request;
-        $roles         = $this->getRules();
+        $roles = $this->getRules($request);
         return view('admin.pages.user.create')->with('roles', $roles);
     }
 
@@ -58,7 +55,7 @@ class UserController extends HelperController
     /**
      * @param  Request  $request
      * @param  string|null  $action
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse|RedirectResponse
      * @throws UserFriendlyException
      */
     public function create(Request $request, string $action = null)
@@ -114,9 +111,10 @@ class UserController extends HelperController
      */
     private function filterAssign(Request $request, object $user): object
     {
-        $this->request = $request;
-        $this->validate($request, $this->commonValidationRules());
-        $input = $this->cherryPick($request, $this->commonValidationRules());
+        $rules        = $this->commonValidationRules;
+        $rules['acl'] = [V::SOMETIMES, V::REQUIRED, Rule::in($this->getRules($request))];
+        $this->validate($request, $rules);
+        $input = $this->cherryPick($request, $rules);
         foreach ($input as $prop => $value) {
             if ($prop === 'password' && $value !== "") {
                 $value = Hash::make($value);
@@ -142,14 +140,14 @@ class UserController extends HelperController
         return $this->respond(null, [], 'admin.pages.user.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
     }
 
-    private function getRules(): array
+    private function getRules(Request $request): array
     {
         $roles = Roles::toArray();
         unset($roles[Roles::ADMIN]);
-        if (Acl::decodeRole($this->request->user()->acl) !== Roles::ADMIN) {
+        if (Acl::decodeRole($request->user()->acl) !== Roles::ADMIN) {
             unset($roles[Roles::MANAGER]);
         }
-        if (Acl::decodeRole($this->request->user()->acl) !== Roles::MANAGER) {
+        if (Acl::decodeRole($request->user()->acl) !== Roles::MANAGER) {
             unset($roles[Roles::PROJECT_ADMIN]);
         }
         return $roles;
