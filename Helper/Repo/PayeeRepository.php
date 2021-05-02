@@ -41,6 +41,16 @@ class PayeeRepository extends EntityRepository
 
     public function payeeList(Request $request)
     {
-        return Payee::where('project_id', $request->user()->project_id);
+        return Payee::where('project_id', $request->user()->project_id)->get(['id', 'name']);
+    }
+
+    public function getSupplier(Request $request, int $id)
+    {
+        return Payee::leftJoin('invoices', 'payees.id', '=', 'invoices.payee_id')
+                    ->select('payees.*')
+                    ->where('payees.id', $id)
+                    ->where('payees.type', PayeeType::SUPPLIER)
+                    ->where('payees.project_id', $request->user()->project_id)
+                    ->first();
     }
 }

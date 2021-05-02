@@ -72,7 +72,7 @@
 	<!--begin::Page Vendors(used by this page)-->
 	
 	<!--end::Page Vendors-->
-	<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<script src="{{asset('admin')}}/assets/css/toastr.min.js"></script>
 {!! Toastr::message() !!}
 <script>
     @if ($errors->any())

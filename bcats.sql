@@ -42,6 +42,7 @@ CREATE TABLE `projects` (
     `budget` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `deadline` DATE NOT NULL,
     `status` VARCHAR(30) NOT NULL,
+    `subscription` date DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
@@ -91,6 +92,7 @@ CREATE TABLE `accounts` (
     `user_id` INTEGER NULL DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `invoice_id` int(11) DEFAULT NULL,
     `project_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
 );
@@ -106,6 +108,8 @@ CREATE TABLE `materials` (
     `id` INTEGER AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `enum` VARCHAR(25) NULL DEFAULT NULL,
+    `category_id` INTEGER NOT NULL,
+    `is_labor` tinyint(1) DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
@@ -151,6 +155,7 @@ CREATE TABLE `payees` (
     `address` VARCHAR(255) NOT NULL,
     `mobile` VARCHAR(255) NOT NULL,
     `paid` DECIMAL(14,2) NOT NULL DEFAULT 0,
+    `due` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `type` VARCHAR(30) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -167,12 +172,36 @@ DROP TABLE IF EXISTS `emis`;
 
 CREATE TABLE `emis` (
     `id` INTEGER AUTO_INCREMENT,
+    `name` varchar(255) DEFAULT NULL,
     `user_id` INTEGER NULL DEFAULT NULL,
-    `value` DECIMAL(14,2) NOT NULL,
+    `value` DECIMAL(14,2) NOT NULL DEFAULT 0,
+    `otp` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `status` VARCHAR(30) NULL DEFAULT NULL,
     `date` DATE NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `project_id` INTEGER NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'invoices'
+--
+-- ---
+
+DROP TABLE IF EXISTS `invoices`;
+
+CREATE TABLE `invoices` (
+    `id` INTEGER AUTO_INCREMENT,
+    `payee_id` INTEGER NOT NULL,
+    `payee_name` varchar(255) DEFAULT NULL,
+    `material_id` INTEGER DEFAULT NULL,
+    `material_name` varchar(255) DEFAULT NULL,
+    `quantity` DECIMAL(14,2) NOT NULL DEFAULT 0,
+    `paid` decimal(14,2) NOT NULL DEFAULT 0,
+    `due` decimal(14,2) NOT NULL DEFAULT 0,
+    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `project_id` INTEGER NOT NULL,
     PRIMARY KEY (`id`)
 );
@@ -188,7 +217,9 @@ ALTER TABLE `accounts` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (emi_id) REFERENCES `emis` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (by_user) REFERENCES `users` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
+ALTER TABLE `accounts` ADD FOREIGN KEY (invoice_id) REFERENCES `invoices` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
+ALTER TABLE `materials` ADD FOREIGN KEY (category_id) REFERENCES `categories` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
@@ -196,3 +227,6 @@ ALTER TABLE `material_histories` ADD FOREIGN KEY (project_id) REFERENCES `projec
 ALTER TABLE `payees` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `emis` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `emis` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
+ALTER TABLE `invoices` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
+ALTER TABLE `invoices` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
+ALTER TABLE `invoices` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);

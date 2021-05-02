@@ -52,7 +52,7 @@ Dashboard
                             <!--begin::Title-->
                             <div class="d-flex justify-content-between flex-wrap mt-1">
                                 <div class="d-flex mr-3">
-                                    <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">Jason Muller</a>
+                                    <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{!! $data['supplier']->name !!}</a>
                                     <a href="#">
                                         <i class="flaticon2-correct text-success font-size-h5"></i>
                                     </a>
@@ -101,19 +101,13 @@ Dashboard
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Advance Payment</span>
                                 <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>249,500 TK</span>
-                            </div>
-                        </div>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                            <span class="mr-4">
-                                <i class="flaticon-confetti display-4 text-muted font-weight-bold"></i>
-                            </span>
-                            <div class="d-flex flex-column text-dark-75">
-                                <span class="font-weight-bolder font-size-sm">Total Amount</span>
-                                <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>164,700 TK</span>
+                                    <span class="text-dark-50 font-weight-bold"></span>
+                                    @if($data['supplier']->due < 0)
+                                        {!! abs($data['supplier']->due) !!}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -125,7 +119,7 @@ Dashboard
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Paid</span>
                                 <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>782,300 TK</span>
+                                    <span class="text-dark-50 font-weight-bold"></span>{!! $data['supplier']->paid !!}</span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -137,7 +131,12 @@ Dashboard
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Due</span>
                                 <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>782,300 TK</span>
+                                    <span class="text-dark-50 font-weight-bold"></span>
+                                    @if($data['supplier']->due > 0)
+                                        {!! $data['supplier']->due !!}
+                                    @else
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -147,7 +146,7 @@ Dashboard
                                 <i class="flaticon-file-2 display-4 text-muted font-weight-bold"></i>
                             </span>
                             <div class="d-flex flex-column flex-lg-fill">
-                                <span class="text-dark-75 font-weight-bolder font-size-sm">Invoices</span>
+                                <span class="text-dark-75 font-weight-bolder font-size-sm">{!! $data['invoiceCount'] !!} Invoices</span>
                                 <a href="#" class="text-primary font-weight-bolder">View</a>
                             </div>
                         </div>
@@ -158,7 +157,7 @@ Dashboard
                                 <i class="flaticon-chat-1 display-4 text-muted font-weight-bold"></i>
                             </span>
                             <div class="d-flex flex-column">
-                                <span class="text-dark-75 font-weight-bolder font-size-sm">Transaction</span>
+                                <span class="text-dark-75 font-weight-bolder font-size-sm">{!! $data['transactionCount'] !!} Transaction</span>
                                 <a href="#" class="text-primary font-weight-bolder">View</a>
                             </div>
                         </div>

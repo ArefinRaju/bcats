@@ -40,6 +40,8 @@ Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/materialHistory', 'MaterialHistoryController', []);
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
+    Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
+    CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
 
     Route::middleware(['employee'])->group(function () {
         //CombinedRoute::resourceRoute('/material', 'MaterialController', []);

@@ -33,7 +33,7 @@ class HelperController extends Controller
      * @param  int  $statusCode
      * @param  array  $headers
      * @param  array  $paginationParams
-     * @return Application|Factory|View|JsonResponse|RedirectResponse
+     * @return Application|Factory|JsonResponse|View
      */
 
     public function respond($data = [], array $errors = [], string $view = 'admin.dashboard', string $message = Messages::OK, int $statusCode = ResponseType::OK, array $headers = [], array $paginationParams = [])
@@ -210,7 +210,7 @@ class HelperController extends Controller
      * @throws UserFriendlyException
      */
 
-    public function retrieve(Request $request, string $id)
+    public function retrieve(Request $request, int $id)
     {
         throw new NotSupportedException();
     }

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Payee;
 use Helper\Constants\CommonValidations as V;
+use Helper\Constants\Errors;
 use Helper\Constants\Messages;
 use Helper\Constants\PayeeType;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
+use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -63,7 +65,7 @@ class PayeeController extends HelperController
         $payees     = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($payees, [], 'admin.pages.payee.index');
     }
-  
+
     public function update(Request $request, string $id = null)
     {
         $payee = $this->repo->getById($request, $id);
@@ -86,5 +88,21 @@ class PayeeController extends HelperController
             return view('admin.pages.payee.index')->with('data', $payees);
         }
         return $this->respond(null, [], 'admin.pages.payees.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
+    }
+
+    public function viewSupplier(Request $request, int $id)
+    {
+        $supplier = $this->repo->getSupplier($request, $id);
+        if (!$supplier) {
+            return $this->respond([], [Errors::RESOURCE_NOT_FOUND]);
+        }
+        $invoiceCount     = $supplier->count();
+        $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
+        return $this->respond(compact('supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
+    }
+
+    private function accountRepo(): AccountRepository
+    {
+        return new AccountRepository();
     }
 }

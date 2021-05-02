@@ -13,6 +13,11 @@ use Helper\Core\HelperController;
 use Helper\Core\JWT;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\UserRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,9 +35,14 @@ class AuthController extends HelperController
         ];
     }
 
+    public function dashBoard()
+    {
+        return view('admin.dashboard');
+    }
+
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse|RedirectResponse
      * @throws UserFriendlyException
      */
     public function apiLogin(Request $request)
@@ -51,11 +61,7 @@ class AuthController extends HelperController
         throw new UserFriendlyException(Errors::AUTHENTICATION_FAILED, ResponseType::FORBIDDEN);
     }
 
-    /**
-     * @param  Request  $request
-     * @return mixed
-     */
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {

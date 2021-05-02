@@ -5,6 +5,7 @@ namespace Helper\Repo;
 
 
 use App\Models\Account;
+use Illuminate\Http\Request;
 
 class AccountRepository extends EntityRepository
 {
@@ -23,5 +24,10 @@ class AccountRepository extends EntityRepository
         return Account::where('project_id', Request()->user()->project_id)
             ->orderBy('id', 'desc')
             ->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function getAccountCountByPayee(Request $request, int $payeeId): int
+    {
+        return Account::where('payee_id', $payeeId)->count();
     }
 }
