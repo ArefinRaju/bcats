@@ -21,4 +21,5 @@ class Errors extends Holder
     public const ENDPOINT_NOT_FOUND             = 'ENDPOINT_NOT_FOUND';
     public const RESOURCE_NOT_FOUND             = 'RESOURCE_NOT_FOUND';
     public const SOMETHING_WENT_WRONG           = 'SOMETHING_WENT_WRONG';
+    public const DATA_EXIST                     = 'DATA_EXIST';
 }

@@ -32,6 +32,8 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/credit', 'AccountController@credit');
     Route::post('/upload', 'AccountController@upload');
     Route::post('/demand', 'AccountController@demand');
+    CombinedRoute::resourceRoute('/category', 'CategoryController', []);
+    Route::get('/material/category/{id}', 'MaterialController@listByCategoryId');
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
     Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
@@ -41,6 +43,7 @@ Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
+    Route::get('/payeeConstants', 'PayeeController@constants');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
 
     Route::middleware(['employee'])->group(function () {

@@ -24,6 +24,11 @@ class MaterialRepository extends EntityRepository
         return Material::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
     }
 
+    public function listByCategoryId(Request $request, int $id)
+    {
+        return Material::where('category_id', $id)->get();
+    }
+
     /**
      * @param  string  $id
      * @return bool
@@ -36,5 +41,10 @@ class MaterialRepository extends EntityRepository
     public function materialList(Request $request)
     {
         return Material::all();
+    }
+
+    public function isExist(Request $request): bool
+    {
+        return Material::where('name', $request->input('name'))->exists();
     }
 }

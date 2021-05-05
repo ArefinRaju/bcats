@@ -71,18 +71,22 @@ class MaterialHistoryController extends HelperController
     {
         $rules = [
             'materialId' => [V::REQUIRED, V::NUMBER],
+            'quantity'   => [V::REQUIRED, V::NUMBER],
             'amount'     => [V::REQUIRED, V::NUMBER],
+            'paidAmount' => [V::REQUIRED, V::NUMBER],
             'payeeId'    => [V::REQUIRED, V::NUMBER],
+            'message'    => [V::SOMETIMES, V::TEXT],
         ];
         $this->validate($request, $rules);
-        $log = Material::credit($request, $request->input('materialId'), $request->input('amount'), $request->input('payeeId'));
+        $log = Material::credit($request, $request->input('payeeId'), $request->input('materialId'), $request->input('amount'), $request->input('paidAmount'), $request->input('payeeId'));
         if (!$this->isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);
         }
         return $this->respond($log, [], 'admin.pages.material_history.credit.index');
     }
- /**
+
+    /**
      * @param  Request  $request
      * @return mixed
      * @throws UserFriendlyException
@@ -90,9 +94,10 @@ class MaterialHistoryController extends HelperController
     public function creditList(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $creditList  = $this->repo->creditList($pagination->per_page, $pagination->page);
+        $creditList = $this->repo->creditList($pagination->per_page, $pagination->page);
         return $this->respond($creditList, [], 'admin.pages.material_history.credit.index');
     }
+
     /**
      * @param  Request  $request
      * @return mixed

@@ -3,12 +3,19 @@
 namespace Helper\Calculator;
 
 use App\Models\MaterialHistory;
+use Helper\Constants\Errors;
+use Helper\Constants\ResponseType;
+use Helper\Core\UserFriendlyException;
+use Helper\Repo\InvoiceRepository;
 use Helper\Repo\MaterialHistoryRepository;
 use Helper\Repo\MaterialRepository;
 use Helper\Repo\PayeeRepository;
 use Helper\Transform\Objects;
 use Illuminate\Http\Request;
 
+/**
+ * @property int invoice_id
+ */
 final class Material implements Calculator
 {
     private Request                   $request;
@@ -29,8 +36,14 @@ final class Material implements Calculator
     public string                     $comment;
     public int                        $project_id;
 
+    /**
+     * @throws UserFriendlyException
+     */
     final private function __construct(Request $request, int $materialId)
     {
+        if (empty($request->user()->project_id)) {
+            throw new UserFriendlyException(Errors::FORBIDDEN, ResponseType::BAD_REQUEST);
+        }
         $this->request       = $request;
         $this->material_id   = $materialId;
         $this->material_name = $this->getMaterial($request, $materialId)->name;
@@ -63,10 +76,16 @@ final class Material implements Calculator
         return $lastRecord;
     }
 
-    public static function credit(Request $request, int $materialId, int $amount, int $payeeId, string $comment = ''): Material
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function credit(Request $request, int $payeeId, int $materialId, int $quantity, string $comment = ''): Material
     {
+        (new PayeeRepository())->update($request);
+        $invoice              = (new InvoiceRepository())->create($request);
         $instance             = new Material($request, $materialId);
-        $instance->amount     = $amount;
+        $instance->invoice_id = $invoice->id;
+        $instance->amount     = $quantity;
         $instance->credit     = $instance->amount;
         $instance->payee_id   = $payeeId;
         $instance->payee_name = $instance->getPayee($request, $payeeId)->name;
@@ -77,10 +96,13 @@ final class Material implements Calculator
         return $instance;
     }
 
-    public static function debit(Request $request, int $materialId, int $amount, string $comment = ''): Material
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function debit(Request $request, int $materialId, int $quantity, string $comment = ''): Material
     {
         $instance           = new Material($request, $materialId);
-        $instance->amount   = $amount;
+        $instance->amount   = $quantity;
         $instance->debit    = $instance->amount;
         $instance->comment  = $comment;
         $instance->total    = $instance->oldRecord->total - $instance->debit;
@@ -90,10 +112,13 @@ final class Material implements Calculator
         return $instance;
     }
 
-    public static function demand(Request $request, int $materialId, int $amount, string $comment = ''): Material
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function demand(Request $request, int $materialId, int $quantity, string $comment = ''): Material
     {
         $instance           = new Material($request, $materialId);
-        $instance->amount   = $amount;
+        $instance->amount   = $quantity;
         $instance->comment  = $comment;
         $instance->total    = $instance->oldRecord->total;
         $instance->required = $instance->amount;
@@ -122,12 +147,12 @@ final class Material implements Calculator
         return $material->getById($request, $id);
     }
 
-    private function negativeChecker(int $amount): int
+    private function negativeChecker(int $quantity): int
     {
-        if ($amount < 0) {
+        if ($quantity < 0) {
             return 0;
         }
-        return $amount;
+        return $quantity;
     }
 
     public function toArray(): array

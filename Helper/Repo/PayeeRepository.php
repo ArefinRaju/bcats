@@ -51,6 +51,25 @@ class PayeeRepository extends EntityRepository
                     ->where('payees.id', $id)
                     ->where('payees.type', PayeeType::SUPPLIER)
                     ->where('payees.project_id', $request->user()->project_id)
-                    ->first();
+                    ->get();
+    }
+
+    public function isExist(Request $request): bool
+    {
+        return Payee::where('name', $request->input('name'))
+                    ->where('type', $request->input('type'))
+                    ->where('project_id', $request->user()->project_id)
+                    ->exists();
+    }
+
+    public function update(Request $request)
+    {
+        $amount      = $request->input('amount');
+        $paidAmount  = $request->input('paidAmount');
+        $due         = $amount - $paidAmount;
+        $payee       = self::getById($request, $request->input('payeeId'));
+        $payee->paid += $paidAmount;
+        $payee->due  += $due;
+        return $this->save($payee);
     }
 }

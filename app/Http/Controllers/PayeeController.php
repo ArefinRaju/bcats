@@ -32,6 +32,11 @@ class PayeeController extends HelperController
         ];
     }
 
+    public function constants()
+    {
+        return $this->respond(['type' => PayeeType::values()]);
+    }
+
     public function createForm()
     {
         $data = [
@@ -48,6 +53,9 @@ class PayeeController extends HelperController
 
     public function create(Request $request, string $action = null)
     {
+        if ($this->repo->isExist($request)) {
+            return $this->respond([], [Errors::DATA_EXIST], '', ResponseType::UNPROCESSABLE_ENTITY);
+        }
         $payee             = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Payee());
         $payee->project_id = $request->user()->project_id;
         $this->repo->save($payee);
@@ -69,7 +77,7 @@ class PayeeController extends HelperController
     public function update(Request $request, string $id = null)
     {
         $payee = $this->repo->getById($request, $id);
-        $payee = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $payee);
+        $payee = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, $payee, ['paid', 'due']);
         $this->repo->save($payee);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
@@ -92,11 +100,12 @@ class PayeeController extends HelperController
 
     public function viewSupplier(Request $request, int $id)
     {
-        $supplier = $this->repo->getSupplier($request, $id);
-        if (!$supplier) {
+        $supplierRecords = $this->repo->getSupplier($request, $id);
+        $supplier        = $supplierRecords[0];
+        if (empty($supplier)) {
             return $this->respond([], [Errors::RESOURCE_NOT_FOUND]);
         }
-        $invoiceCount     = $supplier->count();
+        $invoiceCount     = $supplierRecords->count();
         $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
         return $this->respond(compact('supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
     }

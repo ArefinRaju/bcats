@@ -123,6 +123,7 @@ CREATE TABLE `materials` (
 DROP TABLE IF EXISTS `material_histories`;
 
 CREATE TABLE `material_histories` (
+    `invoice_id` INTEGER NULL DEFAULT NULL,
     `id` INTEGER AUTO_INCREMENT,
     `payee_id` INTEGER NULL DEFAULT NULL,
     `payee_name` VARCHAR(255) NULL DEFAULT NULL,
@@ -207,6 +208,21 @@ CREATE TABLE `invoices` (
 );
 
 -- ---
+-- Table 'categories'
+--
+-- ---
+
+DROP TABLE IF EXISTS `categories`;
+
+CREATE TABLE `categories` (
+    `id` INTEGER AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+);
+
+-- ---
 -- Foreign Keys
 -- ---
 
@@ -220,6 +236,7 @@ ALTER TABLE `accounts` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (invoice_id) REFERENCES `invoices` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `materials` ADD FOREIGN KEY (category_id) REFERENCES `categories` (`id`);
+ALTER TABLE `material_histories` ADD FOREIGN KEY (invoices_id) REFERENCES `invoices` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
