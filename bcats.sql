@@ -201,6 +201,7 @@ CREATE TABLE `invoices` (
     `quantity` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `paid` decimal(14,2) NOT NULL DEFAULT 0,
     `due` decimal(14,2) NOT NULL DEFAULT 0,
+    `status` TINYINT(1) NULL DEFAULT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `project_id` INTEGER NOT NULL,

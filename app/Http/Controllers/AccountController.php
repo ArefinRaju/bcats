@@ -77,7 +77,7 @@ class AccountController extends HelperController
             'comment' => [V::SOMETIMES, V::REQUIRED, V::TEXT]
         ];
         $this->validate($request, $rules);
-        $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment'));
+        $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment') ?? '');
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);

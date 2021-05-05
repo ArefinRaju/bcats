@@ -5,6 +5,7 @@ namespace Helper\Calculator;
 
 
 use App\Models\Account as Model;
+use Helper\Constants\PayeeType;
 use Helper\Constants\Transaction;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
@@ -102,11 +103,13 @@ final class Account implements Calculator
         $instance->is_fund  = true;
         $instance->amount   = $request->input('amount') ?? $amount;
         $instance->comment  = $request->input('comment') ?? $comment;
-        $instance->image    = PhotoMod::resizeAndUpload($request);
         $instance->total    = (float)$instance->oldRecord->total;
         $instance->required = (float)$instance->oldRecord->required;
         $instance->due      = (float)$instance->oldRecord->due + $instance->amount;
         $instance->by_user  = (int)$by_user;
+        if (!empty($image)) {
+            $instance->image = PhotoMod::resizeAndUpload($request);
+        }
         $instance->updateUserData($instance, Transaction::EMI);
         $instance->assignAndSave($instance);
         return $instance;
@@ -149,10 +152,12 @@ final class Account implements Calculator
         $instance->amount    = $request->input('amount') ?? $amount;
         $instance->comment   = $request->input('comment') ?? $comment;
         $instance->debit     = $instance->amount;
-        $instance->image     = PhotoMod::resizeAndUpload($request);
         $instance->due       = (float)$instance->oldRecord->due;
         $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
         $instance->required  = (float)$instance->oldRecord->required;
+        if (!empty($image)) {
+            $instance->image = PhotoMod::resizeAndUpload($request);
+        }
         $instance->updatePayeeData($instance);
         $instance->assignAndSave($instance);
         return $instance;
@@ -174,9 +179,17 @@ final class Account implements Calculator
 
     private function updatePayeeData(Account $instance): void
     {
-        $payee       = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
+        $payee = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
+        if ($payee->type === PayeeType::SUPPLIER) {
+            $payee->due -= $instance->amount;
+        }
         $payee->paid += $instance->amount;
         $instance->payeeRepo->save($payee);
+    }
+
+    private function completeInvoice(Account $instance)
+    {
+        // Todo : Get all invoices by payee and make status true until paid
     }
 
     private function assignAndSave(Account $instance): void
