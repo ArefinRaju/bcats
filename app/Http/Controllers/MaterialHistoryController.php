@@ -13,6 +13,10 @@ use Helper\Repo\MaterialRepository;
 use Helper\Repo\PayeeRepository;
 use Helper\Repo\UserRepository;
 use Helper\Transform\Arrays;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class MaterialHistoryController extends HelperController
@@ -63,7 +67,7 @@ class MaterialHistoryController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse
      * @throws UserFriendlyException
      */
 
@@ -76,9 +80,10 @@ class MaterialHistoryController extends HelperController
             'paidAmount' => [V::REQUIRED, V::NUMBER],
             'payeeId'    => [V::REQUIRED, V::NUMBER],
             'message'    => [V::SOMETIMES, V::TEXT],
+            'image'      => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
         ];
         $this->validate($request, $rules);
-        $log = Material::credit($request, $request->input('payeeId'), $request->input('materialId'), $request->input('amount'), $request->input('paidAmount'), $request->input('payeeId'));
+        $log = Material::credit($request, $request->input('payeeId'), $request->input('materialId'), $request->input('amount'), $request->input('paidAmount'));
         if (!$this->isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);
@@ -88,7 +93,7 @@ class MaterialHistoryController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse
      * @throws UserFriendlyException
      */
     public function creditList(Request $request)
@@ -100,7 +105,7 @@ class MaterialHistoryController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse
      * @throws UserFriendlyException
      */
     public function debit(Request $request)
@@ -120,7 +125,7 @@ class MaterialHistoryController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse
      * @throws UserFriendlyException
      */
     public function debitList(Request $request)
@@ -132,7 +137,7 @@ class MaterialHistoryController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse
      * @throws UserFriendlyException
      */
     public function demand(Request $request)
@@ -157,7 +162,7 @@ class MaterialHistoryController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return mixed
+     * @return Application|Factory|View|JsonResponse
      */
     public function stock(Request $request)
     {

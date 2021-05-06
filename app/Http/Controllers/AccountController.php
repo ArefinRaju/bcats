@@ -66,7 +66,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return Application|Factory|View|JsonResponse|RedirectResponse
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function payPayee(Request $request)
@@ -87,7 +87,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return Application|Factory|JsonResponse|RedirectResponse|View
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function addFund(Request $request)
@@ -104,7 +104,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return Application|Factory|JsonResponse|RedirectResponse|View
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function credit(Request $request)
@@ -120,7 +120,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return Application|Factory|JsonResponse|RedirectResponse|View
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function demand(Request $request)
@@ -133,7 +133,7 @@ class AccountController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return Application|Factory|JsonResponse|RedirectResponse|View
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function list(Request $request)

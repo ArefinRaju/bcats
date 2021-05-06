@@ -5,9 +5,11 @@ namespace Helper\Calculator;
 
 
 use App\Models\Account as Model;
+use App\Models\User;
 use Helper\Constants\PayeeType;
 use Helper\Constants\Transaction;
 use Helper\Repo\AccountRepository;
+use Helper\Repo\InvoiceRepository;
 use Helper\Repo\PayeeRepository;
 use Helper\Repo\UserRepository;
 use Helper\Transform\Objects;
@@ -18,7 +20,6 @@ final class Account implements Calculator
 {
     private Request           $request;
     private Model             $oldRecord;
-    private Model             $newRecord;
     private AccountRepository $repo;
     private UserRepository    $userRepo;
     private PayeeRepository   $payeeRepo;
@@ -41,7 +42,6 @@ final class Account implements Calculator
     final private function __construct(Request $request)
     {
         $this->request    = $request;
-        $this->newRecord  = new Model();
         $this->repo       = new AccountRepository();
         $this->user_id    = $request->user()->id;
         $this->project_id = $request->user()->project_id;
@@ -69,13 +69,13 @@ final class Account implements Calculator
         return $lastRecord;
     }
 
-    public static function credit(Request $request, int $amount = 0, string $image = null, string $comment = ''): Account
+    public static function credit(Request $request, int $amount, string $comment = ''): Account
     {
         $instance           = new Account($request);
         $instance->userRepo = new UserRepository();
         $instance->type     = Transaction::CREDIT;
         $instance->is_fund  = false;
-        $instance->amount   = $request->input('amount') ?? $amount;
+        $instance->amount   = $instance->negativeChecker($amount);
         $instance->comment  = $request->input('comment') ?? $comment;
         $instance->credit   = $instance->amount;
         $instance->image    = PhotoMod::resizeAndUpload($request);
@@ -94,22 +94,20 @@ final class Account implements Calculator
         $instance->userRepo->save($user);
     }
 
-    public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $image = null, string $comment = ''): Account
+    public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $comment = ''): Account
     {
         $instance           = new Account($request);
         $instance->userRepo = new UserRepository();
         $instance->emi_id   = $emi_id;
         $instance->type     = Transaction::EMI;
         $instance->is_fund  = true;
-        $instance->amount   = $request->input('amount') ?? $amount;
+        $instance->amount   = $instance->negativeChecker($amount);
         $instance->comment  = $request->input('comment') ?? $comment;
         $instance->total    = (float)$instance->oldRecord->total;
         $instance->required = (float)$instance->oldRecord->required;
         $instance->due      = (float)$instance->oldRecord->due + $instance->amount;
-        $instance->by_user  = (int)$by_user;
-        if (!empty($image)) {
-            $instance->image = PhotoMod::resizeAndUpload($request);
-        }
+        $instance->by_user  = $by_user;
+        $instance->image    = PhotoMod::resizeAndUpload($request);
         $instance->updateUserData($instance, Transaction::EMI);
         $instance->assignAndSave($instance);
         return $instance;
@@ -124,6 +122,7 @@ final class Account implements Calculator
 
     private function updateUsersDueAndContribution(Account $instance): void
     {
+        /* @var User $user */
         $user               = $instance->userRepo->getById($instance->request, $instance->by_user);
         $user->due          -= $instance->due;
         $user->contribution += $instance->amount;
@@ -142,22 +141,20 @@ final class Account implements Calculator
         }
     }
 
-    public static function debit(Request $request, int $amount, int $payeeId, string $comment = '', string $image = null): Account
+    public static function debit(Request $request, int $amount, int $payeeId, string $comment = ''): Account
     {
         $instance            = new Account($request);
         $instance->payeeRepo = new PayeeRepository();
         $instance->type      = Transaction::DEBIT;
         $instance->is_fund   = false;
         $instance->payee_id  = $payeeId;
-        $instance->amount    = $request->input('amount') ?? $amount;
+        $instance->amount    = $instance->negativeChecker($amount);
         $instance->comment   = $request->input('comment') ?? $comment;
         $instance->debit     = $instance->amount;
         $instance->due       = (float)$instance->oldRecord->due;
         $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
         $instance->required  = (float)$instance->oldRecord->required;
-        if (!empty($image)) {
-            $instance->image = PhotoMod::resizeAndUpload($request);
-        }
+        $instance->image     = PhotoMod::resizeAndUpload($request);
         $instance->updatePayeeData($instance);
         $instance->assignAndSave($instance);
         return $instance;
@@ -168,7 +165,7 @@ final class Account implements Calculator
         $instance           = new Account($request);
         $instance->type     = Transaction::CREDIT;
         $instance->is_fund  = false;
-        $instance->amount   = $request->input('amount') ?? $amount;
+        $instance->amount   = $instance->negativeChecker($amount);
         $instance->comment  = $request->input('comment') ?? $comment;
         $instance->due      = (float)$instance->oldRecord->due;
         $instance->total    = (float)$instance->oldRecord->total;
@@ -184,12 +181,28 @@ final class Account implements Calculator
             $payee->due -= $instance->amount;
         }
         $payee->paid += $instance->amount;
+        self::completeInvoice();
         $instance->payeeRepo->save($payee);
     }
 
-    private function completeInvoice(Account $instance)
+    private function completeInvoice(): void
     {
-        // Todo : Get all invoices by payee and make status true until paid
+        $amount   = $this->request->input('amount');
+        $invoices = (new InvoiceRepository())->payeeList($this->request);
+        foreach ($invoices as $invoice) {
+            if ($amount <= 0) {
+                break;
+            }
+            elseif ($amount < $invoice->due) {
+                $invoice->due = $invoice->due - $amount;
+                $invoice->save();
+                break;
+            }
+            $amount          -= $invoice->due;
+            $invoice->due    = 0;
+            $invoice->status = true;
+            $invoice->save();
+        }
     }
 
     private function assignAndSave(Account $instance): void

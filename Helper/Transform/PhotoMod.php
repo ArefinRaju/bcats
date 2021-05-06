@@ -23,9 +23,12 @@ class PhotoMod
         $this->name      = time().'.'.$this->extension;
     }
 
-    public static function resizeAndUpload(Request $request): string
+    public static function resizeAndUpload(Request $request): ?string
     {
         $instance = new self($request);
+        if (empty($instance->file)){
+            return null;
+        }
         $image    = Image::make($instance->file);
         $image->resize(500,
                        null,

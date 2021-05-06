@@ -28,4 +28,13 @@ class InvoiceRepository extends EntityRepository
         $invoice->due         = $due;
         return $this->save($invoice);
     }
+
+    public function payeeList(Request $request)
+    {
+        return Invoice::where('payee_id', $request->input('payeeId'))
+                      ->whereNull('status')
+                      ->where('project_id', $request->user()->project_id)
+                      ->orderBy('id', 'asc')
+                      ->get();
+    }
 }

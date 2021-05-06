@@ -92,6 +92,7 @@ final class Material implements Calculator
         $instance->comment    = $comment;
         $instance->total      = $instance->oldRecord->total + $instance->credit;
         $instance->required   = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
+        Account::debit($request, $request->input('paidAmount'), $instance->payee_id);
         $instance->assignAndSave($instance);
         return $instance;
     }

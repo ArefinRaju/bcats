@@ -15,6 +15,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static orderBy(string $string, string $string1)
  * @property string acl
  * @property int id
+ * @property mixed due
+ * @property mixed contribution
  * @property string name
  * @property string email
  * @property int project_id
