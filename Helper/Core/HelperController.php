@@ -87,8 +87,7 @@ class HelperController extends Controller
     public function validateCherryPickAndAssign(Request $request, array $rules, Model $model, ...$blockUpdate): object
     {
         $input = $this->validateCherryPick($request, $rules);
-        $model = $this->assignAfterCherryPick($model, $input, ...$blockUpdate);
-        return $model;
+        return $this->assignAfterCherryPick($model, $input, ...$blockUpdate);
     }
 
     /**

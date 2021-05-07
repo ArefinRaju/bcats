@@ -27,7 +27,7 @@ class ProductController extends HelperController
 
 
 
-    public function retrieve(Request $request, string $id, string $action = null)
+    public function retrieve(Request $request, int $id, string $action = null)
     {
         //dd($request->header('Authorization'));
         $token = str_replace('Bearer ', '', $request->header('Authorization'));

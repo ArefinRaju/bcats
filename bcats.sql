@@ -52,23 +52,6 @@ INSERT INTO `projects` (`id`, `name`, `type`, `budget`, `deadline`, `status`, `c
 (1, 'Project', 'BUILDING', '20000.00', '2022-11-20', 'PLANNING', '2021-03-20 06:21:14', '2021-03-20 06:21:14');
 
 -- ---
--- Table 'project_users'
---
--- ---
-
-DROP TABLE IF EXISTS `project_users`;
-
-CREATE TABLE `project_users` (
-    `id` INTEGER AUTO_INCREMENT,
-    `user_id` INTEGER NULL DEFAULT NULL,
-    `role` VARCHAR(255) NOT NULL,
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `project_id` INTEGER NOT NULL,
-    PRIMARY KEY (`id`)
-);
-
--- ---
 -- Table 'accounts'
 --
 -- ---
@@ -174,10 +157,9 @@ DROP TABLE IF EXISTS `emis`;
 CREATE TABLE `emis` (
     `id` INTEGER AUTO_INCREMENT,
     `name` varchar(255) DEFAULT NULL,
-    `user_id` INTEGER NULL DEFAULT NULL,
     `value` DECIMAL(14,2) NOT NULL DEFAULT 0,
-    `otp` DECIMAL(14,2) NOT NULL DEFAULT 0,
-    `status` VARCHAR(30) NULL DEFAULT NULL,
+    `otp` TINYINT(1) NULL DEFAULT NULL,
+    `status` TINYINT(1) NULL DEFAULT NULL,
     `date` DATE NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -224,12 +206,30 @@ CREATE TABLE `categories` (
 );
 
 -- ---
+-- Table 'emi_users'
+--
+-- ---
+
+DROP TABLE IF EXISTS `emi_users`;
+
+CREATE TABLE `emi_users` (
+    `id` INTEGER AUTO_INCREMENT,
+    `emi_id` INTEGER NOT NULL,
+    `user_id` INTEGER NOT NULL,
+    `paid` decimal(14,2) NOT NULL DEFAULT 0,
+    `due` decimal(14,2) NOT NULL DEFAULT 0,
+    `status` TINYINT(1) NULL DEFAULT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `project_id` INTEGER NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+-- ---
 -- Foreign Keys
 -- ---
 
 ALTER TABLE `users` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
-ALTER TABLE `project_users` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
-ALTER TABLE `project_users` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (emi_id) REFERENCES `emis` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (by_user) REFERENCES `users` (`id`);
@@ -237,14 +237,16 @@ ALTER TABLE `accounts` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (invoice_id) REFERENCES `invoices` (`id`);
 ALTER TABLE `accounts` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `materials` ADD FOREIGN KEY (category_id) REFERENCES `categories` (`id`);
-ALTER TABLE `material_histories` ADD FOREIGN KEY (invoices_id) REFERENCES `invoices` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
+ALTER TABLE `material_histories` ADD FOREIGN KEY (invoices_id) REFERENCES `invoices` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `payees` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
-ALTER TABLE `emis` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `emis` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `invoices` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
-ALTER TABLE `invoices` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
 ALTER TABLE `invoices` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
+ALTER TABLE `invoices` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
+ALTER TABLE `emi_users` ADD FOREIGN KEY (emi_id) REFERENCES `emis` (`id`);
+ALTER TABLE `emi_users` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
+ALTER TABLE `emi_users` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);

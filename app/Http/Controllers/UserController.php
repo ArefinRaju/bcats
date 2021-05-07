@@ -64,6 +64,9 @@ class UserController extends HelperController
         Acl::authorize($request, [Permission::CREATE_MANAGER, Permission::CREATE_PROJECT_USER]);
         $user = new User();
         $user = $this->filterAssign($request, $user);
+        if ($request->user()->acl !== Roles::ADMIN || $request->user()->acl !== Roles::MANAGER) {
+            $user->project_id = $request->user()->project_id;
+        }
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
@@ -73,7 +76,7 @@ class UserController extends HelperController
         return $this->respond($user, [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
     }
 
-    public function retrieve(Request $request, string $id)
+    public function retrieve(Request $request, int $id)
     {
         $user = $this->repo->getById($request, $id);
         return $this->respond($user, []);

@@ -11,7 +11,6 @@ use Helper\Core\UserFriendlyException;
 use Helper\Repo\MaterialHistoryRepository;
 use Helper\Repo\MaterialRepository;
 use Helper\Repo\PayeeRepository;
-use Helper\Repo\UserRepository;
 use Helper\Transform\Arrays;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -24,14 +23,12 @@ class MaterialHistoryController extends HelperController
     protected array                   $commonValidationRules;
     private MaterialHistoryRepository $repo;
     private MaterialRepository        $materialRepo;
-    private UserRepository            $userRepo;
     private PayeeRepository           $payeeRepo;
 
-    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo, UserRepository $userRepo, PayeeRepository $payeeRepo)
+    public function __construct(MaterialHistoryRepository $repo, MaterialRepository $materialRepo, PayeeRepository $payeeRepo)
     {
         $this->repo         = $repo;
         $this->materialRepo = $materialRepo;
-        $this->userRepo     = $userRepo;
         $this->payeeRepo    = $payeeRepo;
         $this->setResource(MaterialHistory::class);
         $this->commonValidationRules = [

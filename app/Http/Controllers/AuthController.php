@@ -42,7 +42,7 @@ class AuthController extends HelperController
 
     /**
      * @param  Request  $request
-     * @return Application|Factory|View|JsonResponse|RedirectResponse
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function apiLogin(Request $request)

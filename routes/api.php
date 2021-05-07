@@ -40,6 +40,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');
     Route::get('/stock', 'MaterialHistoryController@stock');
     CombinedRoute::resourceRoute('/materialHistory', 'MaterialHistoryController', []);
+    Route::post('/unpaidEMIs', 'EMIController@unpaidEMIs');
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
