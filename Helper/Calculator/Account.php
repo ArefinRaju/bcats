@@ -6,9 +6,13 @@ namespace Helper\Calculator;
 
 use App\Models\Account as Model;
 use App\Models\User;
+use Helper\Constants\Errors;
 use Helper\Constants\PayeeType;
 use Helper\Constants\Transaction;
+use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
+use Helper\Repo\EMIRepository;
+use Helper\Repo\EmiUserRepository;
 use Helper\Repo\InvoiceRepository;
 use Helper\Repo\PayeeRepository;
 use Helper\Repo\UserRepository;
@@ -94,6 +98,9 @@ final class Account implements Calculator
         $instance->userRepo->save($user);
     }
 
+    /**
+     * @throws UserFriendlyException
+     */
     public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $comment = ''): Account
     {
         $instance           = new Account($request);
@@ -107,10 +114,36 @@ final class Account implements Calculator
         $instance->required = (float)$instance->oldRecord->required;
         $instance->due      = (float)$instance->oldRecord->due + $instance->amount;
         $instance->by_user  = $by_user;
-        $instance->image    = PhotoMod::resizeAndUpload($request);
+        $instance->updateUserEmi($request, $amount, $emi_id, $by_user);
+        $instance->image = PhotoMod::resizeAndUpload($request);
         $instance->updateUserData($instance, Transaction::EMI);
         $instance->assignAndSave($instance);
         return $instance;
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    private function updateUserEmi(Request $request, int $amount, int $emi_id, int $by_user): void
+    {
+        $emi     = (new EMIRepository())->getById($request, $emi_id);
+        $userEmi = (new EmiUserRepository())->getUnpaidByEmiIdAndUserId($request, $emi->id, $by_user);
+        if (empty($userEmi)) {
+            throw new UserFriendlyException(Errors::RESOURCE_NOT_FOUND);
+        }
+        $dueLeft = $userEmi->due - $amount;
+        if ($dueLeft < 0) {
+            throw new UserFriendlyException(Errors::AMOUNT_IS_BIGGER_THAN_DUE);
+        }
+        $userEmi->due  = $dueLeft;
+        $userEmi->paid = $amount;
+        if ($dueLeft > 0) {
+            $userEmi->status = false;
+        }
+        else {
+            $userEmi->status = true;
+        }
+        $userEmi->save();
     }
 
     private function creditUserOnHoldAmount(Account $instance): void

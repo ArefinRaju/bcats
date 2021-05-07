@@ -22,4 +22,5 @@ class Errors extends Holder
     public const RESOURCE_NOT_FOUND             = 'RESOURCE_NOT_FOUND';
     public const SOMETHING_WENT_WRONG           = 'SOMETHING_WENT_WRONG';
     public const DATA_EXIST                     = 'DATA_EXIST';
+    public const AMOUNT_IS_BIGGER_THAN_DUE      = 'AMOUNT_IS_BIGGER_THAN_DUE';
 }
