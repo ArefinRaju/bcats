@@ -133,7 +133,7 @@ class UserController extends HelperController
 
     public function destroy(Request $request, string $id)
     {
-        //   dd($id);
+        throw new UserFriendlyException(Errors::FORBIDDEN);
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);

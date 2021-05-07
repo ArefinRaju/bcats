@@ -11,6 +11,7 @@ use Helper\Constants\Errors;
 use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
+use Helper\Core\UserFriendlyException;
 use Helper\Repo\CategoryRepository;
 use Illuminate\Http\Request;
 
@@ -68,6 +69,7 @@ class CategoryController extends HelperController
 
     public function destroy(Request $request, string $id)
     {
+        throw new UserFriendlyException(Errors::FORBIDDEN);
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $categories = $this->repo->list();
