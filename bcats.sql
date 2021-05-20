@@ -238,7 +238,7 @@ ALTER TABLE `accounts` ADD FOREIGN KEY (invoice_id) REFERENCES `invoices` (`id`)
 ALTER TABLE `accounts` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
 ALTER TABLE `materials` ADD FOREIGN KEY (category_id) REFERENCES `categories` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (payee_id) REFERENCES `payees` (`id`);
-ALTER TABLE `material_histories` ADD FOREIGN KEY (invoices_id) REFERENCES `invoices` (`id`);
+ALTER TABLE `material_histories` ADD FOREIGN KEY (invoice_id) REFERENCES `invoices` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (material_id) REFERENCES `materials` (`id`);
 ALTER TABLE `material_histories` ADD FOREIGN KEY (project_id) REFERENCES `projects` (`id`);
