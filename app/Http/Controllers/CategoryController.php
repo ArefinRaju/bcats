@@ -28,10 +28,18 @@ class CategoryController extends HelperController
             'name' => [V::REQUIRED, V::TEXT]
         ];
     }
-
+    public function createForm()
+    {
+        return view('admin.pages.category.create');
+    }
+    public function editForm($id)
+    {
+        $category = Category::find($id);
+        return view('admin.pages.category.edit', compact('category'));
+    }
     public function create(Request $request, string $action = null)
     {
-        if ($this->repo->isExist($request)){
+        if ($this->repo->isExist($request)) {
             return $this->respond([], [Errors::DATA_EXIST], '', ResponseType::UNPROCESSABLE_ENTITY);
         }
         $category = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Category());
@@ -52,7 +60,7 @@ class CategoryController extends HelperController
     public function list(Request $request)
     {
         $materials = $this->repo->list();
-        return $this->respond($materials, [], 'admin.pages.material.index');
+        return $this->respond($materials, [], 'admin.pages.category.index');
     }
 
     public function update(Request $request, string $id = null)
@@ -62,7 +70,7 @@ class CategoryController extends HelperController
         $this->repo->save($category);
         if (!self::isAPI()) {
             $categories = $this->repo->list();
-            return view(/* Todo */)->with('data', $categories);
+            return view('admin.pages.category.index')->with('data', $categories);
         }
         return $this->respond($category, []);
     }

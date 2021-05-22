@@ -152,7 +152,10 @@ Route::get('/payee-create', 'PayeeController@createForm');
 Route::get('/payee-edit/{id}', 'PayeeController@editForm');
 CombinedRoute::resourceRoute('payee', 'PayeeController', []);
 
-Route::get('/material-create', 'MaterialController@createForm');
+Route::get('/category-create', 'CategoryController@createForm');
+Route::get('/category-edit/{id}', 'CategoryController@editForm');
+CombinedRoute::resourceRoute('category', 'CategoryController', []);
+
 Route::get('/material-create', 'MaterialController@createForm');
 Route::get('/material-edit/{id}', 'MaterialController@editForm');
 CombinedRoute::resourceRoute('material', 'MaterialController', []);
