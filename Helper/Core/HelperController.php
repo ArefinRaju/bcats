@@ -205,7 +205,7 @@ class HelperController extends Controller
 
     /**
      * @param  Request  $request
-     * @param  string  $id
+     * @param  int  $id
      * @throws UserFriendlyException
      */
 
