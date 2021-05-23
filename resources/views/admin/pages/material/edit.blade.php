@@ -59,6 +59,25 @@ Material
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
+                                            <label for="category_id">Category:</label>
+                                            <select class="form-control form-control-solid" name="category_id" id="category_id">
+                                                @foreach($categoryList as $option)
+                                                    <option {{ $option->id == $material->category_id ? 'selected' : '' }} value="{!! $option->id !!}">{!! $option->name !!}</option>
+                                                @endforeach
+                                            </select>
+                                            </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="is_labor">Is Labor:</label>
+                                                <select class="form-control form-control-solid" name="is_labor" id="is_labor">
+                                                        <option {{ $material->is_labor == 1 ? 'selected' : '' }} value="1">Yes</option>
+                                                        <option {{ $material->is_labor == 0 ? 'selected' : '' }} value="0">No</option>
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
                                             <label for="enum">Enum:</label>
                                             <select class="form-control form-control-solid" name="enum" id="enum">
                                                 @foreach($data as $option)

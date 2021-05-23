@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Material;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Enum;
@@ -34,15 +35,17 @@ class MaterialController extends HelperController
 
     public function createForm()
     {
-        $enumList = Enum::toArray();
-        return view('admin.pages.material.create')->with('data', $enumList);
+        $data = Enum::toArray();
+        $categoryList = Category::all();
+        return view('admin.pages.material.create', compact('data', 'categoryList'));
     }
 
     public function editForm($id)
     {
         $material = Material::find($id);
         $data     = Enum::toArray();
-        return view('admin.pages.material.edit', compact('data', 'material'));
+        $categoryList = Category::all();
+        return view('admin.pages.material.edit', compact('data', 'material','categoryList'));
     }
 
     public function create(Request $request, string $action = null)

@@ -13,5 +13,9 @@ use Helper\Repo\Entity;
  */
 class Material extends Entity
 {
+    public function category(){
 
+        return $this->belongsTo('App\Models\Category', 'category_id');
+
+    }
 }

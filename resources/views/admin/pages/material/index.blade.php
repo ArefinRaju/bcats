@@ -99,6 +99,8 @@ Material
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Enum</th>
+                                <th>Category</th>
+                                <th>Is Labor</th>
                                 <th style="text-align: right;">Actions</th>
                             </tr>
                         </thead>
@@ -108,6 +110,8 @@ Material
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$material->name??''}}</td>
                                 <td>{{$material->enum ?? ''}}</td>
+                                <td>{{$material->category->name ?? ''}}</td>
+                                <td>{{$material->is_labor?? ''}}</td>
                                 <td nowrap="nowrap">
                                     <div class="float-right">
 
