@@ -181,8 +181,6 @@ class MaterialHistoryController extends HelperController
             $item['name']     = $material->name;
             $item['enum']     = $material->enum;
             $item['total']    = $log->total;
-            $item['credit']   = $log->credit;
-            $item['debit']    = $log->debit;
             $item['required'] = $log->required;
             $item['used']     = $log->used;
             $stockList[]      = Arrays::toObject($item);
