@@ -76,11 +76,11 @@ class MaterialHistoryController extends HelperController
             'amount'     => [V::REQUIRED, V::NUMBER],
             'paidAmount' => [V::REQUIRED, V::NUMBER],
             'payeeId'    => [V::REQUIRED, V::NUMBER],
-            'message'    => [V::SOMETIMES, V::TEXT],
+            'comment'    => [V::SOMETIMES, V::TEXT],
             'image'      => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
         ];
         $this->validate($request, $rules);
-        $log = Material::credit($request, $request->input('payeeId'), $request->input('materialId'), $request->input('amount'), $request->input('paidAmount'));
+        $log = Material::credit($request, $request->input('payeeId'), $request->input('materialId'), $request->input('amount'));
         if (!$this->isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);
