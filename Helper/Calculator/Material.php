@@ -79,7 +79,7 @@ final class Material implements Calculator
     /**
      * @throws UserFriendlyException
      */
-    public static function credit(Request $request, int $payeeId, int $materialId, int $quantity, string $comment = ''): Material
+    public static function credit(Request $request, int $payeeId, int $materialId, int $quantity): Material
     {
         (new PayeeRepository())->update($request);
         $invoice              = (new InvoiceRepository())->create($request);
@@ -89,7 +89,7 @@ final class Material implements Calculator
         $instance->credit     = $instance->amount;
         $instance->payee_id   = $payeeId;
         $instance->payee_name = $instance->getPayee($request, $payeeId)->name;
-        $instance->comment    = $comment;
+        $instance->comment    = $request->input('comment') ?? '';
         $instance->total      = $instance->oldRecord->total + $instance->credit;
         $instance->required   = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
         Account::debit($request, $request->input('paidAmount'), $instance->payee_id);

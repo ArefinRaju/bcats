@@ -183,6 +183,7 @@ CREATE TABLE `invoices` (
     `quantity` DECIMAL(14,2) NOT NULL DEFAULT 0,
     `paid` decimal(14,2) NOT NULL DEFAULT 0,
     `due` decimal(14,2) NOT NULL DEFAULT 0,
+    `comment` varchar(255) DEFAULT NULL,
     `status` TINYINT(1) NOT NULL DEFAULT 0,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
