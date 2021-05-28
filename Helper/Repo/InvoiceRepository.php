@@ -16,16 +16,22 @@ class InvoiceRepository extends EntityRepository
 
     public function create(Request $request): Invoice
     {
-        $amount               = $request->input('amount');
-        $paidAmount           = $request->input('paidAmount');
-        $due                  = $amount - $paidAmount;
-        $invoice              = new Invoice();
-        $invoice->payee_id    = $request->input('payeeId');
-        $invoice->material_id = $request->input('materialId');
-        $invoice->quantity    = $request->input('quantity');
-        $invoice->project_id  = $request->user()->project_id;
-        $invoice->paid        = $paidAmount;
-        $invoice->due         = $due;
+        $payeeId                = $request->input('payeeId');
+        $materialId             = $request->input('materialId');
+        $payeeName              = (new PayeeRepository())->getById($request, $payeeId)->name;
+        $materialName           = (new MaterialRepository())->getById($request, $materialId)->name;
+        $amount                 = $request->input('amount');
+        $paidAmount             = $request->input('paidAmount');
+        $due                    = $amount - $paidAmount;
+        $invoice                = new Invoice();
+        $invoice->payee_id      = $payeeId;
+        $invoice->payee_name    = $payeeName;
+        $invoice->material_id   = $materialId;
+        $invoice->material_name = $materialName;
+        $invoice->quantity      = $request->input('quantity');
+        $invoice->project_id    = $request->user()->project_id;
+        $invoice->paid          = $paidAmount;
+        $invoice->due           = $due;
         return $this->save($invoice);
     }
 

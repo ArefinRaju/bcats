@@ -15,6 +15,8 @@ use Helper\Repo\Entity;
  * @property mixed due
  * @property int project_id
  * @property int id
+ * @property string payee_name
+ * @property string material_name
  * @method static orderBy(string $string, string $string1)
  */
 class Invoice extends Entity
