@@ -27,7 +27,7 @@ Dashboard
     </div>
     <!--end::Subheader-->
     <!--begin::Entry-->
-    <div class="d-flex flex-column-fluid">
+    <div class="d-flex flex-column-fluid"  id="vue_app">
         <!--begin::Container-->
         <div class="container">
             <!--begin::Card-->
@@ -57,7 +57,7 @@ Dashboard
                                 </div>
                                 <div class="my-lg-0 my-3">
                                     <button @click="toggle = !toggle" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Buy Material</button>
-                                    <button  class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</button>
+                                    <button @click="addTransaction = !addTransaction" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</button>
                                 </div>
                             </div>
                             <!--end::Title-->
@@ -167,10 +167,10 @@ Dashboard
             </div>
             <!--end::Card-->
             <!--begin::Row-->
-            <div class="row" id="vue_app">
+            <div class="row">
                 <div class="col-lg-12">
                     <!--begin::Advance Table Widget 2-->
-                    <div class="card card-custom card-stretch gutter-b">
+                    <div class="card card-custom card-stretch gutter-b" v-if="toggle">
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
@@ -277,7 +277,7 @@ Dashboard
             <div class="row">
                 <div class="col-lg-12">
                     <!--begin::Advance Table Widget 2-->
-                    <div class="card card-custom card-stretch gutter-b">
+                    <div class="card card-custom card-stretch gutter-b"  v-if="addTransaction">
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
@@ -363,6 +363,7 @@ Dashboard
                       
                     },
                     category_id: '',
+                    addTransaction: false,
                     toggle: false,
                     sub_categories: [],
                 },
