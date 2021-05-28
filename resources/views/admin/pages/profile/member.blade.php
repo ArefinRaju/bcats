@@ -204,10 +204,8 @@ Dashboard
                                             <div class="form-group">
                                                 <label for="payeeId">Sub Category Name:</label>
                                                 <select class="form-control form-control-solid bSelect" name="sub_category_id" id="sub_category_id">
-
                                                 <option value="">Select one</option>
                                                 <option :value="row.id" v-for="row in sub_categories" v-html="row.name">
-
                                                 </select>
                                             </div>
                                         </div>
@@ -243,6 +241,20 @@ Dashboard
                                             <div class="form-group">
                                                 <label for="message">Message:</label>
                                                 <input type="text" name="comment" id="message" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="image">Image:</label>
+                                                <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <input type="text" name="description" id="description" class="form-control form-control-solid" placeholder="Enter Amount" />
 
                                             </div>
                                         </div>
@@ -299,6 +311,20 @@ Dashboard
                                                     <option value=""></option>
 
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="image">Image:</label>
+                                                <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <input type="text" name="description" id="description" class="form-control form-control-solid" placeholder="Enter Amount" />
+
                                             </div>
                                         </div>
                                     </div>
