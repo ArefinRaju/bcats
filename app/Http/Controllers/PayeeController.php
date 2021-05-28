@@ -106,6 +106,9 @@ class PayeeController extends HelperController
         $supplierRecords = $this->repo->getSupplier($request, $id);
         $supplier        = $supplierRecords[0];
         if (empty($supplier)) {
+            if (!$this->isAPI()) {
+                return back()->withErrors([Errors::RESOURCE_NOT_FOUND]);
+            }
             return $this->respond([], [Errors::RESOURCE_NOT_FOUND]);
         }
         $invoiceCount     = $supplierRecords->count();
