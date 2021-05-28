@@ -56,8 +56,8 @@ Dashboard
                                     </a>
                                 </div>
                                 <div class="my-lg-0 my-3">
-                                    <a href="#" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Buy Material</a>
-                                    <a href="#" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</a>
+                                    <button @click="toggle = !toggle" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Buy Material</button>
+                                    <button  class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</button>
                                 </div>
                             </div>
                             <!--end::Title-->
@@ -363,6 +363,7 @@ Dashboard
                       
                     },
                     category_id: '',
+                    toggle: false,
                     sub_categories: [],
                 },
                 methods: {
