@@ -3,6 +3,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Material;
 use App\Models\Payee;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Errors;
@@ -109,9 +111,32 @@ class PayeeController extends HelperController
         $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
         return $this->respond(compact('supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
     }
-
     private function accountRepo(): AccountRepository
     {
         return new AccountRepository();
+    }
+    public function memberD()
+    {
+       $categories=Category::all();
+     //  dd($categories);
+        return view('admin.pages.profile.member',compact('categories'));
+    }
+    public function fetch_sub_category_product_info($id)
+    {
+        $subCategory = Material::where('category_id', $id)->get();
+        // if (count($subCategory) > 0) {
+        //     $subCategory = [];
+        // } else {
+        //     $subCategory =$subCategory;
+        // }
+
+        $data = [
+
+            'subCategory' => $subCategory,
+           
+        ];
+
+        return $data;
+
     }
 }
