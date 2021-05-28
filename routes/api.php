@@ -24,6 +24,7 @@ Route::post('/auth/login', 'AuthController@apiLogin');
 
 //Route::get('/apitest', 'ProductController@retrieve');
 CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
+Route::get('/material/category/{id}', 'MaterialController@listByCategoryId');
 
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
@@ -32,8 +33,8 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/credit', 'AccountController@credit');
     Route::post('/upload', 'AccountController@upload');
     Route::post('/demand', 'AccountController@demand');
+    Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
     CombinedRoute::resourceRoute('/category', 'CategoryController', []);
-    Route::get('/material/category/{id}', 'MaterialController@listByCategoryId');
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
     Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
@@ -47,6 +48,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('/payeeConstants', 'PayeeController@constants');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
 
+    Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
     Route::middleware(['employee'])->group(function () {
         //CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     });

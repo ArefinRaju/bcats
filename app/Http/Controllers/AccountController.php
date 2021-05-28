@@ -141,4 +141,14 @@ class AccountController extends HelperController
         $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($accounts, [], 'admin.pages.building_accounts.balance_overview');
     }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function transactionList(Request $request, int $payee_id)
+    {
+        $pagination = $this->paginationManager($request);
+        $materials  = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
+        return $this->respond($materials, [], 'viewHere'); // Todo : View
+    }
 }

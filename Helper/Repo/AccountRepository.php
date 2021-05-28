@@ -30,4 +30,11 @@ class AccountRepository extends EntityRepository
     {
         return Account::where('payee_id', $payeeId)->count();
     }
+
+    public function listByPayee(Request $request, int $id, ?int $perPage = 10, ?int $page = null)
+    {
+        return Account::where('payee_id', $id)
+                      ->where('project_id', $request->user()->project_id)
+                      ->orderBy('id', 'desc')->paginate($perPage, ['*'], 'page', $page);
+    }
 }

@@ -28,15 +28,18 @@ class CategoryController extends HelperController
             'name' => [V::REQUIRED, V::TEXT]
         ];
     }
+
     public function createForm()
     {
         return view('admin.pages.category.create');
     }
+
     public function editForm($id)
     {
         $category = Category::find($id);
         return view('admin.pages.category.edit', compact('category'));
     }
+
     public function create(Request $request, string $action = null)
     {
         if ($this->repo->isExist($request)) {
