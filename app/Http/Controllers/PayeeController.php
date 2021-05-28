@@ -104,7 +104,7 @@ class PayeeController extends HelperController
     public function viewSupplier(Request $request, int $id)
     {
         $supplierRecords = $this->repo->getSupplier($request, $id);
-        $supplier        = $supplierRecords[0];
+        $supplier        = $supplierRecords[0] ?? null;
         if (empty($supplier)) {
             if (!$this->isAPI()) {
                 return back()->withErrors([Errors::RESOURCE_NOT_FOUND]);
