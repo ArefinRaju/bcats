@@ -46,6 +46,7 @@ Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');
+    Route::post('/supplierSearch', 'PayeeController@search');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
 
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');

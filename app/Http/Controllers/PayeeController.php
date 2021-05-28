@@ -12,6 +12,7 @@ use Helper\Constants\Messages;
 use Helper\Constants\PayeeType;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
+use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
 use Illuminate\Http\Request;
@@ -111,16 +112,18 @@ class PayeeController extends HelperController
         $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
         return $this->respond(compact('supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
     }
+
     private function accountRepo(): AccountRepository
     {
         return new AccountRepository();
     }
+
     public function memberD()
     {
-       $categories=Category::all();
-     //  dd($categories);
-        return view('admin.pages.profile.member',compact('categories'));
+        $categories = Category::all();
+        return view('admin.pages.profile.member', compact('categories'));
     }
+
     public function fetch_sub_category_product_info($id)
     {
         $subCategory = Material::where('category_id', $id)->get();
@@ -133,10 +136,19 @@ class PayeeController extends HelperController
         $data = [
 
             'subCategory' => $subCategory,
-           
+
         ];
 
         return $data;
+    }
 
+    /**
+     * @throws UserFriendlyException
+     */
+    public function search(Request $request)
+    {
+        $this->validate($request, ['query' => [V::REQUIRED, V::TEXT]]);
+        $result = $this->repo->searchSupplier($request);
+        return $this->respond($result->toArray(), [], '');
     }
 }

@@ -72,4 +72,13 @@ class PayeeRepository extends EntityRepository
         $payee->due  += $due;
         return $this->save($payee);
     }
+
+    public function searchSupplier(Request $request)
+    {
+        return Payee::where('name', 'like', '%'.$request->input('query').'%')
+                    ->orWhere('mobile', 'like', '%'.$request->input('query').'%')
+                    ->where('type', PayeeType::SUPPLIER)
+                    ->where('project_id', $request->user()->project_id)
+                    ->get();
+    }
 }
