@@ -60,7 +60,9 @@ Dashboard
 
                                     <li style="cursor: pointer;" class="list-group-item list-hover"
                                         v-for="(result, index) in results">
-                                        <a href="{{ url(supplier/@ {{ result.id }})  }}">@{{ result.name }}</a></li>
+                                        <a v-bind:href="'supplier/'+ result.id">@{{ result.name }}</a>
+                                    </li>
+
                                 </ul>
                                     </div>
                                 </div>
