@@ -25,7 +25,7 @@ Dashboard
     </div>
     <!--end::Subheader-->
     <!--begin::Entry-->
-    <div class="d-flex flex-column-fluid"  id="vue_app">
+    <div class="d-flex flex-column-fluid" id="vue_app">
         <!--begin::Container-->
         <div class="container">
             <!--begin::Row-->
@@ -46,60 +46,64 @@ Dashboard
                         <!--end::Header-->
                         <!--begin::Body-->
                         <div class="card-body pt-3 pb-0">
-                           
-                                <div class="card-body">
-                                    <div class="row">
-                                       
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label for="message">search keyword:</label>
-                                                <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="message" class="form-control form-control-solid" placeholder="Enter Message">
 
-                                            </div>
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="message">search keyword:</label>
+                                            <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="message" class="form-control form-control-solid" placeholder="Enter Message">
+
                                         </div>
+                                    </div>
                                 </div>
-                            <!--end::Form-->
+                                <!--end::Form-->
+                            </div>
+                            <!--end::Body-->
                         </div>
-                        <!--end::Body-->
+                        <!--end::Advance Table Widget 2-->
                     </div>
-                    <!--end::Advance Table Widget 2-->
                 </div>
+                <!--end::Row-->
             </div>
-            <!--end::Row-->
+            <!--end::Container-->
         </div>
-        <!--end::Container-->
+        <!--end::Entry-->
     </div>
-    <!--end::Entry-->
-</div>
-@endsection
-@section('js')
-<script src="{{ asset('vue-js/vue/dist/vue.js') }}"></script>
+    @endsection
+    @section('js')
+    <script src="{{ asset('vue-js/vue/dist/vue.js') }}"></script>
     <script src="{{ asset('vue-js/axios/dist/axios.min.js') }}"></script>
     <script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             let vue = new Vue({
                 el: '#vue_app',
                 data: {
                     config: {
                         get_search_url: "{{ url('supplierSearch') }}",
-                      
+
                     },
                     searchKeyword: '',
-                    results:[]
-                
+                    project_id: '{{ $projectId }}',
+                    results: []
+
                 },
                 methods: {
                     search_keyword() {
                         let vm = this;
                         let slug = vm.searchKeyword;
-                        const projectId = {!! $projectId !!};
+                        let project_id = vm.project_id;
                         if (slug) {
-                            axios.post(this.config.get_search_url + '/' + slug).then(function (response) {
+                            axios.post('api/supplierSearch', {
+                                query: slug,
+                                project_id:project_id
+                            }).then(function(response) {
                                 vm.results = response.data;
                                 console.log(results);
-                            }).catch(function (error) {
+                            }).catch(function(error) {
                                 toastr.error('Something went to wrong', {
                                     closeButton: true,
                                     progressBar: true,
@@ -124,4 +128,4 @@ Dashboard
 
         });
     </script>
-@endsection
+    @endsection
