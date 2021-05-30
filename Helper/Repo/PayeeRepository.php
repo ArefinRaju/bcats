@@ -78,7 +78,7 @@ class PayeeRepository extends EntityRepository
         return Payee::where('name', 'like', '%'.$request->input('query').'%')
                     ->orWhere('mobile', 'like', '%'.$request->input('query').'%')
                     ->where('type', PayeeType::SUPPLIER)
-                    ->where('project_id', $request->user()->project_id)
+                    ->where('project_id', $request->input('project_id'))
                     ->get();
     }
 }
