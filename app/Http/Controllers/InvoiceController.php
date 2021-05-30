@@ -32,6 +32,6 @@ class InvoiceController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $materials  = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
-        return $this->respond($materials, [], 'viewHere'); // Todo : View
+        return $this->respond($materials, [], 'admin.pages.payee.invoice');
     }
 }

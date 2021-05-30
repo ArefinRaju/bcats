@@ -19,7 +19,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Payee</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">invoice</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Payee List</h3>
+                        <h3 class="card-label">invoice List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -105,39 +105,7 @@ Dashboard
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $payee)
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$payee->name??''}}</td>
-                                <td>{{$payee->mobile??''}}</td>
-                                <td>{{$payee->address??''}}</td>
-                                <td>{{$payee->type??''}}</td>
-                                <td nowrap="nowrap">
-                                    <div class="float-right">
-
-                                        <form action="{{url('payee', $payee->id)}}" method="post">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            @csrf
-                                            <a href="{{ url('payee-edit', $payee->id) }}" class="btn btn-primary">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                                Edit
-                                            </a>
-                                            <a href="{{ url('transaction', $payee->id) }}" class="btn btn-primary">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                                transaction
-                                            </a>
-                                            <a href="{{ url('invoice', $payee->id) }}" class="btn btn-primary">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                                invoice
-                                            </a>
-                                            <button id="btnDelete" class="btn btn-danger">Delete</button>
-                                        </form>
-
-
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                           
                         </tbody>
                     </table>
                     <!--end: Datatable-->

@@ -30,6 +30,9 @@ Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetch_sub_ca
 
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
 Route::get('supplierSearch/{keyword}', 'PayeeController@supplierSearchList');
+
+Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
+Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 Route::get(
     '/profile',
     function () {
