@@ -19,7 +19,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Invoice</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Transaction</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Invoice List</h3>
+                        <h3 class="card-label">Transaction List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -105,7 +105,7 @@ Dashboard
                             </tr>
                         </thead>
                         <tbody>
-                        
+                        @dd($data)
                         </tbody>
                     </table>
                     <!--end: Datatable-->
