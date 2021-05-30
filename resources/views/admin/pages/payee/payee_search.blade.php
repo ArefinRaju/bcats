@@ -56,6 +56,12 @@ Dashboard
                                             <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="message" class="form-control form-control-solid" placeholder="Enter Message">
 
                                         </div>
+                                        <ul class="list-group" style="position: absolute; width:100% !important;z-index:2;">
+
+                                    <li style="cursor: pointer;" class="list-group-item list-hover"
+                                        v-for="(result, index) in results">
+                                        <a href="{{ url(supplier/@ {{ result.id }})  }}">@{{ result.name }}</a></li>
+                                </ul>
                                     </div>
                                 </div>
                                 <!--end::Form-->
@@ -101,8 +107,8 @@ Dashboard
                                 query: slug,
                                 project_id:project_id
                             }).then(function(response) {
-                                vm.results = response.data;
-                                console.log(results);
+                                vm.results = response.data.result;
+                                console.log(vm.results);
                             }).catch(function(error) {
                                 toastr.error('Something went to wrong', {
                                     closeButton: true,
