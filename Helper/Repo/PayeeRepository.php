@@ -76,7 +76,7 @@ class PayeeRepository extends EntityRepository
     public function searchSupplier(Request $request)
     {
         return Payee::where('name', 'like', '%'.$request->input('query').'%')
-                    ->orWhere('mobile', 'like', '%'.$request->input('query').'%')
+                    //->orWhere('mobile', 'like', '%'.$request->input('query').'%')  // Todo : Add number search
                     ->where('type', PayeeType::SUPPLIER)
                     ->where('project_id', $request->input('project_id'))
                     ->get();
