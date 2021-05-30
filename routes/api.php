@@ -25,6 +25,7 @@ Route::post('/auth/login', 'AuthController@apiLogin');
 //Route::get('/apitest', 'ProductController@retrieve');
 CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
 Route::get('/material/category/{id}', 'MaterialController@listByCategoryId');
+Route::post('/supplierSearch', 'PayeeController@search');
 
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
@@ -46,7 +47,6 @@ Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');
-    Route::post('/supplierSearch', 'PayeeController@search');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
 
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');

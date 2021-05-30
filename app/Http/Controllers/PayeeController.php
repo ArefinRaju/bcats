@@ -126,17 +126,17 @@ class PayeeController extends HelperController
     {
         $categories = Category::all();
         return view('admin.pages.payee.payee_search', compact('categories'));
-       
     }
+
     public function supplierSearchList($query)
     {
         return Payee::where('name', 'like', '%'.$query.'%')
-        ->orWhere('mobile', 'like', '%'.$query.'%')
-        ->where('type', PayeeType::SUPPLIER)
-        ->where('project_id', Auth::user()->project_id)
-        ->get();
-       
+                    ->orWhere('mobile', 'like', '%'.$query.'%')
+                    ->where('type', PayeeType::SUPPLIER)
+                    ->where('project_id', Auth::user()->project_id)
+                    ->get();
     }
+
     public function memberD()
     {
         $categories = Category::all();
@@ -166,7 +166,11 @@ class PayeeController extends HelperController
      */
     public function search(Request $request)
     {
-        $this->validate($request, ['query' => [V::REQUIRED, V::TEXT]]);
+        $rules = [
+            'query'      => [V::REQUIRED, V::TEXT],
+            'project_id' => [V::REQUIRED, V::NUMBER]
+        ];
+        $this->validate($request, $rules);
         $result = $this->repo->searchSupplier($request);
         return $this->respond($result->toArray(), [], '');
     }
