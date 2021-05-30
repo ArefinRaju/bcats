@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Material;
 use App\Models\Payee;
+use Auth;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Errors;
 use Helper\Constants\Messages;
@@ -121,6 +122,21 @@ class PayeeController extends HelperController
         return new AccountRepository();
     }
 
+    public function supplierSearch()
+    {
+        $categories = Category::all();
+        return view('admin.pages.payee.payee_search', compact('categories'));
+       
+    }
+    public function supplierSearchList($query)
+    {
+        return Payee::where('name', 'like', '%'.$query.'%')
+        ->orWhere('mobile', 'like', '%'.$query.'%')
+        ->where('type', PayeeType::SUPPLIER)
+        ->where('project_id', Auth::user()->project_id)
+        ->get();
+       
+    }
     public function memberD()
     {
         $categories = Category::all();

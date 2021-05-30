@@ -185,7 +185,7 @@ Dashboard
                         <!--begin::Body-->
                         <div class="card-body pt-3 pb-0">
                             <!--begin::Form-->
-                            <form class="form" method="POST" action="">
+                            <form class="form" method="POST" action="{{url('materialHistoryCredit')}}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
@@ -202,8 +202,8 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="payeeId">Sub Category Name:</label>
-                                                <select class="form-control form-control-solid bSelect" name="sub_category_id" id="sub_category_id">
+                                                <label for="materialId">Sub Category Name:</label>
+                                                <select class="form-control form-control-solid bSelect" name="materialId" id="materialId">
                                                 <option value="">Select one</option>
                                                 <option :value="row.id" v-for="row in sub_categories" v-html="row.name">
                                                 </select>
@@ -218,29 +218,29 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="amount">Paid Amount:</label>
-                                                <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
+                                                <label for="paidAmount">Paid Amount:</label>
+                                                <input type="text" id="paidAmount" name="paidAmount" class="form-control form-control-solid" placeholder="Enter Paid Amount" />
 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="amount">Quantity:</label>
-                                                <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
+                                                <label for="quantity">Quantity:</label>
+                                                <input type="text" id="quantity" name="quantity" class="form-control form-control-solid" placeholder="Enter Quantity" />
 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="amount">Date:</label>
-                                                <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
+                                                <label for="date">Date:</label>
+                                                <input type="text" id="date" name="date" class="form-control form-control-solid" placeholder="Enter Date" />
 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="message">Message:</label>
-                                                <input type="text" name="comment" id="message" class="form-control form-control-solid" placeholder="Enter Amount" />
+                                                <input type="text" name="comment" id="message" class="form-control form-control-solid" placeholder="Enter Message" />
 
                                             </div>
                                         </div>
