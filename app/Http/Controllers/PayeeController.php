@@ -121,10 +121,10 @@ class PayeeController extends HelperController
         return new AccountRepository();
     }
 
-    public function supplierSearch()
+    public function supplierSearch(Request $request)
     {
-        $categories = Category::all();
-        return view('admin.pages.payee.payee_search', compact('categories'));
+        $projectId = $request->user()->project_id;
+        return view('admin.pages.payee.payee_search', compact('projectId'));
     }
 
     public function memberD()

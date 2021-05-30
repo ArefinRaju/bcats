@@ -52,7 +52,7 @@ Dashboard
                                        
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="searchKeyword">search keyword:</label>
+                                                <label for="message">search keyword:</label>
                                                 <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="message" class="form-control form-control-solid" placeholder="Enter Message">
 
                                             </div>
@@ -79,7 +79,7 @@ Dashboard
     <script src="{{ URL::asset('assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            var vue = new Vue({
+            let vue = new Vue({
                 el: '#vue_app',
                 data: {
                     config: {
@@ -92,10 +92,11 @@ Dashboard
                 },
                 methods: {
                     search_keyword() {
-                        var vm = this;
-                        var slug = vm.searchKeyword;
+                        let vm = this;
+                        let slug = vm.searchKeyword;
+                        const projectId = {!! $projectId !!};
                         if (slug) {
-                            axios.get(this.config.get_search_url + '/' + slug).then(function (response) {
+                            axios.post(this.config.get_search_url + '/' + slug).then(function (response) {
                                 vm.results = response.data;
                                 console.log(results);
                             }).catch(function (error) {
