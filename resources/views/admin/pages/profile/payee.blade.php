@@ -157,7 +157,7 @@ Dashboard
                             </span>
                             <div class="d-flex flex-column flex-lg-fill">
                                 <span class="text-dark-75 font-weight-bolder font-size-sm">{!! $data['invoiceCount'] !!} Invoices</span>
-                                <a href="#" class="text-primary font-weight-bolder">View</a>
+                                <a href="{{ url('invoice', $data['supplier']->id) }}" class="text-primary font-weight-bolder">View</a>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -168,7 +168,7 @@ Dashboard
                             </span>
                             <div class="d-flex flex-column">
                                 <span class="text-dark-75 font-weight-bolder font-size-sm">{!! $data['transactionCount'] !!} Transaction</span>
-                                <a href="#" class="text-primary font-weight-bolder">View</a>
+                                <a href="{{ url('transaction', $data['supplier']->id) }}" class="text-primary font-weight-bolder">View</a>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -222,21 +222,21 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="amount">Total Amount:</label>
+                                                <label for="amount">Total Amount(Tk):</label>
                                                 <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="paidAmount">Paid Amount:</label>
+                                                <label for="paidAmount">Paid Amount(tk):</label>
                                                 <input type="text" id="paidAmount" name="paidAmount" class="form-control form-control-solid" placeholder="Enter Paid Amount" />
 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="quantity">Quantity:</label>
+                                                <label for="quantity">Material Quantity:</label>
                                                 <input type="text" id="quantity" name="quantity" class="form-control form-control-solid" placeholder="Enter Quantity" />
 
                                             </div>
