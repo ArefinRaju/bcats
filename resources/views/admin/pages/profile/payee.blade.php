@@ -243,13 +243,6 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="date">Date:</label>
-                                                <input type="text" id="date" name="date" class="form-control form-control-solid" placeholder="Enter Date" />
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
                                                 <label for="message">Message:</label>
                                                 <input type="text" name="comment" id="message" class="form-control form-control-solid" placeholder="Enter Message" />
 
@@ -271,7 +264,7 @@ Dashboard
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                               
-                                                <input type="hidden" name="payeeId" id="description" class="form-control form-control-solid" placeholder="Enter Amount" value="{!! $data['supplier']->id !!}">
+                                                <input type="hidden" name="payeeId" id="payeeId" class="form-control form-control-solid" placeholder="Enter Payee Id" value="{!! $data['supplier']->id !!}">
 
                                             </div>
                                         </div>
@@ -322,16 +315,6 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="payeeId">Transaction Type:</label>
-                                                <select class="form-control form-control-solid" name="payeeId" id="payeeId">
-
-                                                    <option value=""></option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
                                                 <label for="image">Image:</label>
                                                 <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
 
@@ -339,8 +322,8 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="description">Description:</label>
-                                                <input type="text" name="description" id="description" class="form-control form-control-solid" placeholder="Enter Amount" />
+                                                <label for="comment">Comment:</label>
+                                                <input type="text" name="comment" id="comment" class="form-control form-control-solid" placeholder="Enter Amount" />
 
                                             </div>
                                         </div>
