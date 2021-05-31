@@ -50,20 +50,15 @@ Dashboard
                             <div class="card-body">
                                 <div class="row">
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="message">search keyword:</label>
-                                            <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="message" class="form-control form-control-solid" placeholder="Enter Message">
-
+                                            <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="searchKeyword" class="form-control form-control-solid" placeholder="Search Keyword">
                                         </div>
                                         <ul class="list-group" style="position: absolute; width:100% !important;z-index:2;">
-
-                                    <li style="cursor: pointer;" class="list-group-item list-hover"
-                                        v-for="(result, index) in results">
-                                        <a v-bind:href="'supplier/'+ result.id">@{{ result.name }}</a>
-                                    </li>
-
-                                </ul>
+                                            <li style="cursor: pointer;" class="list-group-item list-hover" v-for="(result, index) in results">
+                                                <a v-bind:href="'supplier/'+ result.id">@{{ result.name }}</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <!--end::Form-->
@@ -107,7 +102,7 @@ Dashboard
                         if (slug) {
                             axios.post('api/supplierSearch', {
                                 query: slug,
-                                project_id:project_id
+                                project_id: project_id
                             }).then(function(response) {
                                 vm.results = response.data.result;
                                 console.log(vm.results);
