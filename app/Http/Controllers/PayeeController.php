@@ -103,6 +103,7 @@ class PayeeController extends HelperController
 
     public function viewSupplier(Request $request, int $id)
     {
+        $categories = Category::all();
         $supplierRecords = $this->repo->getSupplier($request, $id);
         $supplier        = $supplierRecords[0] ?? null;
         if (empty($supplier)) {
@@ -113,7 +114,7 @@ class PayeeController extends HelperController
         }
         $invoiceCount     = $supplierRecords->count();
         $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
-        return $this->respond(compact('supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
+        return $this->respond(compact('categories','supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
     }
 
     private function accountRepo(): AccountRepository

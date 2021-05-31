@@ -5,9 +5,6 @@ Dashboard
 @section('css')
 
 @endsection
-@section('js')
-
-@endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Subheader-->
@@ -29,7 +26,8 @@ Dashboard
     </div>
     <!--end::Subheader-->
     <!--begin::Entry-->
-    <div class="d-flex flex-column-fluid">
+    
+    <div class="d-flex flex-column-fluid"  id="vue_app">
         <!--begin::Container-->
         <div class="container">
             <!--begin::Card-->
@@ -58,8 +56,9 @@ Dashboard
                                     </a>
                                 </div>
                                 <div class="my-lg-0 my-3">
-                                    <a href="#" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Buy Material</a>
-                                    <a href="#" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</a>
+                                    <button @click="toggle = !toggle" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Buy Material</button>
+                                    <button @click="addTransaction = !addTransaction" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</button>
+
                                 </div>
                             </div>
                             <!--end::Title-->
@@ -102,11 +101,10 @@ Dashboard
                                 <span class="font-weight-bolder font-size-sm">Advance Payment</span>
                                 <span class="font-weight-bolder font-size-h5">
                                     <span class="text-dark-50 font-weight-bold"></span>
-                                    @if($data['supplier']->due < 0)
-                                        {!! abs($data['supplier']->due) !!}
-                                    @else
+                                    @if($data['supplier']->due < 0) {!! abs($data['supplier']->due) !!}
+                                        @else
                                         0
-                                    @endif
+                                        @endif
                                 </span>
                             </div>
                         </div>
@@ -135,8 +133,8 @@ Dashboard
                             </div>
                         </div>
                         <!--end::Item-->
-                         <!--begin::Item-->
-                         <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
                             <span class="mr-4">
                                 <i class="flaticon-pie-chart display-4 text-muted font-weight-bold"></i>
                             </span>
@@ -145,7 +143,7 @@ Dashboard
                                 <span class="font-weight-bolder font-size-h5">
                                     <span class="text-dark-50 font-weight-bold"></span>
                                     @if($data['supplier']->due > 0)
-                                        {!! $data['supplier']->due !!}
+                                    {!! $data['supplier']->due !!}
                                     @else
                                     @endif
                                 </span>
@@ -179,9 +177,247 @@ Dashboard
                 </div>
             </div>
             <!--end::Card-->
+            <!--begin::Row-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--begin::Advance Table Widget 2-->
+                    <div class="card card-custom card-stretch gutter-b" v-if="toggle">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 pt-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label font-weight-bolder text-dark">Buy Material</span>
+                                <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
+                            </h3>
+                            <div class="card-toolbar">
+
+                            </div>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body pt-3 pb-0">
+                            <!--begin::Form-->
+                            <form class="form" method="POST" action="{{url('materialHistoryCredit')}}">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="payeeId">Category Name:</label>
+                                                <select class="form-control form-control-solid bSelect" @change="fetch_sub_category_and_product()" v-model="category_id" name="category_id" id="category_id">
+                                                    <option value="">Select one</option>
+                                                    @foreach($data['categories'] as $category)
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="materialId">Sub Category Name:</label>
+                                                <select class="form-control form-control-solid bSelect" name="materialId" id="materialId">
+                                                    <option value="">Select one</option>
+                                                    <option :value="row.id" v-for="row in sub_categories" v-html="row.name">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="amount">Total Amount:</label>
+                                                <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="paidAmount">Paid Amount:</label>
+                                                <input type="text" id="paidAmount" name="paidAmount" class="form-control form-control-solid" placeholder="Enter Paid Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="quantity">Quantity:</label>
+                                                <input type="text" id="quantity" name="quantity" class="form-control form-control-solid" placeholder="Enter Quantity" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="date">Date:</label>
+                                                <input type="text" id="date" name="date" class="form-control form-control-solid" placeholder="Enter Date" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="message">Message:</label>
+                                                <input type="text" name="comment" id="message" class="form-control form-control-solid" placeholder="Enter Message" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="image">Image:</label>
+                                                <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <input type="text" name="description" id="description" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <input type="text" name="payeeId" id="description" class="form-control form-control-solid" placeholder="Enter Amount" value="{!! $data['supplier']->id !!}">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                </div>
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Advance Table Widget 2-->
+                </div>
+            </div>
+            <!--end::Row-->
+            <!--begin::Row-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--begin::Advance Table Widget 2-->
+                    <div class="card card-custom card-stretch gutter-b" v-if="addTransaction">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 pt-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label font-weight-bolder text-dark">Add Transaction</span>
+                                <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
+                            </h3>
+                            <div class="card-toolbar">
+
+                            </div>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body pt-3 pb-0">
+                            <!--begin::Form-->
+                            <form class="form" method="POST" action="">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="amount">Transaction Amount:</label>
+                                                <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="payeeId">Transaction Type:</label>
+                                                <select class="form-control form-control-solid" name="payeeId" id="payeeId">
+
+                                                    <option value=""></option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="image">Image:</label>
+                                                <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <input type="text" name="description" id="description" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                </div>
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Advance Table Widget 2-->
+                </div>
+            </div>
+            <!--end::Row-->
         </div>
         <!--end::Container-->
     </div>
     <!--end::Entry-->
 </div>
+@endsection
+
+@section('js')
+<script src="{{ asset('vue-js/vue/dist/vue.js') }}"></script>
+    <script src="{{ asset('vue-js/axios/dist/axios.min.js') }}"></script>
+    <script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            var vue = new Vue({
+                el: '#vue_app',
+                data: {
+                    config: {
+                        get_category_wise_sub_category_product_url: "{{ url('fetch-sub-category-product-info') }}",
+                      
+                    },
+                    category_id: '',
+                    addTransaction: false,
+                    toggle: false,
+                    sub_categories: [],
+                },
+                methods: {
+                    fetch_sub_category_and_product() {
+                        var vm = this;
+                        var slug = vm.category_id;
+                        if (slug) {
+                            axios.get(this.config.get_category_wise_sub_category_product_url + '/' + slug).then(function (response) {
+                                vm.sub_categories = response.data.subCategory;
+                            }).catch(function (error) {
+                                toastr.error('Something went to wrong', {
+                                    closeButton: true,
+                                    progressBar: true,
+                                });
+                                return false;
+                            });
+                        }
+                    },
+                 
+                   
+                },
+                updated() {
+                    $('.bSelect').selectpicker('refresh');
+                }
+            });
+
+            $('.bSelect').selectpicker({
+                liveSearch: true,
+                size: 5
+            });
+            $('.datepicker').datepicker({
+                format: 'dd-mm-yyyy'
+            });
+
+        });
+    </script>
 @endsection

@@ -98,14 +98,23 @@ Dashboard
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
-                                <th>Type</th>
-                                <th>Actions</th>
+                                <th>quantity</th>
+                                <th>paid</th>
+                                <th>due</th>
+                             
                             </tr>
                         </thead>
                         <tbody>
-                           
+                        @foreach($data as $payee)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$payee->material_name??''}}</td>
+                                <td>{{$payee->quantity??''}}</td>
+                                <td>{{$payee->paid??''}}</td>
+                                <td>{{$payee->due??''}}</td>
+                               
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
