@@ -29,12 +29,6 @@ Route::post('/supplierSearch', 'PayeeController@search');
 
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
-    Route::post('/debit', 'AccountController@payPayee');
-    Route::post('/addFund', 'AccountController@addFund');
-    Route::post('/credit', 'AccountController@credit');
-    Route::post('/upload', 'AccountController@upload');
-    Route::post('/demand', 'AccountController@demand');
-    Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
     CombinedRoute::resourceRoute('/category', 'CategoryController', []);
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
@@ -44,6 +38,12 @@ Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/materialHistory', 'MaterialHistoryController', []);
     Route::post('/unpaidEMIs', 'EMIController@unpaidEMIs');
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
+    Route::post('/debit', 'AccountController@payPayee');
+    Route::post('/addFund', 'AccountController@addFund');
+    Route::post('/credit', 'AccountController@credit');
+    Route::post('/upload', 'AccountController@upload');
+    Route::post('/demand', 'AccountController@demand');
+    Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');

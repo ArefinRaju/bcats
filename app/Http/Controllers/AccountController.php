@@ -73,7 +73,8 @@ class AccountController extends HelperController
         $rules = [
             'payeeId' => [V::REQUIRED, V::NUMBER],
             'amount'  => [V::REQUIRED, V::NUMBER],
-            'comment' => [V::SOMETIMES, V::REQUIRED, V::TEXT]
+            'comment' => [V::SOMETIMES, V::REQUIRED, V::TEXT],
+            'image'   => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
         ];
         $this->validate($request, $rules);
         $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment') ?? '');
