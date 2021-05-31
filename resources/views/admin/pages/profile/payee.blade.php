@@ -252,13 +252,7 @@ Dashboard
                                             <div class="form-group">
                                                 <label for="comment">Comment:</label>
                                                 <input type="text" name="comment" id="comment" class="form-control form-control-solid" placeholder="Enter Comment" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                              
                                                 <input type="hidden" name="payeeId" id="payeeId" class="form-control form-control-solid" placeholder="Enter Payee Id" value="{!! $data['supplier']->id !!}">
-
                                             </div>
                                         </div>
                                     </div>
@@ -316,8 +310,8 @@ Dashboard
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="comment">Comment:</label>
-                                                <input type="text" name="comment" id="comment" class="form-control form-control-solid" placeholder="Enter Amount" />
-
+                                                <input type="text" name="comment" id="comment" class="form-control form-control-solid" placeholder="Enter Comment" />
+                                                <input type="hidden" name="payeeId" id="payeeId" class="form-control form-control-solid" placeholder="Enter Payee Id" value="{!! $data['supplier']->id !!}">
                                             </div>
                                         </div>
                                     </div>
