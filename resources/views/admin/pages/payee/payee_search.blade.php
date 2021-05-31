@@ -56,7 +56,7 @@ Dashboard
                                         </div>
                                         <ul class="list-group" style="position: absolute; width:100% !important;z-index:2;">
                                             <li style="cursor: pointer;" class="list-group-item list-hover" v-for="(result, index) in results">
-                                                <a v-bind:href="'supplier/'+ result.id">@{{ result.name }}</a>
+                                                <a v-bind:href="'supplier/'+ result.id">@{{ result.name }}-@{{ result.mobile }}-@{{ result.address }}</a>
                                             </li>
                                         </ul>
                                     </div>
