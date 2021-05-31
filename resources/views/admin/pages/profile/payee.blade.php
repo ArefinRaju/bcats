@@ -95,23 +95,6 @@ Dashboard
                         <!--begin::Item-->
                         <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
                             <span class="mr-4">
-                                <i class="flaticon-piggy-bank display-4 text-muted font-weight-bold"></i>
-                            </span>
-                            <div class="d-flex flex-column text-dark-75">
-                                <span class="font-weight-bolder font-size-sm">Advance Payment</span>
-                                <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>
-                                    @if($data['supplier']->due < 0) {!! abs($data['supplier']->due) !!}
-                                        @else
-                                        0
-                                        @endif
-                                </span>
-                            </div>
-                        </div>
-                        <!--end::Item-->
-                        <!--begin::Item-->
-                        <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-                            <span class="mr-4">
                                 <i class="flaticon-pie-chart display-4 text-muted font-weight-bold"></i>
                             </span>
                             <div class="d-flex flex-column text-dark-75">
@@ -130,6 +113,23 @@ Dashboard
                                 <span class="font-weight-bolder font-size-sm">Paid</span>
                                 <span class="font-weight-bolder font-size-h5">
                                     <span class="text-dark-50 font-weight-bold"></span>{!! $data['supplier']->paid !!}</span>
+                            </div>
+                        </div>
+                        <!--end::Item-->
+                          <!--begin::Item-->
+                          <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
+                            <span class="mr-4">
+                                <i class="flaticon-piggy-bank display-4 text-muted font-weight-bold"></i>
+                            </span>
+                            <div class="d-flex flex-column text-dark-75">
+                                <span class="font-weight-bolder font-size-sm">Advance Payment</span>
+                                <span class="font-weight-bolder font-size-h5">
+                                    <span class="text-dark-50 font-weight-bold"></span>
+                                    @if($data['supplier']->due < 0) {!! abs($data['supplier']->due) !!}
+                                        @else
+                                        0
+                                        @endif
+                                </span>
                             </div>
                         </div>
                         <!--end::Item-->
