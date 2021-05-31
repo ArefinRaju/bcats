@@ -42,6 +42,7 @@ final class Account implements Calculator
     public int                $by_user;
     public int                $user_id;
     public int                $project_id;
+    public int                $invoice_id;
 
     final private function __construct(Request $request)
     {
@@ -174,7 +175,7 @@ final class Account implements Calculator
         }
     }
 
-    public static function debit(Request $request, int $amount, int $payeeId, string $comment = ''): Account
+    public static function debit(Request $request, int $amount, int $payeeId, string $comment = '', ?int $invoiceId = null): Account
     {
         $instance            = new Account($request);
         $instance->payeeRepo = new PayeeRepository();
@@ -188,6 +189,9 @@ final class Account implements Calculator
         $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
         $instance->required  = (float)$instance->oldRecord->required;
         $instance->image     = PhotoMod::resizeAndUpload($request);
+        if (!empty($invoiceId)) {
+            $instance->invoice_id = $invoiceId;
+        }
         $instance->updatePayeeData($instance);
         $instance->assignAndSave($instance);
         return $instance;
