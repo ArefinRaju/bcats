@@ -295,7 +295,7 @@ Dashboard
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="amount">Transaction Amount:</label>
+                                                <label for="amount">Transaction Amount(TK):</label>
                                                 <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
 
                                             </div>
