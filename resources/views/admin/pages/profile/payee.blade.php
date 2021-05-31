@@ -243,13 +243,6 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="message">Message:</label>
-                                                <input type="text" name="comment" id="message" class="form-control form-control-solid" placeholder="Enter Message" />
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
                                                 <label for="image">Image:</label>
                                                 <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
 
