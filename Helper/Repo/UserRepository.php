@@ -5,7 +5,6 @@ namespace Helper\Repo;
 
 
 use App\Models\User;
-use Helper\Constants\CRUD;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -48,5 +47,16 @@ class UserRepository extends EntityRepository
     public function getUsersByProjectId(Request $request, int $projectId): Collection
     {
         return User::where('project_id', $projectId)->get();
+    }
+
+    public function searchMember(Request $request): Collection
+    {
+        return User::where(function ($query) {
+            $query->where('name', 'like', '%'.Request()->input('query').'%')
+                  ->orWhere('mobile', 'like', '%'.Request()->input('query').'%')
+                  ->orWhere('email', 'like', '%'.Request()->input('query').'%');
+        })
+                   ->where('project_id', $request->input('project_id'))
+                   ->get();
     }
 }

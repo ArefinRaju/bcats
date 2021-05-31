@@ -26,6 +26,7 @@ Route::post('/auth/login', 'AuthController@apiLogin');
 CombinedRoute::resourceRoute('/apitest', 'ProductController', []);
 Route::get('/material/category/{id}', 'MaterialController@listByCategoryId');
 Route::post('/supplierSearch', 'PayeeController@search');
+Route::post('/memberSearch', 'UserController@search');
 
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/user', 'UserController', []);
