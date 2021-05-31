@@ -196,7 +196,7 @@ Dashboard
                         <!--begin::Body-->
                         <div class="card-body pt-3 pb-0">
                             <!--begin::Form-->
-                            <form class="form" method="POST" action="{{url('materialHistoryCredit')}}">
+                            <form class="form" method="POST" action="{{url('materialHistoryCredit')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
@@ -264,15 +264,14 @@ Dashboard
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="description">Description:</label>
-                                                <input type="text" name="description" id="description" class="form-control form-control-solid" placeholder="Enter Amount" />
-
+                                                <label for="comment">Comment:</label>
+                                                <input type="text" name="comment" id="comment" class="form-control form-control-solid" placeholder="Enter Comment" />
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="description">Description:</label>
-                                                <input type="text" name="payeeId" id="description" class="form-control form-control-solid" placeholder="Enter Amount" value="{!! $data['supplier']->id !!}">
+                                              
+                                                <input type="hidden" name="payeeId" id="description" class="form-control form-control-solid" placeholder="Enter Amount" value="{!! $data['supplier']->id !!}">
 
                                             </div>
                                         </div>
@@ -310,7 +309,7 @@ Dashboard
                         <!--begin::Body-->
                         <div class="card-body pt-3 pb-0">
                             <!--begin::Form-->
-                            <form class="form" method="POST" action="">
+                            <form class="form" method="POST" action="{{url('debit')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
