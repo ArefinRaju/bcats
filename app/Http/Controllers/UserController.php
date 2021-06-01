@@ -155,4 +155,18 @@ class UserController extends HelperController
         }
         return $roles;
     }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function search(Request $request)
+    {
+        $rules = [
+            'query'      => [V::REQUIRED, V::TEXT],
+            'project_id' => [V::REQUIRED, V::NUMBER]
+        ];
+        $this->validate($request, $rules);
+        $result = $this->repo->searchMember($request);
+        return $this->respond($result->toArray(), [], '');
+    }
 }
