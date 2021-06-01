@@ -15,7 +15,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Project</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Add Payment</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->

@@ -36,7 +36,7 @@ Dashboard
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label font-weight-bolder text-dark">Search Payee</span>
+                                <span class="card-label font-weight-bolder text-dark">Member Search</span>
                                 <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
                             </h3>
                             <div class="card-toolbar">
@@ -86,8 +86,7 @@ Dashboard
                 el: '#vue_app',
                 data: {
                     config: {
-                        get_search_url: "{{ url('supplierSearch') }}",
-
+                        get_search_url: "{{ url('api/supplierSearch') }}",
                     },
                     searchKeyword: '',
                     project_id: '{{ $projectId }}',
@@ -100,7 +99,7 @@ Dashboard
                         let slug = vm.searchKeyword;
                         let project_id = vm.project_id;
                         if (slug) {
-                            axios.post('api/supplierSearch', {
+                            axios.post(this.config.get_search_url, {
                                 query: slug,
                                 project_id: project_id
                             }).then(function(response) {

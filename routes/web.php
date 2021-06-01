@@ -26,10 +26,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
 Route::get('/memberd', 'PayeeController@memberD');
-Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetch_sub_category_product_info');
 
+Route::get('/member-search', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
-Route::get('supplierSearch/{keyword}', 'PayeeController@supplierSearchList');
 
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');

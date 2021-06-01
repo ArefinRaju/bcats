@@ -125,22 +125,18 @@ class PayeeController extends HelperController
     public function supplierSearch(Request $request)
     {
         $projectId = $request->user()->project_id;
-        return view('admin.pages.payee.payee_search', compact('projectId'));
+        return view('admin.pages.payee.supplier_search', compact('projectId'));
+    }
+    public function memberSearch(Request $request)
+    {
+        $projectId = $request->user()->project_id;
+        return view('admin.pages.payee.member_search', compact('projectId'));
     }
 
     public function memberD()
     {
         $categories = Category::all();
         return view('admin.pages.profile.member', compact('categories'));
-    }
-
-    public function fetch_sub_category_product_info($id)
-    {
-        $subCategory = Material::where('category_id', $id)->get();
-        $data        = [
-            'subCategory' => $subCategory,
-        ];
-        return $data;
     }
 
     /**
