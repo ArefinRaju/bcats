@@ -118,19 +118,7 @@ class PayeeController extends HelperController
     }
     public function viewMember(Request $request, int $id)
     {
-        dd($id);
-        $categories = Category::all();
-        $supplierRecords = $this->repo->getSupplier($request, $id);
-        $supplier        = $supplierRecords[0] ?? null;
-        if (empty($supplier)) {
-            if (!$this->isAPI()) {
-                return back()->withErrors([Errors::RESOURCE_NOT_FOUND]);
-            }
-            return $this->respond([], [Errors::RESOURCE_NOT_FOUND]);
-        }
-        $invoiceCount     = $supplierRecords->count();
-        $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
-        return $this->respond(compact('categories','supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.member');
+        return view('admin.pages.profile.member');
     }
 
     private function accountRepo(): AccountRepository
