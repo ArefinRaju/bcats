@@ -12,6 +12,8 @@ use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
+use Helper\Repo\AccountRepository;
+use Helper\Repo\EMIRepository;
 use Helper\Repo\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -172,6 +174,12 @@ class UserController extends HelperController
 
     public function memberDetails(Request $request, int $memberId)
     {
-
+        $emiRepo          = new EMIRepository();
+        $accountRepo      = new AccountRepository();
+        $user             = $this->repo->getById($request, $memberId);
+        $otpCount         = $emiRepo->getOtpCount($request, $memberId);
+        $paidEmiCount     = $emiRepo->getPaidCount($request, $memberId);
+        $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
+        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount'), [], 'view'); // Todo ; View
     }
 }
