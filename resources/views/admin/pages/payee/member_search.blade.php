@@ -56,7 +56,7 @@ Dashboard
                                         </div>
                                         <ul class="list-group" style="position: absolute; width:100% !important;z-index:2;">
                                             <li style="cursor: pointer;" class="list-group-item list-hover" v-for="(result, index) in results">
-                                                <a v-bind:href="'supplier/'+ result.id">@{{ result.name }}-@{{ result.mobile }}-@{{ result.address }}</a>
+                                                <a v-bind:href="'member/'+ result.id">@{{ result.name }}-@{{ result.mobile }}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -86,7 +86,7 @@ Dashboard
                 el: '#vue_app',
                 data: {
                     config: {
-                        get_search_url: "{{ url('api/supplierSearch') }}",
+                        get_search_url: "{{ url('api/memberSearch') }}",
                     },
                     searchKeyword: '',
                     project_id: '{{ $projectId }}',

@@ -116,6 +116,22 @@ class PayeeController extends HelperController
         $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
         return $this->respond(compact('categories','supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
     }
+    public function viewMember(Request $request, int $id)
+    {
+        dd($id);
+        $categories = Category::all();
+        $supplierRecords = $this->repo->getSupplier($request, $id);
+        $supplier        = $supplierRecords[0] ?? null;
+        if (empty($supplier)) {
+            if (!$this->isAPI()) {
+                return back()->withErrors([Errors::RESOURCE_NOT_FOUND]);
+            }
+            return $this->respond([], [Errors::RESOURCE_NOT_FOUND]);
+        }
+        $invoiceCount     = $supplierRecords->count();
+        $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
+        return $this->respond(compact('categories','supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.member');
+    }
 
     private function accountRepo(): AccountRepository
     {
@@ -138,7 +154,14 @@ class PayeeController extends HelperController
         $categories = Category::all();
         return view('admin.pages.profile.member', compact('categories'));
     }
-
+    public function fetchSubCategory($id)
+    {
+        $subCategory = Material::where('category_id', $id)->get();
+        $data        = [
+            'subCategory' => $subCategory,
+        ];
+        return $data;
+    }
     /**
      * @throws UserFriendlyException
      */
