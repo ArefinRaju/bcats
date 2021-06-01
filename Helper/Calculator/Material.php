@@ -81,7 +81,6 @@ final class Material implements Calculator
      */
     public static function credit(Request $request, int $payeeId, int $materialId, int $quantity): Material
     {
-        (new PayeeRepository())->update($request);
         $invoice              = (new InvoiceRepository())->create($request);
         $instance             = new Material($request, $materialId);
         $instance->invoice_id = $invoice->id;

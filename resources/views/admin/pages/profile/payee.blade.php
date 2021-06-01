@@ -26,7 +26,7 @@ Dashboard
     </div>
     <!--end::Subheader-->
     <!--begin::Entry-->
-    
+
     <div class="d-flex flex-column-fluid"  id="vue_app">
         <!--begin::Container-->
         <div class="container">
@@ -100,7 +100,13 @@ Dashboard
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Total</span>
                                 <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>{!! $data['supplier']->paid + abs($data['supplier']->due) !!}</span>
+                                    <span class="text-dark-50 font-weight-bold"></span>
+                                    @if($data['supplier']->due < 0)
+                                        {!! $data['supplier']->paid !!}
+                                    @else
+                                        {!! $data['supplier']->paid + abs($data['supplier']->due) !!}
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -348,7 +354,7 @@ Dashboard
                 data: {
                     config: {
                         get_category_wise_sub_category_product_url: "{{ url('fetch-sub-category-product-info') }}",
-                      
+
                     },
                     category_id: '',
                     addTransaction: false,
@@ -371,8 +377,8 @@ Dashboard
                             });
                         }
                     },
-                 
-                   
+
+
                 },
                 updated() {
                     $('.bSelect').selectpicker('refresh');

@@ -215,7 +215,13 @@ final class Account implements Calculator
     {
         $payee = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
         if ($payee->type === PayeeType::SUPPLIER) {
-            $payee->due -= $instance->amount;
+            if (!empty($instance->invoice_id)) {
+                $due        = $instance->request->input('amount') - $instance->amount;
+                $payee->due += $due;
+            }
+            else {
+                $payee->due -= $instance->amount;
+            }
         }
         $payee->paid += $instance->amount;
         self::completeInvoice();

@@ -169,4 +169,9 @@ class UserController extends HelperController
         $result = $this->repo->searchMember($request);
         return $this->respond($result->toArray(), [], '');
     }
+
+    public function memberDetails(Request $request, int $memberId)
+    {
+
+    }
 }
