@@ -38,7 +38,7 @@ class AccountRepository extends EntityRepository
                       ->orderBy('id', 'desc')->paginate($perPage, ['*'], 'page', $page);
     }
 
-    public function getTransactionByUser(Request $request, int $userId)
+    public function getTransactionByUser(Request $request, int $userId): int
     {
         return Account::where('by_user', $userId)
                       ->where('project_id', $request->user()->project_id)
