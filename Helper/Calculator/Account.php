@@ -130,14 +130,14 @@ final class Account implements Calculator
         $emi     = (new EMIRepository())->getById($request, $emi_id);
         $userEmi = (new EmiUserRepository())->getUnpaidByEmiIdAndUserId($request, $emi->id, $by_user);
         if (empty($userEmi)) {
-            throw new UserFriendlyException(Errors::RESOURCE_NOT_FOUND);
+            throw new UserFriendlyException(Errors::EMI_PAID);
         }
         $dueLeft = $userEmi->due - $amount;
         if ($dueLeft < 0) {
             throw new UserFriendlyException(Errors::AMOUNT_IS_BIGGER_THAN_DUE);
         }
         $userEmi->due  = $dueLeft;
-        $userEmi->paid = $amount;
+        $userEmi->paid += $amount;
         if ($dueLeft > 0) {
             $userEmi->status = false;
         }

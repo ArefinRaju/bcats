@@ -40,7 +40,7 @@ class AccountRepository extends EntityRepository
 
     public function getTransactionByUser(Request $request, int $userId)
     {
-        return Account::where('user_id', $userId)
+        return Account::where('by_user', $userId)
                       ->where('project_id', $request->user()->project_id)
                       ->count();
     }

@@ -20,6 +20,7 @@ class Errors extends Holder
     public const METHOD_NOT_ALLOWED             = 'METHOD_NOT_ALLOWED';
     public const ENDPOINT_NOT_FOUND             = 'ENDPOINT_NOT_FOUND';
     public const RESOURCE_NOT_FOUND             = 'RESOURCE_NOT_FOUND';
+    public const EMI_PAID                       = 'EMI_PAID';
     public const SOMETHING_WENT_WRONG           = 'SOMETHING_WENT_WRONG';
     public const DATA_EXIST                     = 'DATA_EXIST';
     public const AMOUNT_IS_BIGGER_THAN_DUE      = 'AMOUNT_IS_BIGGER_THAN_DUE';
