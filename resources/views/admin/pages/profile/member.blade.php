@@ -50,7 +50,7 @@ Dashboard
                             <!--begin::Title-->
                             <div class="d-flex justify-content-between flex-wrap mt-1">
                                 <div class="d-flex mr-3">
-                                    <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">Jason Muller</a>
+                                    <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{!! $data['user']->name !!}</a>
                                     <a href="#">
                                         <i class="flaticon2-correct text-success font-size-h5"></i>
                                     </a>
@@ -98,7 +98,7 @@ Dashboard
                             </span>
                             <div class="d-flex flex-column flex-lg-fill">
                                 <span class="text-dark-75 font-weight-bolder font-size-sm">OTP</span>
-                                <a href="#" class="text-primary font-weight-bolder">7</a>
+                                <a href="#" class="text-primary font-weight-bolder">{!! $data['otpCount'] !!}</a>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -161,7 +161,7 @@ Dashboard
                             </span>
                             <div class="d-flex flex-column flex-lg-fill">
                                 <span class="text-dark-75 font-weight-bolder font-size-sm">EMI</span>
-                                <a href="#" class="text-primary font-weight-bolder">7</a>
+                                <a href="#" class="text-primary font-weight-bolder">{!! $data['paidEmiCount'] !!}</a>
                             </div>
                         </div>
                         <!--end::Item-->

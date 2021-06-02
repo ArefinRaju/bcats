@@ -25,10 +25,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
-Route::get('/member/{id}', 'PayeeController@viewMember');
+Route::get('/member/{memberId}', 'UserController@memberDetails');
 Route::get('/memberd', 'PayeeController@memberD');
 Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
-Route::get('/member-search', 'PayeeController@memberSearch');
+Route::get('/memberSearch', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
 
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');

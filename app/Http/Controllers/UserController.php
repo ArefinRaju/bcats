@@ -169,7 +169,7 @@ class UserController extends HelperController
         ];
         $this->validate($request, $rules);
         $result = $this->repo->searchMember($request);
-        return $this->respond($result->toArray(), [], 'admin.pages.profile.member');
+        return $this->respond($result->toArray(), [], 'admin.pages.payee.member_search');
     }
 
     public function memberDetails(Request $request, int $memberId)
@@ -180,6 +180,6 @@ class UserController extends HelperController
         $otpCount         = $emiRepo->getOtpCount($request, $memberId);
         $paidEmiCount     = $emiRepo->getPaidCount($request, $memberId);
         $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount'), [], 'view'); // Todo ; View
+        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount'), [], 'admin.pages.profile.member'); // Todo ; View
     }
 }

@@ -180,7 +180,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{url('/member-search')}}" class="menu-link">
+                                    <a href="{{url('/memberSearch')}}" class="menu-link">
                                         <span class="menu-text">Member Search</span>
                                         <span class="menu-desc"></span>
                                     </a>
