@@ -167,6 +167,6 @@ class UserController extends HelperController
         ];
         $this->validate($request, $rules);
         $result = $this->repo->searchMember($request);
-        return $this->respond($result->toArray(), [], '');
+        return $this->respond($result->toArray(), [], 'admin.pages.profile.member');
     }
 }
