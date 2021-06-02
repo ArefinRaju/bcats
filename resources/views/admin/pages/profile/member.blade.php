@@ -173,7 +173,7 @@ Dashboard
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Total Amount</span>
                                 <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>164,700 TK</span>
+                                    <span class="text-dark-50 font-weight-bold"></span>{!! $data['user']->due !!} TK</span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -185,7 +185,7 @@ Dashboard
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Paid</span>
                                 <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>782,300 TK</span>
+                                    <span class="text-dark-50 font-weight-bold"></span>{!! $data['user']->due !!} TK</span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -197,7 +197,7 @@ Dashboard
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Due</span>
                                 <span class="font-weight-bolder font-size-h5">
-                                    <span class="text-dark-50 font-weight-bold"></span>782,300 TK</span>
+                                    <span class="text-dark-50 font-weight-bold"></span>{!! $data['user']->due !!} TK</span>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -208,7 +208,7 @@ Dashboard
                             </span>
                             <div class="d-flex flex-column">
                                 <span class="text-dark-75 font-weight-bolder font-size-sm">Transaction</span>
-                                <a href="#" class="text-primary font-weight-bolder">View</a>
+                                <a href="#" class="text-primary font-weight-bolder">{!! $data['transactionCount'] !!} View</a>
                             </div>
                         </div>
                         <!--end::Item-->
