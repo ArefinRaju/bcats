@@ -116,6 +116,7 @@ class PayeeController extends HelperController
         $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
         return $this->respond(compact('categories','supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
     }
+
     public function viewMember(Request $request, int $id)
     {
         return view('admin.pages.profile.member');
