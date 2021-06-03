@@ -76,7 +76,7 @@ class MaterialHistoryController extends HelperController
             'amount'     => [V::REQUIRED, V::NUMBER],
             'paidAmount' => [V::REQUIRED, V::NUMBER],
             'payeeId'    => [V::REQUIRED, V::NUMBER],
-            'comment'    => [V::SOMETIMES, V::TEXT],
+            'comment'    => [V::SOMETIMES],
             'image'      => [V::SOMETIMES, 'mimes:jpg,bmp,png']
         ];
         $this->validate($request, $rules);

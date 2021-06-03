@@ -85,10 +85,6 @@ Dashboard
                             <!--end::Dropdown Menu-->
                         </div>
                         <!--end::Dropdown-->
-                        <!--begin::Button-->
-                        <a href="{{ url('/payee-create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
-                        <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
@@ -97,15 +93,26 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
+                                <th>Project</th>
+                                <th>Required</th>
                                 <th>Type</th>
-                                <th>Actions</th>
+                                <th>Toral</th>
+                                <th>Due</th>
+                                <th>Comment</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @dd($data)
+                        @foreach($data as $r)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$r->project_id??''}}</td>
+                                <td>{{$r->required??''}}</td>
+                                <td>{{$r->type??''}}</td>
+                                <td>{{$r->total??''}}</td>
+                                <td>{{$r->due??''}}</td>
+                                <td>{{$r->comment??''}}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
