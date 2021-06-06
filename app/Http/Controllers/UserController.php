@@ -41,6 +41,17 @@ class UserController extends HelperController
         ];
     }
 
+    public function validation(): array
+    {
+        $rules = $this->commonValidationRules;
+        unset($rules['acl'][2]);
+        $rules['acl'] = [
+            'rules' => $rules['acl'],
+            'types' => Roles::values()
+        ];
+        return $rules;
+    }
+
     public function createForm(Request $request)
     {
         // Todo : filter by using middleware
