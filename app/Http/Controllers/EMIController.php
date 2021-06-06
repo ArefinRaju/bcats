@@ -56,7 +56,7 @@ class EMIController extends HelperController
             $emiUser->emi_id     = $emi->id;
             $emiUser->project_id = $request->user()->project_id;
             $emiUser->user_id    = $user->id;
-            $emiUser->due        = $emi->due;
+            $emiUser->due        = $emi->value;
             $emiUser->save();
         }
         $this->emiInit($request, $users, CRUD::CREATE);
