@@ -17,32 +17,20 @@
                 <ul class="menu-nav">
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Home</span>
+                            <span class="menu-text">Building Accounts</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{url('account')}}" class="menu-link">
-                                        <span class="menu-text">Account Overview</span>
+                                        <span class="menu-text">Balance Overview</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('account')}}" class="menu-link">
-                                        <span class="menu-text">Balance Tranfer</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('account')}}" class="menu-link">
-                                        <span class="menu-text">My Dues</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('account')}}" class="menu-link">
-                                        <span class="menu-text">My Payments</span>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('pay')}}" class="menu-link">
+                                        <span class="menu-text">Pay</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
@@ -51,208 +39,168 @@
                     </li>
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Member</span>
+                            <span class="menu-text">Material Stock</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Member List</span>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/category-create') }}" class="menu-link">
+                                        <span class="menu-text">Add Category</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('/memberSearch')}}" class="menu-link">
-                                        <span class="menu-text">Member Search</span>
+                                    <a href="{{ url('/material-create') }}" class="menu-link">
+                                        <span class="menu-text">Add Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Transactions</span>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/material-demand-list') }}" class="menu-link">
+                                        <span class="menu-text">Demand Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Supplier</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Supplier List</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('/supplier-search')}}" class="menu-link">
-                                        <span class="menu-text">Supplier Search</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Transactions</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Material stock</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/stock') }}" class="menu-link">
-                                        <span class="menu-text">Current Stock</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/material-credit-list') }}" class="menu-link">
-                                        <span class="menu-text">Added Stock(Credit)</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                <li class="menu-item" aria-haspopup="true">
                                     <a href="{{ url('/material-debit-list') }}" class="menu-link">
-                                        <span class="menu-text">Used Stock(Debit)</span>
+                                        <span class="menu-text">Debit Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Used Material</span>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/material-credit-list') }}" class="menu-link">
+                                        <span class="menu-text">Credit Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Demand List</span>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('/stock') }}" class="menu-link">
+                                        <span class="menu-text">Current Stock Details</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
+                                <!-- <li class="menu-item" aria-haspopup="true">
+                                    <a href="/material/used-stock" class="menu-link">
+                                        <span class="menu-text">Used Stock</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/material/use-material')}}" class="menu-link">
+                                        <span class="menu-text">Use Material</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/material/required-material')}}" class="menu-link">
+                                        <span class="menu-text">Required Material</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+                        <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="menu-text">EMI</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                            <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
+                                    <a href="{{ url('emi') }}" class="menu-link">
+                                        <span class="menu-text">All EMI</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('emi-create') }}" href="" class="menu-link">
+                                        <span class="menu-text">Add EMI</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('emi/unpaid') }}" class="menu-link">
+                                        <span class="menu-text">Unpaid EMI</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{ url('emi/pay') }}" class="menu-link">
+                                        <span class="menu-text">Pay EMI</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+                        <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="menu-text">Payments</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                            <ul class="menu-subnav">
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/addFund')}}" class="menu-link">
+                                        <span class="menu-text">Add Fund</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/credit')}}" class="menu-link">
+                                        <span class="menu-text">Credit</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/demand')}}" class="menu-link">
                                         <span class="menu-text">Add Demand</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                             
-                                
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Payments and EMIs</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{url('/payment/list')}}" class="menu-link">
-                                        <span class="menu-text">Payment List</span>
+                                        <span class="menu-text">All Payment</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                <li class="menu-item" aria-haspopup="true">
                                     <a href="{{url('/payment/create')}}" class="menu-link">
                                         <span class="menu-text">Add Payments</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                              
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('emi') }}" class="menu-link">
-                                        <span class="menu-text">EMI List</span>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/supplier-search')}}" class="menu-link">
+                                        <span class="menu-text">Supplier Search</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('emi-create') }}" class="menu-link">
-                                        <span class="menu-text">Add EMI</span>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/memberSearch')}}" class="menu-link">
+                                        <span class="menu-text">Member Search</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                             
-                                
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/payee')}}" class="menu-link">
+                                        <span class="menu-text">All Payee</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/payee-create')}}" class="menu-link">
+                                        <span class="menu-text">Add Payee</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">user</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                               
-                                
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('/user-create')}}" class="menu-link">
-                                        <span class="menu-text">Add user</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('/user')}}" class="menu-link">
-                                        <span class="menu-text"> User List</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Profile</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                             
-                                
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">settings</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                               
-                                
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">General</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                           
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Suspended</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                             
-                                
-                            </ul>
-                        </div>
-                    </li>
-                  
-                    <!-- <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="menu-text">Project</span>
                             <i class="menu-arrow"></i>
@@ -273,8 +221,113 @@
                                 </li>
                             </ul>
                         </div>
-                    </li> -->
-                  
+                    </li>
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+                        <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="menu-text">Users</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                            <ul class="menu-subnav">
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{url('/user')}}" class="menu-link">
+                                        <span class="menu-text">All User</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{url('/user-create')}}" class="menu-link">
+                                        <span class="menu-text">Add User</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+                        <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="menu-text">Suspanded</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                            <ul class="menu-subnav">
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="index.html" class="menu-link">
+                                        <span class="menu-text">All</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a target="_blank" href="" class="menu-link">
+                                        <span class="menu-text">User</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a target="_blank" href="" class="menu-link">
+                                        <span class="menu-text">Payee</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a target="_blank" href="" class="menu-link">
+                                        <span class="menu-text">Payments</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+                        <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="menu-text">Estimate</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                            <ul class="menu-subnav">
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="index.html" class="menu-link">
+                                        <span class="menu-text">Full Estimate</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a target="_blank" href="" class="menu-link">
+                                        <span class="menu-text">Add Estimate</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a target="_blank" href="" class="menu-link">
+                                        <span class="menu-text">Compare</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a target="_blank" href="" class="menu-link">
+                                        <span class="menu-text">My Due</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+                        <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="menu-text">Report</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                            <ul class="menu-subnav">
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="index.html" class="menu-link">
+                                        <span class="menu-text">My Transactions</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
                 <!--end::Header Nav-->
             </div>

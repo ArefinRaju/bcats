@@ -56,8 +56,8 @@ Dashboard
                                     </a>
                                 </div>
                                 <div class="my-lg-0 my-3">
-                                    <button @click="toggle = !toggle" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Buy Material</button>
-                                    <button @click="addTransaction = !addTransaction" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</button>
+                                    <button @click="buyMaterial()" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Buy Material</button>
+                                    <button @click="addTransaction()" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</button>
 
                                 </div>
                             </div>
@@ -187,7 +187,7 @@ Dashboard
             <div class="row">
                 <div class="col-lg-12">
                     <!--begin::Advance Table Widget 2-->
-                    <div class="card card-custom card-stretch gutter-b" v-if="toggle">
+                    <div class="card card-custom card-stretch gutter-b" v-if="buy_material">
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
@@ -280,7 +280,7 @@ Dashboard
             <div class="row">
                 <div class="col-lg-12">
                     <!--begin::Advance Table Widget 2-->
-                    <div class="card card-custom card-stretch gutter-b" v-if="addTransaction">
+                    <div class="card card-custom card-stretch gutter-b" v-if="add_transaction">
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
@@ -357,11 +357,21 @@ Dashboard
 
                     },
                     category_id: '',
-                    addTransaction: false,
-                    toggle: false,
+                    add_transaction: false,
+                    buy_material: false,
                     sub_categories: [],
                 },
                 methods: {
+                    addTransaction() {
+                        var vm = this;
+                        vm.buy_material=false;
+                        vm.add_transaction=true;
+                    },
+                    buyMaterial() {
+                        var vm = this;
+                        vm.buy_material=true;
+                        vm.add_transaction=false;
+                    },
                     fetch_sub_category_and_product() {
                         var vm = this;
                         var slug = vm.category_id;

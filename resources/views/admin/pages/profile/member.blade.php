@@ -56,8 +56,8 @@ Dashboard
                                     </a>
                                 </div>
                                 <div class="my-lg-0 my-3">
-                                    <button @click="toggle = !toggle" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Fund(EMI)</button>
-                                    <button @click="addTransaction = !addTransaction" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Transaction</button>
+                                    <button @click="addEmi()" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Fund(EMI)</button>
+                                    <button @click="addOtp() = !addTransaction" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add OTP</button>
                                 </div>
                             </div>
                             <!--end::Title-->
@@ -221,7 +221,7 @@ Dashboard
             <div class="row">
                 <div class="col-lg-12">
                     <!--begin::Advance Table Widget 2-->
-                    <div class="card card-custom card-stretch gutter-b" v-if="toggle">
+                    <div class="card card-custom card-stretch gutter-b" v-if="add_emi">
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
@@ -266,11 +266,11 @@ Dashboard
             <div class="row">
                 <div class="col-lg-12">
                     <!--begin::Advance Table Widget 2-->
-                    <div class="card card-custom card-stretch gutter-b" v-if="addTransaction">
+                    <div class="card card-custom card-stretch gutter-b" v-if="add_otp">
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label font-weight-bolder text-dark">Add Transaction</span>
+                                <span class="card-label font-weight-bolder text-dark">Add OTP</span>
                                 <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
                             </h3>
                             <div class="card-toolbar">
@@ -335,11 +335,21 @@ Dashboard
 
                 },
                 category_id: '',
-                addTransaction: false,
-                toggle: false,
+                add_emi: false,
+                add_otp: false,
                 sub_categories: [],
             },
             methods: {
+                addOtp() {
+                        var vm = this;
+                        vm.add_emi=false;
+                        vm.add_otp=true;
+                    },
+                    addEmi() {
+                        var vm = this;
+                        vm.add_emi=true;
+                        vm.add_otp=false;
+                    },
                 fetch_sub_category_and_product() {
                     var vm = this;
                     var slug = vm.category_id;
