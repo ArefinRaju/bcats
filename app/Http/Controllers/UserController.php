@@ -37,7 +37,7 @@ class UserController extends HelperController
             'email'    => [V::REQUIRED, V::EMAIL],
             'password' => [V::SOMETIMES, V::REQUIRED, ...V::PASS],
             'mobile'   => [V::REQUIRED, ...V::PHONE],
-            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in(Roles::values())]
+            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in($this->getRules(Request()))]
         ];
     }
 
@@ -47,7 +47,7 @@ class UserController extends HelperController
         unset($rules['acl'][2]);
         $rules['acl'] = [
             'rules' => $rules['acl'],
-            'types' => Roles::values()
+            'types' => $this->getRules(Request())
         ];
         return $rules;
     }
@@ -160,6 +160,7 @@ class UserController extends HelperController
     {
         $roles = Roles::toArray();
         unset($roles[Roles::ADMIN]);
+        unset($roles[Roles::EMPLOYEE]);
         if (Acl::decodeRole($request->user()->acl) !== Roles::ADMIN) {
             unset($roles[Roles::MANAGER]);
         }

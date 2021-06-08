@@ -16,6 +16,7 @@ use Helper\Core\HelperController;
 use Helper\Repo\ProjectRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends HelperController
 {
@@ -28,11 +29,27 @@ class ProjectController extends HelperController
         $this->setResource(Project::class);
         $this->commonValidationRules = [
             'name'     => [V::REQUIRED, V::TEXT],
-            'type'     => [V::REQUIRED, V::TEXT],
+            'type'     => [V::REQUIRED, Rule::in(ProjectType::values())],
             'budget'   => [V::REQUIRED, V::NUMBER],
             'deadline' => [V::REQUIRED, V::DATE],
-            'status'   => [V::REQUIRED, V::TEXT],
+            'status'   => [V::REQUIRED, Rule::in(ProjectStatus::values())]
         ];
+    }
+
+    public function validation(): array
+    {
+        $rules = $this->commonValidationRules;
+        unset($rules['type'][1]);
+        $rules['type'] = [
+            'rules' => $rules['type'],
+            'types' => ProjectType::values()
+        ];
+        unset($rules['status'][1]);
+        $rules['status'] = [
+            'rules' => $rules['status'],
+            'status' => ProjectStatus::values()
+        ];
+        return $rules;
     }
 
     public function createForm()
@@ -54,7 +71,8 @@ class ProjectController extends HelperController
     {
         $project = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Project());
         $project = $this->repo->save($project);
-        $this->createProjectUser($project);
+        $this->createProjectUser($project, 'Admin', Roles::PROJECT_ADMIN);
+        $this->createProjectUser($project, 'Employee', Roles::EMPLOYEE);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $projects   = $this->repo->list($pagination->per_page, $pagination->page);
@@ -63,16 +81,21 @@ class ProjectController extends HelperController
         return $this->respond($project, [], 'admin.pages.project.index');
     }
 
-    public function createProjectUser(object $project): void
+    public function createProjectUser(object $project, string $name, string $role): void
     {
         $user             = new User();
-        $user->name       = $project->name.' Admin';
+        $user->name       = $project->name.' '.$name;
         $user->password   = Hash::make('123456');
         $user->mobile     = '01748986541';
         $user->email      = strtolower(str_replace(' ', '-', $user->name)).'@bcats.net';
-        $user->acl        = Acl::createUserRole(Roles::PROJECT_ADMIN);
+        $user->acl        = Acl::createUserRole($role);
         $user->project_id = $project->id;
         $user->save();
+    }
+
+    public function retrieve(Request $request, int $id)
+    {
+        return $this->respond($this->repo->getById($request, $id), [], 'TODO'); // Todo : View
     }
 
     public function list(Request $request)
