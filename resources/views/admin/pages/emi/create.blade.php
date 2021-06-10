@@ -9,13 +9,7 @@
     <script src="{{ asset('admin') }}/assets/plugins/global/plugins.bundle.js"></script>
     <script>
         $("#kt_daterangepicker_3").daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            minYear: 1901,
-            maxYear: parseInt(moment().format("YYYY"), 10)
-        }, function(start, end, label) {
-            var years = moment().diff(start, "years");
-            alert("You are " + years + " years old!");
+            singleDatePicker: true
         });
 
     </script>

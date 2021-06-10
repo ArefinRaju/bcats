@@ -142,6 +142,9 @@ Route::get(
     }
 );
 
+
+Route::get('/member/list', 'Member@index');
+
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
 
 Route::get('/user-create', 'UserController@createForm');

@@ -77,7 +77,7 @@ Material
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label for="enum">Enum:</label>
+                                            <label for="enum">Unit:</label>
                                             <select class="form-control form-control-solid" name="enum" id="enum">
                                                 @foreach($data as $option)
                                                     <option value="{!! $option !!}">{!! $option !!}</option>
@@ -86,7 +86,7 @@ Material
                                             {{--<input name="enum" type="text" class="form-control form-control-solid" placeholder="Enter Enum" />--}}
                                         </div>
                                     </div>
-                                 
+
                                 </div>
                             </div>
                             <div class="card-footer">
