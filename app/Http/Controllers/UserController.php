@@ -36,17 +36,15 @@ class UserController extends HelperController
             'name'     => [V::REQUIRED, ...V::NAME],
             'email'    => [V::REQUIRED, V::EMAIL],
             'password' => [V::SOMETIMES, V::REQUIRED, ...V::PASS],
-            'mobile'   => [V::REQUIRED, ...V::PHONE],
-            'acl'      => [V::SOMETIMES, V::REQUIRED, Rule::in($this->getRules(Request()))]
+            'mobile'   => [V::REQUIRED, ...V::PHONE]
         ];
     }
 
     public function validation(): array
     {
-        $rules = $this->commonValidationRules;
-        unset($rules['acl'][2]);
+        $rules        = $this->commonValidationRules;
         $rules['acl'] = [
-            'rules' => $rules['acl'],
+            'rules' => [V::SOMETIMES, V::REQUIRED],
             'types' => $this->getRules(Request())
         ];
         return $rules;

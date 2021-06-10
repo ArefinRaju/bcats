@@ -35,6 +35,17 @@ class PayeeController extends HelperController
         ];
     }
 
+    public function validation(): array
+    {
+        $rules = $this->commonValidationRules;
+        unset($rules['type'][1]);
+        $rules['type'] = [
+            'rules' => $rules['type'],
+            'types' => PayeeType::values()
+        ];
+        return $rules;
+    }
+
     public function constants()
     {
         return $this->respond(['type' => PayeeType::values()]);
