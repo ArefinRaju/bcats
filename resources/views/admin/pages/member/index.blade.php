@@ -104,11 +104,24 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Mobile</th>
+                                    <th>Contribution</th>
+                                    <th>Due</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
 
+
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->mobile }}</td>
+                                        <td>{{ $item->contribution }}</td>
+                                        <td>{{ $item->due }}</td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>
