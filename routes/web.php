@@ -143,7 +143,8 @@ Route::get(
 );
 
 
-Route::get('/member/list', 'Member@index');
+Route::get('/userType/{userType}', 'UserController@showByUserType')->name('member.list');
+
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
 
