@@ -31,6 +31,8 @@ Route::post('/memberSearch', 'UserController@search');
 Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('project', 'ProjectController', []);
     Route::get('/member/{memberId}', 'UserController@memberDetails');
+    Route::get('/userType/{userType}', 'UserController@showByUserType');
+    Route::get('/user/constants', 'UserController@constants');
     CombinedRoute::resourceRoute('/user', 'UserController', []);
     CombinedRoute::resourceRoute('/category', 'CategoryController', []);
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);

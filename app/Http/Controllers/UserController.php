@@ -50,6 +50,11 @@ class UserController extends HelperController
         return $rules;
     }
 
+    public function constants()
+    {
+        return $this->respond(Roles::values());
+    }
+
     public function createForm(Request $request)
     {
         // Todo : filter by using middleware
@@ -191,5 +196,16 @@ class UserController extends HelperController
         $paidEmiCount     = $emiRepo->getPaidCount($request, $memberId);
         $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
         return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount'), [], 'admin.pages.profile.member'); // Todo ; View
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function showByUserType(Request $request, string $userType)
+    {
+        if (!Roles::search($userType)) {
+            throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
+        }
+        return $this->respond($this->repo->getByType($request, $userType), [], 'view'); // Todo : add view
     }
 }

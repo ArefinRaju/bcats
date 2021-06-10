@@ -5,6 +5,7 @@ namespace Helper\Repo;
 
 
 use App\Models\User;
+use Helper\ACL\Acl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -57,6 +58,14 @@ class UserRepository extends EntityRepository
                   ->orWhere('email', 'like', '%'.Request()->input('query').'%');
         })
                    ->where('project_id', $request->input('project_id'))
+                   ->get();
+    }
+
+    public function getByType(Request $request, string $userType): Collection
+    {
+        $encryptedData = Acl::createUserRole($userType);
+        return User::where('acl', $encryptedData)
+                   ->where('project_id', $request->user()->project_id)
                    ->get();
     }
 }
