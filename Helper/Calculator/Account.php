@@ -6,6 +6,8 @@ namespace Helper\Calculator;
 
 use App\Models\Account as Model;
 use App\Models\User;
+use Helper\ACL\Acl;
+use Helper\ACL\Roles;
 use Helper\Constants\Errors;
 use Helper\Constants\PayeeType;
 use Helper\Constants\Transaction;
@@ -198,10 +200,15 @@ final class Account implements Calculator
         return $instance;
     }
 
+    /**
+     * @throws UserFriendlyException
+     */
     public static function payEmployee(Request $request, int $amount, int $employee, string $comment = ''): Account
     {
-        // Todo : Check if user type is EMPLOYEE
         $instance           = new Account($request);
+        $instance->userRepo = new UserRepository();
+        $instance->validateUserType($instance, Roles::EMPLOYEE, $employee);
+        $instance->validateUserType($instance, Roles::PROJECT_ADMIN, $request->user()->id);
         $instance->type     = Transaction::DEBIT;
         $instance->is_fund  = false;
         $instance->amount   = $instance->negativeChecker($amount);
@@ -216,6 +223,17 @@ final class Account implements Calculator
         // Todo : Update EMPLOYEE on hold amount
         $instance->assignAndSave($instance);
         return $instance;
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    private function validateUserType(Account $instance, string $role, int $userId): void
+    {
+        $userRole = Acl::decodeRole($instance->userRepo->getById($instance->request, $userId)->acl);
+        if ($userRole !== $role) {
+            throw new UserFriendlyException(Errors::FORBIDDEN);
+        }
     }
 
     public static function demand(Request $request, int $amount, string $comment = ''): Account
@@ -289,5 +307,13 @@ final class Account implements Calculator
             return 0;
         }
         return $amount;
+    }
+
+    private function initUserRepo(?UserRepository $userRepo): UserRepository
+    {
+        if (($userRepo instanceof UserRepository) != true) {
+            return new UserRepository();
+        }
+        return $userRepo;
     }
 }

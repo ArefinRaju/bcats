@@ -152,4 +152,19 @@ class AccountController extends HelperController
         $transactions = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.transaction');
     }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function payEmployee(Request $request)
+    {
+        $rules = [
+            'employeeId' => [V::REQUIRED, V::INTEGER],
+            'amount'     => [V::REQUIRED, V::NUMBER],
+            'comment'    => [V::SOMETIMES, V::TEXT]
+        ];
+        $this->validate($request, $rules);
+        Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
+        dd(true);
+    }
 }
