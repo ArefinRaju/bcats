@@ -8,15 +8,16 @@ use Helper\Repo\Entity;
 
 /**
  * @method static latest()
- * @property int total
- * @property int required
- * @property int due
- * @property int credit
- * @property int debit
+ * @property float total
+ * @property float required
+ * @property float due
+ * @property float credit
+ * @property float debit
  * @property mixed|string type
  * @property false is_fund
  * @property int user_id
  * @property int project_id
+ * @property float employee
  */
 class Account extends Entity
 {

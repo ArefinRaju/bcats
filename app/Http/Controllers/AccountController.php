@@ -77,7 +77,7 @@ class AccountController extends HelperController
             'image'   => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
         ];
         $this->validate($request, $rules);
-        $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment') ?? '');
+        $log = Account::payPayee($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment') ?? '');
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);

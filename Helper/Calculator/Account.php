@@ -32,6 +32,7 @@ final class Account implements Calculator
     public int                $emi_id;
     public int                $total;
     public int                $due;
+    public int                $employee;
     public int                $required;
     public int                $credit;
     public int                $debit;
@@ -175,7 +176,7 @@ final class Account implements Calculator
         }
     }
 
-    public static function debit(Request $request, int $amount, int $payeeId, string $comment = '', ?int $invoiceId = null): Account
+    public static function payPayee(Request $request, int $amount, int $payeeId, string $comment = '', ?int $invoiceId = null): Account
     {
         $instance            = new Account($request);
         $instance->payeeRepo = new PayeeRepository();
@@ -185,14 +186,34 @@ final class Account implements Calculator
         $instance->amount    = $instance->negativeChecker($amount);
         $instance->comment   = $request->input('comment') ?? $comment;
         $instance->debit     = $instance->amount;
-        $instance->due       = (float)$instance->oldRecord->due;
-        $instance->total     = (float)$instance->oldRecord->total - $instance->amount;
-        $instance->required  = (float)$instance->oldRecord->required;
+        $instance->due       = $instance->oldRecord->due;
+        $instance->total     = $instance->oldRecord->total - $instance->amount;
+        $instance->required  = $instance->oldRecord->required;
         $instance->image     = PhotoMod::resizeAndUpload($request);
         if (!empty($invoiceId)) {
             $instance->invoice_id = $invoiceId;
         }
         $instance->updatePayeeData($instance);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    public static function payEmployee(Request $request, int $amount, int $employee, string $comment = ''): Account
+    {
+        // Todo : Check if user type is EMPLOYEE
+        $instance           = new Account($request);
+        $instance->type     = Transaction::DEBIT;
+        $instance->is_fund  = false;
+        $instance->amount   = $instance->negativeChecker($amount);
+        $instance->debit    = $instance->amount;
+        $instance->due      = $instance->oldRecord->due;
+        $instance->employee = $instance->oldRecord->employee + $amount;
+        $instance->total    = $instance->oldRecord->total - $instance->amount;
+        $instance->required = $instance->oldRecord->required;
+        $instance->by_user  = $employee;
+        $instance->comment  = $request->input('comment') ?? $comment;
+        $instance->image    = PhotoMod::resizeAndUpload($request);
+        // Todo : Update EMPLOYEE on hold amount
         $instance->assignAndSave($instance);
         return $instance;
     }
