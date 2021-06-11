@@ -64,12 +64,8 @@ class UserRepository extends EntityRepository
     public function getByType(Request $request, string $userType): Collection
     {
         $encryptedData = Acl::createUserRole(strtoupper($userType));
-
-
-        $members=User::where('acl', $encryptedData)
-        ->where('project_id', $request->user()->project_id)
-        ->get();
-        
-        return $members;
+        return User::where('acl', $encryptedData)
+                   ->where('project_id', $request->user()->project_id)
+                   ->get();
     }
 }
