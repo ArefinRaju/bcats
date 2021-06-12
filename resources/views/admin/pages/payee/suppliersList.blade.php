@@ -7,7 +7,7 @@
 @endsection
 @section('css')
     <link href="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet"
-        type="text/css" />
+          type="text/css"/>
 @endsection
 @section('content')
     <!--begin::Content-->
@@ -46,13 +46,16 @@
                             <!--begin::Dropdown-->
                             <div class="dropdown dropdown-inline mr-2">
                                 <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="la la-download"></i>Export</button>
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="la la-download"></i>Export
+                                </button>
                                 <!--begin::Dropdown Menu-->
                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <ul class="nav flex-column nav-hover">
-                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2">Choose an
-                                            option:</li>
+                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2">
+                                            Choose an
+                                            option:
+                                        </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 <i class="nav-icon la la-print"></i>
@@ -97,35 +100,35 @@
                     <div class="card-body">
                         <!--begin: Datatable-->
                         <table class="table table-bordered table-hover table-checkable" id="kt_datatable"
-                            style="margin-top: 13px !important">
+                               style="margin-top: 13px !important">
                             <thead class="text-center">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Contribution</th>
-                                    <th>Due</th>
-                                    <th>Actions</th>
-                                </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Contribution</th>
+                                <th>Due</th>
+                                <th>Actions</th>
+                            </tr>
                             </thead>
                             <tbody class="text-center">
 
 
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->address }}</td>
-                                        <td>{{ $item->mobile }}</td>
-                                        <td>{{ $item->paid }}</td>
-                                        <td>{{ $item->due }}</td>
-                                        <td class="d-flex flex-wrap justify-content-around">
-                                                                     <td>
-                                            <a href="#" class="btn btn-sm btn-success">View</a>
-                                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                @endforeach
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->address }}</td>
+                                    <td>{{ $item->mobile }}</td>
+                                    <td>{{ $item->paid }}</td>
+                                    <td>{{ $item->due }}</td>
+                                    <td class="d-flex flex-wrap justify-content-around">
+                                        <a href="#" class="btn btn-sm btn-success">View</a>
+                                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                            @endforeach
 
                             </tbody>
                         </table>

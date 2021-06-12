@@ -87,7 +87,6 @@ class PayeeRepository extends EntityRepository
 
     public function getByType($request,$supplierType)
     {
-        $suppliers=Payee::where('type',$supplierType)->where('project_id',$request->user()->project_id)->get();
-        return $suppliers;
+        return Payee::where('type',$supplierType)->where('project_id',$request->user()->project_id)->get();
     }
 }

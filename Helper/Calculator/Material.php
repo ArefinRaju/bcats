@@ -91,7 +91,7 @@ final class Material implements Calculator
         $instance->comment    = $request->input('comment') ?? '';
         $instance->total      = $instance->oldRecord->total + $instance->credit;
         $instance->required   = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
-        Account::debit($request, $request->input('paidAmount'), $instance->payee_id, $instance->comment, $invoice->id);
+        Account::payPayee($request, $request->input('paidAmount'), $instance->payee_id, $instance->comment, $invoice->id);
         $instance->assignAndSave($instance);
         return $instance;
     }

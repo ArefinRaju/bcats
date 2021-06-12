@@ -44,6 +44,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/unpaidEMIs', 'EMIController@unpaidEMIs');
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
     Route::post('/debit', 'AccountController@payPayee');
+    Route::post('/payEmployee', 'AccountController@payEmployee');
     Route::post('/addFund', 'AccountController@addFund');
     Route::post('/credit', 'AccountController@credit');
     Route::post('/upload', 'AccountController@upload');

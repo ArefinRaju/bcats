@@ -77,7 +77,7 @@ class AccountController extends HelperController
             'image'   => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
         ];
         $this->validate($request, $rules);
-        $log = Account::debit($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment') ?? '');
+        $log = Account::payPayee($request, $request->input('amount'), $request->input('payeeId'), $request->input('comment') ?? '');
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);
@@ -151,5 +151,20 @@ class AccountController extends HelperController
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.transaction');
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function payEmployee(Request $request)
+    {
+        $rules = [
+            'employeeId' => [V::REQUIRED, V::INTEGER],
+            'amount'     => [V::REQUIRED, V::NUMBER],
+            'comment'    => [V::SOMETIMES, V::TEXT]
+        ];
+        $this->validate($request, $rules);
+        $log = Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
+        return $this->respond($log, [], 'view'); // Todo : View
     }
 }

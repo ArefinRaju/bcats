@@ -203,12 +203,10 @@ class UserController extends HelperController
      */
     public function showByUserType(Request $request, string $userType)
     {
-
-
         if (!Roles::search(strtoupper($userType))) {
             throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
         }
-        $result=$this->repo->getByType($request, $userType);
+        $result = $this->repo->getByType($request, $userType);
         return $this->respond($result, [], 'admin.pages.payee.memberType'); // Todo : add view
     }
 }
