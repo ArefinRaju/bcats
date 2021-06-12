@@ -120,13 +120,12 @@
                                         <td>{{ $item->mobile }}</td>
                                         <td>{{ $item->paid }}</td>
                                         <td>{{ $item->due }}</td>
-                                        <td>
+                                        <td class="d-flex flex-wrap justify-content-around">
+                                                                     <td>
                                             <a href="#" class="btn btn-sm btn-success">View</a>
                                             <a href="#" class="btn btn-sm btn-primary">Edit</a>
                                             <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+reach
 
                             </tbody>
                         </table>
