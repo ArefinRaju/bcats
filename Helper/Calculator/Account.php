@@ -152,7 +152,13 @@ final class Account implements Calculator
 
     private function creditUserOnHoldAmount(Account $instance): void
     {
-        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
+        if ($instance->isUserType($instance, Roles::EMPLOYEE, $instance->by_user)) {
+            $user               = $instance->userRepo->getById($instance->request, $instance->by_user);
+            $user->contribution += $instance->amount;
+        }
+        else {
+            $user = $instance->userRepo->getById($instance->request, $instance->user_id);
+        }
         $user->on_hold += $instance->amount;
         $instance->userRepo->save($user);
     }
@@ -221,6 +227,7 @@ final class Account implements Calculator
         $instance->comment  = $request->input('comment') ?? $comment;
         $instance->image    = PhotoMod::resizeAndUpload($request);
         // Todo : Update EMPLOYEE on hold amount
+
         $instance->assignAndSave($instance);
         return $instance;
     }
@@ -228,12 +235,37 @@ final class Account implements Calculator
     /**
      * @throws UserFriendlyException
      */
+    private function updateEmployeeData(Account $instance, string $transactionType): void
+    {
+        switch ($transactionType) {
+            case Transaction::CREDIT:
+                $this->creditUserOnHoldAmount($instance);
+                break;
+            case Transaction::DEBIT:
+                $this->debitUserOnHoldAmount($instance);
+                break;
+            default:
+                throw new UserFriendlyException(Errors::ACTION_NOT_SUPPORTED);
+        }
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
     private function validateUserType(Account $instance, string $role, int $userId): void
     {
-        $userRole = Acl::decodeRole($instance->userRepo->getById($instance->request, $userId)->acl);
-        if ($userRole !== $role) {
+        if ($instance->isUserType($instance, $role, $userId)) {
             throw new UserFriendlyException(Errors::FORBIDDEN);
         }
+    }
+
+    private function isUserType(Account $instance, string $role, int $userId): bool
+    {
+        $userRole = Acl::decodeRole($instance->userRepo->getById($instance->request, $userId)->acl);
+        if ($userRole === $role) {
+            return true;
+        }
+        return false;
     }
 
     public static function demand(Request $request, int $amount, string $comment = ''): Account
