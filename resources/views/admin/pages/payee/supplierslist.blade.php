@@ -125,7 +125,7 @@
                                             <a href="#" class="btn btn-sm btn-success">View</a>
                                             <a href="#" class="btn btn-sm btn-primary">Edit</a>
                                             <a href="#" class="btn btn-sm btn-danger">Delete</a>
-reach
+                                @endforeach
 
                             </tbody>
                         </table>
