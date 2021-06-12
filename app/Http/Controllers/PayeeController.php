@@ -175,4 +175,16 @@ class PayeeController extends HelperController
         $result = $this->repo->searchSupplier($request);
         return $this->respond($result->toArray(), [], '');
     }
+
+
+    public function listByType(Request $request ,string $suppliertype)
+    {
+
+        if(!PayeeType::search(strtoupper($suppliertype))){
+            throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
+        }
+
+        $data=$this->repo->getByType($request,$suppliertype);
+        return $this->respond($data,[],'admin.pages.payee.supplierslist');
+    }
 }

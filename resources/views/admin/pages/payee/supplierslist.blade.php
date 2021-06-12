@@ -98,7 +98,7 @@
                         <!--begin: Datatable-->
                         <table class="table table-bordered table-hover table-checkable" id="kt_datatable"
                             style="margin-top: 13px !important">
-                            <thead>
+                            <thead class="text-center">
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
@@ -109,17 +109,22 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
 
 
                                 @foreach ($data as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->address }}</td>
                                         <td>{{ $item->mobile }}</td>
-                                        <td>{{ $item->contribution }}</td>
+                                        <td>{{ $item->paid }}</td>
                                         <td>{{ $item->due }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-success">View</a>
+                                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

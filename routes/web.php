@@ -30,6 +30,7 @@ Route::get('/memberd', 'PayeeController@memberD');
 Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
 Route::get('/memberSearch', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
+Route::get('/supplierlist/{type}','PayeeController@listByType');
 
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
