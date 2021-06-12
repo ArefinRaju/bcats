@@ -164,7 +164,7 @@ class AccountController extends HelperController
             'comment'    => [V::SOMETIMES, V::TEXT]
         ];
         $this->validate($request, $rules);
-        Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
-        dd(true);
+        $log = Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
+        return $this->respond($log, [], 'view'); // Todo : View
     }
 }

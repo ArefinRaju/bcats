@@ -10,6 +10,7 @@ use Helper\ACL\Acl;
 use Helper\ACL\Roles;
 use Helper\Constants\Errors;
 use Helper\Constants\PayeeType;
+use Helper\Constants\ResponseType;
 use Helper\Constants\Transaction;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
@@ -51,10 +52,125 @@ final class Account implements Calculator
     {
         $this->request    = $request;
         $this->repo       = new AccountRepository();
+        $this->userRepo   = new UserRepository();
         $this->user_id    = $request->user()->id;
         $this->project_id = $request->user()->project_id;
         $this->oldRecord  = $this->getLastRecord();
         return $this;
+    }
+
+    public static function credit(Request $request, int $amount, string $comment = ''): Account
+    {
+        $instance           = new Account($request);
+        $instance->type     = Transaction::CREDIT;
+        $instance->is_fund  = false;
+        $instance->amount   = $instance->negativeChecker($amount);
+        $instance->comment  = $request->input('comment') ?? $comment;
+        $instance->credit   = $instance->amount;
+        $instance->image    = PhotoMod::resizeAndUpload($request);
+        $instance->total    = $instance->oldRecord->total + $instance->amount;
+        $instance->due      = $instance->oldRecord->due - $instance->amount;
+        $instance->employee = $instance->oldRecord->employee;
+        $instance->required = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
+        $instance->updateUserData($instance, Transaction::CREDIT);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $comment = ''): Account
+    {
+        $instance           = new Account($request);
+        $instance->emi_id   = $emi_id;
+        $instance->type     = Transaction::EMI;
+        $instance->is_fund  = true;
+        $instance->amount   = $instance->negativeChecker($amount);
+        $instance->comment  = $request->input('comment') ?? $comment;
+        $instance->total    = $instance->oldRecord->total;
+        $instance->required = $instance->oldRecord->required;
+        $instance->due      = $instance->oldRecord->due + $instance->amount;
+        $instance->employee = $instance->oldRecord->employee;
+        $instance->by_user  = $by_user;
+        $instance->updateUserEmi($request, $amount, $emi_id, $by_user);
+        $instance->image = PhotoMod::resizeAndUpload($request);
+        $instance->updateUserData($instance, Transaction::EMI);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    public static function demand(Request $request, int $amount, string $comment = ''): Account
+    {
+        $instance           = new Account($request);
+        $instance->type     = Transaction::CREDIT;
+        $instance->is_fund  = false;
+        $instance->amount   = $instance->negativeChecker($amount);
+        $instance->comment  = $request->input('comment') ?? $comment;
+        $instance->due      = $instance->oldRecord->due;
+        $instance->employee = $instance->oldRecord->employee;
+        $instance->total    = $instance->oldRecord->total;
+        $instance->required = $instance->amount;
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function payPayee(Request $request, int $amount, int $payeeId, string $comment = '', ?int $invoiceId = null): Account
+    {
+        $instance            = new Account($request);
+        $instance->payeeRepo = new PayeeRepository();
+        $instance->type      = Transaction::DEBIT;
+        $instance->is_fund   = false;
+        $instance->payee_id  = $payeeId;
+        $instance->amount    = $instance->negativeChecker($amount);
+        $instance->comment   = $request->input('comment') ?? $comment;
+        $instance->debit     = $instance->amount;
+        $instance->due       = $instance->oldRecord->due;
+        if ($instance->isUserType($instance, Roles::EMPLOYEE, $request->user()->id)) {
+            $instance->total    = $instance->oldRecord->total;
+            $instance->employee = $instance->oldRecord->employee - $amount;
+            $instance->updateEmployeeData($instance, Transaction::DEBIT);
+        }
+        else {
+            $instance->employee = $instance->oldRecord->employee;
+            $instance->total    = $instance->oldRecord->total - $instance->amount;
+        }
+        $instance->required = $instance->oldRecord->required;
+        $instance->image    = PhotoMod::resizeAndUpload($request);
+        if (!empty($invoiceId)) {
+            $instance->invoice_id = $invoiceId;
+        }
+        $instance->updatePayeeData($instance);
+        $instance->assignAndSave($instance);
+        return $instance;
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function payEmployee(Request $request, int $amount, int $employee, string $comment = ''): Account
+    {
+        $instance = new Account($request);
+        $instance->validateUserType($instance, Roles::EMPLOYEE, $employee);
+        $instance->validateUserType($instance, Roles::PROJECT_ADMIN, $request->user()->id);
+        $instance->type     = Transaction::DEBIT;
+        $instance->is_fund  = false;
+        $instance->amount   = $instance->negativeChecker($amount);
+        $instance->debit    = $instance->amount;
+        $instance->due      = $instance->oldRecord->due;
+        $instance->employee = $instance->oldRecord->employee + $amount;
+        $instance->total    = $instance->oldRecord->total - $instance->amount;
+        $instance->required = $instance->oldRecord->required;
+        $instance->by_user  = $employee;
+        $instance->comment  = $request->input('comment') ?? $comment;
+        $instance->image    = PhotoMod::resizeAndUpload($request);
+        // Todo : Update EMPLOYEE on hold amount
+        $instance->updateEmployeeData($instance, Transaction::CREDIT);
+        $instance->assignAndSave($instance);
+        return $instance;
     }
 
     private function getLastRecord(): Model
@@ -75,54 +191,6 @@ final class Account implements Calculator
             return $account;
         }
         return $lastRecord;
-    }
-
-    public static function credit(Request $request, int $amount, string $comment = ''): Account
-    {
-        $instance           = new Account($request);
-        $instance->userRepo = new UserRepository();
-        $instance->type     = Transaction::CREDIT;
-        $instance->is_fund  = false;
-        $instance->amount   = $instance->negativeChecker($amount);
-        $instance->comment  = $request->input('comment') ?? $comment;
-        $instance->credit   = $instance->amount;
-        $instance->image    = PhotoMod::resizeAndUpload($request);
-        $instance->total    = (float)$instance->oldRecord->total + $instance->amount;
-        $instance->due      = (float)$instance->oldRecord->due - $instance->amount;
-        $instance->required = $instance->negativeChecker((float)$instance->oldRecord->required - $instance->amount);
-        $instance->updateUserData($instance, Transaction::CREDIT);
-        $instance->assignAndSave($instance);
-        return $instance;
-    }
-
-    private function debitUserOnHoldAmount(Account $instance): void
-    {
-        $user          = $instance->userRepo->getById($instance->request, $instance->user_id);
-        $user->on_hold -= $instance->credit;
-        $instance->userRepo->save($user);
-    }
-
-    /**
-     * @throws UserFriendlyException
-     */
-    public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $comment = ''): Account
-    {
-        $instance           = new Account($request);
-        $instance->userRepo = new UserRepository();
-        $instance->emi_id   = $emi_id;
-        $instance->type     = Transaction::EMI;
-        $instance->is_fund  = true;
-        $instance->amount   = $instance->negativeChecker($amount);
-        $instance->comment  = $request->input('comment') ?? $comment;
-        $instance->total    = (float)$instance->oldRecord->total;
-        $instance->required = (float)$instance->oldRecord->required;
-        $instance->due      = (float)$instance->oldRecord->due + $instance->amount;
-        $instance->by_user  = $by_user;
-        $instance->updateUserEmi($request, $amount, $emi_id, $by_user);
-        $instance->image = PhotoMod::resizeAndUpload($request);
-        $instance->updateUserData($instance, Transaction::EMI);
-        $instance->assignAndSave($instance);
-        return $instance;
     }
 
     /**
@@ -153,20 +221,33 @@ final class Account implements Calculator
     private function creditUserOnHoldAmount(Account $instance): void
     {
         if ($instance->isUserType($instance, Roles::EMPLOYEE, $instance->by_user)) {
-            $user               = $instance->userRepo->getById($instance->request, $instance->by_user);
+            $user               = $instance->userRepo->getByIdAndProject($instance->request, $instance->by_user);
             $user->contribution += $instance->amount;
         }
         else {
-            $user = $instance->userRepo->getById($instance->request, $instance->user_id);
+            $user = $instance->userRepo->getByIdAndProject($instance->request, $instance->user_id);
         }
         $user->on_hold += $instance->amount;
+        $instance->userRepo->save($user);
+    }
+
+    private function debitUserOnHoldAmount(Account $instance): void
+    {
+        $user = $instance->isUserType($instance, Roles::EMPLOYEE, $instance->request->user()->id);
+        if ($user) {
+            $user->on_hold -= $instance->amount;
+        }
+        else {
+            $user          = $instance->userRepo->getByIdAndProject($instance->request, $instance->user_id);
+            $user->on_hold -= $instance->credit;
+        }
         $instance->userRepo->save($user);
     }
 
     private function updateUsersDueAndContribution(Account $instance): void
     {
         /* @var User $user */
-        $user               = $instance->userRepo->getById($instance->request, $instance->by_user);
+        $user               = $instance->userRepo->getByIdAndProject($instance->request, $instance->by_user);
         $user->due          -= $instance->due;
         $user->contribution += $instance->amount;
         $instance->userRepo->save($user);
@@ -182,54 +263,6 @@ final class Account implements Calculator
             case Transaction::CREDIT:
                 $this->debitUserOnHoldAmount($instance);
         }
-    }
-
-    public static function payPayee(Request $request, int $amount, int $payeeId, string $comment = '', ?int $invoiceId = null): Account
-    {
-        $instance            = new Account($request);
-        $instance->payeeRepo = new PayeeRepository();
-        $instance->type      = Transaction::DEBIT;
-        $instance->is_fund   = false;
-        $instance->payee_id  = $payeeId;
-        $instance->amount    = $instance->negativeChecker($amount);
-        $instance->comment   = $request->input('comment') ?? $comment;
-        $instance->debit     = $instance->amount;
-        $instance->due       = $instance->oldRecord->due;
-        $instance->total     = $instance->oldRecord->total - $instance->amount;
-        $instance->required  = $instance->oldRecord->required;
-        $instance->image     = PhotoMod::resizeAndUpload($request);
-        if (!empty($invoiceId)) {
-            $instance->invoice_id = $invoiceId;
-        }
-        $instance->updatePayeeData($instance);
-        $instance->assignAndSave($instance);
-        return $instance;
-    }
-
-    /**
-     * @throws UserFriendlyException
-     */
-    public static function payEmployee(Request $request, int $amount, int $employee, string $comment = ''): Account
-    {
-        $instance           = new Account($request);
-        $instance->userRepo = new UserRepository();
-        $instance->validateUserType($instance, Roles::EMPLOYEE, $employee);
-        $instance->validateUserType($instance, Roles::PROJECT_ADMIN, $request->user()->id);
-        $instance->type     = Transaction::DEBIT;
-        $instance->is_fund  = false;
-        $instance->amount   = $instance->negativeChecker($amount);
-        $instance->debit    = $instance->amount;
-        $instance->due      = $instance->oldRecord->due;
-        $instance->employee = $instance->oldRecord->employee + $amount;
-        $instance->total    = $instance->oldRecord->total - $instance->amount;
-        $instance->required = $instance->oldRecord->required;
-        $instance->by_user  = $employee;
-        $instance->comment  = $request->input('comment') ?? $comment;
-        $instance->image    = PhotoMod::resizeAndUpload($request);
-        // Todo : Update EMPLOYEE on hold amount
-
-        $instance->assignAndSave($instance);
-        return $instance;
     }
 
     /**
@@ -254,32 +287,25 @@ final class Account implements Calculator
      */
     private function validateUserType(Account $instance, string $role, int $userId): void
     {
-        if ($instance->isUserType($instance, $role, $userId)) {
+        if (!$instance->isUserType($instance, $role, $userId)) {
             throw new UserFriendlyException(Errors::FORBIDDEN);
         }
     }
 
-    private function isUserType(Account $instance, string $role, int $userId): bool
+    /**
+     * @throws UserFriendlyException
+     */
+    private function isUserType(Account $instance, string $role, int $userId)
     {
-        $userRole = Acl::decodeRole($instance->userRepo->getById($instance->request, $userId)->acl);
+        $user = $instance->userRepo->getByIdAndProject($instance->request, $userId);
+        if (!$user) {
+            throw new UserFriendlyException("Wrong Employee", ResponseType::FORBIDDEN);
+        }
+        $userRole = Acl::decodeRole($user->acl);
         if ($userRole === $role) {
-            return true;
+            return $user;
         }
         return false;
-    }
-
-    public static function demand(Request $request, int $amount, string $comment = ''): Account
-    {
-        $instance           = new Account($request);
-        $instance->type     = Transaction::CREDIT;
-        $instance->is_fund  = false;
-        $instance->amount   = $instance->negativeChecker($amount);
-        $instance->comment  = $request->input('comment') ?? $comment;
-        $instance->due      = (float)$instance->oldRecord->due;
-        $instance->total    = (float)$instance->oldRecord->total;
-        $instance->required = (float)$instance->amount;
-        $instance->assignAndSave($instance);
-        return $instance;
     }
 
     private function updatePayeeData(Account $instance): void
@@ -339,13 +365,5 @@ final class Account implements Calculator
             return 0;
         }
         return $amount;
-    }
-
-    private function initUserRepo(?UserRepository $userRepo): UserRepository
-    {
-        if (($userRepo instanceof UserRepository) != true) {
-            return new UserRepository();
-        }
-        return $userRepo;
     }
 }

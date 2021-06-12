@@ -21,6 +21,13 @@ class UserRepository extends EntityRepository
         return User::where('id', $id)->first();
     }
 
+    public function getByIdAndProject(Request $request, int $id)
+    {
+        return User::where('id', $id)
+                   ->where('project_id', $request->user()->project_id)
+                   ->first();
+    }
+
     public function list(int $perPage = null, int $page = null)
     {
         return User::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
