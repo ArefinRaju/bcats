@@ -146,7 +146,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
+                                    <a href="{{ url('/demand-list') }}" class="menu-link">
                                         <span class="menu-text">Demand List</span>
                                         <span class="menu-desc"></span>
                                     </a>

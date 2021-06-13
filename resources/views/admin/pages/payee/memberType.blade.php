@@ -105,6 +105,7 @@
                                     <th>Email</th>
                                     <th>Mobile</th>
                                     <th>Contribution</th>
+                                    <th>Otp Due</th>
                                     <th>Due</th>
                                     <th>Actions</th>
                                 </tr>
@@ -119,11 +120,11 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->mobile }}</td>
                                         <td>{{ $item->contribution }}</td>
+                                        <td>{{ $item->on_hold }}</td>
                                         <td>{{ $item->due }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-sm btn-success">View</a>
-                                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                            <a href="{{ url('member/'.$item->id) }}" class="btn btn-sm btn-success">View</a>
+                                            <a href="{{ url('user-edit/'.$item->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

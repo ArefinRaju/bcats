@@ -108,6 +108,7 @@ Dedit
                                 <th>User</th>
                                 <th>Total</th>
                                 <th>Used</th>
+                                <th>Comment</th>
                                 <th>Date</th>
                             </tr>
                             </thead>
@@ -116,11 +117,12 @@ Dedit
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->material_name}}</td>
-                                    <td>{{$item->debit.$item->enum}}</td>
+                                    <td>{{$item->debit." ".$item->enum}}</td>
                                     <td>{{$item->user_name}}</td>
-                                    <td>{{$item->total.$item->enum}}</td>
-                                    <td>{{$item->used.$item->enum}}</td>
-                                    <td>{{$item->date}}</td>
+                                    <td>{{$item->total." ".$item->enum}}</td>
+                                    <td>{{$item->used." ".$item->enum}}</td>
+                                    <td>{{$item->comment}}</td>
+                                    <td>{{date('d-M-Y',strtotime($item->updated_at))}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

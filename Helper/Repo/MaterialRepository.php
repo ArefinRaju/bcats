@@ -40,7 +40,7 @@ class MaterialRepository extends EntityRepository
 
     public function materialList(Request $request)
     {
-        return Material::all();
+        return Material::leftjoin('material_histories','material_histories.material_id','materials.id')->get();
     }
 
     public function isExist(Request $request): bool

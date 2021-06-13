@@ -171,19 +171,22 @@ class MaterialHistoryController extends HelperController
     {
         $stockList = [];
         $materials = $this->materialRepo->materialList($request);
+
         foreach ($materials as $material) {
             $log = $this->repo->getLatestById($request, $material->id);
             if (empty($log)) {
                 continue;
             }
-            $item             = [];
-            $item['id']       = $material->id;
-            $item['name']     = $material->name;
-            $item['enum']     = $material->enum;
-            $item['total']    = $log->total;
-            $item['required'] = $log->required;
-            $item['used']     = $log->used;
-            $stockList[]      = Arrays::toObject($item);
+            $item                   = [];
+            $item['id']             = $material->id;
+            $item['name']           = $material->name;
+            $item['enum']           = $material->enum;
+            $item['total']          = $log->total;
+            $item['required']       = $log->required;
+            $item['used']           = $log->used;
+            $item['user_name']      = $log->user_name;
+            $item['comment']        = $log->comment;
+            $stockList[]            = Arrays::toObject($item);
         }
         return $stockList;
     }
