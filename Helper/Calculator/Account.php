@@ -35,7 +35,7 @@ final class Account implements Calculator
     public int                $emi_id;
     public int                $total;
     public int                $due;
-    public int                $employee;
+    public ?int               $employee;
     public int                $required;
     public int                $credit;
     public int                $debit;
