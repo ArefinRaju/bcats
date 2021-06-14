@@ -32,7 +32,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('account') }}" class="menu-link">
+                                    <a href="{{ url('payEmployee') }}" class="menu-link">
                                         <span class="menu-text">Balance Tranfer</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -61,7 +61,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ route('member.list', ['userType' => 'member']) }}" class="menu-link">
+                                    <a href="{{ url('userType/member') }}" class="menu-link">
                                         <span class="menu-text">Member List</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -91,7 +91,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ route('member.list', ['userType' => 'Supplier']) }}"
+                                    <a href="{{ url('/supplierlist/supplier', []) }}"
                                         class="menu-link">
                                         <span class="menu-text">Supplier List</span>
                                         <span class="menu-desc"></span>

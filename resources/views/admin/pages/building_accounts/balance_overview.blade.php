@@ -98,15 +98,13 @@
                     </div>
                     <div class="card-body">
                         <!--begin: Datatable-->
-                        <table class="table table-bordered table-hover table-checkable" id="kt_datatable"
+                        <table class="table table-bordered table-hover table-checkable text-center" id="kt_datatable"
                                style="margin-top: 13px !important">
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Metarial Name</th>
-                                <th>Type </th>
-                                <th>Quantity</th>
                                 <th>Amount</th>
+                                <th>Transection Type</th>
                                 <th>Comment</th>
                                 <th>Date</th>
                             </tr>
@@ -115,7 +113,6 @@
                             @foreach($data as $item)
                                 <tr>
                                     <td>{{$item->id}}</td>
-                                    <td>{{$item->total}}</td>
                                     <td>{{$item->total}}</td>
                                     <td>
                                         @if($item->type === \Helper\Constants\Transaction::CREDIT)
@@ -133,10 +130,10 @@
                                             {{$item->comment}}
                                         @endif
                                     </td>
-                                    <td>{{\Carbon\Carbon::parse($item->created_at)->format('Y-m-d h:i a')}}</td>
-                                    <td nowrap="nowrap">
+                                    <td>{{\Carbon\Carbon::parse($item->created_at)->format('d-F-Y h:i a')}}</td>
+                                    {{-- <td nowrap="nowrap"> --}}
                                         {{-- Todo : Add button to show details --}}
-                                    </td>
+                                    {{-- </td> --}}
                                 </tr>
                             @endforeach
                             </tbody>

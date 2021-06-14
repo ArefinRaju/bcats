@@ -140,6 +140,7 @@ class AccountController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
+        // dd($accounts);/
         return $this->respond($accounts, [], 'admin.pages.building_accounts.balance_overview');
     }
 
@@ -151,6 +152,12 @@ class AccountController extends HelperController
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.transaction');
+    }
+
+
+    public function payEmployeeForm(Request $request)
+    {
+       return $this->respond($this->payeeRepo->emoloyeeList($request),[],'admin.pages.account.balance_transfer.index');
     }
 
     /**

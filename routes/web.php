@@ -31,6 +31,8 @@ Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCate
 Route::get('/memberSearch', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
 Route::get('/supplierlist/{type}','PayeeController@listByType');
+Route::get('/userType/{userType}', 'UserController@showByUserType');
+
 
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
@@ -144,7 +146,6 @@ Route::get(
 );
 
 
-Route::get('/userType/{userType}', 'UserController@showByUserType')->name('member.list');
 
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
@@ -186,6 +187,11 @@ CombinedRoute::resourceRoute('account', 'AccountController', []);
 Route::get('/project-create', 'ProjectController@createForm');
 Route::get('/project-edit/{id}', 'ProjectController@editForm');
 CombinedRoute::resourceRoute('project', 'ProjectController', []);
+
+Route::get('/payEmployee', 'AccountController@payEmployeeForm');
+Route::post('/payEmployee', 'AccountController@payEmployee');
+
+
 
 // No need because material's resourceRoute has list with pagination
 //Route::get('/materials/list',	'MaterialController@materialList');
