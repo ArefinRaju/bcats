@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    User
+    Members
 @endsection
 @section('js')
 
@@ -20,7 +20,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">User</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Member List</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -40,7 +40,7 @@
                             <span class="card-icon">
                                 <i class="flaticon2-favourite text-primary"></i>
                             </span>
-                            <h3 class="card-label">User List</h3>
+                            <h3 class="card-label">Member List</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->

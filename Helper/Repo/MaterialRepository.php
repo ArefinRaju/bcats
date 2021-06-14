@@ -38,7 +38,11 @@ class MaterialRepository extends EntityRepository
         return Material::destroy($id);
     }
 
-    public function materialList(Request $request)
+    public function materialList($request)
+    {
+        return Material::all();
+    }
+    public function materiaHistorilList($request)
     {
         return Material::leftJoin('material_histories','material_histories.material_id','materials.id')->get();
     }

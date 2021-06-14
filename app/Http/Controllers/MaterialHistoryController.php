@@ -174,6 +174,7 @@ class MaterialHistoryController extends HelperController
 
         foreach ($materials as $material) {
             $log = $this->repo->getLatestById($request, $material->id);
+
             if (empty($log)) {
                 continue;
             }
