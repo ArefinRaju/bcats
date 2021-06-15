@@ -112,7 +112,7 @@ class MaterialHistoryController extends HelperController
             'quantity'   => [V::REQUIRED, V::NUMBER]
         ];
         $this->validate($request, $rules);
-        $log = Material::debit($request, $request->input('materialId'), $request->input('amount'));
+        $log = Material::debit($request, $request->input('materialId'), $request->input('quantity'));
         if (!$this->isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->debitList($pagination->per_page, $pagination->page);
