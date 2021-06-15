@@ -44,4 +44,12 @@ class AccountRepository extends EntityRepository
                       ->where('project_id', $request->user()->project_id)
                       ->count();
     }
+
+    public function getListOfAmountDebitedByEmployee(Request $request, int $perPage = null, int $page = null)
+    {
+        return Account::where('project_id', $request->user()->project_id)
+               ->whereNotIn('debit', [0.00])
+               ->whereNotNull('by_user')
+               ->orderBy('id', 'desc')->paginate($perPage, ['*'], 'page', $page);
+    }
 }

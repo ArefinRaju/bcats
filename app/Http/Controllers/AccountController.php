@@ -157,7 +157,7 @@ class AccountController extends HelperController
 
     public function payEmployeeForm(Request $request)
     {
-       return $this->respond($this->payeeRepo->emoloyeeList($request),[],'admin.pages.account.balance_transfer.index');
+        return $this->respond($this->payeeRepo->emoloyeeList($request), [], 'admin.pages.account.balance_transfer.index');
     }
 
     /**
@@ -173,5 +173,15 @@ class AccountController extends HelperController
         $this->validate($request, $rules);
         $log = Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
         return $this->respond($log, [], 'view'); // Todo : View
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function employeePaymentList(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $list       = $this->repo->getListOfAmountDebitedByEmployee($request, $pagination->per_page, $pagination->page);
+        return $this->respond($list, [], 'view'); // Todo : Add View
     }
 }
