@@ -93,7 +93,7 @@
                             <!--end::Dropdown-->
                             <!--begin::Button-->
                             <a href="{{ url('/user-create') }}" class="btn btn-primary font-weight-bolder">
-                                <i class="la la-plus"></i>New Record</a>
+                                <i class="la la-plus"></i>New Supplier</a>
                             <!--end::Button-->
                         </div>
                     </div>
@@ -123,11 +123,7 @@
                                     <td>{{ $item->mobile }}</td>
                                     <td>{{ $item->paid }}</td>
                                     <td>{{ $item->due }}</td>
-                                    <td class="d-flex flex-wrap justify-content-around">
-                                        <a href="#" class="btn btn-sm btn-success">View</a>
-                                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                                    </td>
+
                             @endforeach
 
                             </tbody>
