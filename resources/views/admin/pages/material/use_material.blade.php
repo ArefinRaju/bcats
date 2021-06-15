@@ -98,17 +98,27 @@ Material
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Amount</th>
-                                <th>Actions</th>
+                                <th>Total</th>
+                                <th>Used</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($data as $usedMatrials)
+
                             <tr>
+                                <td>{{$usedMatrials->material_histories_id}}</td>
+                                <td>{{$usedMatrials->material_name}}</td>
+                                <td>{{$usedMatrials->total .' '.$usedMatrials->enum }}</td>
+
+                                @if ($usedMatrials->used == null)
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td nowrap="nowrap"></td>
+                                @else
+                                    <td>{{$usedMatrials->used .' '.$usedMatrials->enum}}</td>
+                                @endif
+
+                                {{-- <td nowrap="nowrap"></td> --}}
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

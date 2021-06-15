@@ -198,4 +198,13 @@ class MaterialHistoryController extends HelperController
         $materials  = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($materials, [], 'admin.pages.material_history.credit.index');
     }
+
+
+    public function usedMatrials(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $materials  = $this->repo->matrilsListWithCategory($pagination->per_page, $pagination->page);
+
+        return $this->respond($materials,[],'admin.pages.material.use_material');
+    }
 }
