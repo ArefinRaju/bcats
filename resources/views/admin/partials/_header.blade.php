@@ -129,19 +129,19 @@
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-credit-list') }}" class="menu-link">
-                                        <span class="menu-text">Added Stock(Credit)</span>
+                                        <span class="menu-text">Added Stock</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-debit-list') }}" class="menu-link">
-                                        <span class="menu-text">Used Stock(Debit)</span>
+                                        <span class="menu-text">Used Stock</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material/use-material') }}" class="menu-link">
-                                        <span class="menu-text">Used Material</span>
+                                        <span class="menu-text">Use Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
@@ -203,7 +203,7 @@
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">user</span>
+                            <span class="menu-text">User</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -236,7 +236,7 @@
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">settings</span>
+                            <span class="menu-text">Settings</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
