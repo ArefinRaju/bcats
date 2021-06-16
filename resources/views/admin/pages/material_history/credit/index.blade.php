@@ -97,9 +97,9 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Payee</th>
+                                <th>Supplier</th>
                                 <th>Material</th>
-                                <th>Amount</th>
+                                <th>Quantity</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>

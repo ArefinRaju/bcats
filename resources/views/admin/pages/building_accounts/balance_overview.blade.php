@@ -91,8 +91,8 @@
                             </div>
                             <!--end::Dropdown-->
                             <!--begin::Button-->
-                            <a href="{{ url('/payEmployee') }}" class="btn btn-primary font-weight-bolder">
-                                <i class="la la-plus"></i>New Payment</a>
+{{--                            <a href="{{ url('/payEmployee') }}" class="btn btn-primary font-weight-bolder">--}}
+{{--                                <i class="la la-plus"></i>New Payment</a>--}}
                             <!--end::Button-->
                         </div>
                     </div>

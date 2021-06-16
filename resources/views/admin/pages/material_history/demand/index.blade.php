@@ -98,7 +98,7 @@ Dashboard
                             <tr>
                                 <th>#</th>
                                 <th>Material</th>
-                                <th>Amount</th>
+                                <th>Quantity</th>
                                 <th>Suspended By</th>
                                 <th>Reason</th>
                             </tr>
