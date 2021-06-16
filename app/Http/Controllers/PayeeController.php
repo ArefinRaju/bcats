@@ -150,7 +150,7 @@ class PayeeController extends HelperController
         return view('admin.pages.payee.member_search', compact('projectId'));
     }
 
-    public function memberD()
+    public function member()
     {
         $categories = Category::all();
         return view('admin.pages.profile.member', compact('categories'));
