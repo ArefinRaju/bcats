@@ -43,18 +43,18 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('account') }}" class="menu-link">
-                                        <span class="menu-text">My Dues</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('account') }}" class="menu-link">
-                                        <span class="menu-text">My Payments</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="{{ url('account') }}" class="menu-link">--}}
+{{--                                        <span class="menu-text">My Dues</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="{{ url('account') }}" class="menu-link">--}}
+{{--                                        <span class="menu-text">My Payments</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                             </ul>
                         </div>
                     </li>

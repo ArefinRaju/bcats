@@ -16,7 +16,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Project</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Project Member</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -56,7 +56,7 @@ Dashboard
                                     </a>
                                 </div>
                                 <div class="my-lg-0 my-3">
-                                    <button @click="addEmi()" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add Fund(EMI)</button>
+                                    <button @click="addEmi()" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add EMI</button>
                                     <button @click="addOtp() = !addTransaction" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add OTP</button>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@ Dashboard
                                         <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                             <i class="flaticon2-new-email mr-2 font-size-lg"></i>jason@siastudio.com</a>
                                         <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                            <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>PR Manager</a>
+                                            <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>{{$data['role']}}</a>
                                         <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
                                             <i class="flaticon2-placeholder mr-2 font-size-lg"></i>Dhaka</a>
                                     </div>

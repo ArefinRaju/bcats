@@ -192,10 +192,11 @@ class UserController extends HelperController
         $emiRepo          = new EMIRepository();
         $accountRepo      = new AccountRepository();
         $user             = $this->repo->getById($request, $memberId);
+        $role             = Acl::decodeRole($user->acl);
         $otpCount         = $emiRepo->getOtpCount($request, $memberId);
         $paidEmiCount     = $emiRepo->getPaidCount($request, $memberId);
         $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount'), [], 'admin.pages.profile.member'); // Todo ; View
+        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount','role'), [], 'admin.pages.profile.member'); // Todo ; View
     }
 
     /**

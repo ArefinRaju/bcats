@@ -91,7 +91,7 @@
                             </div>
                             <!--end::Dropdown-->
                             <!--begin::Button-->
-                            <a href="{{ url('/pay') }}" class="btn btn-primary font-weight-bolder">
+                            <a href="{{ url('/payEmployee') }}" class="btn btn-primary font-weight-bolder">
                                 <i class="la la-plus"></i>New Payment</a>
                             <!--end::Button-->
                         </div>
