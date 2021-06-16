@@ -93,24 +93,29 @@ Dashboard
                 </div>
                 <div class="card-body">
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+                    <table class="table table-bordered table-hover table-checkable text-center" id="kt_datatable" style="margin-top: 13px !important">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Payee</th>
-                                <th>Project</th>
-                                <th>Amount</th>
-                                <th>Actions</th>
+                                <th>Name</th>
+                                <th>Admin Exist Balance</th>
+                                <th>Payment Due</th>
+                                <th>Employe Exist Balance</th>
+                                <th>Transfer  Type</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($data as $item)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$item->account_id}}</td>
+                                <td>{{$item->name}}</td>
+                                <td>{{$item->total}}</td>
+                                <td>{{$item->due}}</td>
+                                <td>{{$item->employee}}</td>
+                                <td>{{$item->debit}}</td>
+
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

@@ -40,7 +40,7 @@ Dashboard
                             <h3 class="card-title">Balence transfer</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ url('/payment/list') }}" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ url('/employeePaymentList') }}" class="btn btn-primary font-weight-bolder">
                                     <i class="la la-list"></i>See Record</a>
                                 <!--end::Button-->
                             </div>

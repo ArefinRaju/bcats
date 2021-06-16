@@ -172,7 +172,7 @@ class AccountController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
-        return $this->respond($log, [], 'view'); // Todo : View
+        return $this->respond($log, [], 'admin.pages.payment.index');
     }
 
     /**
@@ -182,6 +182,10 @@ class AccountController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $list       = $this->repo->getListOfAmountDebitedByEmployee($request, $pagination->per_page, $pagination->page);
-        return $this->respond($list, [], 'view'); // Todo : Add View
+        return $this->respond($list, [], 'admin.pages.payment.index');
+    }
+
+    public  function accountOverview(Request $request){
+
     }
 }

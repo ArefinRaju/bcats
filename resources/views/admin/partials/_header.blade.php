@@ -32,6 +32,12 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{ url('account') }}" class="menu-link">
+                                        <span class="menu-text">Balence Overview</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('payEmployee') }}" class="menu-link">
                                         <span class="menu-text">Balance Tranfer</span>
                                         <span class="menu-desc"></span>
