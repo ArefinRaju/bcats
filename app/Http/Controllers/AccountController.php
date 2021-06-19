@@ -173,8 +173,6 @@ class AccountController extends HelperController
         $this->validate($request, $rules);
         $log = Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
 
-
-
         if (!self::isAPI()){
             $pagination = $this->paginationManager($request);
             $list       = $this->repo->getListOfAmountDebitedByEmployee($request, $pagination->per_page, $pagination->page);
