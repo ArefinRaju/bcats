@@ -114,7 +114,7 @@ class PayeeController extends HelperController
 
     public function viewSupplier(Request $request, int $id)
     {
-        $categories = Category::all();
+        $categories      = Category::all();
         $supplierRecords = $this->repo->getSupplier($request, $id);
         $supplier        = $supplierRecords[0] ?? null;
         if (empty($supplier)) {
@@ -125,7 +125,7 @@ class PayeeController extends HelperController
         }
         $invoiceCount     = $supplierRecords->count();
         $transactionCount = $this->accountRepo()->getAccountCountByPayee($request, $id);
-        return $this->respond(compact('categories','supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
+        return $this->respond(compact('categories', 'supplier', 'invoiceCount', 'transactionCount'), [], 'admin.pages.profile.payee');
     }
 
     public function viewMember(Request $request, int $id)
@@ -143,25 +143,25 @@ class PayeeController extends HelperController
         $projectId = $request->user()->project_id;
         return view('admin.pages.payee.supplier_search', compact('projectId'));
     }
+
     public function memberSearch(Request $request)
     {
         $projectId = $request->user()->project_id;
         return view('admin.pages.payee.member_search', compact('projectId'));
     }
 
-    public function memberD()
+    public function member()
     {
         $categories = Category::all();
         return view('admin.pages.profile.member', compact('categories'));
     }
-    public function fetchSubCategory($id)
+
+    public function fetchSubCategory($id): array
     {
         $subCategory = Material::where('category_id', $id)->get();
-        $data        = [
-            'subCategory' => $subCategory,
-        ];
-        return $data;
+        return ['subCategory' => $subCategory,];
     }
+
     /**
      * @throws UserFriendlyException
      */
@@ -174,5 +174,17 @@ class PayeeController extends HelperController
         $this->validate($request, $rules);
         $result = $this->repo->searchSupplier($request);
         return $this->respond($result->toArray(), [], '');
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function listByType(Request $request, string $payeeType)
+    {
+        if (!PayeeType::search(strtoupper($payeeType))) {
+            throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
+        }
+        $data = $this->repo->getByType($request, $payeeType);
+        return $this->respond($data, [], 'admin.pages.payee.suppliersList');
     }
 }

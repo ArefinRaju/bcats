@@ -140,6 +140,7 @@ class AccountController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
+        // dd($accounts);/
         return $this->respond($accounts, [], 'admin.pages.building_accounts.balance_overview');
     }
 
@@ -151,6 +152,12 @@ class AccountController extends HelperController
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.transaction');
+    }
+
+
+    public function payEmployeeForm(Request $request)
+    {
+        return $this->respond($this->payeeRepo->emoloyeeList($request), [], 'admin.pages.account.balance_transfer.index');
     }
 
     /**
@@ -165,6 +172,27 @@ class AccountController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
-        return $this->respond($log, [], 'view'); // Todo : View
+
+        if (!self::isAPI()){
+            $pagination = $this->paginationManager($request);
+            $list       = $this->repo->getListOfAmountDebitedByEmployee($request, $pagination->per_page, $pagination->page);
+            return $this->respond($list, [], 'admin.pages.payment.index');
+        }
+        return $this->respond($log, [], 'admin.pages.payment.index');
+
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function employeePaymentList(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $list       = $this->repo->getListOfAmountDebitedByEmployee($request, $pagination->per_page, $pagination->page);
+        return $this->respond($list, [], 'admin.pages.payment.index');
+    }
+
+    public  function accountOverview(Request $request){
+
     }
 }

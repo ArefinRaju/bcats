@@ -87,7 +87,7 @@ Dashboard
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                            <i class="la la-plus"></i>New Payment</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -97,7 +97,7 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Payee</th>
+                                <th>Supplier</th>
                                 <th>Project</th>
                                 <th>Amount</th>
                                 <th>Actions</th>

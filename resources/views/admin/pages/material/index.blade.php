@@ -87,7 +87,7 @@ Material
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a href="{{ url('/material-create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                            <i class="la la-plus"></i>Add Matrial</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -125,7 +125,7 @@ Material
                                             <button id="btnDelete" class="btn btn-danger">Delete</button>
                                         </form>
 
-                                      
+
                                     </div>
 
                                 </td>

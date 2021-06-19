@@ -98,8 +98,9 @@ Dashboard
                             <tr>
                                 <th>#</th>
                                 <th>Material</th>
-                                <th>Amount</th>
-                                <th>Actions</th>
+                                <th>Quantity</th>
+                                <th>Suspended By</th>
+                                <th>Reason</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,8 +108,9 @@ Dashboard
                             <tr>
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
-                                <td>{{$item->required.$item->enum}}</td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$item->required." ".$item->enum}}</td>
+                                <td>{{$item->user_name}}</td>
+                                <td>{{$item->comment}}</td>
                             </tr>
                             @endforeach
                         </tbody>

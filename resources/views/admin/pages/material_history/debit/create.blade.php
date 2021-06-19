@@ -62,9 +62,9 @@ Dedit
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Amount:</label>
-                                            <input type="text" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
-                                         
+                                            <label>Quantity:</label>
+                                            <input type="number" name="quantity" class="form-control form-control-solid" placeholder="Enter Quantity" />
+
                                         </div>
                                     </div>
                                 </div>

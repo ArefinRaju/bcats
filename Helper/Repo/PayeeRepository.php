@@ -5,6 +5,8 @@ namespace Helper\Repo;
 
 
 use App\Models\Payee;
+use App\Models\User;
+use Helper\ACL\Acl;
 use Helper\Constants\PayeeType;
 use Illuminate\Http\Request;
 
@@ -42,6 +44,10 @@ class PayeeRepository extends EntityRepository
     public function payeeList(Request $request)
     {
         return Payee::where('project_id', $request->user()->project_id)->get(['id', 'name']);
+    }
+    public function emoloyeeList(Request $request)
+    {
+        return User::where('acl',Acl::createUserRole(strtoupper('employee')))->where('project_id', $request->user()->project_id)->get(['id', 'name']);
     }
 
     public function getSupplier(Request $request, int $id)
@@ -83,5 +89,10 @@ class PayeeRepository extends EntityRepository
                     ->where('type', PayeeType::SUPPLIER)
                     ->where('project_id', $request->input('project_id'))
                     ->get();
+    }
+
+    public function getByType($request,$supplierType)
+    {
+        return Payee::where('type',$supplierType)->where('project_id',$request->user()->project_id)->get();
     }
 }

@@ -32,23 +32,29 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('account') }}" class="menu-link">
-                                        <span class="menu-text">Balance Tranfer</span>
+                                    <a href="{{ url('employeePaymentList') }}" class="menu-link">
+                                        <span class="menu-text">Employee Transfer</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('account') }}" class="menu-link">
-                                        <span class="menu-text">My Dues</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('account') }}" class="menu-link">
-                                        <span class="menu-text">My Payments</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="{{ url('payEmployee') }}" class="menu-link">--}}
+{{--                                        <span class="menu-text">Balance Tranfer</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="{{ url('account') }}" class="menu-link">--}}
+{{--                                        <span class="menu-text">My Dues</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="{{ url('account') }}" class="menu-link">--}}
+{{--                                        <span class="menu-text">My Payments</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                             </ul>
                         </div>
                     </li>
@@ -61,7 +67,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ route('member.list', ['userType' => 'member']) }}" class="menu-link">
+                                    <a href="{{ url('userType/member') }}" class="menu-link">
                                         <span class="menu-text">Member List</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -73,7 +79,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
+                                    <a href="{{ url('/transaction/1') }}" class="menu-link">
                                         <span class="menu-text">Transactions</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -91,7 +97,8 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
+                                    <a href="{{ url('/supplierlist/supplier', []) }}"
+                                        class="menu-link">
                                         <span class="menu-text">Supplier List</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -128,24 +135,24 @@
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-credit-list') }}" class="menu-link">
-                                        <span class="menu-text">Added Stock(Credit)</span>
+                                        <span class="menu-text">Added Stock</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-debit-list') }}" class="menu-link">
-                                        <span class="menu-text">Used Stock(Debit)</span>
+                                        <span class="menu-text">Used Stock</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Used Material</span>
+                                    <a href="{{ url('/material/use-material') }}" class="menu-link">
+                                        <span class="menu-text">Use Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
+                                    <a href="{{ url('/demand-list') }}" class="menu-link">
                                         <span class="menu-text">Demand List</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -202,7 +209,7 @@
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">user</span>
+                            <span class="menu-text">User</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -235,7 +242,7 @@
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">settings</span>
+                            <span class="menu-text">Settings</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">

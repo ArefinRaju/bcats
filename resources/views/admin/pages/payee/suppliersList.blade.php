@@ -1,13 +1,13 @@
 @extends('admin.layouts.master')
 @section('title')
-    User
+    Supplier
 @endsection
 @section('js')
 
 @endsection
 @section('css')
     <link href="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet"
-        type="text/css" />
+          type="text/css"/>
 @endsection
 @section('content')
     <!--begin::Content-->
@@ -20,7 +20,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">User</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Supplier</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -40,19 +40,22 @@
                             <span class="card-icon">
                                 <i class="flaticon2-favourite text-primary"></i>
                             </span>
-                            <h3 class="card-label">User List</h3>
+                            <h3 class="card-label">Supplier List</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
                             <div class="dropdown dropdown-inline mr-2">
                                 <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="la la-download"></i>Export</button>
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="la la-download"></i>Export
+                                </button>
                                 <!--begin::Dropdown Menu-->
                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <ul class="nav flex-column nav-hover">
-                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2">Choose an
-                                            option:</li>
+                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2">
+                                            Choose an
+                                            option:
+                                        </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 <i class="nav-icon la la-print"></i>
@@ -90,38 +93,38 @@
                             <!--end::Dropdown-->
                             <!--begin::Button-->
                             <a href="{{ url('/user-create') }}" class="btn btn-primary font-weight-bolder">
-                                <i class="la la-plus"></i>New Record</a>
+                                <i class="la la-plus"></i>New Supplier</a>
                             <!--end::Button-->
                         </div>
                     </div>
                     <div class="card-body">
                         <!--begin: Datatable-->
                         <table class="table table-bordered table-hover table-checkable" id="kt_datatable"
-                            style="margin-top: 13px !important">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Contribution</th>
-                                    <th>Due</th>
-                                    <th>Actions</th>
-                                </tr>
+                               style="margin-top: 13px !important">
+                            <thead class="text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Contribution</th>
+                                <th>Due</th>
+                                <th>Actions</th>
+                            </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
 
 
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->mobile }}</td>
-                                        <td>{{ $item->contribution }}</td>
-                                        <td>{{ $item->due }}</td>
-                                    </tr>
-                                @endforeach
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->address }}</td>
+                                    <td>{{ $item->mobile }}</td>
+                                    <td>{{ $item->paid }}</td>
+                                    <td>{{ $item->due }}</td>
+
+                            @endforeach
 
                             </tbody>
                         </table>

@@ -37,7 +37,7 @@ Dashboard
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Payment Create</h3>
+                            <h3 class="card-title">Balence transfer</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
                                 <a href="{{ url('/employeePaymentList') }}" class="btn btn-primary font-weight-bolder">
@@ -46,16 +46,17 @@ Dashboard
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="form" method="POST" action="{{ url('/debit') }}">
+
+                        <form class="form" method="POST" action="{{ url('/payEmployee') }}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Payee:</label>
-                                            <select class="form-control form-control-solid" name="payeeId">
-                                                @foreach($payees as $payee)
-                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
+                                            <label>Employee:</label>
+                                            <select class="form-control form-control-solid" name="employeeId">
+                                                @foreach($data as $employee)
+                                                <option value="{{$employee->id}}">{{ $employee->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -64,7 +65,14 @@ Dashboard
                                         <div class="form-group">
                                             <label>Amount:</label>
                                             <input type="text" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
-                                         
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label>Comment:</label>
+                                            <input type="text" name="comment" class="form-control form-control-solid" placeholder="Enter Amount" />
+
                                         </div>
                                     </div>
                                 </div>

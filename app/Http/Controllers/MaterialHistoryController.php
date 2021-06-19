@@ -80,7 +80,7 @@ class MaterialHistoryController extends HelperController
             'image'      => [V::SOMETIMES, 'mimes:jpg,bmp,png']
         ];
         $this->validate($request, $rules);
-        $log = Material::credit($request, $request->input('payeeId'), $request->input('materialId'), $request->input('amount'));
+        $log = Material::credit($request, $request->input('payeeId'), $request->input('materialId'), $request->input('quantity'));
         if (!$this->isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);
@@ -109,10 +109,10 @@ class MaterialHistoryController extends HelperController
     {
         $rules = [
             'materialId' => [V::REQUIRED, V::NUMBER],
-            'amount'     => [V::REQUIRED, V::NUMBER]
+            'quantity'   => [V::REQUIRED, V::NUMBER]
         ];
         $this->validate($request, $rules);
-        $log = Material::debit($request, $request->input('materialId'), $request->input('amount'));
+        $log = Material::debit($request, $request->input('materialId'), $request->input('quantity'));
         if (!$this->isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->debitList($pagination->per_page, $pagination->page);
@@ -171,19 +171,23 @@ class MaterialHistoryController extends HelperController
     {
         $stockList = [];
         $materials = $this->materialRepo->materialList($request);
+
         foreach ($materials as $material) {
             $log = $this->repo->getLatestById($request, $material->id);
+
             if (empty($log)) {
                 continue;
             }
-            $item             = [];
-            $item['id']       = $material->id;
-            $item['name']     = $material->name;
-            $item['enum']     = $material->enum;
-            $item['total']    = $log->total;
-            $item['required'] = $log->required;
-            $item['used']     = $log->used;
-            $stockList[]      = Arrays::toObject($item);
+            $item              = [];
+            $item['id']        = $material->id;
+            $item['name']      = $material->name;
+            $item['enum']      = $material->enum;
+            $item['total']     = $log->total;
+            $item['required']  = $log->required;
+            $item['used']      = $log->used;
+            $item['user_name'] = $log->user_name;
+            $item['comment']   = $log->comment;
+            $stockList[]       = Arrays::toObject($item);
         }
         return $stockList;
     }
@@ -193,5 +197,14 @@ class MaterialHistoryController extends HelperController
         $pagination = $this->paginationManager($request);
         $materials  = $this->repo->list($pagination->per_page, $pagination->page);
         return $this->respond($materials, [], 'admin.pages.material_history.credit.index');
+    }
+
+
+    public function usedMatrials(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $materials  = $this->repo->matrilsListWithCategory($pagination->per_page, $pagination->page);
+
+        return $this->respond($materials, [], 'admin.pages.material.use_material');
     }
 }

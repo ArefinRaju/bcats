@@ -87,7 +87,7 @@ EMI
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a href="{{ url('/emi-create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                            <i class="la la-plus"></i>New EMI Collect</a>
                         <!--end::Button-->
                     </div>
                 </div>

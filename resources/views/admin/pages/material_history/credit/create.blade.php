@@ -54,6 +54,7 @@ Dashboard
                                         <div class="form-group">
                                             <label>Payee:</label>
                                             <select class="form-control form-control-solid" name="payeeId">
+                                                <option value="0" selected disabled>Select Payee</option>
                                                 @foreach($payees as $payee)
                                                 <option value="{{$payee->id}}">{{ $payee->name }}</option>
                                                 @endforeach
@@ -64,6 +65,7 @@ Dashboard
                                         <div class="form-group">
                                             <label>Material:</label>
                                             <select class="form-control form-control-solid" name="materialId">
+                                                <option value="0" selected disabled>Selectd Matrial</option>
                                                 @foreach($materials as $material)
                                                 <option value="{{$material->id}}">{{ $material->name }}</option>
                                                 @endforeach

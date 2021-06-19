@@ -19,7 +19,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Payment</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Balance Overview</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Payment List</h3>
+                        <h3 class="card-label">Employee Balance Overview</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -86,31 +86,37 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                        <a href="{{ url('/payEmployee') }}" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>New Payment</a>
+                        {{--                        <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">--}}
+{{--                            <i class="la la-plus"></i>New Record</a>--}}
                         <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+                    <table class="table table-bordered table-hover table-checkable text-center" id="kt_datatable" style="margin-top: 13px !important">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Payee</th>
-                                <th>Project</th>
-                                <th>Amount</th>
-                                <th>Actions</th>
+                                <th>Name</th>
+                                <th>Admin Exist Balance</th>
+                                <th>Payment Due</th>
+                                <th>Employe Exist Balance</th>
+                                <th>Transfer  Type</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($data as $item)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$item->account_id}}</td>
+                                <td>{{$item->name}}</td>
+                                <td>{{$item->total}}</td>
+                                <td>{{$item->due}}</td>
+                                <td>{{$item->employee}}</td>
+                                <td>{{$item->debit}}</td>
+
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

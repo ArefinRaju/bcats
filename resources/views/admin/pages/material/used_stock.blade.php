@@ -87,7 +87,7 @@ Material
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a href="{{ url('/material/create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                            <i class="la la-plus"></i>Add Matrial Stock</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -99,7 +99,7 @@ Material
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Enum</th>
-                               
+
                                 <th>Actions</th>
                             </tr>
                         </thead>

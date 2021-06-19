@@ -50,9 +50,11 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/upload', 'AccountController@upload');
     Route::post('/demand', 'AccountController@demand');
     Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
+    Route::get('/employeePaymentList', 'AccountController@employeePaymentList');
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');
+    Route::get('/supplierlist/{type}','PayeeController@listByType');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
 
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
