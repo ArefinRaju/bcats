@@ -85,6 +85,7 @@ class MaterialHistoryController extends HelperController
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);
         }
+
         return $this->respond($log, [], 'admin.pages.material_history.credit.index');
     }
 

@@ -2,10 +2,12 @@
 
 namespace Helper\Calculator;
 
+use App\Models\Material as Model;
 use App\Models\MaterialHistory;
 use Helper\Constants\Errors;
 use Helper\Constants\ResponseType;
 use Helper\Core\UserFriendlyException;
+use Helper\Repo\CategoryRepository;
 use Helper\Repo\InvoiceRepository;
 use Helper\Repo\MaterialHistoryRepository;
 use Helper\Repo\MaterialRepository;
@@ -15,6 +17,8 @@ use Illuminate\Http\Request;
 
 /**
  * @property int invoice_id
+ * @property mixed category_id
+ * @property string category_name
  */
 final class Material implements Calculator
 {
@@ -28,6 +32,7 @@ final class Material implements Calculator
     public string                     $user_name;
     public int                        $material_id;
     public string                     $material_name;
+    private Model                     $material;
     public int                        $total;
     public int                        $required;
     public int                        $credit;
@@ -46,7 +51,8 @@ final class Material implements Calculator
         }
         $this->request       = $request;
         $this->material_id   = $materialId;
-        $this->material_name = $this->getMaterial($request, $materialId)->name;
+        $this->material      = $this->getMaterial($request, $materialId);
+        $this->material_name = $this->material->name;
         $this->repo          = new MaterialHistoryRepository();
         $this->user_id       = $request->user()->id;
         $this->user_name     = $request->user()->name;
@@ -93,6 +99,7 @@ final class Material implements Calculator
         $instance->required   = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
         Account::payPayee($request, $request->input('paidAmount'), $instance->payee_id, $instance->comment, $invoice->id);
         $instance->assignAndSave($instance);
+        $instance->assignCategory($request, $instance);
         return $instance;
     }
 
@@ -109,6 +116,7 @@ final class Material implements Calculator
         $instance->used     = $instance->oldRecord->used + $instance->debit;
         $instance->required = $instance->oldRecord->required;
         $instance->assignAndSave($instance);
+        $instance->assignCategory($request, $instance);
         return $instance;
     }
 
@@ -123,6 +131,7 @@ final class Material implements Calculator
         $instance->total    = $instance->oldRecord->total;
         $instance->required = $instance->amount;
         $instance->assignAndSave($instance);
+        $instance->assignCategory($request, $instance);
         return $instance;
     }
 
@@ -158,5 +167,12 @@ final class Material implements Calculator
     public function toArray(): array
     {
         return Objects::toArray($this);
+    }
+
+    private function assignCategory(Request $request, Material $instance): void
+    {
+        $instance->category_id   = $instance->material->category_id;
+        $materialCategory        = (new CategoryRepository())->getById($request, $instance->category_id);
+        $instance->category_name = $materialCategory->name;
     }
 }
