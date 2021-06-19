@@ -179,7 +179,6 @@ class AccountController extends HelperController
             return $this->respond($list, [], 'admin.pages.payment.index');
         }
         return $this->respond($log, [], 'admin.pages.payment.index');
-
     }
 
     /**

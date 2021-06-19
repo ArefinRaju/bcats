@@ -48,10 +48,10 @@ class AccountRepository extends EntityRepository
     public function getListOfAmountDebitedByEmployee(Request $request, int $perPage = null, int $page = null)
     {
         return Account::where('accounts.project_id', $request->user()->project_id)
-                ->select('accounts.total','accounts.due','accounts.employee','accounts.debit','accounts.id as account_id','user_id','accounts.by_user','accounts.project_id','users.name')
-                ->leftJoin('users','users.id','accounts.by_user')
-               ->whereNotIn('accounts.debit', [0.00])
-               ->whereNotNull('accounts.by_user')
-               ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
+                      ->select('accounts.total', 'accounts.due', 'accounts.employee', 'accounts.debit', 'accounts.id as account_id', 'user_id', 'accounts.by_user', 'accounts.project_id', 'users.name')
+                      ->leftJoin('users', 'users.id', 'accounts.by_user')
+                      ->whereNotIn('accounts.debit', [0.00])
+                      ->whereNotNull('accounts.by_user')
+                      ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
     }
 }

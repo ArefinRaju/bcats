@@ -88,7 +88,7 @@ Route::get(
         return view('admin.pages.material.used_stock');
     }
 );
-Route::get('/material/use-material','MaterialHistoryController@usedMatrials');
+Route::get('/material/use-material','MaterialHistoryController@usedMaterials');
 Route::get(
     '/material/required-material',
     function () {
