@@ -81,6 +81,7 @@ class AccountController extends HelperController
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $log        = $this->repo->list($pagination->per_page, $pagination->page);
+
         }
         return $this->respond($log, [], 'admin.pages.building_accounts.balance_overview');
     }
@@ -140,7 +141,7 @@ class AccountController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
-        // dd($accounts);/
+        // dd($accounts);
         return $this->respond($accounts, [], 'admin.pages.building_accounts.balance_overview');
     }
 
