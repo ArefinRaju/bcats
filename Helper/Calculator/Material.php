@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 /**
  * @property int invoice_id
  * @property mixed category_id
- * @property string category_name
+ * @property string category_name // commit
  */
 final class Material implements Calculator
 {
