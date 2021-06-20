@@ -196,7 +196,7 @@ class UserController extends HelperController
         $otpCount         = $emiRepo->getOtpCount($request, $memberId);
         $paidEmiCount     = $emiRepo->getPaidCount($request, $memberId);
         $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount','role'), [], 'admin.pages.profile.member'); // Todo ; View
+        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount', 'role'), [], 'admin.pages.profile.member'); // Todo ; View
     }
 
     /**
