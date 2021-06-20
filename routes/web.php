@@ -33,6 +33,7 @@ Route::get('/supplier-search', 'PayeeController@supplierSearch');
 Route::get('/supplierlist/{type}','PayeeController@listByType');
 Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
+Route::get('membertransaction/', 'AccountController@memberTransactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 Route::get(
     '/profile',

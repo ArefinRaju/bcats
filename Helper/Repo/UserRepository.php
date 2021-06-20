@@ -24,8 +24,8 @@ class UserRepository extends EntityRepository
     public function getByIdAndProject(Request $request, int $id)
     {
         return User::where('id', $id)
-                   ->where('project_id', $request->user()->project_id)
-                   ->first();
+            ->where('project_id', $request->user()->project_id)
+            ->first();
     }
 
     public function list(int $perPage = null, int $page = null)
@@ -60,19 +60,36 @@ class UserRepository extends EntityRepository
     public function searchMember(Request $request): Collection
     {
         return User::where(function ($query) {
-            $query->where('name', 'like', '%'.Request()->input('query').'%')
-                  ->orWhere('mobile', 'like', '%'.Request()->input('query').'%')
-                  ->orWhere('email', 'like', '%'.Request()->input('query').'%');
+            $query->where('name', 'like', '%' . Request()->input('query') . '%')
+                ->orWhere('mobile', 'like', '%' . Request()->input('query') . '%')
+                ->orWhere('email', 'like', '%' . Request()->input('query') . '%');
         })
-                   ->where('project_id', $request->input('project_id'))
-                   ->get();
+            ->where('project_id', $request->input('project_id'))
+            ->get();
     }
 
     public function getByType(Request $request, string $userType): Collection
     {
         $encryptedData = Acl::createUserRole(strtoupper($userType));
-        return User::where('acl', $encryptedData)
-                   ->where('project_id', $request->user()->project_id)
-                   ->get();
+        return User::select(
+            'users.id',
+            'users.name',
+            'users.mobile',
+            'users.email',
+            'users.acl',
+            'users.project_id',
+            'users.due as otpDue',
+            'emis.id',
+            'emis.otp',
+            'emi_users.emi_id',
+            'emi_users.paid',
+            'emi_users.due as emiDue'
+        )
+            ->leftJoin('emi_users', 'emi_users.user_id', 'users.id')
+            ->leftJoin('emis', 'emis.id', 'emi_users.emi_id')
+            ->where('users.acl', $encryptedData)
+            ->where('users.project_id', $request->user()->project_id)
+            ->where('emis.otp', 1)
+            ->get();
     }
 }

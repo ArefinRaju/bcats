@@ -104,9 +104,9 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Mobile</th>
-                                    <th>Contribution</th>
+                                    <th>Total Due</th>
+                                    <th>EMI Due</th>
                                     <th>Otp Due</th>
-                                    <th>Due</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -119,9 +119,9 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->mobile }}</td>
-                                        <td>{{ $item->contribution }}</td>
-                                        <td>{{ $item->on_hold }}</td>
-                                        <td>{{ $item->due }}</td>
+                                        <td>{{ $item->otpDue + $item->emiDue}}</td>
+                                        <td>{{ $item->emiDue }}</td>
+                                        <td>{{ $item->otpDue }}</td>
                                         <td>
                                             <a href="{{ url('member/'.$item->id) }}" class="btn btn-sm btn-success">View</a>
                                             <a href="{{ url('user-edit/'.$item->id) }}" class="btn btn-sm btn-primary">Edit</a>
