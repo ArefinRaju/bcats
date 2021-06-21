@@ -207,9 +207,17 @@ class UserController extends HelperController
         if (!Roles::search(strtoupper($userType))) {
             throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
         }
-        $result = $this->repo->getByType($request, $userType);
-        
 
-        return $this->respond($result, [], 'admin.pages.payee.memberType'); // Todo : add view
+        $users        = $this->repo->getByType($request, $userType);
+        $emiRepo      = new EMIRepository();
+        $newUsersData = [];
+
+        foreach ($users as $user) {
+            $user->emiDue   = $emiRepo->getEmiDueByUserAndEmiType($request, $user->id);
+            $user->otpDue   = $emiRepo->getEmiDueByUserAndEmiType($request, $user->id, true);
+            $newUsersData[] = $user;
+        }
+
+        return $this->respond($newUsersData, [], 'admin.pages.payee.memberType'); // Todo : add view
     }
 }

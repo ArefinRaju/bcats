@@ -53,11 +53,20 @@ class EMIRepository extends EntityRepository
                   ->count();
     }
 
-    public function getPaidCount(Request $request, int $userId)
+    public function getPaidCount(Request $request, int $userId): int
     {
         return DB::table('emi_users')
                  ->where('user_id', $userId)
                  ->where('status', 1)
                  ->count();
+    }
+
+    public function getEmiDueByUserAndEmiType(Request $request, int $userId, bool $otp = false): float
+    {
+        return (float)Emi::join('emi_users', 'emis.id', '=', 'emi_users.emi_id')
+                  ->where('emi_users.user_id', $userId)
+                  ->where('emi_users.status', 0)
+                  ->where('emis.otp', $otp)
+                  ->sum('emi_users.due');
     }
 }

@@ -105,6 +105,7 @@
                                     <th>Email</th>
                                     <th>Mobile</th>
                                     <th>Total Due</th>
+                                    <th>On Hold</th>
                                     <th>EMI Due</th>
                                     <th>Otp Due</th>
                                     <th>Actions</th>
@@ -119,7 +120,8 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->mobile }}</td>
-                                        <td>{{ $item->otpDue + $item->emiDue}}</td>
+                                        <td>{{ $item->due}}</td>
+                                        <td>{{ $item->on_hold}}</td>
                                         <td>{{ $item->emiDue }}</td>
                                         <td>{{ $item->otpDue }}</td>
                                         <td>
