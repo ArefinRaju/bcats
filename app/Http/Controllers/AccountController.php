@@ -156,11 +156,11 @@ class AccountController extends HelperController
     /**
      * @throws UserFriendlyException
      */
-    public function memberTransactionList(Request $request, int $payee_id)
+    public function memberTransactionList(Request $request)
     {
         $pagination   = $this->paginationManager($request);
-        $transactions = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
-        return $this->respond($transactions, [], 'admin.pages.payee.transaction');
+        $transactions = $this->repo->memberTransections($request, $pagination->per_page, $pagination->page);
+        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
     }
 
 

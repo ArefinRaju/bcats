@@ -30,10 +30,10 @@ Route::get('/member', 'PayeeController@member');
 Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
 Route::get('/memberSearch', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
-Route::get('/supplierlist/{type}','PayeeController@listByType');
+Route::get('/supplierlist/{type}', 'PayeeController@listByType');
 Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
-Route::get('membertransaction/', 'AccountController@memberTransactionList');
+Route::get('membertransactions/', 'AccountController@memberTransactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 Route::get(
     '/profile',
@@ -89,7 +89,7 @@ Route::get(
         return view('admin.pages.material.used_stock');
     }
 );
-Route::get('/material/use-material','MaterialHistoryController@usedMaterials');
+Route::get('/material/use-material', 'MaterialHistoryController@usedMaterials');
 Route::get(
     '/material/required-material',
     function () {
@@ -179,7 +179,7 @@ Route::get('/stock', 'MaterialHistoryController@stock');
 Route::get('/emi-create', 'EMIController@createForm');
 CombinedRoute::resourceRoute('emi', 'EMIController', []);
 CombinedRoute::resourceRoute('account', 'AccountController', []);
-Route::get('/accountOverView','AccountController@accountOverview');
+Route::get('/accountOverView', 'AccountController@accountOverview');
 Route::get('/project-create', 'ProjectController@createForm');
 Route::get('/project-edit/{id}', 'ProjectController@editForm');
 CombinedRoute::resourceRoute('project', 'ProjectController', []);

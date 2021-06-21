@@ -79,7 +79,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/transaction/1') }}" class="menu-link">
+                                    <a href="{{ url('/membertransactions') }}" class="menu-link">
                                         <span class="menu-text">Transactions</span>
                                         <span class="menu-desc"></span>
                                     </a>
