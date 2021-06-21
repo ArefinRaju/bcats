@@ -44,6 +44,13 @@ class AccountRepository extends EntityRepository
             ->where('accounts.project_id', $request->user()->project_id)
             ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
     }
+    public function supplierTransections(Request $request, ?int $perPage = 10, ?int $page = null)
+    {
+        return Account::leftJoin('users', 'users.id', 'accounts.user_id',)
+            ->whereNotNull('accounts.payee_id')
+            ->where('accounts.project_id', $request->user()->project_id)
+            ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
+    }
 
     public function getTransactionByUser(Request $request, int $userId): int
     {

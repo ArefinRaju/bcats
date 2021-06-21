@@ -208,6 +208,8 @@ class UserController extends HelperController
             throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
         }
         $result = $this->repo->getByType($request, $userType);
+        
+
         return $this->respond($result, [], 'admin.pages.payee.memberType'); // Todo : add view
     }
 }

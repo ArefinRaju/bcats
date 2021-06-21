@@ -162,6 +162,12 @@ class AccountController extends HelperController
         $transactions = $this->repo->memberTransections($request, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
     }
+    public function supplierTransactionList(Request $request)
+    {
+        $pagination   = $this->paginationManager($request);
+        $transactions = $this->repo->supplierTransections($request, $pagination->per_page, $pagination->page);
+        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
+    }
 
 
     public function payEmployeeForm(Request $request)

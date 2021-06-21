@@ -246,7 +246,21 @@ Dashboard
                                                 <input type="text" id="amount" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
 
                                             </div>
-                                        </div>                               
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="image">Image:</label>
+                                                <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="amount">Commend:</label>
+                                                <input type="text" id="commend" name="commend" class="form-control form-control-solid" placeholder="Enter Commend" />
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -296,6 +310,13 @@ Dashboard
                                             <div class="form-group">
                                                 <label for="image">Image:</label>
                                                 <input type="file" name="image" id="image" class="form-control form-control-solid" placeholder="Enter Amount" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="amount">Commend:</label>
+                                                <input type="text" id="commend" name="commend" class="form-control form-control-solid" placeholder="Enter Commend" />
 
                                             </div>
                                         </div>

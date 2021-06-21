@@ -34,6 +34,7 @@ Route::get('/supplierlist/{type}', 'PayeeController@listByType');
 Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
 Route::get('membertransactions/', 'AccountController@memberTransactionList');
+Route::get('suppliertransactions/', 'AccountController@supplierTransactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 Route::get(
     '/profile',
@@ -140,7 +141,7 @@ Route::get(
 );
 
 
-Route::get('/userType/{userType}', 'UserController@showByUserType')->name('member.list');
+// Route::get('/userType/{userType}', 'UserController@showByUserType')->name('member.list');
 
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
