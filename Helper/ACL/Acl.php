@@ -64,7 +64,7 @@ class Acl
 
     public static function decodeRole(string $string): string
     {
-        return e($string);
+        return base64_decode($string);
     }
 
     public static function createUserRole(string $userRole): string
