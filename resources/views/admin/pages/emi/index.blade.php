@@ -97,10 +97,9 @@ EMI
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>User</th>
-                                <th>Project</th>
+                                <th>Emi Name</th>
                                 <th>value</th>
-                                <th>status</th>
+                                <th>OTP or EMI</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -108,10 +107,10 @@ EMI
                         @foreach($data as $emi)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$emi->user->name??''}}</td>
-                                <td>{{$emi->project->name??''}}</td>
+                                <td>{{$emi->name??''}}</td>
+
                                 <td>{{$emi->value??''}}</td>
-                                <td>{{$emi->status??''}}</td>
+                                <td>{{($emi->status == 0) ? 'OPT' : 'EMI'}}</td>
                                 <td>{{$emi->date??''}}</td>
                             </tr>
                             @endforeach
