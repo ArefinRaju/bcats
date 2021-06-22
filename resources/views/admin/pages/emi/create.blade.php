@@ -60,26 +60,13 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label>Name:</label>
-                                                <select class="form-control form-control-solid" name="user_id">
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" name="name" class="form-control form-control-solid"
+                                                    placeholder="Enter value" />
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label>Project:</label>
-                                                <select class="form-control form-control-solid" name="project_id">
-                                                    @foreach ($projects as $project)
-                                                        <option value="{{ $project->id }}">{{ $project->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label>Value:</label>
+                                                <label>Amount:</label>
                                                 <input type="text" name="value" class="form-control form-control-solid"
                                                     placeholder="Enter value" />
 
@@ -87,16 +74,18 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label>Status:</label>
-                                                <input type="text" name="status" class="form-control form-control-solid"
-                                                    placeholder="Enter value" />
+                                                <label>Emi Type</label>
+                                                <select name="status" id="status" class="form-control form-control-solid">
+                                                    <option value="0" selected>EMI</option>
+                                                    <option value="1">One Time Payment</option>
+                                                </select>
 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label>Date:</label>
-                                                <input name="date" class="form-control form-control-solid"
+                                                <input name="date" class="form-control flatpickr-basic flatpickr-input active"
                                                     placeholder="Enter value" id="kt_daterangepicker_3" />
 
                                             </div>
