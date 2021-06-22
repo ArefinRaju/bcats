@@ -6,8 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Emi;
 use App\Models\EmiUser;
-use App\Models\Project;
-use App\Models\User;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\CRUD;
 use Helper\Constants\Errors;
@@ -40,9 +38,7 @@ class EMIController extends HelperController
 
     public function createForm()
     {
-        $users    = User::all();
-        $projects = Project::all();
-        return view('admin.pages.emi.create', compact('users', 'projects'));
+        return view('admin.pages.emi.create');
     }
 
     public function create(Request $request, string $action = null)
