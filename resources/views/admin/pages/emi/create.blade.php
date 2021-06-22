@@ -9,7 +9,10 @@
     <script src="{{ asset('admin') }}/assets/plugins/global/plugins.bundle.js"></script>
     <script>
         $("#kt_daterangepicker_3").daterangepicker({
-            singleDatePicker: true
+            singleDatePicker: true,
+            locale: {
+                format: 'YYYY/MM/DD'
+            }
         });
 
     </script>
@@ -59,38 +62,26 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label>Name:</label>
-                                                <select class="form-control form-control-solid" name="user_id">
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label for="name">Name:</label>
+                                                <input type="text" name="name" id="name" class="form-control form-control-solid"
+                                                       placeholder="Enter value" />
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label>Project:</label>
-                                                <select class="form-control form-control-solid" name="project_id">
-                                                    @foreach ($projects as $project)
-                                                        <option value="{{ $project->id }}">{{ $project->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group">
-                                                <label>Value:</label>
-                                                <input type="text" name="value" class="form-control form-control-solid"
+                                                <label for="value">Value:</label>
+                                                <input type="text" name="value" id="value" class="form-control form-control-solid"
                                                     placeholder="Enter value" />
 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label>Status:</label>
-                                                <input type="text" name="status" class="form-control form-control-solid"
-                                                    placeholder="Enter value" />
-
+                                                <label for="otp">OTP:</label>
+                                                <select class="form-control form-control-solid" name="otp" id="otp">
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">

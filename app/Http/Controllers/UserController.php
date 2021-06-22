@@ -218,6 +218,6 @@ class UserController extends HelperController
             $newUsersData[] = $user;
         }
 
-        return $this->respond($newUsersData, [], 'admin.pages.payee.memberType'); // Todo : add view
+        return $this->respond($newUsersData, [], 'admin.pages.payee.memberType');
     }
 }
