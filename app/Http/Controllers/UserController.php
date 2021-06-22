@@ -202,7 +202,7 @@ class UserController extends HelperController
     /**
      * @throws UserFriendlyException
      */
-    public function showByUserType(Request $request, string $userType)
+     public function showByUserType(Request $request, string $userType)
     {
         if (!Roles::search(strtoupper($userType))) {
             throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
