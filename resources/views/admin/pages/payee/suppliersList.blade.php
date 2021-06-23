@@ -92,7 +92,7 @@
                             </div>
                             <!--end::Dropdown-->
                             <!--begin::Button-->
-                            <a href="{{ url('/user-create') }}" class="btn btn-primary font-weight-bolder">
+                            <a href="{{ url('/payee-create') }}" class="btn btn-primary font-weight-bolder">
                                 <i class="la la-plus"></i>New Supplier</a>
                             <!--end::Button-->
                         </div>
@@ -107,7 +107,8 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
-                                <th>Contribution</th>
+                                <th>Total</th>
+                                <th>Paid</th>
                                 <th>Due</th>
                                 <th>Actions</th>
                             </tr>
@@ -121,9 +122,31 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->address }}</td>
                                     <td>{{ $item->mobile }}</td>
+                                    <td>{{ $item->paid + $item->due }}</td>
                                     <td>{{ $item->paid }}</td>
                                     <td>{{ $item->due }}</td>
+                                    <td>
+                                    <div class="text-center">
 
+                                        <form action="{{url('payee', $item->id)}}" method="post">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            @csrf
+                                            <a href="{{ url('payee-edit', $item->id) }}" class="btn  btn-sm btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Edit
+                                            </a>
+                                            <a href="{{ url('transaction', $item->id) }}" class="btn btn-sm  btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Transaction
+                                            </a>
+                                            <a href="{{ url('invoice', $item->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Invoice
+                                            </a>
+                                            <button id="btnDelete" class="btn  btn-sm btn-danger">Delete</button>
+                                        </form>
+
+                                    </td>
                             @endforeach
 
                             </tbody>
