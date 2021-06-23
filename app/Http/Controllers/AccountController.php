@@ -159,13 +159,13 @@ class AccountController extends HelperController
     public function memberTransactionList(Request $request)
     {
         $pagination   = $this->paginationManager($request);
-        $transactions = $this->repo->memberTransections($request, $pagination->per_page, $pagination->page);
+        $transactions = $this->repo->memberTransactions($request, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
     }
     public function supplierTransactionList(Request $request)
     {
         $pagination   = $this->paginationManager($request);
-        $transactions = $this->repo->supplierTransections($request, $pagination->per_page, $pagination->page);
+        $transactions = $this->repo->supplierTransactions($request, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
     }
 

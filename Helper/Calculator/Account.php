@@ -55,7 +55,7 @@ final class Account implements Calculator
         $this->userRepo   = new UserRepository();
         $this->user_id    = $request->user()->id;
         $this->project_id = $request->user()->project_id;
-        $this->oldRecord  = $this->getLastRecord();
+        $this->oldRecord  = $this->getLastRecord($request);
         return $this;
     }
 
@@ -133,8 +133,7 @@ final class Account implements Calculator
             $instance->total    = $instance->oldRecord->total;
             $instance->employee = $instance->oldRecord->employee - $amount;
             $instance->updateEmployeeData($instance, Transaction::DEBIT);
-        }
-        else {
+        } else {
             $instance->employee = $instance->oldRecord->employee;
             $instance->total    = $instance->oldRecord->total - $instance->amount;
         }
@@ -173,22 +172,11 @@ final class Account implements Calculator
         return $instance;
     }
 
-    private function getLastRecord(): Model
+    private function getLastRecord(Request $request): Model
     {
         $lastRecord = $this->repo->getLatestRecord($this->project_id);
         if (empty($lastRecord)) {
-            $account             = new Model();
-            $account->total      = 0;
-            $account->due        = 0;
-            $account->required   = 0;
-            $account->credit     = 0;
-            $account->debit      = 0;
-            $account->type       = Transaction::CREDIT;
-            $account->is_fund    = false;
-            $account->user_id    = $this->user_id;
-            $account->project_id = $this->project_id;
-            $this->repo->save($account);
-            return $account;
+            return $this->repo->createTransaction($request, 0, $this->project_id);
         }
         return $lastRecord;
     }
@@ -211,8 +199,7 @@ final class Account implements Calculator
         $userEmi->paid += $amount;
         if ($dueLeft > 0) {
             $userEmi->status = false;
-        }
-        else {
+        } else {
             $userEmi->status = true;
         }
         $userEmi->save();
@@ -223,8 +210,7 @@ final class Account implements Calculator
         if ($instance->isUserType($instance, Roles::EMPLOYEE, $instance->by_user)) {
             $user               = $instance->userRepo->getByIdAndProject($instance->request, $instance->by_user);
             $user->contribution += $instance->amount;
-        }
-        else {
+        } else {
             $user = $instance->userRepo->getByIdAndProject($instance->request, $instance->user_id);
         }
         $user->on_hold += $instance->amount;
@@ -236,8 +222,7 @@ final class Account implements Calculator
         $user = $instance->isUserType($instance, Roles::EMPLOYEE, $instance->request->user()->id);
         if ($user) {
             $user->on_hold -= $instance->amount;
-        }
-        else {
+        } else {
             $user          = $instance->userRepo->getByIdAndProject($instance->request, $instance->user_id);
             $user->on_hold -= $instance->credit;
         }
@@ -315,8 +300,7 @@ final class Account implements Calculator
             if (!empty($instance->invoice_id)) {
                 $due        = $instance->request->input('amount') - $instance->amount;
                 $payee->due += $due;
-            }
-            else {
+            } else {
                 $payee->due -= $instance->amount;
             }
         }
@@ -332,8 +316,7 @@ final class Account implements Calculator
         foreach ($invoices as $invoice) {
             if ($amount <= 0) {
                 break;
-            }
-            elseif ($amount < $invoice->due) {
+            } elseif ($amount < $invoice->due) {
                 $invoice->due = $invoice->due - $amount;
                 $invoice->save();
                 break;
