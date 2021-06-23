@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', 'AuthController@login');
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/homes', function () {
+    Route::get('/', function () {
         return view('welcome');
     });
     Route::get('login', 'AuthController@loginPage')->name('login');
@@ -28,7 +28,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', 'AuthController@logout');
-    Route::get('/', 'AuthController@dashBoard');
+    Route::get('/dashboard', 'AuthController@dashBoard');
 });
 
 Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
