@@ -140,7 +140,6 @@ class AccountController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
-        // dd($accounts);
         return $this->respond($accounts, [], 'admin.pages.building_accounts.balance_overview');
     }
 

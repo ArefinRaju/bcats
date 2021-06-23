@@ -28,7 +28,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">EMI</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">EMI & OTP</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -47,11 +47,11 @@
                         <!--begin::Card-->
                         <div class="card card-custom gutter-b example example-compact">
                             <div class="card-header">
-                                <h3 class="card-title">EMI Create</h3>
+                                <h3 class="card-title">EMI & OTP Create</h3>
                                 <div class="card-toolbar">
                                     <!--begin::Button-->
                                     <a href="{{ url('/emi') }}" class="btn btn-primary font-weight-bolder">
-                                        <i class="la la-list"></i>See Record</a>
+                                        <i class="la la-list"></i>View List</a>
                                     <!--end::Button-->
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="value">Value:</label>
+                                                <label for="value">Amount:</label>
                                                 <input type="text" name="value" id="value" class="form-control form-control-solid"
                                                     placeholder="Enter value" />
 
@@ -77,10 +77,10 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label for="otp">OTP:</label>
+                                                <label for="otp">Type:</label>
                                                 <select class="form-control form-control-solid" name="otp" id="otp">
-                                                    <option value="0">No</option>
-                                                    <option value="1">Yes</option>
+                                                    <option value="0">One Time Payment</option>
+                                                    <option value="1">Easy Monthly Installment</option>
                                                 </select>
                                             </div>
                                         </div>

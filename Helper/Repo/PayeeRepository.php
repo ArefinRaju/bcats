@@ -47,25 +47,25 @@ class PayeeRepository extends EntityRepository
     }
     public function emoloyeeList(Request $request)
     {
-        return User::where('acl',Acl::createUserRole(strtoupper('employee')))->where('project_id', $request->user()->project_id)->get(['id', 'name']);
+        return User::where('acl', Acl::createUserRole(strtoupper('employee')))->where('project_id', $request->user()->project_id)->get(['id', 'name']);
     }
 
     public function getSupplier(Request $request, int $id)
     {
         return Payee::leftJoin('invoices', 'payees.id', '=', 'invoices.payee_id')
-                    ->select('payees.*')
-                    ->where('payees.id', $id)
-                    ->where('payees.type', PayeeType::SUPPLIER)
-                    ->where('payees.project_id', $request->user()->project_id)
-                    ->get();
+            ->select('payees.*')
+            ->where('payees.id', $id)
+            ->where('payees.type', PayeeType::SUPPLIER)
+            ->where('payees.project_id', $request->user()->project_id)
+            ->get();
     }
 
     public function isExist(Request $request): bool
     {
         return Payee::where('name', $request->input('name'))
-                    ->where('type', $request->input('type'))
-                    ->where('project_id', $request->user()->project_id)
-                    ->exists();
+            ->where('type', $request->input('type'))
+            ->where('project_id', $request->user()->project_id)
+            ->exists();
     }
 
     public function update(Request $request)
@@ -82,17 +82,18 @@ class PayeeRepository extends EntityRepository
     public function searchSupplier(Request $request)
     {
         return Payee::where(function ($query) {
-            $query->where('name', 'like', '%'.Request()->input('query').'%')
-                  ->orWhere('mobile', 'like', '%'.Request()->input('query').'%')
-                  ->orWhere('address', 'like', '%'.Request()->input('query').'%');
+            $query->where('name', 'like', '%' . Request()->input('query') . '%')
+                ->orWhere('mobile', 'like', '%' . Request()->input('query') . '%')
+                ->orWhere('address', 'like', '%' . Request()->input('query') . '%');
         })
-                    ->where('type', PayeeType::SUPPLIER)
-                    ->where('project_id', $request->input('project_id'))
-                    ->get();
+            ->where('type', PayeeType::SUPPLIER)
+            ->where('project_id', $request->input('project_id'))
+            ->get();
     }
 
-    public function getByType($request,$supplierType)
+    public function getByType($request, $supplierType)
     {
-        return Payee::where('type',$supplierType)->where('project_id',$request->user()->project_id)->get();
+        return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')
+            ->where('payees.type', $supplierType)->where('payees.project_id', $request->user()->project_id)->get();
     }
 }

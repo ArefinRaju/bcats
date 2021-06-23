@@ -19,7 +19,7 @@ EMI
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">EMI</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">EMI & OTP</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +39,7 @@ EMI
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">EMI List</h3>
+                        <h3 class="card-label">EMI & OTP List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -87,7 +87,7 @@ EMI
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a href="{{ url('/emi-create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New EMI Collect</a>
+                            <i class="la la-plus"></i>New EMI & OTP</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -97,9 +97,9 @@ EMI
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Emi Name</th>
-                                <th>value</th>
-                                <th>OTP or EMI</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Type(OTP or EMI)</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -110,7 +110,7 @@ EMI
                                 <td>{{$emi->name??''}}</td>
 
                                 <td>{{$emi->value??''}}</td>
-                                <td>{{($emi->status == 0) ? 'OPT' : 'EMI'}}</td>
+                                <td>{{($emi->otp == 0) ? 'OPT' : 'EMI'}}</td>
                                 <td>{{$emi->date??''}}</td>
                             </tr>
                             @endforeach
