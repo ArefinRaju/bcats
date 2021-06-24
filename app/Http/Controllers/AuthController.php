@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Helper\Config\ConfigInit;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Errors;
@@ -83,6 +83,4 @@ class AuthController extends HelperController
     {
         return view('admin.layouts.login');
     }
-
-
 }
