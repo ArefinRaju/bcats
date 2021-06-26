@@ -130,207 +130,46 @@ Dashboard
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn btn-primary btn-lg btn-block m-3">Button</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--begin::Dashboard-->
             <!--begin::Row-->
             <div class="row">
-                <div class="col-xl-4">
-                    <!--begin::Tiles Widget 1-->
-                    <div class="card card-custom gutter-b card-stretch">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <div class="card-title">
-                                <div class="card-label">
-                                    <div class="font-weight-bolder">Weekly Sales Stats</div>
-                                    <div class="font-size-sm text-muted mt-2">890,344 Sales</div>
-                                </div>
-                            </div>
-                            <div class="card-toolbar">
-                                <div class="dropdown dropdown-inline">
-                                    <a href="#" class="btn btn-clean btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="ki ki-bold-more-hor"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                        <!--begin::Navigation-->
-                                        <ul class="navi navi-hover py-5">
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon">
-                                                        <i class="flaticon2-drop"></i>
-                                                    </span>
-                                                    <span class="navi-text">New Group</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon">
-                                                        <i class="flaticon2-list-3"></i>
-                                                    </span>
-                                                    <span class="navi-text">Contacts</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon">
-                                                        <i class="flaticon2-rocket-1"></i>
-                                                    </span>
-                                                    <span class="navi-text">Groups</span>
-                                                    <span class="navi-link-badge">
-                                                        <span class="label label-light-primary label-inline font-weight-bold">new</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon">
-                                                        <i class="flaticon2-bell-2"></i>
-                                                    </span>
-                                                    <span class="navi-text">Calls</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon">
-                                                        <i class="flaticon2-gear"></i>
-                                                    </span>
-                                                    <span class="navi-text">Settings</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-separator my-3"></li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon">
-                                                        <i class="flaticon2-magnifier-tool"></i>
-                                                    </span>
-                                                    <span class="navi-text">Help</span>
-                                                </a>
-                                            </li>
-                                            <li class="navi-item">
-                                                <a href="#" class="navi-link">
-                                                    <span class="navi-icon">
-                                                        <i class="flaticon2-bell-2"></i>
-                                                    </span>
-                                                    <span class="navi-text">Privacy</span>
-                                                    <span class="navi-link-badge">
-                                                        <span class="label label-light-danger label-rounded font-weight-bold">5</span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <!--end::Navigation-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body d-flex flex-column px-0">
-                            <!--begin::Chart-->
-                            <div id="kt_tiles_widget_1_chart" data-color="danger" style="height: 150px"></div>
-                            <!--end::Chart-->
-                            <!--begin::Items-->
-                            <div class="flex-grow-1 card-spacer-x">
-                                <!--begin::Item-->
-                                <div class="d-flex align-items-center justify-content-between mb-10">
-                                    <div class="d-flex align-items-center mr-2">
-                                        <div class="symbol symbol-50 symbol-light mr-3 flex-shrink-0">
-                                            <div class="symbol-label">
-                                                <img src="{{asset('admin')}}/assets/media/svg/misc/006-plurk.svg" alt="" class="h-50" />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="font-size-h6 text-dark-75 text-hover-primary font-weight-bolder">Top Authors</a>
-                                            <div class="font-size-sm text-muted font-weight-bold mt-1">Ricky Hunt, Sandra Trepp</div>
-                                        </div>
-                                    </div>
-                                    <div class="label label-light label-inline font-weight-bold text-dark-50 py-4 px-3 font-size-base">+105$</div>
-                                </div>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <div class="d-flex align-items-center justify-content-between mb-10">
-                                    <div class="d-flex align-items-center mr-2">
-                                        <div class="symbol symbol-50 symbol-light mr-3 flex-shrink-0">
-                                            <div class="symbol-label">
-                                                <img src="{{asset('admin')}}/assets/media/svg/misc/015-telegram.svg" alt="" class="h-50" />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="font-size-h6 text-dark-75 text-hover-primary font-weight-bolder">Bestsellers</a>
-                                            <div class="font-size-sm text-muted font-weight-bold mt-1">Pitstop Email Marketing</div>
-                                        </div>
-                                    </div>
-                                    <div class="label label-light label-inline font-weight-bold text-dark-50 py-4 px-3 font-size-base">+60$</div>
-                                </div>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center mr-2">
-                                        <div class="symbol symbol-50 symbol-light mr-3 flex-shrink-0">
-                                            <div class="symbol-label">
-                                                <img src="{{asset('admin')}}/assets/media/svg/misc/003-puzzle.svg" alt="" class="h-50" />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="font-size-h6 text-dark-75 text-hover-primary font-weight-bolder">Top Engagement</a>
-                                            <div class="font-size-sm text-muted font-weight-bold mt-1">KT.com solution provider</div>
-                                        </div>
-                                    </div>
-                                    <div class="label label-light label-inline font-weight-bold text-dark-50 py-4 px-3 font-size-base">+75$</div>
-                                </div>
-                                <!--end::Item-->
-                            </div>
-                            <!--end::Items-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Tiles Widget 1-->
-                </div>
+
                 <div class="col-xl-8">
                     <div class="row">
-                        <div class="col-xl-3">
-                            <!--begin::Tiles Widget 3-->
-                            <div class="card card-custom bgi-no-repeat bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url({{asset('admin')}}/assets/media/bg/bg-9.jpg)">
-                                <!--begin::Body-->
-                                <div class="card-body d-flex flex-column">
-                                    <!--begin::Title-->
-                                    <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h3">Properties</a>
-                                    <!--end::Title-->
-                                </div>
-                                <!--end::Body-->
-                            </div>
-                            <!--end::Tiles Widget 3-->
-                        </div>
-                        <div class="col-xl-9">
-                            <!--begin::Mixed Widget 10-->
-                            <div class="card card-custom gutter-b" style="height: 150px">
-                                <!--begin::Body-->
-                                <div class="card-body d-flex align-items-center justify-content-between flex-wrap">
-                                    <div class="mr-2">
-                                        <h3 class="font-weight-bolder">Create CRM Reports</h3>
-                                        <div class="text-dark-50 font-size-lg mt-2">Generate the latest CRM Report</div>
-                                    </div>
-                                    <a href="#" class="btn btn-primary font-weight-bold py-3 px-6">Start Now</a>
-                                </div>
-                                <!--end::Body-->
-                            </div>
-                            <!--end::Mixed Widget 10-->
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-xl-6">
-                            <!--begin::Tiles Widget 13-->
-                            <div class="card card-custom bgi-no-repeat gutter-b" style="height: 175px; background-color: #663259; background-position: calc(100% + 0.5rem) 100%; background-size: 100% auto; background-image: url({{asset('admin')}}/assets/media/svg/patterns/taieri.svg)">
-                                <!--begin::Body-->
-                                <div class="card-body d-flex align-items-center">
-                                    <div>
-                                        <h3 class="text-white font-weight-bolder line-height-lg mb-5">Create SaaS
-                                            <br />Based Reports
-                                        </h3>
-                                        <a href='#' class="btn btn-success font-weight-bold px-6 py-3">Create Report</a>
-                                    </div>
-                                </div>
-                                <!--end::Body-->
-                            </div>
-                            <!--end::Tiles Widget 13-->
                             <div class="row">
                                 <div class="col-xl-6">
                                     <!--begin::Tiles Widget 11-->
@@ -375,33 +214,6 @@ Dashboard
                                     <!--end::Tiles Widget 12-->
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <!--begin::Mixed Widget 14-->
-                            <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b card-stretch" style="background-image: url({{asset('admin')}}/assets/media/stock-600x600/img-16.jpg)">
-                                <!--begin::Body-->
-                                <div class="card-body d-flex flex-column align-items-start justify-content-start">
-                                    <div class="p-1 flex-grow-1">
-                                        <h3 class="text-white font-weight-bolder line-height-lg mb-5">Create Reports
-                                            <br />With App
-                                        </h3>
-                                    </div>
-                                    <a href='#' class="btn btn-link btn-link-warning font-weight-bold">Create Report
-                                        <span class="svg-icon svg-icon-lg svg-icon-warning">
-                                            <!--begin::Svg Icon | path:{{asset('admin')}}/assets/media/svg/icons/Navigation/Arrow-right.svg-->
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon points="0 0 24 0 24 24 0 24" />
-                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)" x="11" y="5" width="2" height="14" rx="1" />
-                                                    <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
-                                                </g>
-                                            </svg>
-                                            <!--end::Svg Icon-->
-                                        </span></a>
-                                </div>
-                                <!--end::Body-->
-                            </div>
-                            <!--end::Mixed Widget 14-->
                         </div>
                     </div>
                 </div>

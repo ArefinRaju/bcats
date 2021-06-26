@@ -80,7 +80,7 @@
                                                 <label for="otp">Type:</label>
                                                 <select class="form-control form-control-solid" name="otp" id="otp">
                                                     <option value="0">One Time Payment</option>
-                                                    <option value="1">Easy Monthly Installment</option>
+                                                    <option value="1">Equated Monthly Installment</option>
                                                 </select>
                                             </div>
                                         </div>

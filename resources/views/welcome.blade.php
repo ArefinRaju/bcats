@@ -16,22 +16,22 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('home') }}/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ asset('home') }}/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="{{ asset('home') }}/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/owl.theme.default.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 
-        <script src="{{ asset('home') }}/js/jquery.min.js"></script>
-        <script src="{{ asset('home') }}/js/owl.carousel.js"></script>
+        <script src="{{ asset('frontend') }}/assets/js/jquery.min.js"></script>
+        <script src="{{ asset('frontend') }}/assets/js/owl.carousel.js"></script>
 
-        <script src="{{ asset('home') }}/js/jssor.slider-28.1.0.min.js"></script>
-        <script src="{{ asset('home') }}/js/jssor.slider.js"></script>
-        <link rel="stylesheet" href="{{ asset('home') }}/css/jssor.slider.css">
+        <script src="{{ asset('frontend') }}/assets/js/jssor.slider-28.1.0.min.js"></script>
+        <script src="{{ asset('frontend') }}/assets/js/jssor.slider.js"></script>
+        <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/jssor.slider.css">
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/4b5d72e539.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{{ asset('home') }}/css/style.min.css">
+        <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/style.min.css">
 
     </head>
     <body class="antialiased">
@@ -42,7 +42,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container position-relative">
                     <div class="logo_img navbar-brand">
-                        <a href="/"><img src="{{ asset('home') }}/images/logo.png" alt="Logo" class="logo"></a>
+                        <a href="/"><img src="{{ asset('frontend') }}/assets/images/logo.png" alt="Logo" class="logo"></a>
                     </div>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -75,21 +75,21 @@
                             </div>
                             <div class="col-lg-6 offset-lg-1 col-md-6">
                                 <div class="right-banner-img">
-                                    <img class="code-img" src="{{ asset('home') }}/images/man.fc7952de.png" alt="">
-                                    <img src="{{ asset('home') }}/images/code.c6b6891c.png" alt="">
-                                    <img src="{{ asset('home') }}/images/carpet.7f5c3fbc.png" alt="">
-                                    <img src="{{ asset('home') }}/images/bin.94c293e7.png" alt="">
-                                    <img src="{{ asset('home') }}/images/book.f4aa1cb6.png" alt="">
-                                    <img src="{{ asset('home') }}/images/dekstop.f4a73c99.png" alt="">
-                                    <img src="{{ asset('home') }}/images/buble.png" alt="">
-                                    <img src="{{ asset('home') }}/images/flower-top-big.91455c17.png" alt="">
-                                    <img src="{{ asset('home') }}/images/flower-top.488bb066.png" alt="">
-                                    <img src="{{ asset('home') }}/images/keyboard.23b516e8.png" alt="">
-                                    <img src="{{ asset('home') }}/images/penbox.png" alt="">
-                                    <img src="{{ asset('home') }}/images/table.63027416.png" alt="">
-                                    <img src="{{ asset('home') }}/images/cup.png" alt="">
-                                    <img src="{{ asset('home') }}/images/headphone.png" alt="">
-                                    <img src="{{ asset('home') }}/images/main-pic.84672f75.png" alt="">
+                                    <img class="code-img" src="{{ asset('frontend') }}/assets/images/man.fc7952de.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/code.c6b6891c.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/carpet.7f5c3fbc.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/bin.94c293e7.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/book.f4aa1cb6.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/dekstop.f4a73c99.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/buble.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/flower-top-big.91455c17.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/flower-top.488bb066.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/keyboard.23b516e8.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/penbox.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/table.63027416.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/cup.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/headphone.png" alt="">
+                                    <img src="{{ asset('frontend') }}/assets/images/main-pic.84672f75.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -218,21 +218,21 @@
                     </div>
                 </div>
                 <div class="col-lg-6 services-right-image">
-                    <img src="{{ asset('home') }}/images/book-self.b10dddef.png" alt="">
-                    <img src="{{ asset('home') }}/images/box.7286ddc2.png" alt="">
-                    <img src="{{ asset('home') }}/images/chair.a19ee750.png" alt="">
-                    <img src="{{ asset('home') }}/images/cloud.e946c7fc.png" alt="">
-                    <img src="{{ asset('home') }}/images/pendrive.png" alt="">
-                    <img src="{{ asset('home') }}/images/lamp.png" alt="">
-                    <img src="{{ asset('home') }}/images/small_headphone.png" alt="">
-                    <img src="{{ asset('home') }}/images/monitor.d8486dc1.png" alt="">
-                    <img src="{{ asset('home') }}/images/small_cup.png" alt="">
-                    <img src="{{ asset('home') }}/images/table.c5ad93dd.png" alt="">
-                    <img src="{{ asset('home') }}/images/data_cup.png" alt="">
-                    <img src="{{ asset('home') }}/images/buttol.png" alt="">
-                    <img src="{{ asset('home') }}/images/wifi.9a90df82.png" alt="">
-                    <img src="{{ asset('home') }}/images/cercle-shape.400c224e.png" class="bg-image rotateme" alt="">
-                    <img src="{{ asset('home') }}/images/main-pic.ce74ab60_small.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/book-self.b10dddef.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/box.7286ddc2.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/chair.a19ee750.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/cloud.e946c7fc.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/pendrive.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/lamp.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/small_headphone.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/monitor.d8486dc1.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/small_cup.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/table.c5ad93dd.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/data_cup.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/buttol.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/wifi.9a90df82.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/cercle-shape.400c224e.png" class="bg-image rotateme" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/main-pic.ce74ab60_small.png" alt="">
                 </div>
             </div>
         </div>
@@ -247,16 +247,16 @@
             <div class="row h-100 justify-content-center align-items-center">
 
                 <div class="col-lg-6 services-left-image">
-                    <img src="{{ asset('home') }}/images/big-monitor.7e2fbc06.png" alt="">
-                    <img src="{{ asset('home') }}/images/onLight.png" alt="">
-                    <img src="{{ asset('home') }}/images/developer.0bb5ee47.png" alt="">
-                    <img src="{{ asset('home') }}/images/flower-top.b1e14354.png" alt="">
-                    <img src="{{ asset('home') }}/images/small-monitor.a8310421.png" alt="">
-                    <img src="{{ asset('home') }}/images/la-Cup.png" alt="">
-                    <img src="{{ asset('home') }}/images/p_img.png" alt="">
-                    <img src="{{ asset('home') }}/images/target.b507c79f.png" alt="">
-                    <img src="{{ asset('home') }}/images/cercle-shape.400c224e.png" class="bg-image rotateme" alt="">
-                    <img src="{{ asset('home') }}/images/main-pic.c8654c15_3.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/big-monitor.7e2fbc06.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/onLight.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/developer.0bb5ee47.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/flower-top.b1e14354.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/small-monitor.a8310421.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/la-Cup.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/p_img.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/target.b507c79f.png" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/cercle-shape.400c224e.png" class="bg-image rotateme" alt="">
+                    <img src="{{ asset('frontend') }}/assets/images/main-pic.c8654c15_3.png" alt="">
                 </div>
 
                 <div class="col-lg-6">
@@ -1012,13 +1012,13 @@
 
     <footer class="footer-area bg-f7fafd">
         <div class="container">
-            <img src="{{ asset('home') }}/images/map.caeeab2f.png" alt="" class="map">
+            <img src="{{ asset('frontend') }}/assets/images/map.caeeab2f.png" alt="" class="map">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-footer-widget">
                         <div class="logo">
                             <a href="#">
-                                <img src="{{ asset('home') }}/images/logo.png" alt="">
+                                <img src="{{ asset('frontend') }}/assets/images/logo.png" alt="">
                             </a>
                         </div>
                         <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
@@ -1072,7 +1072,7 @@
           }
         })
       </script>
-    <script src="{{ asset('home') }}js/app.js"></script>
+    <script src="{{ asset('frontend') }}/assetsjs/app.js"></script>
 
     </body>
 </html>
