@@ -74,6 +74,12 @@ Project Create
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
+                                            <label>Give Initial Amount</label>
+                                            <input name="initialAmount" type="number" class="form-control form-control-solid" placeholder="Enter Initial Amount" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
                                             <label for="status">Status:</label>
                                             <select class="form-control form-control-solid" name="status" id="status">
                                                 @foreach($status as $state)
