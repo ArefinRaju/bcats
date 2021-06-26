@@ -2,6 +2,7 @@
 
 use Helper\Route\CombinedRoute;
 use Illuminate\Support\Facades\Route;
+use App\Models\Payee;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +38,11 @@ Route::get('/member', 'PayeeController@member');
 Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
 Route::get('/memberSearch', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
-Route::get('/supplierlist/{type}', 'PayeeController@listByType');
+Route::get('/supplierList/{type}', 'PayeeController@listByType');
 Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
-Route::get('membertransactions/', 'AccountController@memberTransactionList');
-Route::get('suppliertransactions/', 'AccountController@supplierTransactionList');
+Route::get('memberTransactions/', 'AccountController@memberTransactionList');
+Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 Route::get(
     '/profile',
@@ -76,7 +77,7 @@ Route::get(
 Route::get(
     '/pay',
     function () {
-        $payees = \App\Models\Payee::all();
+        $payees = Payee::all();
         return view('admin.pages.building_accounts.add_member_payment', compact('payees'));
     }
 );
