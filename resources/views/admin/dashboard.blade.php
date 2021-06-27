@@ -42,87 +42,6 @@ Dashboard
                 <!--end::Heading-->
             </div>
             <!--end::Info-->
-            <!--begin::Toolbar-->
-            <div class="d-flex align-items-center">
-                <!--begin::Button-->
-                <a href="#" class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">Reports</a>
-                <!--end::Button-->
-                <!--begin::Dropdown-->
-                <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="Quick actions" data-placement="top">
-                    <a href="#" class="btn btn-white font-weight-bold py-3 px-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
-                    <div class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right">
-                        <!--begin::Navigation-->
-                        <ul class="navi navi-hover py-5">
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="flaticon2-drop"></i>
-                                    </span>
-                                    <span class="navi-text">New Group</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="flaticon2-list-3"></i>
-                                    </span>
-                                    <span class="navi-text">Contacts</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="flaticon2-rocket-1"></i>
-                                    </span>
-                                    <span class="navi-text">Groups</span>
-                                    <span class="navi-link-badge">
-                                        <span class="label label-light-primary label-inline font-weight-bold">new</span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="flaticon2-bell-2"></i>
-                                    </span>
-                                    <span class="navi-text">Calls</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="flaticon2-gear"></i>
-                                    </span>
-                                    <span class="navi-text">Settings</span>
-                                </a>
-                            </li>
-                            <li class="navi-separator my-3"></li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="flaticon2-magnifier-tool"></i>
-                                    </span>
-                                    <span class="navi-text">Help</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="#" class="navi-link">
-                                    <span class="navi-icon">
-                                        <i class="flaticon2-bell-2"></i>
-                                    </span>
-                                    <span class="navi-text">Privacy</span>
-                                    <span class="navi-link-badge">
-                                        <span class="label label-light-danger label-rounded font-weight-bold">5</span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <!--end::Navigation-->
-                    </div>
-                </div>
-                <!--end::Dropdown-->
-            </div>
-            <!--end::Toolbar-->
         </div>
     </div>
     <!--end::Subheader-->
@@ -135,31 +54,29 @@ Dashboard
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="row">
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-user-plus"></i>&nbsp; Add Member</button>
+                                <a href="{{url('user-create')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-user-plus"></i>&nbsp; Add Member</a>
                             </div>
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-user-plus"></i>&nbsp; Add Supplier</button>
+                                <a href="{{url('payee-create')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-user-plus"></i>&nbsp; Add Supplier</a>
                             </div>
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-money-bill"></i>&nbsp; Add Payment</button>
+                                <a href="{{url('payEmployee')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-donate"></i>&nbsp; Money Transfer</a>
                             </div>
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-donate"></i>&nbsp; Money Transfer</button>
+                                <a href="{{url('emi-create')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-wallet"></i>&nbsp; Add EMI or OTP</a>
                             </div>
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-wallet"></i>&nbsp; Add EMI or OTP</button>
+                                <a href="{{url('debit-material')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-cube"></i>&nbsp;Used Materials</a>
                             </div>
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-cubes"></i>&nbsp; Add Material</button>
+                                <a href="{{url('credit-material')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-cubes"></i>&nbsp; Add Material</a>
                             </div>
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-box"></i>&nbsp; Current Stock</button>
+                                <a href="{{url('stock')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-box"></i>&nbsp; Current Stock</a>
                             </div>
                             <div class="col-12 col-sm-4 col-md-3 col-lg-3 col-xl-3">
-                                <button class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-university"></i>&nbsp; Transactions</button>
+                                <a href="{{url('account')}}" class="btn btn-primary btn-lg btn-block m-3 font-weight-bolder"><i class="fa fa-university"></i>&nbsp; Transactions</a>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -628,7 +545,7 @@ Dashboard
             </div>
             <!--end::Row-->
 
-            
+
         <!--end::Container-->
     </div>
     <!--end::Entry-->

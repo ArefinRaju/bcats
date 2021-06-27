@@ -185,7 +185,6 @@ class PayeeController extends HelperController
             throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
         }
         $data = $this->repo->getByType($request, $payeeType);
-
         return $this->respond($data, [], 'admin.pages.payee.suppliersList');
     }
 }

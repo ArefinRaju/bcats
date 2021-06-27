@@ -79,7 +79,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/membertransactions') }}" class="menu-link">
+                                    <a href="{{ url('/memberTransactions') }}" class="menu-link">
                                         <span class="menu-text">Transactions</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -97,7 +97,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/supplierlist/supplier', []) }}"
+                                    <a href="{{ url('/supplierList/supplier', []) }}"
                                         class="menu-link">
                                         <span class="menu-text">Supplier List</span>
                                         <span class="menu-desc"></span>
@@ -110,7 +110,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('suppliertransactions') }}" class="menu-link">
+                                    <a href="{{ url('supplierTransactions') }}" class="menu-link">
                                         <span class="menu-text">Transactions</span>
                                         <span class="menu-desc"></span>
                                     </a>
