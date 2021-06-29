@@ -50,6 +50,7 @@ class EMIController extends HelperController
         foreach ($users as $user) {
             $emiUser             = new EmiUser();
             $emiUser->emi_id     = $emi->id;
+            $emiUser->otp        = $emi->otp;
             $emiUser->project_id = $request->user()->project_id;
             $emiUser->user_id    = $user->id;
             $emiUser->due        = $emi->value;

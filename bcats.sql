@@ -219,6 +219,7 @@ CREATE TABLE `emi_users` (
     `user_id` INTEGER NOT NULL,
     `paid` decimal(14,2) NOT NULL DEFAULT 0,
     `due` decimal(14,2) NOT NULL DEFAULT 0,
+    `otp` TINYINT(1) NOT NULL,
     `status` TINYINT(1) NOT NULL DEFAULT 0,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

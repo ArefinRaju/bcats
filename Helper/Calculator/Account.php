@@ -233,7 +233,7 @@ final class Account implements Calculator
     {
         /* @var User $user */
         $user               = $instance->userRepo->getByIdAndProject($instance->request, $instance->by_user);
-        $user->due          -= $instance->due;
+        $user->due          -= $instance->amount;
         $user->contribution += $instance->amount;
         $instance->userRepo->save($user);
     }

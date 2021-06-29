@@ -26,4 +26,11 @@ class EmiUserRepository extends EntityRepository
                       ->where('status', 0)
                       ->first();
     }
+
+    public function getEmiByEmiTypeAndStatus(Request $request, int $userId, bool $otp)
+    {
+        return EmiUser::where('user_id', $userId)
+                      ->where('otp', $otp)
+                      ->get();
+    }
 }

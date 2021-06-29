@@ -14,6 +14,7 @@ use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\EMIRepository;
+use Helper\Repo\EmiUserRepository;
 use Helper\Repo\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -190,17 +191,19 @@ class UserController extends HelperController
 
     public function memberDetails(Request $request, int $memberId)
     {
-        $emiRepo     = new EMIRepository();
-        $accountRepo = new AccountRepository();
-        $user        = $this->repo->getById($request, $memberId);
+        $user = $this->repo->getById($request, $memberId);
         if (!$this->isAPI()) {
+            $emiRepo          = new EMIRepository();
+            $emiUserRepo      = new EmiUserRepository();
+            $accountRepo      = new AccountRepository();
             $role             = Acl::decodeRole($user->acl);
-            $otpCount         = $emiRepo->getOtpCount($request, $memberId);
-            $emiCount         = $emiRepo->getPaidCount($request, $memberId);
+            $otp              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
+            $emi              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
             $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
             $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
-            $emiList          = EMIRepository::emiListWithOutPagination();
-            return $this->respond(compact('user', 'otpCount', 'emiCount', 'transactionCount', 'role', 'users', 'emiList'), [], 'admin.pages.profile.member');
+            $emiList          = $emiRepo->emiListWithOutPagination($request);
+            $otpList          = $emiRepo->otpListWithOutPagination($request);
+            return $this->respond(compact('user', 'otp', 'emi', 'transactionCount', 'role', 'users', 'emiList', 'otpList'), [], 'admin.pages.profile.member');
         }
         return $this->respond($user, [], '');
     }
