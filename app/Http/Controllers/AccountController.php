@@ -93,9 +93,11 @@ class AccountController extends HelperController
     public function addFund(Request $request)
     {
         $rules = [
-            'emiId'  => [V::REQUIRED, V::NUMBER],
-            'amount' => [V::REQUIRED, V::NUMBER],
-            'byUser' => [V::REQUIRED, V::NUMBER]
+            'emiId'   => [V::REQUIRED, V::NUMBER],
+            'amount'  => [V::REQUIRED, V::NUMBER],
+            'byUser'  => [V::REQUIRED, V::NUMBER],
+            'image'   => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240'],
+            'comment' => [V::SOMETIMES, V::TEXT]
         ];
         $this->validate($request, $rules);
         $log = Account::fund($request, $request->input('amount'), $request->input('emiId'), $request->input('byUser'));
@@ -115,7 +117,22 @@ class AccountController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Account::credit($request, $request->input('amount'));
-        return $this->respond($log, [], 'admin.pages.credit.index');
+        if (!self::isAPI()) {
+            $log = $this->repo->getTransactionOfUser($request);
+        }
+        return $this->respond($log, [], 'admin.pages.account.credit.index');
+    }
+
+    /**
+     * @param  Request  $request
+     * @return Application|Factory|JsonResponse|View
+     * @throws UserFriendlyException
+     */
+    public function creditList(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $log        = $this->repo->getTransactionOfUser($request, $pagination->per_page, $pagination->page);
+        return $this->respond($log, [], 'admin.pages.account.credit.index');
     }
 
     /**
@@ -140,7 +157,6 @@ class AccountController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $accounts   = $this->repo->list($pagination->per_page, $pagination->page);
-        // dd($accounts);/
         return $this->respond($accounts, [], 'admin.pages.building_accounts.balance_overview');
     }
 
@@ -152,6 +168,23 @@ class AccountController extends HelperController
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->listByPayee($request, $payee_id, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.transaction');
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function memberTransactionList(Request $request)
+    {
+        $pagination   = $this->paginationManager($request);
+        $transactions = $this->repo->memberTransactions($request, $pagination->per_page, $pagination->page);
+        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
+    }
+
+    public function supplierTransactionList(Request $request)
+    {
+        $pagination   = $this->paginationManager($request);
+        $transactions = $this->repo->supplierTransactions($request, $pagination->per_page, $pagination->page);
+        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
     }
 
 
@@ -173,7 +206,7 @@ class AccountController extends HelperController
         $this->validate($request, $rules);
         $log = Account::payEmployee($request, $request->input('amount'), $request->input('employeeId'));
 
-        if (!self::isAPI()){
+        if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $list       = $this->repo->getListOfAmountDebitedByEmployee($request, $pagination->per_page, $pagination->page);
             return $this->respond($list, [], 'admin.pages.payment.index');
@@ -191,7 +224,7 @@ class AccountController extends HelperController
         return $this->respond($list, [], 'admin.pages.payment.index');
     }
 
-    public  function accountOverview(Request $request){
-
+    public function accountOverview(Request $request)
+    {
     }
 }

@@ -2,6 +2,7 @@
 
 use Helper\Route\CombinedRoute;
 use Illuminate\Support\Facades\Route;
+use App\Models\Payee;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('login', 'AuthController@loginPage')->name('login');
+
 
 Route::post('/login', 'AuthController@login');
 
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('login', 'AuthController@loginPage')->name('login');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', 'AuthController@logout');
-    Route::get('/', 'AuthController@dashBoard');
+    Route::get('/dashboard', 'AuthController@dashBoard');
 });
 
 Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
@@ -30,9 +38,11 @@ Route::get('/member', 'PayeeController@member');
 Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
 Route::get('/memberSearch', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
-Route::get('/supplierlist/{type}','PayeeController@listByType');
+Route::get('/supplierList/{type}', 'PayeeController@listByType');
 Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
+Route::get('memberTransactions/', 'AccountController@memberTransactionList');
+Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 Route::get(
     '/profile',
@@ -67,7 +77,7 @@ Route::get(
 Route::get(
     '/pay',
     function () {
-        $payees = \App\Models\Payee::all();
+        $payees = Payee::all();
         return view('admin.pages.building_accounts.add_member_payment', compact('payees'));
     }
 );
@@ -88,7 +98,7 @@ Route::get(
         return view('admin.pages.material.used_stock');
     }
 );
-Route::get('/material/use-material','MaterialHistoryController@usedMaterials');
+Route::get('/material/use-material', 'MaterialHistoryController@usedMaterials');
 Route::get(
     '/material/required-material',
     function () {
@@ -109,6 +119,7 @@ Route::post('/addFund', 'AccountController@addFund');
 
 Route::get('/credit', 'AccountController@creditForm');
 Route::post('/credit', 'AccountController@credit');
+Route::get('/credit-list', 'AccountController@creditList');
 Route::get('/demand', 'AccountController@demandForm');
 Route::get('/demand-list', 'MaterialHistoryController@demandList');
 Route::post('/demand', 'AccountController@demand');
@@ -139,7 +150,7 @@ Route::get(
 );
 
 
-Route::get('/userType/{userType}', 'UserController@showByUserType')->name('member.list');
+// Route::get('/userType/{userType}', 'UserController@showByUserType')->name('member.list');
 
 
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
@@ -178,7 +189,7 @@ Route::get('/stock', 'MaterialHistoryController@stock');
 Route::get('/emi-create', 'EMIController@createForm');
 CombinedRoute::resourceRoute('emi', 'EMIController', []);
 CombinedRoute::resourceRoute('account', 'AccountController', []);
-Route::get('/accountOverView','AccountController@accountOverview');
+Route::get('/accountOverView', 'AccountController@accountOverview');
 Route::get('/project-create', 'ProjectController@createForm');
 Route::get('/project-edit/{id}', 'ProjectController@editForm');
 CombinedRoute::resourceRoute('project', 'ProjectController', []);

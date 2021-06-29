@@ -79,7 +79,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/transaction/1') }}" class="menu-link">
+                                    <a href="{{ url('/memberTransactions') }}" class="menu-link">
                                         <span class="menu-text">Transactions</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -97,7 +97,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/supplierlist/supplier', []) }}"
+                                    <a href="{{ url('/supplierList/supplier', []) }}"
                                         class="menu-link">
                                         <span class="menu-text">Supplier List</span>
                                         <span class="menu-desc"></span>
@@ -110,7 +110,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
+                                    <a href="{{ url('supplierTransactions') }}" class="menu-link">
                                         <span class="menu-text">Transactions</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -168,44 +168,44 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
+                    {{-- <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="menu-text">Payments and EMIs</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                            <ul class="menu-subnav"> --}}
+                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/payment/list') }}" class="menu-link">
                                         <span class="menu-text">Payment List</span>
                                         <span class="menu-desc"></span>
                                     </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                </li> --}}
+                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/payment/create') }}" class="menu-link">
                                         <span class="menu-text">Add Payments</span>
                                         <span class="menu-desc"></span>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('emi') }}" class="menu-link">
-                                        <span class="menu-text">EMI List</span>
+                                        <span class="menu-text">EMI & OTP List</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('emi-create') }}" class="menu-link">
                                         <span class="menu-text">Add EMI</span>
                                         <span class="menu-desc"></span>
                                     </a>
-                                </li>
+                                </li> --}}
 
 
-                            </ul>
+                            {{-- </ul>
                         </div>
-                    </li>
+                    </li> --}}
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
@@ -259,6 +259,12 @@
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="" class="menu-link">
                                         <span class="menu-text">Suspended</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{ url('/project') }}" class="menu-link">
+                                        <span class="menu-text">All Projects</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>

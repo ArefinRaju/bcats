@@ -20,7 +20,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">Balance Overview</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Account Overview</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -97,6 +97,41 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+                                    <div class="card">
+                                        <div class="card-header p-2">
+                                            <h3 class="font-weight-bolder text-center p-2">Main Account</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            @foreach ($data as $item)
+                                                @if ($loop->first)
+                                                <h4 class="font-weight-bold text-primary text-center p-2">{{$item->total}}</h4>
+                                                @endif
+                                            @endforeach
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+                                    <div class="card">
+                                        <div class="card-header p-2">
+                                            <h3 class="font-weight-bolder text-center p-2">Employee Account</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            @foreach ($data as $item)
+                                                @if ($loop->first)
+                                                <h4 class="font-weight-bold text-warning text-center p-2">{{$item->employee}}</h4>
+                                                @endif
+                                            @endforeach
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                         <!--begin: Datatable-->
                         <table class="table table-bordered table-hover table-checkable text-center" id="kt_datatable"
                                style="margin-top: 13px !important">

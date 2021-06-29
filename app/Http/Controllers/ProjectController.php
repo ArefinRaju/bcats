@@ -13,6 +13,7 @@ use Helper\Constants\ProjectStatus;
 use Helper\Constants\ProjectType;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
+use Helper\Repo\AccountRepository;
 use Helper\Repo\ProjectRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,11 +29,12 @@ class ProjectController extends HelperController
         $this->repo = $repo;
         $this->setResource(Project::class);
         $this->commonValidationRules = [
-            'name'     => [V::REQUIRED, V::TEXT],
-            'type'     => [V::REQUIRED, Rule::in(ProjectType::values())],
-            'budget'   => [V::REQUIRED, V::NUMBER],
-            'deadline' => [V::REQUIRED, V::DATE],
-            'status'   => [V::REQUIRED, Rule::in(ProjectStatus::values())]
+            'name'          => [V::REQUIRED, V::TEXT],
+            'type'          => [V::REQUIRED, Rule::in(ProjectType::values())],
+            'budget'        => [V::REQUIRED, V::NUMBER],
+            'deadline'      => [V::REQUIRED, V::DATE],
+            'initialAmount' => [V::SOMETIMES, V::NUMBER],
+            'status'        => [V::REQUIRED, Rule::in(ProjectStatus::values())]
         ];
     }
 
@@ -46,7 +48,7 @@ class ProjectController extends HelperController
         ];
         unset($rules['status'][1]);
         $rules['status'] = [
-            'rules' => $rules['status'],
+            'rules'  => $rules['status'],
             'status' => ProjectStatus::values()
         ];
         return $rules;
@@ -69,10 +71,13 @@ class ProjectController extends HelperController
 
     public function create(Request $request, string $action = null)
     {
-        $project = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Project());
+        $project = $this->validateCherryPickAndAssign($request, $this->commonValidationRules, new Project(), 'initialAmount');
         $project = $this->repo->save($project);
         $this->createProjectUser($project, 'Admin', Roles::PROJECT_ADMIN);
         $this->createProjectUser($project, 'Employee', Roles::EMPLOYEE);
+        if (!empty($request->input('initialAmount'))) {
+            (new AccountRepository())->createTransaction($request, $request->input('initialAmount'), $project->id);
+        }
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $projects   = $this->repo->list($pagination->per_page, $pagination->page);

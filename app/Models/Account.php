@@ -18,6 +18,7 @@ use Helper\Repo\Entity;
  * @property int user_id
  * @property int project_id
  * @property float employee
+ * @property string comment
  */
 class Account extends Entity
 {

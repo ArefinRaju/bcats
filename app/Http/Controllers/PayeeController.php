@@ -78,7 +78,7 @@ class PayeeController extends HelperController
             $payees     = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.payee.index')->with('data', $payees);
         }
-        return $this->respond($payee, [], 'admin.pages.payee.index');
+        return $this->respond($payee, [], 'admin.pages.payee.suppliersList');
     }
 
     public function list(Request $request)
@@ -96,7 +96,7 @@ class PayeeController extends HelperController
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $payees     = $this->repo->list($pagination->per_page, $pagination->page);
-            return view('admin.pages.payee.index')->with('data', $payees);
+            return view('admin.pages.payee.suppliersList')->with('data', $payees);
         }
         return $this->respond($payee, []);
     }
@@ -109,7 +109,7 @@ class PayeeController extends HelperController
             $payees     = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.payee.index')->with('data', $payees);
         }
-        return $this->respond(null, [], 'admin.pages.payees.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
+        return $this->respond(null, [], 'admin.pages.payee.suppliersList', Messages::DESTROYED, ResponseType::NO_CONTENT);
     }
 
     public function viewSupplier(Request $request, int $id)

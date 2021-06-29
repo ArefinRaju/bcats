@@ -37,12 +37,13 @@ class MaterialHistoryRepository extends EntityRepository
                               ->orderBy('id', 'desc')
                               ->paginate($perPage, ['*'], 'page', $page);
     }
-    public function matrilsListWithCategory(int $perPage = null, int $page = null)
+
+    public function materialsListWithCategory(int $perPage = null, int $page = null)
     {
         return MaterialHistory::where('project_id', Request()->user()->project_id)
-        ->whereNotNull('used')
-        ->leftJoin('materials','material_histories.material_id','materials.id')
-        ->select('material_histories.id as material_histories_id','name','material_name','total','used','enum')
+                              ->whereNotNull('used')
+                              ->leftJoin('materials', 'material_histories.material_id', 'materials.id')
+                              ->select('material_histories.id as material_histories_id', 'name', 'material_name', 'total', 'used', 'enum')
                               ->orderBy('material_histories.id', 'desc')
                               ->paginate($perPage, ['*'], 'page', $page);
     }
@@ -50,7 +51,7 @@ class MaterialHistoryRepository extends EntityRepository
     public function debitList(int $perPage = null, int $page = null)
     {
         return MaterialHistory::where('project_id', Request()->user()->project_id)
-                              ->leftJoin('materials','material_histories.material_id','materials.id')
+                              ->leftJoin('materials', 'material_histories.material_id', 'materials.id')
                               ->whereNotIn('debit', [0.00])
                               ->orderBy('material_histories.id', 'desc')
                               ->paginate($perPage, ['*'], 'page', $page);

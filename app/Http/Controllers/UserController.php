@@ -14,6 +14,7 @@ use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\EMIRepository;
+use Helper\Repo\EmiUserRepository;
 use Helper\Repo\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -27,6 +28,7 @@ use Illuminate\Validation\Rule;
 class UserController extends HelperController
 {
     private UserRepository $repo;
+
 
     public function __construct(UserRepository $repo)
     {
@@ -189,14 +191,21 @@ class UserController extends HelperController
 
     public function memberDetails(Request $request, int $memberId)
     {
-        $emiRepo          = new EMIRepository();
-        $accountRepo      = new AccountRepository();
-        $user             = $this->repo->getById($request, $memberId);
-        $role             = Acl::decodeRole($user->acl);
-        $otpCount         = $emiRepo->getOtpCount($request, $memberId);
-        $paidEmiCount     = $emiRepo->getPaidCount($request, $memberId);
-        $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount','role'), [], 'admin.pages.profile.member'); // Todo ; View
+        $user = $this->repo->getById($request, $memberId);
+        if (!$this->isAPI()) {
+            $emiRepo          = new EMIRepository();
+            $emiUserRepo      = new EmiUserRepository();
+            $accountRepo      = new AccountRepository();
+            $role             = Acl::decodeRole($user->acl);
+            $otp              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
+            $emi              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
+            $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
+            $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
+            $emiList          = $emiRepo->emiListWithOutPagination($request);
+            $otpList          = $emiRepo->otpListWithOutPagination($request);
+            return $this->respond(compact('user', 'otp', 'emi', 'transactionCount', 'role', 'users', 'emiList', 'otpList'), [], 'admin.pages.profile.member');
+        }
+        return $this->respond($user, [], '');
     }
 
     /**
@@ -207,7 +216,17 @@ class UserController extends HelperController
         if (!Roles::search(strtoupper($userType))) {
             throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
         }
-        $result = $this->repo->getByType($request, $userType);
-        return $this->respond($result, [], 'admin.pages.payee.memberType'); // Todo : add view
+
+        $users        = $this->repo->getByType($request, $userType);
+        $emiRepo      = new EMIRepository();
+        $newUsersData = [];
+
+        foreach ($users as $user) {
+            $user->emiDue   = $emiRepo->getEmiDueByUserAndEmiType($request, $user->id);
+            $user->otpDue   = $emiRepo->getEmiDueByUserAndEmiType($request, $user->id, true);
+            $newUsersData[] = $user;
+        }
+
+        return $this->respond($newUsersData, [], 'admin.pages.payee.memberType');
     }
 }
