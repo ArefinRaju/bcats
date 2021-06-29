@@ -59,6 +59,9 @@ final class Account implements Calculator
         return $this;
     }
 
+    /**
+     * @throws UserFriendlyException
+     */
     public static function credit(Request $request, int $amount, string $comment = ''): Account
     {
         $instance           = new Account($request);
@@ -69,7 +72,7 @@ final class Account implements Calculator
         $instance->credit   = $instance->amount;
         $instance->image    = PhotoMod::resizeAndUpload($request);
         $instance->total    = $instance->oldRecord->total + $instance->amount;
-        $instance->due      = (float)$instance->oldRecord->due - $instance->amount;
+        $instance->due      = $instance->oldRecord->due - $instance->amount;
         $instance->employee = $instance->oldRecord->employee;
         $instance->required = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
         $instance->updateUserData($instance, Transaction::CREDIT);
@@ -205,6 +208,9 @@ final class Account implements Calculator
         $userEmi->save();
     }
 
+    /**
+     * @throws UserFriendlyException
+     */
     private function creditUserOnHoldAmount(Account $instance): void
     {
         if ($instance->isUserType($instance, Roles::EMPLOYEE, $instance->by_user)) {
@@ -217,6 +223,9 @@ final class Account implements Calculator
         $instance->userRepo->save($user);
     }
 
+    /**
+     * @throws UserFriendlyException
+     */
     private function debitUserOnHoldAmount(Account $instance): void
     {
         $user = $instance->isUserType($instance, Roles::EMPLOYEE, $instance->request->user()->id);
@@ -238,6 +247,9 @@ final class Account implements Calculator
         $instance->userRepo->save($user);
     }
 
+    /**
+     * @throws UserFriendlyException
+     */
     private function updateUserData(Account $instance, string $type): void
     {
         switch ($type) {
