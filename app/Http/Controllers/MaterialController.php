@@ -33,6 +33,18 @@ class MaterialController extends HelperController
         ];
     }
 
+    public function validation(): array
+    {
+        $rules = $this->commonValidationRules;
+        unset($rules['enum'][2]);
+        $validation = $rules['enum'];
+        $rules['enum'] = [
+            'rules' => $validation,
+            'enums' => Enum::values()
+        ];
+        return $rules;
+    }
+
     public function createForm()
     {
         $data = Enum::toArray();
