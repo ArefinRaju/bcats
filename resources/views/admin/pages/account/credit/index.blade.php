@@ -6,7 +6,7 @@ Dashboard
 
 @endsection
 @section('css')
-<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <!--begin::Content-->
@@ -86,8 +86,8 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Payment</a>
+{{--                        <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">--}}
+{{--                            <i class="la la-plus"></i>New Payment</a>--}}
                         <!--end::Button-->
                     </div>
                 </div>
@@ -97,20 +97,22 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Supplier</th>
-                                <th>Project</th>
-                                <th>Amount</th>
-                                <th>Actions</th>
+                                <th>Collect By</th>
+                                <th>Total</th>
+                                <th>Credit</th>
+                                <th>Due</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($data as $credit)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td nowrap="nowrap"></td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$credit->name}}</td>
+                                <td>{{$credit->total}}</td>
+                                <td>{{$credit->credit}}</td>
+                                <td>{{$credit->due}}</td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
@@ -126,9 +128,13 @@ Dashboard
 @endsection
 @section('js')
 <!--begin::Page Vendors(used by this page)-->
-<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
+<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Page Vendors-->
 <!--begin::Page Scripts(used by this page)-->
-<script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
+<script>
+    $(document).ready(function() {
+        $('#kt_datatable').DataTable();
+    } );
+</script>
 <!--end::Page Scripts-->
 @endsection

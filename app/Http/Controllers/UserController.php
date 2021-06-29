@@ -28,6 +28,7 @@ class UserController extends HelperController
 {
     private UserRepository $repo;
 
+
     public function __construct(UserRepository $repo)
     {
         $this->repo = $repo;
@@ -194,9 +195,15 @@ class UserController extends HelperController
         $user             = $this->repo->getById($request, $memberId);
         $role             = Acl::decodeRole($user->acl);
         $otpCount         = $emiRepo->getOtpCount($request, $memberId);
-        $paidEmiCount     = $emiRepo->getPaidCount($request, $memberId);
+        $emiCount         = $emiRepo->getPaidCount($request, $memberId);
         $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-        return $this->respond(compact('user', 'otpCount', 'paidEmiCount', 'transactionCount', 'role'), [], 'admin.pages.profile.member'); // Todo ; View
+        $users            =$this->repo->getUsersByProjectId($request,$request->user()->project_id);
+        $emiList          =EMIRepository::emiListWithOutPagination();
+
+
+
+
+        return $this->respond(compact('user', 'otpCount', 'emiCount', 'transactionCount', 'role','users','emiList'), [], 'admin.pages.profile.member'); // Todo ; View
     }
 
     /**

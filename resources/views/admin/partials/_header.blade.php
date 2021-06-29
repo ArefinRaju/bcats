@@ -262,6 +262,12 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{ url('/project') }}" class="menu-link">
+                                        <span class="menu-text">All Projects</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
 
 
                             </ul>

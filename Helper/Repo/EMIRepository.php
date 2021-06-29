@@ -5,7 +5,7 @@ namespace Helper\Repo;
 
 
 use App\Models\Emi;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class EMIRepository extends EntityRepository
@@ -26,6 +26,11 @@ class EMIRepository extends EntityRepository
     {
         return Emi::where('project_id', Request()->user()->project_id)
                   ->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public static function emiListWithOutPagination()
+    {
+        return Emi::where('project_id', Request()->user()->project_id)->get();
     }
 
     /**

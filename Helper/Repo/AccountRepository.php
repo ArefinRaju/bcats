@@ -7,6 +7,7 @@ namespace Helper\Repo;
 use App\Models\Account;
 use Helper\Constants\Transaction;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Collection;
 
 class AccountRepository extends EntityRepository
 {
@@ -60,6 +61,10 @@ class AccountRepository extends EntityRepository
         return Account::where('by_user', $userId)
                       ->where('project_id', $request->user()->project_id)
                       ->count();
+    }
+    public function getTransactionOfUser(Request $request,int $perPage = null, int $page = null)
+    {
+        return Account::leftJoin('users','accounts.user_id','users.id')->where('accounts.project_id', $request->user()->project_id)->paginate($perPage, ['*'], 'page', $page);
     }
 
     public function getListOfAmountDebitedByEmployee(Request $request, int $perPage = null, int $page = null)

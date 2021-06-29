@@ -161,7 +161,7 @@ Dashboard
                             </span>
                             <div class="d-flex flex-column flex-lg-fill">
                                 <span class="text-dark-75 font-weight-bolder font-size-sm">EMI</span>
-                                <a href="#" class="text-primary font-weight-bolder">{!! $data['paidEmiCount'] !!}</a>
+                                <a href="#" class="text-primary font-weight-bolder">{!! $data['emiCount'] !!}</a>
                             </div>
                         </div>
                         <!--end::Item-->
@@ -240,6 +240,26 @@ Dashboard
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="byUser">By User</label>
+                                                <select name="byUser" id="byUser" class="form-control">
+                                                    @foreach($data['users'] as $user)
+                                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="byUser">Select Emi</label>
+                                                <select name="emiId" id="emiId" class="form-control">
+                                                    @foreach($data['emiList'] as $emi)
+                                                        <option value="{{$emi->id}}">{{$emi->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="amount">Amount(Tk):</label>

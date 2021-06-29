@@ -115,7 +115,23 @@ class AccountController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Account::credit($request, $request->input('amount'));
-        return $this->respond($log, [], 'admin.pages.credit.index');
+        if (!self::isAPI()){
+            $log=$this->repo->getTransactionOfUser($request);
+        }
+        return $this->respond($log, [], 'admin.pages.account.credit.index');
+    }
+    /**
+     * @param  Request  $request
+     * @return Application|Factory|JsonResponse|View
+     * @throws UserFriendlyException
+     */
+    public function creditList(Request  $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $log=$this->repo->getTransactionOfUser($request,$pagination->per_page, $pagination->page);
+        return $this->respond($log, [], 'admin.pages.account.credit.index');
+
+
     }
 
     /**

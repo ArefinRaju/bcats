@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Helper\Config\ConfigInit;
 use Helper\Constants\CommonValidations as V;
@@ -19,6 +20,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends HelperController
@@ -35,9 +37,35 @@ class AuthController extends HelperController
         ];
     }
 
-    public function dashBoard()
+    public function dashBoard(Request $request)
     {
-        return view('admin.dashboard');
+        $project_id=$request->user()->project_id;
+        $sql="SELECT
+            SUM(total) AS total,
+            SUM(due) AS Due,
+            SUM(credit) AS Collect,
+            (SELECT
+                    COUNT(id)
+                FROM
+                    users
+                WHERE
+                    NOT acl = 'QURNSU4=' AND project_id = $project_id) AS members,
+            (SELECT
+                    COUNT(id)
+                FROM
+                    payees
+                WHERE
+                    project_id = $project_id) as supplier
+        FROM
+            accounts
+        WHERE
+            project_id = $project_id";
+
+        $data=DB::select($sql);
+
+        $users=User::where('project_id',$request->user()->project_id)->get();
+
+        return view('admin.dashboard')->with('data',$data)->with('users',$users);
     }
 
     /**
