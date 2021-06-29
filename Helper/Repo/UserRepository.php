@@ -5,6 +5,7 @@ namespace Helper\Repo;
 
 use App\Models\User;
 use Helper\ACL\Acl;
+use Helper\ACL\Roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -54,7 +55,7 @@ class UserRepository extends EntityRepository
     public function getUsersByProjectId(Request $request, int $projectId): Collection
     {
         return User::where('project_id', $projectId)
-                   ->whereNotIn('acl', ['RU1QTE9ZRUU='])
+                   ->whereNotIn('acl', [Acl::createUserRole(Roles::EMPLOYEE)])
                    ->get();
     }
 

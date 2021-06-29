@@ -47,6 +47,7 @@ class EMIController extends HelperController
         $emi->project_id = $request->user()->project_id;
         $emi             = $this->repo->save($emi);
         $users           = $this->userRepo->getUsersByProjectId($request, $request->user()->project_id);
+        dd($users->toArray());
         foreach ($users as $user) {
             $emiUser             = new EmiUser();
             $emiUser->emi_id     = $emi->id;

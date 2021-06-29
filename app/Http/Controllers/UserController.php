@@ -197,19 +197,15 @@ class UserController extends HelperController
         $otpCount         = $emiRepo->getOtpCount($request, $memberId);
         $emiCount         = $emiRepo->getPaidCount($request, $memberId);
         $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-        $users            =$this->repo->getUsersByProjectId($request,$request->user()->project_id);
-        $emiList          =EMIRepository::emiListWithOutPagination();
-
-
-
-
-        return $this->respond(compact('user', 'otpCount', 'emiCount', 'transactionCount', 'role','users','emiList'), [], 'admin.pages.profile.member'); // Todo ; View
+        $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
+        $emiList          = EMIRepository::emiListWithOutPagination();
+        return $this->respond(compact('user', 'otpCount', 'emiCount', 'transactionCount', 'role', 'users', 'emiList'), [], 'admin.pages.profile.member'); // Todo ; View
     }
 
     /**
      * @throws UserFriendlyException
      */
-     public function showByUserType(Request $request, string $userType)
+    public function showByUserType(Request $request, string $userType)
     {
         if (!Roles::search(strtoupper($userType))) {
             throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
