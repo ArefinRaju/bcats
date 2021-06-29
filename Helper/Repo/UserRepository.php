@@ -23,8 +23,8 @@ class UserRepository extends EntityRepository
     public function getByIdAndProject(Request $request, int $id)
     {
         return User::where('id', $id)
-            ->where('project_id', $request->user()->project_id)
-            ->first();
+                   ->where('project_id', $request->user()->project_id)
+                   ->first();
     }
 
     public function list(int $perPage = null, int $page = null)
@@ -53,26 +53,28 @@ class UserRepository extends EntityRepository
 
     public function getUsersByProjectId(Request $request, int $projectId): Collection
     {
-        return User::where('project_id', $projectId)->get();
+        return User::where('project_id', $projectId)
+                   ->whereNotIn('acl', ['RU1QTE9ZRUU='])
+                   ->get();
     }
 
     public function searchMember(Request $request): Collection
     {
         return User::where(
             function ($query) {
-                $query->where('name', 'like', '%' . Request()->input('query') . '%')
-                    ->orWhere('mobile', 'like', '%' . Request()->input('query') . '%')
-                    ->orWhere('email', 'like', '%' . Request()->input('query') . '%');
+                $query->where('name', 'like', '%'.Request()->input('query').'%')
+                      ->orWhere('mobile', 'like', '%'.Request()->input('query').'%')
+                      ->orWhere('email', 'like', '%'.Request()->input('query').'%');
             }
         )
-            ->where('project_id', $request->input('project_id'))
-            ->get();
+                   ->where('project_id', $request->input('project_id'))
+                   ->get();
     }
 
     public function getByType(Request $request, string $userType): Collection
     {
         $encryptedData = Acl::createUserRole(strtoupper($userType));
         return User::where('project_id', $request->user()->project_id)
-            ->get();
+                   ->get();
     }
 }
