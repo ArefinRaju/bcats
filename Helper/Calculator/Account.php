@@ -69,7 +69,7 @@ final class Account implements Calculator
         $instance->credit   = $instance->amount;
         $instance->image    = PhotoMod::resizeAndUpload($request);
         $instance->total    = $instance->oldRecord->total + $instance->amount;
-        $instance->due      = $instance->oldRecord->due - $instance->amount;
+        $instance->due      = (float)$instance->oldRecord->due - $instance->amount;
         $instance->employee = $instance->oldRecord->employee;
         $instance->required = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
         $instance->updateUserData($instance, Transaction::CREDIT);

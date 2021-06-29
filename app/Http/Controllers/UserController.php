@@ -190,16 +190,19 @@ class UserController extends HelperController
 
     public function memberDetails(Request $request, int $memberId)
     {
-        $emiRepo          = new EMIRepository();
-        $accountRepo      = new AccountRepository();
-        $user             = $this->repo->getById($request, $memberId);
-        $role             = Acl::decodeRole($user->acl);
-        $otpCount         = $emiRepo->getOtpCount($request, $memberId);
-        $emiCount         = $emiRepo->getPaidCount($request, $memberId);
-        $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-        $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
-        $emiList          = EMIRepository::emiListWithOutPagination();
-        return $this->respond(compact('user', 'otpCount', 'emiCount', 'transactionCount', 'role', 'users', 'emiList'), [], 'admin.pages.profile.member'); // Todo ; View
+        $emiRepo     = new EMIRepository();
+        $accountRepo = new AccountRepository();
+        $user        = $this->repo->getById($request, $memberId);
+        if (!$this->isAPI()) {
+            $role             = Acl::decodeRole($user->acl);
+            $otpCount         = $emiRepo->getOtpCount($request, $memberId);
+            $emiCount         = $emiRepo->getPaidCount($request, $memberId);
+            $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
+            $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
+            $emiList          = EMIRepository::emiListWithOutPagination();
+            return $this->respond(compact('user', 'otpCount', 'emiCount', 'transactionCount', 'role', 'users', 'emiList'), [], 'admin.pages.profile.member');
+        }
+        return $this->respond($user, [], '');
     }
 
     /**

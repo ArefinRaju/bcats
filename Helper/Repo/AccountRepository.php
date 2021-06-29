@@ -7,7 +7,6 @@ namespace Helper\Repo;
 use App\Models\Account;
 use Helper\Constants\Transaction;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Collection;
 
 class AccountRepository extends EntityRepository
 {
@@ -18,7 +17,9 @@ class AccountRepository extends EntityRepository
 
     public function getLatestRecord(int $project_id)
     {
-        return Account::where('project_id', $project_id)->latest()->first();
+        return Account::where('project_id', $project_id)
+                      ->orderBy('id', 'desc')
+                      ->first();
     }
 
     public function list(int $perPage = null, int $page = null)
@@ -62,9 +63,10 @@ class AccountRepository extends EntityRepository
                       ->where('project_id', $request->user()->project_id)
                       ->count();
     }
-    public function getTransactionOfUser(Request $request,int $perPage = null, int $page = null)
+
+    public function getTransactionOfUser(Request $request, int $perPage = null, int $page = null)
     {
-        return Account::leftJoin('users','accounts.user_id','users.id')->where('accounts.project_id', $request->user()->project_id)->paginate($perPage, ['*'], 'page', $page);
+        return Account::leftJoin('users', 'accounts.user_id', 'users.id')->where('accounts.project_id', $request->user()->project_id)->paginate($perPage, ['*'], 'page', $page);
     }
 
     public function getListOfAmountDebitedByEmployee(Request $request, int $perPage = null, int $page = null)
@@ -83,6 +85,7 @@ class AccountRepository extends EntityRepository
         $account->total      = $amount;
         $account->due        = 0;
         $account->required   = 0;
+        $account->employee   = 0;
         $account->credit     = $amount;
         $account->debit      = 0;
         $account->type       = Transaction::CREDIT;
