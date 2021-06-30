@@ -110,7 +110,7 @@ EMI
                                 <td>{{$emi->name??''}}</td>
 
                                 <td>{{$emi->value??''}}</td>
-                                <td>{{($emi->otp == 0) ? 'OPT' : 'EMI'}}</td>
+                                <td>{{($emi->otp == 0) ? 'EMI' : 'OTP'}}</td>
                                 <td>{{$emi->date??''}}</td>
                             </tr>
                             @endforeach

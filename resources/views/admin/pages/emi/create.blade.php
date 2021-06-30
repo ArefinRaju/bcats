@@ -79,8 +79,8 @@
                                             <div class="form-group">
                                                 <label for="otp">Type:</label>
                                                 <select class="form-control form-control-solid" name="otp" id="otp">
-                                                    <option value="0">One Time Payment</option>
-                                                    <option value="1">Equated Monthly Installment</option>
+                                                    <option value="1">One Time Payment</option>
+                                                    <option value="0">Equated Monthly Installment</option>
                                                 </select>
                                             </div>
                                         </div>
