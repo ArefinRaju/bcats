@@ -45,6 +45,15 @@ class MaterialController extends HelperController
         return $rules;
     }
 
+    public function constants()
+    {
+        $result = [];
+        foreach (Enum::values() as $enum){
+            $result[] = ['name' => $enum];
+        }
+        return $this->respond($result);
+    }
+
     public function createForm()
     {
         $data = Enum::toArray();
