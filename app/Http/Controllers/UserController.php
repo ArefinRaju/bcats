@@ -203,7 +203,9 @@ class UserController extends HelperController
             $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
             $emiList          = $emiRepo->emiListWithOutPagination($request);
             $otpList          = $emiRepo->otpListWithOutPagination($request);
-            return $this->respond(compact('user', 'otp', 'emi', 'transactionCount', 'role', 'users', 'emiList', 'otpList'), [], 'admin.pages.profile.member');
+            $emiTransactionList          = $emiRepo->otpTransectionList($request,$memberId);
+            $otpTransactionList          = $emiRepo->otpListWithOutPagination($request);
+            return $this->respond(compact('user', 'otp', 'emi', 'transactionCount', 'role', 'users', 'emiList', 'otpList','emiTransactionList','otpTransactionList'), [], 'admin.pages.profile.member');
         }
         return $this->respond($user, [], '');
     }

@@ -5,8 +5,11 @@ namespace Helper\Repo;
 
 
 use App\Models\Emi;
+use App\Models\EmiUser;
+use Helper\Calculator\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Account As AccountModel;
 
 class EMIRepository extends EntityRepository
 {
@@ -42,6 +45,20 @@ class EMIRepository extends EntityRepository
                   ->get();
     }
 
+    public function otpTransectionList(Request $request,$memberId)
+    {
+
+        return EmiUser::leftJoin('accounts','accounts.emi_id','emi_users.emi_id')
+            ->where('emi_users.otp',1)
+            ->where('accounts.user_id',$memberId)->get();
+    }
+
+    public function emiTransectionList(Request $request,$memberId)
+    {
+        return AccountModel::leftJoin('emi_users','accounts.emi_id','emi_users.emi_id')
+            ->where('emi_users.otp',0)
+            ->where('accounts.user_id',$memberId)->get();
+    }
     /**
      * @param  string  $id
      * @return bool
