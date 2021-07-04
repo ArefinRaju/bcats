@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\MaterialHistory;
 use Helper\Calculator\Material;
 use Helper\Constants\CommonValidations as V;
@@ -46,8 +47,9 @@ class MaterialHistoryController extends HelperController
 
     public function debitForm(Request $request)
     {
-        $materials = $this->materialRepo->materialList($request);
-        return view('admin.pages.material_history.debit.create', compact('materials'));
+        $categories      = Category::all();
+//        $materials = $this->materialRepo->materialList($request);
+        return view('admin.pages.material_history.debit.create', compact('categories'));
     }
 
     public function demandForm(Request $request)
