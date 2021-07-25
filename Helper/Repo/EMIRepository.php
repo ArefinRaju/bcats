@@ -74,4 +74,12 @@ class EMIRepository extends EntityRepository
                          ->where('emis.otp', $otp)
                          ->sum('emi_users.due');
     }
+    public function getAllEmiDueByUserAndEmiType(Request $request, bool $otp = false): float
+    {
+        return (float)Emi::Join('emi_users', 'emis.id', '=', 'emi_users.emi_id')
+                         ->where('emi_users.status', 0)
+                         ->where('emis.otp', $otp)
+                         ->where('emis.project_id', $request->user()->project_id)
+                         ->sum('emi_users.due');
+    }
 }

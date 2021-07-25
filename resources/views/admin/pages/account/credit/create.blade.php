@@ -52,10 +52,10 @@ Dashboard
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Payee:</label>
+                                            <label>By Collector</label>
                                             <select class="form-control form-control-solid" name="payeeId">
-                                                @foreach($payees as $payee)
-                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
+                                                @foreach($users as $usersItem)
+                                                <option value="{{$usersItem->id}}">{{ $usersItem->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -64,7 +64,7 @@ Dashboard
                                         <div class="form-group">
                                             <label>Amount:</label>
                                             <input type="text" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
-                                         
+
                                         </div>
                                     </div>
                                 </div>
