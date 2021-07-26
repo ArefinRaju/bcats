@@ -96,16 +96,16 @@ Dashboard
                                 <div class="row m-0">
                                     <div class="col py-6">
                                         <div class="font-size-h5-xl text-primary font-weight-bold">Total</div>
-                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->total}}</div>
+                                        {{-- <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data['']->total}}</div> --}}
                                     </div>
 
                                     <div class="col py-6">
                                         <div class="font-size-h5-xl text-warning font-weight-bold">Due</div>
-                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->Due}}</div>
+                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data['amountsData']['otpDue'] + $data['amountsData']['emiDue']}}</div>
                                     </div>
                                     <div class="col py-6">
                                         <div class="font-size-h5-xl text-success font-weight-bold">Collection</div>
-                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->Collect}}</div>
+                                        {{-- <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->Collect}}</div> --}}
                                     </div>
                                 </div>
 
@@ -134,7 +134,7 @@ Dashboard
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                    <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$data[0]->supplier}}</div>
+                                    {{-- <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$data[0]->supplier}}</div> --}}
                                     <a href="#" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Supplier</a>
 
 
@@ -157,7 +157,7 @@ Dashboard
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                    <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{$data[0]->members}}</div>
+                                    {{-- <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{$data[0]->members}}</div> --}}
                                     <a href="#" class="text-muted text-hover-primary font-weight-bold font-size-lg mt-1">Member</a>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@ Dashboard
                                     </thead>
                                     <tbody>
 
-                                    @foreach($users as $user)
+                                    @foreach($data['users'] as $user)
                                         <tr>
                                             <td>
                                                 {{$loop->iteration}}

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use Helper\ACL\Acl;
+use Helper\ACL\Roles;
 use Illuminate\Support\Facades\Auth;
 use Helper\Config\ConfigInit;
 use Helper\Constants\CommonValidations as V;
@@ -13,6 +15,7 @@ use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Core\JWT;
 use Helper\Core\UserFriendlyException;
+use Helper\Repo\EMIRepository;
 use Helper\Repo\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -39,33 +42,30 @@ class AuthController extends HelperController
 
     public function dashBoard(Request $request)
     {
-        $project_id=$request->user()->project_id;
-        $sql="SELECT
-            SUM(total) AS total,
-            SUM(due) AS Due,
-            SUM(credit) AS Collect,
-            (SELECT
-                    COUNT(id)
-                FROM
-                    users
-                WHERE
-                    NOT acl = 'QURNSU4=' AND project_id = $project_id) AS members,
-            (SELECT
-                    COUNT(id)
-                FROM
-                    payees
-                WHERE
-                    project_id = $project_id) as supplier
-        FROM
-            accounts
-        WHERE
-            project_id = $project_id";
 
-        $data=DB::select($sql);
 
-        $users=User::where('project_id',$request->user()->project_id)->get();
+        $users=User::where('project_id',$request->user()->project_id)
+        ->where('acl',Acl::createUserRole(Roles::MEMBER))
+        ->get();
 
-        return view('admin.dashboard')->with('data',$data)->with('users',$users);
+        $emiRepo =new EMIRepository();
+        $newUsersData=[
+            'emiDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request),
+            'otpDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request, true)
+        ];
+
+
+
+
+        $data=[
+            'users'=>$users,
+            'amountsData'=>$newUsersData
+
+        ];
+
+
+
+        return $this->respond($data,[],'admin.dashboard');
     }
 
     /**
