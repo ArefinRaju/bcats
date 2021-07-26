@@ -47,7 +47,7 @@ class AccountController extends HelperController
 
     public function creditForm(Request $request)
     {
-        $users = $this->userRepo->getByType($request,Roles::PROJECT_ADMIN);
+        $users = $this->userRepo->getByType($request,Roles::FUND_COLLECTOR);
 
         $projects = $request->user()->project_id;
         return view('admin.pages.account.credit.create', compact('users', 'projects'));

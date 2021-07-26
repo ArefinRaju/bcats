@@ -158,6 +158,7 @@ CombinedRoute::resourceRoute('/product', 'ProductController', []);
 Route::get('/user-create', 'UserController@createForm');
 Route::get('/user-edit/{id}', 'UserController@editForm');
 CombinedRoute::resourceRoute('user', 'UserController', []);
+Route::post('/user-details-ajax','UserController@getUserDataByAjax');
 
 
 Route::get('/payee-create', 'PayeeController@createForm');

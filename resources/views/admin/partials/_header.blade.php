@@ -84,6 +84,12 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{ url('/credit') }}" class="menu-link">
+                                        <span class="menu-text">Relese Fund</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
 
                             </ul>
                         </div>
