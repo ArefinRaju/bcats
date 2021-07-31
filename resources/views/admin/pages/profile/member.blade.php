@@ -185,7 +185,7 @@
                                 <div class="d-flex flex-column">
                                     <span class="text-dark-75 font-weight-bolder font-size-sm">Transaction</span>
                                     <a href="#"
-                                       class="text-primary font-weight-bolder">{!! $data['transactionCount'] !!} View</a>
+                                       class="text-primary font-weight-bolder">{!! $data['otpTransactionList']->count() !!} View</a>
                                 </div>
                             </div>
                             <!--end::Item-->
@@ -251,7 +251,7 @@
                                 <div class="d-flex flex-column">
                                     <span class="text-dark-75 font-weight-bolder font-size-sm">Transaction</span>
                                     <a href="#"
-                                       class="text-primary font-weight-bolder">{!! $data['transactionCount'] !!} View</a>
+                                       class="text-primary font-weight-bolder">{!! $data['emiTransactionList']->count() !!} View</a>
                                 </div>
                             </div>
                             <!--end::Item-->
@@ -357,9 +357,7 @@
                                     <span class="card-label font-weight-bolder text-dark">Add OTP</span>
                                     <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
                                 </h3>
-                                <div class="card-toolbar">
 
-                                </div>
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
@@ -370,6 +368,26 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="byUser">By User</label>
+                                                    <select name="byUser" id="byUser" class="form-control">
+                                                        @foreach($data['users'] as $user)
+                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="byUser">Select Otp</label>
+                                                    <select name="emiId" id="emiId" class="form-control">
+                                                        @foreach($data['otpList'] as $otp)
+                                                            <option value="{{$otp->id}}">{{$otp->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label for="amount">Amount(TK):</label>

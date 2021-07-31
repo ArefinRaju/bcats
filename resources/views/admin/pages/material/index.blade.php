@@ -131,6 +131,7 @@ Material
                                 </td>
                             </tr>
                             @endforeach
+                        {{$data->links()}}
                         </tbody>
                     </table>
                     <!--end: Datatable-->

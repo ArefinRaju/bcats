@@ -263,8 +263,15 @@
                                 </li>
 
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Suspended</span>
+                                    <a href="{{url('category')}}" class="menu-link">
+                                        <span class="menu-text">Category</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
+
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{url('material')}}" class="menu-link">
+                                        <span class="menu-text">Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>

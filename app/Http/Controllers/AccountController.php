@@ -106,7 +106,7 @@ class AccountController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Account::fund($request, $request->input('amount'), $request->input('emiId'), $request->input('byUser'));
-        return $this->respond($log, [], 'admin.pages.fund.index');
+        return $this->respond($log, [], 'admin.pages.account.fund.index');
     }
 
     /**
@@ -182,14 +182,14 @@ class AccountController extends HelperController
     {
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->memberTransactions($request, $pagination->per_page, $pagination->page);
-        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
+        return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
     }
 
     public function supplierTransactionList(Request $request)
     {
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->supplierTransactions($request, $pagination->per_page, $pagination->page);
-        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
+        return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
     }
 
 
