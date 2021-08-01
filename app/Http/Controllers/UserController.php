@@ -215,11 +215,9 @@ class UserController extends HelperController
      */
     public function showByUserType(Request $request, string $userType)
     {
-        if (!Roles::search(strtoupper($userType))) {
-            throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
-        }
 
-        $users        = $this->repo->getByType($request, $userType);
+
+        $users        = $this->repo->getByType($request);
         $emiRepo      = new EMIRepository();
         $newUsersData = [];
 

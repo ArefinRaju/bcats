@@ -106,8 +106,8 @@
                                     <th>Mobile</th>
                                     <th>Total Due</th>
                                     <th>On Hold</th>
-                                    <th>OTP Due</th>
                                     <th>EMI Due</th>
+                                    <th>OTP Due</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>

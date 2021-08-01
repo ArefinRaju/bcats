@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use Helper\Repo\Entity;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static orderBy(string $string, string $string1)
@@ -14,7 +15,8 @@ use Helper\Repo\Entity;
  */
 class Material extends Entity
 {
-    public function category(){
+    public function category(): BelongsTo
+    {
 
         return $this->belongsTo('App\Models\Category', 'category_id');
 

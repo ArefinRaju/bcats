@@ -84,10 +84,10 @@
                                     </div>
                                     <div class="my-lg-0 my-3">
                                         <button @click="addEmi()"
-                                                class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add EMI
+                                                class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Pay EMI
                                         </button>
                                         <button @click="addOtp() = !addTransaction"
-                                                class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Add OTP
+                                                class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Pay OTP
                                         </button>
                                     </div>
                                 </div>
@@ -98,13 +98,13 @@
                                         <div class="d-flex flex-wrap mb-4">
                                             <a href="#"
                                                class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                <i class="flaticon2-new-email mr-2 font-size-lg"></i>jason@siastudio.com</a>
+                                                <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{$data['user']->email}}</a>
                                             <a href="#"
                                                class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                                 <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>{{$data['role']}}
                                             </a>
-                                            <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
-                                                <i class="flaticon2-placeholder mr-2 font-size-lg"></i>Dhaka</a>
+                                            {{-- <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
+                                                <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{$}}</a> --}}
                                         </div>
                                         <span
                                             class="font-weight-bold text-dark-50">I distinguish three main text objectives could be merely to inform people.</span>
@@ -268,7 +268,7 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">Add Fund(EMI)</span>
+                                    <span class="card-label font-weight-bolder text-dark">Pay Fund(EMI)</span>
                                     <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
                                 </h3>
                                 <div class="card-toolbar">
@@ -354,7 +354,7 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">Add OTP</span>
+                                    <span class="card-label font-weight-bolder text-dark">Pay OTP</span>
                                     <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
                                 </h3>
 
