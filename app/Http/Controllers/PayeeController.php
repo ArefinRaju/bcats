@@ -176,7 +176,7 @@ class PayeeController extends HelperController
         return $this->respond($result->toArray(), [], '');
     }
 
-    /**
+    /**~
      * @throws UserFriendlyException
      */
     public function listByType(Request $request, string $payeeType)
