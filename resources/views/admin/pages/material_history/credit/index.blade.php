@@ -6,7 +6,7 @@ Dashboard
 
 @endsection
 @section('css')
-<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <!--begin::Content-->
@@ -86,8 +86,8 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/credit-material') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>Add Credit</a>
+{{--                        <a href="{{ url('/credit-material') }}" class="btn btn-primary font-weight-bolder">--}}
+{{--                            <i class="la la-plus"></i>Add Credit</a>--}}
                         <!--end::Button-->
                     </div>
                 </div>

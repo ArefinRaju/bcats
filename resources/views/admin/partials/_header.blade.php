@@ -151,12 +151,12 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/material/use-material') }}" class="menu-link">
-                                        <span class="menu-text">Use Material</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="{{ url('/material/use-material') }}" class="menu-link">--}}
+{{--                                        <span class="menu-text">Use Material</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/demand-list') }}" class="menu-link">
                                         <span class="menu-text">Demand List</span>
@@ -940,7 +940,7 @@
                     <div class="navi-separator mt-3"></div>
                     <div class="navi-footer px-8 py-5">
                         <a href="/logout" class="btn btn-light-primary font-weight-bold">Sign Out</a>
-                        <a href="{{ url('/profile') }}" class="btn btn-light-success font-weight-bold">Profile</a>
+                        <a href="{{ url('/user-edit/'.auth()->id()) }}" class="btn btn-light-success font-weight-bold">Profile</a>
                     </div>
                     <!--end::Footer-->
                 </div>
