@@ -88,25 +88,26 @@ Dashboard
                 <div class="col-lg-6 col-xxl-6">
                     <!--begin::Mixed Widget 4-->
                     <div class="card mb-4">
-                        <div class="card-body d-flex flex-column py-0">
+                        <div class="card-body d-flex flex-column p-0">
 
                             <!--begin::Stats-->
                             <div class="card-spacer bg-white card-rounded flex-grow-1">
                                 <!--begin::Row-->
-                                <div class="row m-0">
+                                <div class="row m-0 text-center">
                                     <div class="col py-6">
-                                        <div class="font-size-h5-xl text-primary font-weight-bold">Total</div>
-                                        {{-- <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data['']->total}}</div> --}}
+                                        <div class="font-size-h5-xl text-primary font-weight-bold">Main Account</div>
+                                         <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;@if($data['mainAccountBalance']){{$data['mainAccountBalance']->total}}@else 0 @endif</div>
+                                    </div>
+                                    <div class="col py-6">
+                                        <div class="font-size-h5-xl text-success font-weight-bold">Employee Account</div>
+                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;@if($data['mainEmployeeBalance']){{$data['mainEmployeeBalance']->total}}@else 0 @endif</div>
                                     </div>
 
                                     <div class="col py-6">
                                         <div class="font-size-h5-xl text-warning font-weight-bold">Due</div>
                                         <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data['amountsData']['otpDue'] + $data['amountsData']['emiDue']}}</div>
                                     </div>
-                                    <div class="col py-6">
-                                        <div class="font-size-h5-xl text-success font-weight-bold">Collection</div>
-                                        {{-- <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->Collect}}</div> --}}
-                                    </div>
+
                                 </div>
 
                                 <!--end::Row-->

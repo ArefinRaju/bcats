@@ -73,7 +73,7 @@ class UserController extends HelperController
     /**
      * @param  Request  $request
      * @param  string|null  $action
-     * @return Application|Factory|View|JsonResponse|RedirectResponse
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function create(Request $request, string $action = null)
@@ -88,7 +88,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users      = $this->repo->list($pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($request,$pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
@@ -103,7 +103,7 @@ class UserController extends HelperController
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $user       = $this->repo->list($pagination->per_page, $pagination->page);
+        $user       = $this->repo->list($request,$pagination->per_page, $pagination->page);
         return $this->respond($user, [], 'admin.pages.user.index');
     }
 
@@ -118,7 +118,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users      = $this->repo->list($pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($request,$pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, []);
@@ -155,7 +155,7 @@ class UserController extends HelperController
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $materials  = $this->repo->list($pagination->per_page, $pagination->page);
+            $materials  = $this->repo->list($request,$pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $materials);
         }
         return $this->respond(null, [], 'admin.pages.user.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
@@ -210,14 +210,10 @@ class UserController extends HelperController
         return $this->respond($user, [], '');
     }
 
-    /**
-     * @throws UserFriendlyException
-     */
+
     public function showByUserType(Request $request, string $userType)
     {
-
-
-        $users        = $this->repo->getByType($request);
+        $users        = $this->repo->getAllMember($request);
         $emiRepo      = new EMIRepository();
         $newUsersData = [];
 
@@ -231,7 +227,7 @@ class UserController extends HelperController
     }
 
 
-    public function getUserDataByAjax(Request $request)
+    public function getUserDataByAjax(Request $request): JsonResponse
     {
         $user = $this->repo->getById($request, $request->id);
         return response()->json($user);

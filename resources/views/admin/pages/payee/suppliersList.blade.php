@@ -6,7 +6,7 @@
 
 @endsection
 @section('css')
-    <link href="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet"
+    <link href="{{ asset('admin/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
           type="text/css"/>
 @endsection
 @section('content')
@@ -105,7 +105,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Total</th>
                                 <th>Paid</th>
@@ -120,7 +119,6 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->address }}</td>
                                     <td>{{ $item->mobile }}</td>
                                     <td>{{ $item->paid + $item->due }}</td>
                                     <td>{{ $item->paid }}</td>
@@ -145,7 +143,7 @@
                                             </a>
                                             <button id="btnDelete" class="btn  btn-sm btn-danger">Delete</button>
                                         </form>
-
+                                    </div>
                                     </td>
                             @endforeach
 

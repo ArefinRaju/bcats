@@ -19,6 +19,7 @@ use Helper\Repo\Entity;
  * @property int project_id
  * @property float employee
  * @property string comment
+ * @method static leftJoin(string $table,string $primaryKey,string $foreignKey)
  */
 class Account extends Entity
 {

@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Helper\ACL\Acl;
 use Helper\ACL\Roles;
+use Helper\Repo\AccountRepository;
 use Illuminate\Support\Facades\Auth;
 use Helper\Config\ConfigInit;
 use Helper\Constants\CommonValidations as V;
@@ -44,27 +45,20 @@ class AuthController extends HelperController
     {
 
 
-        $users=User::where('project_id',$request->user()->project_id)
-        ->where('acl',Acl::createUserRole(Roles::MEMBER))
-        ->get();
-
+        // Get total amount of admin account.
+        $accountRepo=new AccountRepository();
         $emiRepo =new EMIRepository();
         $newUsersData=[
             'emiDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request),
-            'otpDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request, true)
+            'otpDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request, true),
         ];
-
-
-
 
         $data=[
-            'users'=>$users,
-            'amountsData'=>$newUsersData
-
+            'users'=>$this->repo->getAllMember($request),
+            'amountsData'=>$newUsersData,
+            'mainAccountBalance'=>$accountRepo->getMainAccountBalance($request,Acl::createUserRole(Roles::PROJECT_ADMIN)),
+            'mainEmployeeBalance'=>$accountRepo->getEmployeeAccountBalance($request,Acl::createUserRole(Roles::EMPLOYEE))
         ];
-
-
-
         return $this->respond($data,[],'admin.dashboard');
     }
 

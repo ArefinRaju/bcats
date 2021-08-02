@@ -6,7 +6,7 @@ Dedit
 
 @endsection
 @section('css')
-    <link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet"
+    <link href="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
 @endsection
 @section('content')
@@ -104,10 +104,10 @@ Dedit
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Debit</th>
                                 <th>User</th>
                                 <th>Total</th>
                                 <th>Used</th>
+                                <th>Remain</th>
                                 <th>Comment</th>
                                 <th>Date</th>
                             </tr>
@@ -117,10 +117,10 @@ Dedit
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->material_name}}</td>
-                                    <td>{{$item->debit." ".$item->enum}}</td>
                                     <td>{{$item->user_name}}</td>
                                     <td>{{$item->total." ".$item->enum}}</td>
                                     <td>{{$item->used." ".$item->enum}}</td>
+                                    <td>{{$item->total - $item->used ." ".$item->enum}}</td>
                                     <td>{{$item->comment}}</td>
                                     <td>{{date('d-M-Y',strtotime($item->updated_at))}}</td>
                                 </tr>

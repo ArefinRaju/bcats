@@ -28,9 +28,11 @@ class UserRepository extends EntityRepository
             ->first();
     }
 
-    public function list(int $perPage = null, int $page = null)
+    public function list(Request $request,int $perPage = null, int $page = null)
     {
-        return User::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
+        return User::orderBy('name', 'asc')
+            ->where('project_id',$request->user()->project_id)
+            ->paginate($perPage, ['*'], 'page', $page);
     }
 
     /**
@@ -76,7 +78,14 @@ class UserRepository extends EntityRepository
             ])->get();
     }
 
-    public function getByType(Request $request): Collection
+    public function getByType(Request $request,$userType): Collection
+    {
+        $encryptedData = Acl::createUserRole(strtoupper($userType));
+        return User::where('project_id', $request->user()->project_id)->where('acl',$encryptedData)
+            ->get();
+    }
+
+    public function getAllMember(Request $request): Collection
     {
         return User::where('project_id', $request->user()->project_id)
             ->whereIn('acl', [
