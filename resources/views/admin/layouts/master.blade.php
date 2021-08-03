@@ -14,6 +14,7 @@
 	@yield('css')
 	<!--end::Layout Themes-->
 	<link rel="shortcut icon" href="{{asset('admin')}}/assets/media/logos/favicon.ico" />
+    <link rel="stylesheet" href="">
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -79,10 +80,10 @@
 	<!--end::Scrolltop-->
 	@include('admin.partials._script')
 	<!--begin::Page Scripts(used by this page)-->
-	
+
 	@yield('js')
 	<!--end::Page Scripts-->
-	
+
 </body>
 <!--end::Body-->
 
