@@ -93,7 +93,12 @@ class PayeeRepository extends EntityRepository
 
     public function getByType($request, $supplierType)
     {
-        return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')
-            ->where('payees.type', $supplierType)->where('payees.project_id', $request->user()->project_id)->get();
+        if (isset($supplierType)){
+            return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')
+                ->where('payees.type', $supplierType)->where('payees.project_id', $request->user()->project_id)->get();
+        }else{
+            return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')->where('payees.project_id', $request->user()->project_id)->get();
+        }
+
     }
 }
