@@ -81,7 +81,7 @@ class AccountRepository extends EntityRepository
     public function getEmployeeAccountBalance(Request $request, $role){
         return Account::leftJoin('users', 'accounts.by_user', 'users.id')
             ->where('accounts.project_id', $request->user()->project_id)
-            ->where('users.acl',$role)->latest('accounts.id')->first('accounts.total');
+            ->where('users.acl',$role)->latest('accounts.id')->first('accounts.employee');
 
 
 

@@ -102,7 +102,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Mobile</th>
                                     <th>Total Due</th>
                                     <th>On Hold</th>
@@ -117,8 +117,12 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
+                                        <td>
+                                            <span class="text-dark-75 font-size-lg">{{$item->name}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="font-weight-bold d-block">{{base64_decode($item->acl)}}</span>
+                                        </td>
                                         <td>{{ $item->mobile }}</td>
                                         <td>{{ $item->due}}</td>
                                         <td>{{ $item->on_hold}}</td>

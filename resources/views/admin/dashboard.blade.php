@@ -100,7 +100,7 @@ Dashboard
                                     </div>
                                     <div class="col py-6">
                                         <div class="font-size-h5-xl text-success font-weight-bold">Employee Account</div>
-                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;@if($data['mainEmployeeBalance']){{$data['mainEmployeeBalance']->total}}@else 0 @endif</div>
+                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;@if($data['mainEmployeeBalance']){{$data['mainEmployeeBalance']->employee}}@else 0 @endif</div>
                                     </div>
 
                                     <div class="col py-6">
@@ -135,7 +135,7 @@ Dashboard
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                    {{-- <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$data[0]->supplier}}</div> --}}
+                                     <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$data['payeeCount']}}</div>
                                     <a href="#" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Supplier</a>
 
 
@@ -158,7 +158,7 @@ Dashboard
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                    {{-- <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{$data[0]->members}}</div> --}}
+                                     <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{$data['memberCount']}}</div>
                                     <a href="#" class="text-muted text-hover-primary font-weight-bold font-size-lg mt-1">Member</a>
                                 </div>
                             </div>
