@@ -44,7 +44,8 @@ class MaterialRepository extends EntityRepository
     }
     public function materiaHistorilList($request)
     {
-        return Material::leftJoin('material_histories','material_histories.material_id','materials.id')->get();
+        return Material::leftJoin('material_histories','material_histories.material_id','materials.id')
+            ->where('material_histories.project_id',$request->user()->project_id)->get();
     }
 
     public function isExist(Request $request): bool

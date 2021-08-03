@@ -7,7 +7,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Helper\ACL\Acl;
 use Helper\ACL\Roles;
+use Helper\Constants\PayeeType;
 use Helper\Repo\AccountRepository;
+use Helper\Repo\PayeeRepository;
 use Illuminate\Support\Facades\Auth;
 use Helper\Config\ConfigInit;
 use Helper\Constants\CommonValidations as V;
@@ -48,6 +50,10 @@ class AuthController extends HelperController
         // Get total amount of admin account.
         $accountRepo=new AccountRepository();
         $emiRepo =new EMIRepository();
+
+        // Get all Supplier
+        $payeeRepo=new PayeeRepository();
+
         $newUsersData=[
             'emiDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request),
             'otpDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request, true),
@@ -57,7 +63,9 @@ class AuthController extends HelperController
             'users'=>$this->repo->getAllMember($request),
             'amountsData'=>$newUsersData,
             'mainAccountBalance'=>$accountRepo->getMainAccountBalance($request,Acl::createUserRole(Roles::PROJECT_ADMIN)),
-            'mainEmployeeBalance'=>$accountRepo->getEmployeeAccountBalance($request,Acl::createUserRole(Roles::EMPLOYEE))
+            'mainEmployeeBalance'=>$accountRepo->getEmployeeAccountBalance($request,Acl::createUserRole(Roles::EMPLOYEE)),
+            'payeeCount'=>$payeeRepo->getByType($request,PayeeType::SUPPLIER)->count(),
+            'memberCount'=>$this->repo->getByType($request,Acl::createUserRole(Roles::MEMBER))->count()
         ];
         return $this->respond($data,[],'admin.dashboard');
     }

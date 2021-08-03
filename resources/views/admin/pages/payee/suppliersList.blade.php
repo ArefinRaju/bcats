@@ -47,45 +47,33 @@
                             <div class="dropdown dropdown-inline mr-2">
                                 <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="la la-download"></i>Export
+                                    <i class="la la-download"></i>Filter
                                 </button>
                                 <!--begin::Dropdown Menu-->
                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <ul class="nav flex-column nav-hover">
-                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2">
+                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2 text-center">
                                             Choose an
                                             option:
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{url('supplierList/SUPPLIER')}}" class="nav-link">
                                                 <i class="nav-icon la la-print"></i>
-                                                <span class="nav-text">Print</span>
+                                                <span class="nav-text">SUPPLIER</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-copy"></i>
-                                                <span class="nav-text">Copy</span>
+                                            <a href="{{url('supplierList/EMPLOYEE')}}" class="nav-link">
+                                                <i class="nav-icon la la-print"></i>
+                                                <span class="nav-text">EMPLOYEE</span>
+                                            </a>
+                                        </li> <li class="nav-item">
+                                            <a href="{{url('supplierList/CONTRACTOR')}}" class="nav-link">
+                                                <i class="nav-icon la la-print"></i>
+                                                <span class="nav-text">CONTRACTOR</span>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-file-excel-o"></i>
-                                                <span class="nav-text">Excel</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-file-text-o"></i>
-                                                <span class="nav-text">CSV</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-file-pdf-o"></i>
-                                                <span class="nav-text">PDF</span>
-                                            </a>
-                                        </li>
+
                                     </ul>
                                 </div>
                                 <!--end::Dropdown Menu-->
@@ -120,9 +108,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->mobile }}</td>
-                                    <td>{{ $item->paid + $item->due }}</td>
-                                    <td>{{ $item->paid }}</td>
-                                    <td>{{ $item->due }}</td>
+                                    <td>{{( $item->paid + $item->due == 0) ? 0 : $item->paid + $item->due}}</td>
+                                    <td>{{ ($item->paid == 0) ? 0 : $item->paid }}</td>
+                                    <td>{{ ($item->due == 0) ? 0 : $item->due }}</td>
                                     <td>
                                     <div class="text-center">
 

@@ -38,7 +38,7 @@ Route::get('/member', 'PayeeController@member');
 Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
 Route::get('/memberSearch', 'PayeeController@memberSearch');
 Route::get('/supplier-search', 'PayeeController@supplierSearch');
-Route::get('/supplierList/{type}', 'PayeeController@listByType');
+Route::get('/supplierList/{type?}', 'PayeeController@listByType');
 Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
 Route::get('memberTransactions/', 'AccountController@memberTransactionList');
