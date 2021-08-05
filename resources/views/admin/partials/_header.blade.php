@@ -141,13 +141,13 @@
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-credit-list') }}" class="menu-link">
-                                        <span class="menu-text">Added Stock</span>
+                                        <span class="menu-text">Added Stock(Credit)</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-debit-list') }}" class="menu-link">
-                                        <span class="menu-text">Used Stock</span>
+                                        <span class="menu-text">Used Stock(Debit)</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
