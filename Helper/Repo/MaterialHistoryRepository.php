@@ -60,8 +60,9 @@ class MaterialHistoryRepository extends EntityRepository
     public function creditList(int $perPage = null, int $page = null)
     {
         return MaterialHistory::where('project_id', Request()->user()->project_id)
-                              ->whereNotIn('credit', [0.00])
-                              ->orderBy('id', 'desc')
-                              ->paginate($perPage, ['*'], 'page', $page);
+                                ->leftJoin('materials', 'material_histories.material_id', 'materials.id')
+                                ->whereNotIn('credit', [0.00])
+                                ->orderBy('material_histories.id', 'desc')
+                                ->paginate($perPage, ['*'], 'page', $page);
     }
 }

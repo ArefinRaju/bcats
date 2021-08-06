@@ -5,10 +5,6 @@
 @section('js')
 
 @endsection
-@section('css')
-
-    <link rel="stylesheet" href="{{ asset('admin/assets/plugins/custom/datatables/datatables.bundle.css') }}" type="text/css" />
-@endsection
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -90,7 +86,7 @@
                             <!--end::Dropdown-->
                             <!--begin::Button-->
                             <a href="{{ url('/user-create') }}" class="btn btn-primary font-weight-bolder">
-                                <i class="la la-plus"></i>New Record</a>
+                                <i class="la la-plus"></i>New Member</a>
                             <!--end::Button-->
                         </div>
                     </div>
@@ -148,11 +144,11 @@
     </div>
     <!--end::Content-->
 @endsection
-@section('js')
-    <!--begin::Page Vendors(used by this page)-->
-    <script src="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-    <!--end::Page Vendors-->
-    <!--begin::Page Scripts(used by this page)-->
-    <script src="{{ asset('admin') }}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-    <!--end::Page Scripts-->
-@endsection
+{{--@section('js')--}}
+{{--    <!--begin::Page Vendors(used by this page)-->--}}
+{{--    <script src="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>--}}
+{{--    <!--end::Page Vendors-->--}}
+{{--    <!--begin::Page Scripts(used by this page)-->--}}
+{{--    <script src="{{ asset('admin') }}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>--}}
+{{--    <!--end::Page Scripts-->--}}
+{{--@endsection--}}

@@ -2,12 +2,6 @@
 @section('title')
 Dashboard
 @endsection
-@section('js')
-
-@endsection
-@section('css')
-<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
-@endsection
 @section('content')
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -19,7 +13,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Balance Overview</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Employee Balance</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +33,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Employee Balance Overview</h3>
+                        <h3 class="card-label">Employee Balance Transform</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -167,9 +161,9 @@ Dashboard
 @endsection
 @section('js')
 <!--begin::Page Vendors(used by this page)-->
-<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
+<script src="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <!--end::Page Vendors-->
 <!--begin::Page Scripts(used by this page)-->
-<script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
+<script src="{{asset('admin/assets/js/pages/crud/datatables/data-sources/html.js')}}"></script>
 <!--end::Page Scripts-->
 @endsection
