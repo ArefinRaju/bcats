@@ -134,7 +134,6 @@ class MaterialHistoryController extends HelperController
     {
         $pagination = $this->paginationManager($request);
         $debitList  = $this->repo->debitList($pagination->per_page, $pagination->page);
-        dd($debitList);
         return $this->respond($debitList, [], 'admin.pages.material_history.debit.index');
     }
 
