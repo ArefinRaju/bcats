@@ -13,7 +13,7 @@
 	<!--begin::Layout Themes(used by all pages)-->
 	@yield('css')
 	<!--end::Layout Themes-->
-	<link rel="shortcut icon" href="{{asset('admin')}}/assets/media/logos/favicon.ico" />
+	<link rel="shortcut icon" href="{{asset('admin/assets/media/logos/favicon.ico')}}" />
     <link rel="stylesheet" href="">
 </head>
 <!--end::Head-->
@@ -24,8 +24,8 @@
 	<!--begin::Header Mobile-->
 	<div id="kt_header_mobile" class="header-mobile">
 		<!--begin::Logo-->
-		<a href="index.html">
-			<img alt="Logo" src="{{asset('admin')}}/assets/media/logos/logo-letter-1.png" class="logo-default max-h-30px" />
+		<a href="{{url('/dashboard')}}">
+			<img alt="Logo" src="{{asset('admin/assets/media/logos/logo-letter-1.png')}}" class="logo-default max-h-30px" />
 		</a>
 		<!--end::Logo-->
 		<!--begin::Toolbar-->
@@ -35,7 +35,7 @@
 			</button>
 			<button class="btn btn-icon btn-hover-transparent-white p-0 ml-3" id="kt_header_mobile_topbar_toggle">
 				<span class="svg-icon svg-icon-xl">
-					<!--begin::Svg Icon | path:{{asset('admin')}}/assets/media/svg/icons/General/User.svg-->
+					<!--begin::Svg Icon | path:{{asset('admin/assets/media/svg/icons/General/User.svg')}}-->
 					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 							<polygon points="0 0 24 0 24 24 0 24" />
