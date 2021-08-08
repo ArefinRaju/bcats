@@ -65,7 +65,7 @@ class AuthController extends HelperController
             'mainAccountBalance'=>$accountRepo->getMainAccountBalance($request,Acl::createUserRole(Roles::PROJECT_ADMIN)),
             'mainEmployeeBalance'=>$accountRepo->getEmployeeAccountBalance($request,Acl::createUserRole(Roles::EMPLOYEE)),
             'payeeCount'=>$payeeRepo->getByType($request,PayeeType::SUPPLIER)->count(),
-            'memberCount'=>$this->repo->getByType($request,Acl::createUserRole(Roles::MEMBER))->count()
+            'memberCount'=>$this->repo->getByType($request,Roles::MEMBER)->count()
         ];
         return $this->respond($data,[],'admin.dashboard');
     }
