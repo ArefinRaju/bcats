@@ -36,7 +36,7 @@
                             <span class="card-icon">
                                 <i class="flaticon2-favourite text-primary"></i>
                             </span>
-                            <h3 class="card-label">Member List</h3>
+                            <h3 class="card-label">Admin,Member & Fund Collector</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
@@ -100,10 +100,10 @@
                                     <th>Name</th>
                                     <th>Role</th>
                                     <th>Mobile</th>
-                                    <th>Total Due</th>
-                                    <th>On Hold</th>
                                     <th>EMI Due</th>
                                     <th>OTP Due</th>
+                                    <th>Total Due</th>
+                                    <th>On Hold</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -120,10 +120,10 @@
                                             <span class="font-weight-bold d-block">{{base64_decode($item->acl)}}</span>
                                         </td>
                                         <td>{{ $item->mobile }}</td>
-                                        <td>{{ $item->due}}</td>
-                                        <td>{{ $item->on_hold}}</td>
                                         <td>{{ $item->emiDue }}</td>
                                         <td>{{ $item->otpDue }}</td>
+                                        <td>{{ $item->due}}</td>
+                                        <td>{{ $item->on_hold}}</td>
                                         <td>
                                             <a href="{{ url('member/'.$item->id) }}" class="btn btn-sm btn-success">View</a>
                                             <a href="{{ url('user-edit/'.$item->id) }}" class="btn btn-sm btn-primary">Edit</a>

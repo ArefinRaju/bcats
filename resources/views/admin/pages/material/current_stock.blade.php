@@ -90,8 +90,8 @@
                                 <th>#</th>
                                 <th>Material Name</th>
                                 <th>Total Purchesed</th>
-{{--                                <th>Required</th>--}}
                                 <th>Total Used</th>
+                                <th>Remain Stock</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,8 +100,8 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->total.$item->enum}}</td>
-{{--                                <td>{{$item->required.$item->enum}}</td>--}}
                                 <td>{{$item->used.$item->enum}}</td>
+                                <td>{{$item->total -$item->used .$item->enum}}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -117,11 +117,4 @@
 </div>
 <!--end::Content-->
 @endsection
-@section('js')
-<!--begin::Page Vendors(used by this page)-->
-<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-<!--end::Page Vendors-->
-<!--begin::Page Scripts(used by this page)-->
-<script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-<!--end::Page Scripts-->
-@endsection
+

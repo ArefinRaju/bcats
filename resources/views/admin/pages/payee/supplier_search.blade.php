@@ -14,7 +14,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Project</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Payee Search</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -36,7 +36,7 @@ Dashboard
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label font-weight-bolder text-dark">Supplier Search</span>
+                                <span class="card-label font-weight-bolder text-dark">Supplier,Employee & Contractor Search</span>
                                 <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
                             </h3>
                             <div class="card-toolbar">
