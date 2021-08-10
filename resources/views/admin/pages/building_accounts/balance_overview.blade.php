@@ -11,7 +11,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">Account Overview</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Account Balence Overview</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -31,7 +31,7 @@
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                            <h3 class="card-label">Balance Overview List</h3>
+                            <h3 class="card-label">Account Balance Overview List</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
@@ -175,12 +175,4 @@
         <!--end::Entry-->
     </div>
     <!--end::Content-->
-@endsection
-@section('js')
-    <!--begin::Page Vendors(used by this page)-->
-    <script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-    <!--end::Page Vendors-->
-    <!--begin::Page Scripts(used by this page)-->
-    <script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-    <!--end::Page Scripts-->
 @endsection

@@ -138,11 +138,4 @@ Dedit
     </div>
     <!--end::Content-->
 @endsection
-@section('js')
-    <!--begin::Page Vendors(used by this page)-->
-    <script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-    <!--end::Page Vendors-->
-    <!--begin::Page Scripts(used by this page)-->
-    <script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-    <!--end::Page Scripts-->
-@endsection
+
