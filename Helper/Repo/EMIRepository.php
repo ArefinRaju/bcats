@@ -45,18 +45,11 @@ class EMIRepository extends EntityRepository
                   ->get();
     }
 
-    public function otpTransectionList(Request $request,$memberId)
+    public function otpEmiTransactionList(Request $request, $memberId, bool $isOtp)
     {
 
         return EmiUser::leftJoin('accounts','accounts.emi_id','emi_users.emi_id')
-            ->where('emi_users.otp',1)
-            ->where('accounts.user_id',$memberId)->get();
-    }
-
-    public function emiTransectionList(Request $request,$memberId)
-    {
-        return AccountModel::leftJoin('emi_users','accounts.emi_id','emi_users.emi_id')
-            ->where('emi_users.otp',0)
+            ->where('emi_users.otp',$isOtp)
             ->where('accounts.user_id',$memberId)->get();
     }
     /**

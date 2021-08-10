@@ -255,12 +255,12 @@
                             <ul class="menu-subnav">
 
 
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">General</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="" class="menu-link">--}}
+{{--                                        <span class="menu-text">General</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
 
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{url('category')}}" class="menu-link">

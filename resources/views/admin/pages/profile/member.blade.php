@@ -284,16 +284,17 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="byUser">By User</label>
-                                                    <select name="byUser" id="byUser" class="form-control">
-                                                        @foreach($data['users'] as $user)
-                                                            <option value="{{$user->id}}">{{$user->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            <input type="hidden" name="byUser" id="" value="{{$data['user']->id}}">
+{{--                                            <div class="col-lg-4">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="byUser">By User</label>--}}
+{{--                                                    <select name="byUser" id="" class="form-control">--}}
+{{--                                                        @foreach($data['users'] as $user)--}}
+{{--                                                            <option value="{{$user->id}}" @if($data['user']->id == $user->id) selected @endif>{{$user->name}}</option>--}}
+{{--                                                        @endforeach--}}
+{{--                                                    </select>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label for="byUser">Select Emi</label>
@@ -363,21 +364,22 @@
                             <!--begin::Body-->
                             <div class="card-body pt-3 pb-0">
                                 <!--begin::Form-->
-                                <form class="form" method="POST" action="{{url('credit')}}"
+                                <form class="form" method="POST" action="{{url('addFund')}}"
                                       enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="byUser">By User</label>
-                                                    <select name="byUser" id="byUser" class="form-control">
-                                                        @foreach($data['users'] as $user)
-                                                            <option value="{{$user->id}}">{{$user->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            <input type="hidden" name="byUser" id="" value="{{$data['user']->id}}">
+                                            {{--                                            <div class="col-lg-4">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="byUser">By User</label>--}}
+{{--                                                    <select name="byUser" id="byUser" class="form-control">--}}
+{{--                                                        @foreach($data['users'] as $user)--}}
+{{--                                                            <option value="{{$user->id}}">{{$user->name}}</option>--}}
+{{--                                                        @endforeach--}}
+{{--                                                    </select>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label for="byUser">Select Otp</label>

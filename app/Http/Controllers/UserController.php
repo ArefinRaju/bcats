@@ -12,7 +12,6 @@ use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
-use Helper\Repo\AccountRepository;
 use Helper\Repo\EMIRepository;
 use Helper\Repo\EmiUserRepository;
 use Helper\Repo\UserRepository;
@@ -20,7 +19,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -193,19 +191,18 @@ class UserController extends HelperController
     {
         $user = $this->repo->getById($request, $memberId);
         if (!$this->isAPI()) {
-            $emiRepo          = new EMIRepository();
-            $emiUserRepo      = new EmiUserRepository();
-            $accountRepo      = new AccountRepository();
-            $role             = Acl::decodeRole($user->acl);
-            $otp              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
-            $emi              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
-            $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-            $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
-            $emiList          = $emiRepo->emiListWithOutPagination($request);
-            $otpList          = $emiRepo->otpListWithOutPagination($request);
-            $emiTransactionList          = $emiRepo->otpTransectionList($request,$memberId);
-            $otpTransactionList          = $emiRepo->otpListWithOutPagination($request);
-            return $this->respond(compact('user', 'otp', 'emi', 'transactionCount', 'role', 'users', 'emiList', 'otpList','emiTransactionList','otpTransactionList'), [], 'admin.pages.profile.member');
+            $emiRepo                     = new EMIRepository();
+            $emiUserRepo                 = new EmiUserRepository();
+            $role                        = Acl::decodeRole($user->acl);
+            $otp                         = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
+            $emi                         = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
+            $users                       = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
+            $emiList                     = $emiRepo->emiListWithOutPagination($request);
+            $otpList                     = $emiRepo->otpListWithOutPagination($request);
+            $emiTransactionList          = $emiRepo->otpEmiTransactionList($request,$memberId,false);
+            $otpTransactionList          = $emiRepo->otpEmiTransactionList($request,$memberId,true);
+
+            return $this->respond(compact('user', 'otp', 'emi', 'role', 'users', 'emiList', 'otpList','emiTransactionList','otpTransactionList'), [], 'admin.pages.profile.member');
         }
         return $this->respond($user, [], '');
     }
