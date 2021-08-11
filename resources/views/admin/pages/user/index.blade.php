@@ -84,7 +84,7 @@ User
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a href="{{ url('/user-create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                            <i class="la la-plus"></i>New User</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -95,9 +95,10 @@ User
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Role</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
-                                <th>Actions</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,19 +106,20 @@ User
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
+                                <td>{{ base64_decode($user->acl) }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->mobile }}</td>
                                 <td nowrap="nowrap">
-                                    <div class="float-right">
+                                    <div class="d-flex justify-content-center">
 
                                         <form action="{{url('user', $user->id)}}" method="post">
                                             <input type="hidden" name="_method" value="DELETE">
                                             @csrf
-                                            <a href="{{ url('user-edit', $user->id) }}" class="btn btn-primary">
+                                            <a href="{{ url('user-edit', $user->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Edit
                                             </a>
-                                            <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                            <button id="btnDelete" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
 
 
@@ -127,6 +129,7 @@ User
                             @endforeach
                         </tbody>
                     </table>
+                    {{$data->links()}}
                     <!--end: Datatable-->
                 </div>
             </div>
