@@ -148,11 +148,6 @@ Route::get(
         return view('admin.pages.blank.table');
     }
 );
-
-
-// Route::get('/userType/{userType}', 'UserController@showByUserType')->name('member.list');
-
-
 CombinedRoute::resourceRoute('/product', 'ProductController', []);
 
 Route::get('/user-create', 'UserController@createForm');

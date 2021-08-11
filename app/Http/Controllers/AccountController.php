@@ -182,6 +182,7 @@ class AccountController extends HelperController
     {
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->memberTransactions($request, $pagination->per_page, $pagination->page);
+
         return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
     }
 

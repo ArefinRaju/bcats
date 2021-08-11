@@ -90,7 +90,6 @@ Dashboard
                                 <th>#</th>
                                 <th>Member Name</th>
                                 <th>Phone</th>
-                                <th>Required</th>
                                 <th>Type</th>
                                 <th>Total</th>
                                 <th>Due</th>
@@ -103,7 +102,6 @@ Dashboard
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$r->name??''}}</td>
                                 <td>{{$r->mobile??''}}</td>
-                                <td>{{$r->required??''}}</td>
                                 <td>{{$r->type??''}}</td>
                                 <td>{{$r->employee??''}}</td>
                                 <td>{{$r->due??''}}</td>

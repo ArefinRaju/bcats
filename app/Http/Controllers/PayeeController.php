@@ -187,6 +187,7 @@ class PayeeController extends HelperController
             }
         }
         $data = $this->repo->getByType($request, $payeeType);
+
         return $this->respond($data, [], 'admin.pages.payee.suppliersList');
     }
 

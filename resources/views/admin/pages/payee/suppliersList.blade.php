@@ -93,6 +93,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Role</th>
                                 <th>Mobile</th>
                                 <th>Total</th>
                                 <th>Paid</th>
@@ -107,20 +108,18 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->type }}</td>
                                     <td>{{ $item->mobile }}</td>
                                     <td>{{( $item->paid + $item->due == 0) ? 0 : $item->paid + $item->due}}</td>
                                     <td>{{ ($item->paid == 0) ? 0 : $item->paid }}</td>
                                     <td>{{ ($item->due == 0) ? 0 : $item->due }}</td>
                                     <td>
                                     <div class="text-center">
-
                                         <form action="{{url('payee', $item->id)}}" method="post">
+                                            <a href="{{url('/supplier/'.$item->id)}}" class="btn btn-primary btn-sm">View</a>
                                             <input type="hidden" name="_method" value="DELETE">
                                             @csrf
-                                            <a href="{{ url('payee-edit', $item->id) }}" class="btn  btn-sm btn-primary">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                                Edit
-                                            </a>
+
                                             <a href="{{ url('transaction', $item->id) }}" class="btn btn-sm  btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Transaction
@@ -128,6 +127,10 @@
                                             <a href="{{ url('invoice', $item->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Invoice
+                                            </a>
+                                            <a href="{{ url('payee-edit', $item->id) }}" class="btn  btn-sm btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Edit
                                             </a>
                                             <button id="btnDelete" class="btn  btn-sm btn-danger">Delete</button>
                                         </form>
