@@ -1,13 +1,7 @@
 @extends('admin.layouts.master')
-@section('title')
-Project Create
-@endsection
-@section('css')
+@section('title','Project Create')
 
-@endsection
-@section('js')
 
-@endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Subheader-->
@@ -91,7 +85,7 @@ Project Create
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Deadline:</label>
-                                            <input name="deadline" type="text" class="form-control form-control-solid" placeholder="Y/M/D" />
+                                            <input name="deadline" type="text" id="dateLine" class="form-control form-control-solid" placeholder="Y/M/D" />
                                         </div>
                                     </div>
                                 </div>
@@ -111,4 +105,15 @@ Project Create
     </div>
     <!--end::Entry-->
 </div>
+
+@endsection
+@section('js')
+    <script>
+        $('#dateLine').daterangepicker({
+            singleDatePicker: true,
+            locale: {
+                format: 'YYYY/MM/DD'
+            }
+        });
+    </script>
 @endsection
