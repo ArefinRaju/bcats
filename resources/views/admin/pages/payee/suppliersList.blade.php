@@ -2,13 +2,6 @@
 @section('title')
     Supplier
 @endsection
-@section('js')
-
-@endsection
-@section('css')
-    <link href="{{ asset('admin/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-          type="text/css"/>
-@endsection
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">

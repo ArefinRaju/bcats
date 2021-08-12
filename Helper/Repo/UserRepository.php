@@ -31,6 +31,7 @@ class UserRepository extends EntityRepository
     public function list(Request $request,int $perPage = null, int $page = null)
     {
         return User::orderBy('name', 'asc')
+            ->where('project_id',$request->user()->project_id)
             ->paginate($perPage, ['*'], 'page', $page);
     }
 
