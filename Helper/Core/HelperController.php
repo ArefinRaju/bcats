@@ -106,11 +106,11 @@ class HelperController extends Controller
     /**
      * @param  Request  $request
      * @param  array  $rules
-     * @return bool|RedirectResponse
+     * @return bool
      * @throws UserFriendlyException
      */
 
-    public function validate(Request $request, array $rules)
+    public function validate(Request $request, array $rules): bool
     {
         $validation = Validator::make($request->all(), $rules);
         if ($validation->fails()) {
