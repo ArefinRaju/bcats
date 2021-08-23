@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-Dedit
+Debit
 @endsection
 @section('js')
 
@@ -118,9 +118,9 @@ Dedit
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->material_name}}</td>
                                     <td>{{$item->user_name}}</td>
-                                    <td>{{$item->total." ".$item->enum}}</td>
+                                    <td>{{$item->total + $item->debit." ".$item->enum}}</td>
                                     <td>{{$item->used." ".$item->enum}}</td>
-                                    <td>{{$item->total - $item->used ." ".$item->enum}}</td>
+                                    <td>{{$item->total/*latestAfterTrans*/ ." ".$item->enum}}</td>
                                     <td>{{$item->comment}}</td>
                                     <td>{{date('d-M-Y',strtotime($item->updated_at))}}</td>
                                 </tr>

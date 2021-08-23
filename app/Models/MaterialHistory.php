@@ -17,6 +17,7 @@ use Helper\Repo\Entity;
  * @property string comment
  * @property int project_id
  * @property int used
+ * @property int latestAfterTrans
  */
 class MaterialHistory extends Entity
 {

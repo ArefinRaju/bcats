@@ -40,6 +40,7 @@ final class Material implements Calculator
     public int                        $used;
     public string                     $comment;
     public int                        $project_id;
+    public int                        $latestAfterTrans;
 
     /**
      * @throws UserFriendlyException
@@ -87,17 +88,19 @@ final class Material implements Calculator
      */
     public static function credit(Request $request, int $payeeId, int $materialId, int $quantity): Material
     {
-        $invoice              = (new InvoiceRepository())->create($request);
-        $instance             = new Material($request, $materialId);
-        $instance->invoice_id = $invoice->id;
-        $instance->amount     = $quantity;
-        $instance->credit     = $instance->amount;
-        $instance->payee_id   = $payeeId;
-        $instance->payee_name = $instance->getPayee($request, $payeeId)->name;
-        $instance->comment    = $request->input('comment') ?? '';
-        $instance->total      = $instance->oldRecord->total + $instance->credit;
-        $instance->required   = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
+        $invoice                    = (new InvoiceRepository())->create($request);
+        $instance                   = new Material($request, $materialId);
+        $instance->invoice_id       = $invoice->id;
+        $instance->amount           = $quantity;
+        $instance->credit           = $instance->amount;
+        $instance->payee_id         = $payeeId;
+        $instance->payee_name       = $instance->getPayee($request, $payeeId)->name;
+        $instance->comment          = $request->input('comment') ?? '';
+        $instance->total            = $instance->oldRecord->total + $instance->credit;
+        $instance->latestAfterTrans = $instance->total;
+        $instance->required         = $instance->negativeChecker($instance->oldRecord->required - $instance->amount);
         Account::payPayee($request, $request->input('paidAmount'), $instance->payee_id, $instance->comment, $invoice->id);
+        $instance->repo->debitLatestAfterTrans($instance->material_id, $instance->total);
         $instance->assignAndSave($instance);
         $instance->assignCategory($request, $instance);
         return $instance;
@@ -108,13 +111,15 @@ final class Material implements Calculator
      */
     public static function debit(Request $request, int $materialId, int $quantity, string $comment = ''): Material
     {
-        $instance           = new Material($request, $materialId);
-        $instance->amount   = $quantity;
-        $instance->debit    = $instance->amount;
-        $instance->comment  = $comment;
-        $instance->total    = $instance->oldRecord->total - $instance->debit;
-        $instance->used     = $instance->oldRecord->used + $instance->debit;
-        $instance->required = $instance->oldRecord->required;
+        $instance                   = new Material($request, $materialId);
+        $instance->amount           = $quantity;
+        $instance->debit            = $instance->amount;
+        $instance->comment          = $comment;
+        $instance->total            = $instance->oldRecord->total - $instance->debit;
+        $instance->latestAfterTrans = $instance->total;
+        $instance->used             = $instance->oldRecord->used + $instance->debit;
+        $instance->required         = $instance->oldRecord->required;
+        $instance->repo->creditLatestAfterTrans($instance->material_id, $instance->total);
         $instance->assignAndSave($instance);
         $instance->assignCategory($request, $instance);
         return $instance;
