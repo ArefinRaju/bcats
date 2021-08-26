@@ -5,8 +5,11 @@ namespace Helper\Repo;
 
 
 use App\Models\Emi;
+use App\Models\EmiUser;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Account As AccountModel;
 
 class EMIRepository extends EntityRepository
 {
@@ -42,6 +45,13 @@ class EMIRepository extends EntityRepository
                   ->get();
     }
 
+    public function otpEmiTransactionList(Request $request, $memberId, bool $isOtp)
+    {
+
+        return EmiUser::leftJoin('accounts','accounts.emi_id','emi_users.emi_id')
+            ->where('emi_users.otp',$isOtp)
+            ->where('accounts.user_id',$memberId)->get();
+    }
     /**
      * @param  string  $id
      * @return bool
@@ -72,6 +82,14 @@ class EMIRepository extends EntityRepository
                          ->where('emi_users.user_id', $userId)
                          ->where('emi_users.status', 0)
                          ->where('emis.otp', $otp)
+                         ->sum('emi_users.due');
+    }
+    public function getAllEmiDueByUserAndEmiType(Request $request, bool $otp = false): float
+    {
+        return (float)Emi::Join('emi_users', 'emis.id', '=', 'emi_users.emi_id')
+                         ->where('emi_users.status', 0)
+                         ->where('emis.otp', $otp)
+                         ->where('emis.project_id', $request->user()->project_id)
                          ->sum('emi_users.due');
     }
 }

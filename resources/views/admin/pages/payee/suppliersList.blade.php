@@ -2,13 +2,6 @@
 @section('title')
     Supplier
 @endsection
-@section('js')
-
-@endsection
-@section('css')
-    <link href="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet"
-          type="text/css"/>
-@endsection
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -20,7 +13,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">Supplier</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Payee List</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -40,52 +33,40 @@
                             <span class="card-icon">
                                 <i class="flaticon2-favourite text-primary"></i>
                             </span>
-                            <h3 class="card-label">Supplier List</h3>
+                            <h3 class="card-label">Supplier,Employee & Contractor</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
                             <div class="dropdown dropdown-inline mr-2">
                                 <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="la la-download"></i>Export
+                                    <i class="la la-download"></i>Filter
                                 </button>
                                 <!--begin::Dropdown Menu-->
                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <ul class="nav flex-column nav-hover">
-                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2">
+                                        <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2 text-center">
                                             Choose an
                                             option:
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{url('supplierList/SUPPLIER')}}" class="nav-link">
                                                 <i class="nav-icon la la-print"></i>
-                                                <span class="nav-text">Print</span>
+                                                <span class="nav-text">SUPPLIER</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-copy"></i>
-                                                <span class="nav-text">Copy</span>
+                                            <a href="{{url('supplierList/EMPLOYEE')}}" class="nav-link">
+                                                <i class="nav-icon la la-print"></i>
+                                                <span class="nav-text">EMPLOYEE</span>
+                                            </a>
+                                        </li> <li class="nav-item">
+                                            <a href="{{url('supplierList/CONTRACTOR')}}" class="nav-link">
+                                                <i class="nav-icon la la-print"></i>
+                                                <span class="nav-text">CONTRACTOR</span>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-file-excel-o"></i>
-                                                <span class="nav-text">Excel</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-file-text-o"></i>
-                                                <span class="nav-text">CSV</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon la la-file-pdf-o"></i>
-                                                <span class="nav-text">PDF</span>
-                                            </a>
-                                        </li>
+
                                     </ul>
                                 </div>
                                 <!--end::Dropdown Menu-->
@@ -105,7 +86,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Email</th>
+                                <th>Role</th>
                                 <th>Mobile</th>
                                 <th>Total</th>
                                 <th>Paid</th>
@@ -120,21 +101,18 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->address }}</td>
+                                    <td>{{ $item->type }}</td>
                                     <td>{{ $item->mobile }}</td>
-                                    <td>{{ $item->paid + $item->due }}</td>
-                                    <td>{{ $item->paid }}</td>
-                                    <td>{{ $item->due }}</td>
+                                    <td>{{( $item->paid + $item->due == 0) ? 0 : $item->paid + $item->due}}</td>
+                                    <td>{{ ($item->paid == 0) ? 0 : $item->paid }}</td>
+                                    <td>{{ ($item->due == 0) ? 0 : $item->due }}</td>
                                     <td>
                                     <div class="text-center">
-
                                         <form action="{{url('payee', $item->id)}}" method="post">
+                                            <a href="{{url('/supplier/'.$item->id)}}" class="btn btn-primary btn-sm">View</a>
                                             <input type="hidden" name="_method" value="DELETE">
                                             @csrf
-                                            <a href="{{ url('payee-edit', $item->id) }}" class="btn  btn-sm btn-primary">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                                Edit
-                                            </a>
+
                                             <a href="{{ url('transaction', $item->id) }}" class="btn btn-sm  btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Transaction
@@ -143,9 +121,13 @@
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Invoice
                                             </a>
+                                            <a href="{{ url('payee-edit', $item->id) }}" class="btn  btn-sm btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Edit
+                                            </a>
                                             <button id="btnDelete" class="btn  btn-sm btn-danger">Delete</button>
                                         </form>
-
+                                    </div>
                                     </td>
                             @endforeach
 

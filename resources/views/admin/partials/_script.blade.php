@@ -64,13 +64,14 @@
 		};
 	</script>
 	<!--end::Global Config-->
+
 	<!--begin::Global Theme Bundle(used by all pages)-->
-	<script src="{{asset('admin')}}/assets/plugins/global/plugins.bundle.js?v=7.0.4"></script>
-	<script src="{{asset('admin')}}/assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.4"></script>
-	<script src="{{asset('admin')}}/assets/js/scripts.bundle.js?v=7.0.4"></script>
+	<script src="{{asset('admin')}}/assets/plugins/global/plugins.bundle.js"></script>
+	<script src="{{asset('admin')}}/assets/js/scripts.bundle.js"></script>
+	<script src="{{asset('admin')}}/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
 	<!--end::Global Theme Bundle-->
 	<!--begin::Page Vendors(used by this page)-->
-	
+
 	<!--end::Page Vendors-->
 	<script src="{{asset('admin')}}/assets/css/toastr.min.js"></script>
 {!! Toastr::message() !!}

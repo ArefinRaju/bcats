@@ -3,11 +3,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\MaterialHistory;
 use Helper\Calculator\Material;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
+use Helper\Repo\CategoryRepository;
 use Helper\Repo\MaterialHistoryRepository;
 use Helper\Repo\MaterialRepository;
 use Helper\Repo\PayeeRepository;
@@ -46,14 +48,16 @@ class MaterialHistoryController extends HelperController
 
     public function debitForm(Request $request)
     {
-        $materials = $this->materialRepo->materialList($request);
-        return view('admin.pages.material_history.debit.create', compact('materials'));
+        $categories      = Category::all();
+//        $materials = $this->materialRepo->materialList($request);
+        return view('admin.pages.material_history.debit.create', compact('categories'));
     }
 
     public function demandForm(Request $request)
     {
-        $materials = $this->materialRepo->materialList($request);
-        return view('admin.pages.material_history.demand.create', compact('materials'));
+        $categoryRepo=new CategoryRepository();
+        $category=$categoryRepo->list();
+        return $this->respond($category,[],'admin.pages.material_history.demand.create');
     }
 
     public function stockForm(Request $request)

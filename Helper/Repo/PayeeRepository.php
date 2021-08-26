@@ -86,14 +86,19 @@ class PayeeRepository extends EntityRepository
                 ->orWhere('mobile', 'like', '%' . Request()->input('query') . '%')
                 ->orWhere('address', 'like', '%' . Request()->input('query') . '%');
         })
-            ->where('type', PayeeType::SUPPLIER)
+            ->whereIn('type', [PayeeType::SUPPLIER,PayeeType::EMPLOYEE,PayeeType::CONTRACTOR])
             ->where('project_id', $request->input('project_id'))
             ->get();
     }
 
     public function getByType($request, $supplierType)
     {
-        return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')
-            ->where('payees.type', $supplierType)->where('payees.project_id', $request->user()->project_id)->get();
+        if (isset($supplierType)){
+            return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')
+                ->where('payees.type', $supplierType)->where('payees.project_id', $request->user()->project_id)->get();
+        }else{
+            return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')->where('payees.project_id', $request->user()->project_id)->get();
+        }
+
     }
 }

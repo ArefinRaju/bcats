@@ -5,8 +5,10 @@ namespace Helper\Calculator;
 
 
 use App\Models\Account as Model;
+use App\Models\Payee;
 use App\Models\User;
 use Helper\ACL\Acl;
+use Helper\ACL\Permission;
 use Helper\ACL\Roles;
 use Helper\Constants\Errors;
 use Helper\Constants\PayeeType;
@@ -85,15 +87,24 @@ final class Account implements Calculator
      */
     public static function fund(Request $request, int $amount, int $emi_id, int $by_user, string $comment = ''): Account
     {
-        $instance           = new Account($request);
-        $instance->emi_id   = $emi_id;
-        $instance->type     = Transaction::EMI;
-        $instance->is_fund  = true;
-        $instance->amount   = $instance->negativeChecker($amount);
-        $instance->comment  = $request->input('comment') ?? $comment;
-        $instance->total    = $instance->oldRecord->total;
+        $instance          = new Account($request);
+        $instance->emi_id  = $emi_id;
+        $instance->type    = Transaction::EMI;
+        $instance->amount  = $instance->negativeChecker($amount);
+        $instance->comment = $request->input('comment') ?? $comment;
+
+        if (Acl::isAuthorized($request, Permission::PAY_BILLS)) {
+            $instance->is_fund = false;
+            $instance->total   = $instance->oldRecord->total + $instance->amount;
+            $instance->due     = $instance->oldRecord->due;
+            $instance->credit  = $instance->amount;
+        } else {
+            $instance->is_fund = true;
+            $instance->total   = $instance->oldRecord->total;
+            $instance->due     = $instance->oldRecord->due + $instance->amount;
+        }
+
         $instance->required = $instance->oldRecord->required;
-        $instance->due      = $instance->oldRecord->due + $instance->amount;
         $instance->employee = $instance->oldRecord->employee;
         $instance->by_user  = $by_user;
         $instance->updateUserEmi($request, $amount, $emi_id, $by_user);
@@ -125,13 +136,17 @@ final class Account implements Calculator
     {
         $instance            = new Account($request);
         $instance->payeeRepo = new PayeeRepository();
-        $instance->type      = Transaction::DEBIT;
-        $instance->is_fund   = false;
-        $instance->payee_id  = $payeeId;
-        $instance->amount    = $instance->negativeChecker($amount);
-        $instance->comment   = $request->input('comment') ?? $comment;
-        $instance->debit     = $instance->amount;
-        $instance->due       = $instance->oldRecord->due;
+        $payee               = $instance->payeeRepo->getById($instance->request, $payeeId);
+        if (!$payee->status) {
+            throw new UserFriendlyException(Errors::FORBIDDEN);
+        }
+        $instance->type     = Transaction::DEBIT;
+        $instance->is_fund  = false;
+        $instance->payee_id = $payeeId;
+        $instance->amount   = $instance->negativeChecker($amount);
+        $instance->comment  = $request->input('comment') ?? $comment;
+        $instance->debit    = $instance->amount;
+        $instance->due      = $instance->oldRecord->due;
         if ($instance->isUserType($instance, Roles::EMPLOYEE, $request->user()->id)) {
             $instance->total    = $instance->oldRecord->total;
             $instance->employee = $instance->oldRecord->employee - $amount;
@@ -145,7 +160,7 @@ final class Account implements Calculator
         if (!empty($invoiceId)) {
             $instance->invoice_id = $invoiceId;
         }
-        $instance->updatePayeeData($instance);
+        $instance->updatePayeeData($instance, $payee);
         $instance->assignAndSave($instance);
         return $instance;
     }
@@ -254,7 +269,9 @@ final class Account implements Calculator
     {
         switch ($type) {
             case Transaction::EMI:
-                $this->creditUserOnHoldAmount($instance);
+                if (!Acl::isAuthorized($instance->request, Permission::PAY_BILLS)) {
+                    $this->creditUserOnHoldAmount($instance);
+                }
                 $this->updateUsersDueAndContribution($instance);
                 break;
             case Transaction::CREDIT:
@@ -305,9 +322,8 @@ final class Account implements Calculator
         return false;
     }
 
-    private function updatePayeeData(Account $instance): void
+    private function updatePayeeData(Account $instance, Payee $payee): void
     {
-        $payee = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
         if ($payee->type === PayeeType::SUPPLIER) {
             if (!empty($instance->invoice_id)) {
                 $due        = $instance->request->input('amount') - $instance->amount;

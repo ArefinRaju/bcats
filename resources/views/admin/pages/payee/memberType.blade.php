@@ -5,10 +5,6 @@
 @section('js')
 
 @endsection
-@section('css')
-    <link href="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet"
-        type="text/css" />
-@endsection
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -40,7 +36,7 @@
                             <span class="card-icon">
                                 <i class="flaticon2-favourite text-primary"></i>
                             </span>
-                            <h3 class="card-label">Member List</h3>
+                            <h3 class="card-label">Admin,Member & Fund Collector</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
@@ -90,7 +86,7 @@
                             <!--end::Dropdown-->
                             <!--begin::Button-->
                             <a href="{{ url('/user-create') }}" class="btn btn-primary font-weight-bolder">
-                                <i class="la la-plus"></i>New Record</a>
+                                <i class="la la-plus"></i>New Member</a>
                             <!--end::Button-->
                         </div>
                     </div>
@@ -102,12 +98,12 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Mobile</th>
+                                    <th>EMI Due</th>
+                                    <th>OTP Due</th>
                                     <th>Total Due</th>
                                     <th>On Hold</th>
-                                    <th>OTP Due</th>
-                                    <th>EMI Due</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -117,13 +113,17 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->email }}</td>
+                                        <td>
+                                            <span class="text-dark-75 font-size-lg">{{$item->name}}</span>
+                                        </td>
+                                        <td>
+                                            <span class="font-weight-bold d-block">{{base64_decode($item->acl)}}</span>
+                                        </td>
                                         <td>{{ $item->mobile }}</td>
-                                        <td>{{ $item->due}}</td>
-                                        <td>{{ $item->on_hold}}</td>
                                         <td>{{ $item->emiDue }}</td>
                                         <td>{{ $item->otpDue }}</td>
+                                        <td>{{ $item->due}}</td>
+                                        <td>{{ $item->on_hold}}</td>
                                         <td>
                                             <a href="{{ url('member/'.$item->id) }}" class="btn btn-sm btn-success">View</a>
                                             <a href="{{ url('user-edit/'.$item->id) }}" class="btn btn-sm btn-primary">Edit</a>
@@ -144,11 +144,11 @@
     </div>
     <!--end::Content-->
 @endsection
-@section('js')
-    <!--begin::Page Vendors(used by this page)-->
-    <script src="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-    <!--end::Page Vendors-->
-    <!--begin::Page Scripts(used by this page)-->
-    <script src="{{ asset('admin') }}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-    <!--end::Page Scripts-->
-@endsection
+{{--@section('js')--}}
+{{--    <!--begin::Page Vendors(used by this page)-->--}}
+{{--    <script src="{{ asset('admin') }}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>--}}
+{{--    <!--end::Page Vendors-->--}}
+{{--    <!--begin::Page Scripts(used by this page)-->--}}
+{{--    <script src="{{ asset('admin') }}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>--}}
+{{--    <!--end::Page Scripts-->--}}
+{{--@endsection--}}

@@ -1,13 +1,5 @@
 @extends('admin.layouts.master')
-@section('title')
-Material
-@endsection
-@section('js')
-
-@endsection
-@section('css')
-<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
-@endsection
+@section('title','Material')
 @section('content')
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -86,7 +78,7 @@ Material
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                      
+
                         <!--end::Button-->
                     </div>
                 </div>
@@ -96,10 +88,10 @@ Material
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Total</th>
-                                <th>Required</th>
-                                <th>Used</th>
+                                <th>Material Name</th>
+                                <th>Total Purchesed</th>
+                                <th>Total Used</th>
+                                <th>Remain Stock</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,8 +100,8 @@ Material
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->total.$item->enum}}</td>
-                                <td>{{$item->required.$item->enum}}</td>
                                 <td>{{$item->used.$item->enum}}</td>
+                                <td>{{$item->total -$item->used .$item->enum}}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -125,11 +117,4 @@ Material
 </div>
 <!--end::Content-->
 @endsection
-@section('js')
-<!--begin::Page Vendors(used by this page)-->
-<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-<!--end::Page Vendors-->
-<!--begin::Page Scripts(used by this page)-->
-<script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-<!--end::Page Scripts-->
-@endsection
+

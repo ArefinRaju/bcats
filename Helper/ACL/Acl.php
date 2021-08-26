@@ -53,7 +53,7 @@ class Acl
     {
         $role = self::getUser($request)->acl;
         if (!in_array($role, Roles::values())) {
-            // It might encoded, we doing double check
+            // It might be encoded, we are doing double-check
             $role = self::decodeRole($role);
             if (!in_array($role, Roles::values())) {
                 throw new UserFriendlyException(Errors::AUTHENTICATION_TOKEN_MALFORMED);

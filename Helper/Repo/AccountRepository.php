@@ -43,7 +43,8 @@ class AccountRepository extends EntityRepository
 
     public function memberTransactions(Request $request, ?int $perPage = 10, ?int $page = null)
     {
-        return Account::leftJoin('users', 'users.id', 'accounts.by_user',)
+        return Account::select('*')->leftJoin('users', 'users.id', 'accounts.by_user')
+
                       ->whereNotNull('by_user')
                       ->where('accounts.project_id', $request->user()->project_id)
                       ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
@@ -51,7 +52,7 @@ class AccountRepository extends EntityRepository
 
     public function supplierTransactions(Request $request, ?int $perPage = 10, ?int $page = null)
     {
-        return Account::leftJoin('users', 'users.id', 'accounts.user_id',)
+        return Account::leftJoin('users', 'users.id', 'accounts.user_id')
                       ->whereNotNull('accounts.payee_id')
                       ->where('accounts.project_id', $request->user()->project_id)
                       ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
@@ -66,7 +67,25 @@ class AccountRepository extends EntityRepository
 
     public function getTransactionOfUser(Request $request, int $perPage = null, int $page = null)
     {
-        return Account::leftJoin('users', 'accounts.user_id', 'users.id')->where('accounts.project_id', $request->user()->project_id)->paginate($perPage, ['*'], 'page', $page);
+        return Account::leftJoin('users', 'accounts.user_id', 'users.id')
+            ->where('accounts.project_id', $request->user()->project_id)
+            ->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function getMainAccountBalance(Request $request, $role){
+        return Account::leftJoin('users', 'accounts.user_id', 'users.id')
+            ->where('accounts.project_id', $request->user()->project_id)
+            ->where('users.acl',$role)->latest('accounts.id')->first('accounts.total');
+
+
+    }
+    public function getEmployeeAccountBalance(Request $request, $role){
+        return Account::leftJoin('users', 'accounts.by_user', 'users.id')
+            ->where('accounts.project_id', $request->user()->project_id)
+            ->where('users.acl',$role)->latest('accounts.id')->first('accounts.employee');
+
+
+
     }
 
     public function getListOfAmountDebitedByEmployee(Request $request, int $perPage = null, int $page = null)

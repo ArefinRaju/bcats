@@ -12,7 +12,6 @@ use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
-use Helper\Repo\AccountRepository;
 use Helper\Repo\EMIRepository;
 use Helper\Repo\EmiUserRepository;
 use Helper\Repo\UserRepository;
@@ -20,7 +19,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -73,7 +71,7 @@ class UserController extends HelperController
     /**
      * @param  Request  $request
      * @param  string|null  $action
-     * @return Application|Factory|View|JsonResponse|RedirectResponse
+     * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
      */
     public function create(Request $request, string $action = null)
@@ -88,7 +86,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users      = $this->repo->list($pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($request,$pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
@@ -103,7 +101,7 @@ class UserController extends HelperController
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $user       = $this->repo->list($pagination->per_page, $pagination->page);
+        $user       = $this->repo->list($request,$pagination->per_page, $pagination->page);
         return $this->respond($user, [], 'admin.pages.user.index');
     }
 
@@ -118,7 +116,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users      = $this->repo->list($pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($request,$pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, []);
@@ -155,7 +153,7 @@ class UserController extends HelperController
         $this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $materials  = $this->repo->list($pagination->per_page, $pagination->page);
+            $materials  = $this->repo->list($request,$pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $materials);
         }
         return $this->respond(null, [], 'admin.pages.user.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
@@ -193,31 +191,26 @@ class UserController extends HelperController
     {
         $user = $this->repo->getById($request, $memberId);
         if (!$this->isAPI()) {
-            $emiRepo          = new EMIRepository();
-            $emiUserRepo      = new EmiUserRepository();
-            $accountRepo      = new AccountRepository();
-            $role             = Acl::decodeRole($user->acl);
-            $otp              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
-            $emi              = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
-            $transactionCount = $accountRepo->getTransactionByUser($request, $memberId);
-            $users            = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
-            $emiList          = $emiRepo->emiListWithOutPagination($request);
-            $otpList          = $emiRepo->otpListWithOutPagination($request);
-            return $this->respond(compact('user', 'otp', 'emi', 'transactionCount', 'role', 'users', 'emiList', 'otpList'), [], 'admin.pages.profile.member');
+            $emiRepo                     = new EMIRepository();
+            $emiUserRepo                 = new EmiUserRepository();
+            $role                        = Acl::decodeRole($user->acl);
+            $otp                         = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
+            $emi                         = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
+            $users                       = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
+            $emiList                     = $emiRepo->emiListWithOutPagination($request);
+            $otpList                     = $emiRepo->otpListWithOutPagination($request);
+            $emiTransactionList          = $emiRepo->otpEmiTransactionList($request,$memberId,false);
+            $otpTransactionList          = $emiRepo->otpEmiTransactionList($request,$memberId,true);
+
+            return $this->respond(compact('user', 'otp', 'emi', 'role', 'users', 'emiList', 'otpList','emiTransactionList','otpTransactionList'), [], 'admin.pages.profile.member');
         }
         return $this->respond($user, [], '');
     }
 
-    /**
-     * @throws UserFriendlyException
-     */
+
     public function showByUserType(Request $request, string $userType)
     {
-        if (!Roles::search(strtoupper($userType))) {
-            throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
-        }
-
-        $users        = $this->repo->getByType($request, $userType);
+        $users        = $this->repo->getAllMember($request);
         $emiRepo      = new EMIRepository();
         $newUsersData = [];
 
@@ -228,5 +221,12 @@ class UserController extends HelperController
         }
 
         return $this->respond($newUsersData, [], 'admin.pages.payee.memberType');
+    }
+
+
+    public function getUserDataByAjax(Request $request): JsonResponse
+    {
+        $user = $this->repo->getById($request, $request->id);
+        return response()->json($user);
     }
 }

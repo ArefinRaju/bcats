@@ -6,7 +6,31 @@ Dashboard
 
 @endsection
 @section('js')
+<script src="{{ asset('vue-js/axios/dist/axios.min.js') }}"></script>
 
+<script>
+
+$('#collectorId').change(function(){
+const id=$('#collectorId').val();
+                axios.post('/user-details-ajax',{
+                    id:id
+                }).then(res=>{
+                    const onHold=res.data.on_hold
+                    const absoluteValue=Math.abs(onHold);
+                    console.log(Math.sign(absoluteValue));
+
+                    if(Math.sign(absoluteValue) == true){
+                        $('#amount').val(absoluteValue);
+                    }else{
+                        $('#amount').val(0);
+
+                    }
+
+                }).catch(err => {
+                console.log(err)
+            })
+});
+</script>
 @endsection
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -52,10 +76,11 @@ Dashboard
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Payee:</label>
-                                            <select class="form-control form-control-solid" name="payeeId">
-                                                @foreach($payees as $payee)
-                                                <option value="{{$payee->id}}">{{ $payee->name }}</option>
+                                            <label>By Collector</label>
+                                            <select class="form-control form-control-solid" name="payeeId" id="collectorId">
+                                                <option value="0">Select Collector</option>
+                                                @foreach($users as $usersItem)
+                                                <option value="{{$usersItem->id}}">{{ $usersItem->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -63,8 +88,8 @@ Dashboard
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>Amount:</label>
-                                            <input type="text" name="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
-                                         
+                                            <input type="text" name="amount" id="amount" class="form-control form-control-solid" placeholder="Enter Amount" />
+
                                         </div>
                                     </div>
                                 </div>
@@ -85,3 +110,4 @@ Dashboard
     <!--end::Entry-->
 </div>
 @endsection
+

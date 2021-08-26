@@ -1,12 +1,12 @@
 @extends('admin.layouts.master')
 @section('title')
-Dedit
+Debit
 @endsection
 @section('js')
 
 @endsection
 @section('css')
-    <link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet"
+    <link href="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet"
           type="text/css"/>
 @endsection
 @section('content')
@@ -103,10 +103,8 @@ Dedit
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Debit</th>
-                                <th>User</th>
-                                <th>Total</th>
+                                <th>Material Name</th>
+                                <th>Used By</th>
                                 <th>Used</th>
                                 <th>Comment</th>
                                 <th>Date</th>
@@ -117,12 +115,10 @@ Dedit
                                 <tr>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->material_name}}</td>
-                                    <td>{{$item->debit." ".$item->enum}}</td>
                                     <td>{{$item->user_name}}</td>
-                                    <td>{{$item->total." ".$item->enum}}</td>
                                     <td>{{$item->used." ".$item->enum}}</td>
                                     <td>{{$item->comment}}</td>
-                                    <td>{{date('d-M-Y',strtotime($item->updated_at))}}</td>
+                                    <td>{{$item->updated_at}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -138,11 +134,4 @@ Dedit
     </div>
     <!--end::Content-->
 @endsection
-@section('js')
-    <!--begin::Page Vendors(used by this page)-->
-    <script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-    <!--end::Page Vendors-->
-    <!--begin::Page Scripts(used by this page)-->
-    <script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-    <!--end::Page Scripts-->
-@endsection
+

@@ -88,25 +88,26 @@ Dashboard
                 <div class="col-lg-6 col-xxl-6">
                     <!--begin::Mixed Widget 4-->
                     <div class="card mb-4">
-                        <div class="card-body d-flex flex-column py-0">
+                        <div class="card-body d-flex flex-column p-0">
 
                             <!--begin::Stats-->
                             <div class="card-spacer bg-white card-rounded flex-grow-1">
                                 <!--begin::Row-->
-                                <div class="row m-0">
+                                <div class="row m-0 text-center">
                                     <div class="col py-6">
-                                        <div class="font-size-h5-xl text-primary font-weight-bold">Total</div>
-                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->total}}</div>
+                                        <div class="font-size-h5-xl text-primary font-weight-bold">Main Account</div>
+                                         <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;@if($data['mainAccountBalance']){{$data['mainAccountBalance']->total}}@else 0 @endif</div>
+                                    </div>
+                                    <div class="col py-6">
+                                        <div class="font-size-h5-xl text-success font-weight-bold">Employee Account</div>
+                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;@if($data['mainEmployeeBalance']){{$data['mainEmployeeBalance']->employee}}@else 0 @endif</div>
                                     </div>
 
                                     <div class="col py-6">
                                         <div class="font-size-h5-xl text-warning font-weight-bold">Due</div>
-                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->Due}}</div>
+                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data['amountsData']['otpDue'] + $data['amountsData']['emiDue']}}</div>
                                     </div>
-                                    <div class="col py-6">
-                                        <div class="font-size-h5-xl text-success font-weight-bold">Collection</div>
-                                        <div class="font-size-h4 font-weight-bolder">&#2547;&nbsp;{{$data[0]->Collect}}</div>
-                                    </div>
+
                                 </div>
 
                                 <!--end::Row-->
@@ -119,7 +120,7 @@ Dashboard
                 </div>
                 <div class="col-xl-6">
                     <div class="row">
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
                             <!--begin::Tiles Widget 11-->
                             <div class="card card-custom bg-primary gutter-b" style="height: 140px;">
                                 <div class="card-body">
@@ -134,7 +135,7 @@ Dashboard
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                    <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$data[0]->supplier}}</div>
+                                     <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$data['payeeCount']}}</div>
                                     <a href="#" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Supplier</a>
 
 
@@ -142,7 +143,7 @@ Dashboard
                             </div>
                             <!--end::Tiles Widget 11-->
                         </div>
-                        <div class="col-xl-6">
+                        <div class="col-xl-4">
                             <!--begin::Tiles Widget 12-->
                             <div class="card card-custom gutter-b" style="height: 140px;">
                                 <div class="card-body">
@@ -157,8 +158,29 @@ Dashboard
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                    <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{$data[0]->members}}</div>
+                                     <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{$data['memberCount']}}</div>
                                     <a href="#" class="text-muted text-hover-primary font-weight-bold font-size-lg mt-1">Member</a>
+                                </div>
+                            </div>
+                            <!--end::Tiles Widget 12-->
+                        </div>
+                        <div class="col-xl-4">
+                            <!--begin::Tiles Widget 12-->
+                            <div class="card card-custom bg-light-success gutter-b" style="height: 140px;">
+                                <div class="card-body">
+                                            <span class="svg-icon svg-icon-3x svg-icon-success">
+                                                <!--begin::Svg Icon | path:http://bcats.net/admin/assets/media/svg/icons/Communication/Group.svg-->
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                        <path d="M18,14 C16.3431458,14 15,12.6568542 15,11 C15,9.34314575 16.3431458,8 18,8 C19.6568542,8 21,9.34314575 21,11 C21,12.6568542 19.6568542,14 18,14 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                                        <path d="M17.6011961,15.0006174 C21.0077043,15.0378534 23.7891749,16.7601418 23.9984937,20.4 C24.0069246,20.5466056 23.9984937,21 23.4559499,21 L19.6,21 C19.6,18.7490654 18.8562935,16.6718327 17.6011961,15.0006174 Z M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                    </g>
+                                                </svg>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                     <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{$data['constructorCount']}}</div>
+                                    <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-lg mt-1">Constructor</a>
                                 </div>
                             </div>
                             <!--end::Tiles Widget 12-->
@@ -206,7 +228,7 @@ Dashboard
                                     </thead>
                                     <tbody>
 
-                                    @foreach($users as $user)
+                                    @foreach($data['users'] as $user)
                                         <tr>
                                             <td>
                                                 {{$loop->iteration}}

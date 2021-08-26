@@ -35,6 +35,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('/user/constants', 'UserController@constants');
     CombinedRoute::resourceRoute('/user', 'UserController', []);
     CombinedRoute::resourceRoute('/category', 'CategoryController', []);
+    Route::get('/material/constants', 'MaterialController@constants');
     CombinedRoute::resourceRoute('/material', 'MaterialController', []);
     Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
     Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');

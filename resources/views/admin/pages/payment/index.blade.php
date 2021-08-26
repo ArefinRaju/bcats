@@ -2,12 +2,6 @@
 @section('title')
 Dashboard
 @endsection
-@section('js')
-
-@endsection
-@section('css')
-<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
-@endsection
 @section('content')
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -19,7 +13,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Balance Overview</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Employee Balance Transfer</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -39,7 +33,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Employee Balance Overview</h3>
+                        <h3 class="card-label">Employee Balance Transfer</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -86,31 +80,31 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/payEmployee') }}" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>New Payment</a>
+                        <a href="{{ url('/payEmployee') }}" class="btn btn-primary font-weight-bolder"><i class="la la-plus"></i>New Transfer</a>
                         {{--                        <a href="{{ url('/payment/create') }}" class="btn btn-primary font-weight-bolder">--}}
 {{--                            <i class="la la-plus"></i>New Record</a>--}}
                         <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 mb-2">
                         <div class="row">
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
-                                <div class="card">
-                                    <div class="card-header p-2">
-                                        <h3 class="font-weight-bolder text-center p-2">Main Account</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        @foreach ($data as $item)
-                                            @if ($loop->first)
-                                            <h4 class="font-weight-bold text-primary text-center p-2">{{$item->total}}</h4>
-                                            @endif
-                                        @endforeach
+{{--                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">--}}
+{{--                                <div class="card">--}}
+{{--                                    <div class="card-header p-2">--}}
+{{--                                        <h3 class="font-weight-bolder text-center p-2">Main Account</h3>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="card-body">--}}
+{{--                                        @foreach ($data as $item)--}}
+{{--                                            @if ($loop->first)--}}
+{{--                                            <h4 class="font-weight-bold text-primary text-center p-2">{{$item->total}}</h4>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <h3 class="font-weight-bolder text-center p-2">Employee Account</h3>
@@ -129,7 +123,7 @@ Dashboard
                         </div>
                     </div>
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-hover table-checkable text-center" id="kt_datatable" style="margin-top: 13px !important">
+                    <table class="table table-bordered table-hover table-checkable text-center">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -167,9 +161,9 @@ Dashboard
 @endsection
 @section('js')
 <!--begin::Page Vendors(used by this page)-->
-<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
+<script src="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <!--end::Page Vendors-->
 <!--begin::Page Scripts(used by this page)-->
-<script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
+<script src="{{asset('admin/assets/js/pages/crud/datatables/data-sources/html.js')}}"></script>
 <!--end::Page Scripts-->
 @endsection

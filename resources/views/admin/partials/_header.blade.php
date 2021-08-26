@@ -84,6 +84,12 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
+                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                    <a href="{{ url('/credit') }}" class="menu-link">
+                                        <span class="menu-text">Relese Fund</span>
+                                        <span class="menu-desc"></span>
+                                    </a>
+                                </li>
 
                             </ul>
                         </div>
@@ -97,7 +103,7 @@
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/supplierList/supplier', []) }}"
+                                    <a href="{{ url('/payee') }}"
                                         class="menu-link">
                                         <span class="menu-text">Supplier List</span>
                                         <span class="menu-desc"></span>
@@ -135,34 +141,34 @@
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-credit-list') }}" class="menu-link">
-                                        <span class="menu-text">Added Stock</span>
+                                        <span class="menu-text">Credit Stock(Added)</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/material-debit-list') }}" class="menu-link">
-                                        <span class="menu-text">Used Stock</span>
+                                        <span class="menu-text">Debit Stock(Used)</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/material/use-material') }}" class="menu-link">
-                                        <span class="menu-text">Use Material</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="{{ url('/material/use-material') }}" class="menu-link">--}}
+{{--                                        <span class="menu-text">Use Material</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/demand-list') }}" class="menu-link">
                                         <span class="menu-text">Demand List</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
+                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="" class="menu-link">
                                         <span class="menu-text">Add Demand</span>
                                         <span class="menu-desc"></span>
                                     </a>
-                                </li>
+                                </li> --}}
 
 
                             </ul>
@@ -249,16 +255,23 @@
                             <ul class="menu-subnav">
 
 
+{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
+{{--                                    <a href="" class="menu-link">--}}
+{{--                                        <span class="menu-text">General</span>--}}
+{{--                                        <span class="menu-desc"></span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">General</span>
+                                    <a href="{{url('category')}}" class="menu-link">
+                                        <span class="menu-text">Category</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
 
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Suspended</span>
+                                    <a href="{{url('material')}}" class="menu-link">
+                                        <span class="menu-text">Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
@@ -927,7 +940,7 @@
                     <div class="navi-separator mt-3"></div>
                     <div class="navi-footer px-8 py-5">
                         <a href="/logout" class="btn btn-light-primary font-weight-bold">Sign Out</a>
-                        <a href="{{ url('/profile') }}" class="btn btn-light-success font-weight-bold">Profile</a>
+                        <a href="{{ url('/user-edit/'.auth()->id()) }}" class="btn btn-light-success font-weight-bold">Profile</a>
                     </div>
                     <!--end::Footer-->
                 </div>

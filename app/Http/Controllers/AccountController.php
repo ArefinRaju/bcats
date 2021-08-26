@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Account as Model;
+use Helper\ACL\Acl;
+use Helper\ACL\Permission;
+use Helper\ACL\Roles;
 use Helper\Calculator\Account;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\PayeeRepository;
+use Helper\Repo\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,11 +26,13 @@ class AccountController extends HelperController
     protected array           $commonValidationRules;
     private AccountRepository $repo;
     private PayeeRepository   $payeeRepo;
+    private UserRepository    $userRepo;
 
-    public function __construct(AccountRepository $repo, PayeeRepository $payeeRepo)
+    public function __construct(AccountRepository $repo, PayeeRepository $payeeRepo, UserRepository $userRepo)
     {
         $this->repo      = $repo;
         $this->payeeRepo = $payeeRepo;
+        $this->userRepo  = $userRepo;
         $this->setResource(Model::class);
         $this->commonValidationRules = [
             'credit' => [V::SOMETIMES, V::REQUIRED, V::NUMBER],
@@ -43,9 +49,10 @@ class AccountController extends HelperController
 
     public function creditForm(Request $request)
     {
-        $payees   = $this->payeeRepo->payeeList($request);
+        $users = $this->userRepo->getByType($request, Roles::FUND_COLLECTOR);
+
         $projects = $request->user()->project_id;
-        return view('admin.pages.account.credit.create', compact('payees', 'projects'));
+        return view('admin.pages.account.credit.create', compact('users', 'projects'));
     }
 
     public function demandForm(Request $request)
@@ -101,7 +108,7 @@ class AccountController extends HelperController
         ];
         $this->validate($request, $rules);
         $log = Account::fund($request, $request->input('amount'), $request->input('emiId'), $request->input('byUser'));
-        return $this->respond($log, [], 'admin.pages.fund.index');
+        return $this->respond($log, [], 'admin.pages.account.fund.index');
     }
 
     /**
@@ -116,6 +123,7 @@ class AccountController extends HelperController
             'image'  => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
         ];
         $this->validate($request, $rules);
+        Acl::authorize($request, Permission::PAY_BILLS);
         $log = Account::credit($request, $request->input('amount'));
         if (!self::isAPI()) {
             $log = $this->repo->getTransactionOfUser($request);
@@ -177,14 +185,15 @@ class AccountController extends HelperController
     {
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->memberTransactions($request, $pagination->per_page, $pagination->page);
-        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
+
+        return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
     }
 
     public function supplierTransactionList(Request $request)
     {
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->supplierTransactions($request, $pagination->per_page, $pagination->page);
-        return $this->respond($transactions, [], 'admin.pages.payee.alltransaction');
+        return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
     }
 
 

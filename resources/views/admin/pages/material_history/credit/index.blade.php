@@ -2,12 +2,7 @@
 @section('title')
 Dashboard
 @endsection
-@section('js')
 
-@endsection
-@section('css')
-<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
-@endsection
 @section('content')
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -86,8 +81,8 @@ Dashboard
                         </div>
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a href="{{ url('/credit-material') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>Add Credit</a>
+{{--                        <a href="{{ url('/credit-material') }}" class="btn btn-primary font-weight-bolder">--}}
+{{--                            <i class="la la-plus"></i>Add Credit</a>--}}
                         <!--end::Button-->
                     </div>
                 </div>
@@ -97,25 +92,26 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Supplier</th>
-                                <th>Material</th>
+                                <th>Material Name</th>
+                                <th>Supplier Name</th>
                                 <th>Quantity</th>
-                                <th>Actions</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($data as $item)
                             <tr>
-                                <td>{{$item->id}}</td>
-                                <td>{{$item->payee_name}}</td>
+                                <td>{{$loop->iteration}}</td>
                                 <td>{{$item->material_name}}</td>
-                                <td>{{$item->credit}}</td>
-                                <td>{{$item->date}}</td>
+                                <td>{{$item->payee_name}}</td>
+                                <td>{{$item->credit ." ". $item->enum}}</td>
+                                <td>{{date('d-M-Y',strtotime($item->created_at))}}</td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
+                    {{$data->links()}}
                 </div>
             </div>
             <!--end::Card-->
@@ -125,12 +121,4 @@ Dashboard
     <!--end::Entry-->
 </div>
 <!--end::Content-->
-@endsection
-@section('js')
-<!--begin::Page Vendors(used by this page)-->
-<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-<!--end::Page Vendors-->
-<!--begin::Page Scripts(used by this page)-->
-<script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-<!--end::Page Scripts-->
 @endsection

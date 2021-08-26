@@ -2,12 +2,7 @@
 @section('title')
 Dashboard
 @endsection
-@section('js')
 
-@endsection
-@section('css')
-<link href="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4" rel="stylesheet" type="text/css" />
-@endsection
 @section('content')
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -87,7 +82,7 @@ Dashboard
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a href="{{ url('/payee-create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
+                            <i class="la la-plus"></i>New Payee</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -101,6 +96,8 @@ Dashboard
                                 <th>Mobile</th>
                                 <th>Address</th>
                                 <th>Type</th>
+                                <th>Paid</th>
+                                <th>Due</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -112,25 +109,28 @@ Dashboard
                                 <td>{{$payee->mobile??''}}</td>
                                 <td>{{$payee->address??''}}</td>
                                 <td>{{$payee->type??''}}</td>
+                                <td>{{$payee->paid??''}}</td>
+                                <td>{{$payee->due??''}}</td>
                                 <td nowrap="nowrap">
-                                    <div class="float-right">
+                                    <div class="d-flex justify-content-around">
 
                                         <form action="{{url('payee', $payee->id)}}" method="post">
+                                            <a href="{{url('supplier/'.$payee->id)}}" class="btn btn-sm btn-primary">View</a>
                                             <input type="hidden" name="_method" value="DELETE">
                                             @csrf
-                                            <a href="{{ url('payee-edit', $payee->id) }}" class="btn btn-primary">
+                                            <a href="{{ url('payee-edit', $payee->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Edit
                                             </a>
-                                            <a href="{{ url('transaction', $payee->id) }}" class="btn btn-primary">
+                                            <a href="{{ url('transaction', $payee->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
-                                                transaction
+                                                Transaction
                                             </a>
-                                            <a href="{{ url('invoice', $payee->id) }}" class="btn btn-primary">
+                                            <a href="{{ url('invoice', $payee->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
-                                                invoice
+                                                Invoice
                                             </a>
-                                            <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                            <button id="btnDelete" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
 
 
@@ -150,12 +150,4 @@ Dashboard
     <!--end::Entry-->
 </div>
 <!--end::Content-->
-@endsection
-@section('js')
-<!--begin::Page Vendors(used by this page)-->
-<script src="{{asset('admin')}}/assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4"></script>
-<!--end::Page Vendors-->
-<!--begin::Page Scripts(used by this page)-->
-<script src="{{asset('admin')}}/assets/js/pages/crud/datatables/data-sources/html.js?v=7.0.4"></script>
-<!--end::Page Scripts-->
 @endsection

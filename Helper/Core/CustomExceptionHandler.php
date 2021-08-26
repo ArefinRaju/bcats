@@ -16,6 +16,7 @@ use Symfony\Component\ErrorHandler\Error\FatalError;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Throwable;
 
 class CustomExceptionHandler extends Handler
 {
@@ -38,7 +39,7 @@ class CustomExceptionHandler extends Handler
      *
      * @param Exception $e
      * @return void
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function report($e)
     {
@@ -72,7 +73,7 @@ class CustomExceptionHandler extends Handler
                 if (!strpos($message, 'must be of type integer, string given') && !strpos($message, 'Controller')) {
                     break;
                 }
-                $message = [Errors::FATAL_THROWABLE_ERROR => $e->getOriginalClassName()];
+                $message = [Errors::FATAL_THROWABLE_ERROR => $e->getMessage()];
                 return HelperController::generateResponse(null, $message, Errors::REQUEST_FAILED, $version, $returnCode);
             case $e instanceof UserFriendlyException:
                 //This is an error we can actually disclose to the user
@@ -117,7 +118,7 @@ class CustomExceptionHandler extends Handler
         }
 
         // For everything else, something grave has gone wrong. The error should NOT be disclosed to the user, but logged as a part of the handle() routine.
-        return Utility::generateResponse(null, [Errors::SOMETHING_WENT_WRONG => null], Errors::REQUEST_FAILED, $version, ResponseType::INTERNAL_SERVER_ERROR);
+        return HelperController::generateResponse(null, [Errors::SOMETHING_WENT_WRONG => null], Errors::REQUEST_FAILED, $version, ResponseType::INTERNAL_SERVER_ERROR);
     }
 
     private function extractVersionFromRequest(Request $request): int

@@ -60,8 +60,32 @@ class MaterialHistoryRepository extends EntityRepository
     public function creditList(int $perPage = null, int $page = null)
     {
         return MaterialHistory::where('project_id', Request()->user()->project_id)
+                              ->leftJoin('materials', 'material_histories.material_id', 'materials.id')
                               ->whereNotIn('credit', [0.00])
-                              ->orderBy('id', 'desc')
+                              ->orderBy('material_histories.id', 'desc')
                               ->paginate($perPage, ['*'], 'page', $page);
     }
+
+    public function debitLatestAfterTrans(int $materialId, int $amount): void
+    {
+        $latest                   = MaterialHistory::where('project_id', Request()->user()->project_id)
+                                                   ->where('material_id', $materialId)
+                                                   ->whereNotIn('debit', [0.00])
+                                                   ->orderBy('id', 'desc')
+                                                   ->first();
+        $latest->latestAfterTrans = $amount;
+        $latest->save();
+    }
+
+    public function creditLatestAfterTrans(int $materialId, int $amount): void
+    {
+        $latest                   = MaterialHistory::where('project_id', Request()->user()->project_id)
+                                                   ->where('material_id', $materialId)
+                                                   ->whereNotIn('credit', [0.00])
+                                                   ->orderBy('id', 'desc')
+                                                   ->first();
+        $latest->latestAfterTrans = $amount;
+        $latest->save();
+    }
 }
+
