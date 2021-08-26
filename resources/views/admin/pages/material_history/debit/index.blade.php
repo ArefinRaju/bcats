@@ -103,11 +103,9 @@ Debit
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>User</th>
-                                <th>Total</th>
+                                <th>Material Name</th>
+                                <th>Used By</th>
                                 <th>Used</th>
-                                <th>Remain</th>
                                 <th>Comment</th>
                                 <th>Date</th>
                             </tr>
@@ -118,11 +116,9 @@ Debit
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->material_name}}</td>
                                     <td>{{$item->user_name}}</td>
-                                    <td>{{$item->total + $item->debit." ".$item->enum}}</td>
                                     <td>{{$item->used." ".$item->enum}}</td>
-                                    <td>{{$item->total/*latestAfterTrans*/ ." ".$item->enum}}</td>
                                     <td>{{$item->comment}}</td>
-                                    <td>{{date('d-M-Y',strtotime($item->updated_at))}}</td>
+                                    <td>{{$item->updated_at}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
