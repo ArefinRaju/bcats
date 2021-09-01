@@ -14,6 +14,7 @@ use Helper\Repo\Entity;
  * @property string type
  * @property float due
  * @property float paid
+ * @property bool status
  */
 class Payee extends Entity
 {

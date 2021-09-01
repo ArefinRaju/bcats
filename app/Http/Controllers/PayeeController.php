@@ -181,14 +181,27 @@ class PayeeController extends HelperController
      */
     public function listByType(Request $request, string $payeeType = null)
     {
-        if(isset($payeeType)){
-        if (!PayeeType::search(strtoupper($payeeType))) {
-            throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
+        if (isset($payeeType)) {
+            if (!PayeeType::search(strtoupper($payeeType))) {
+                throw new UserFriendlyException(Errors::VALIDATION_FAILED, ResponseType::UNPROCESSABLE_ENTITY);
             }
         }
         $data = $this->repo->getByType($request, $payeeType);
 
         return $this->respond($data, [], 'admin.pages.payee.suppliersList');
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function updatePayeeStatus(Request $request, int $payeeId)
+    {
+        $this->validate($request, UserController::statusRules());
+        /** @var $payee Payee */
+        $payee         = $this->repo->getById($request, $payeeId);
+        $payee->status = $request->input('status');
+        $this->repo->save($payee);
+        return $this->respond(['status' => 'success'], [], '');
     }
 
 }

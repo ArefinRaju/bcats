@@ -206,7 +206,6 @@ class UserController extends HelperController
         return $this->respond($user, [], '');
     }
 
-
     public function showByUserType(Request $request, string $userType)
     {
         $users        = $this->repo->getAllMember($request);
@@ -222,10 +221,30 @@ class UserController extends HelperController
         return $this->respond($newUsersData, [], 'admin.pages.payee.memberType');
     }
 
-
     public function getUserDataByAjax(Request $request): JsonResponse
     {
         $user = $this->repo->getById($request, $request->id);
         return response()->json($user);
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public function updateUserStatus(Request $request, int $userId)
+    {
+        $this->validate($request, self::statusRules());
+
+        /** @var $user User */
+        $user         = $this->repo->getById($request, $userId);
+        $user->status = $request->input('status');
+        $this->repo->save($user);
+        return $this->respond(['status' => 'success'], [], '');
+    }
+
+    public static function statusRules(): array
+    {
+        return [
+            'status' => [V::REQUIRED, V::BOOLEAN]
+        ];
     }
 }

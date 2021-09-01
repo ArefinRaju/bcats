@@ -33,6 +33,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('/member/{memberId}', 'UserController@memberDetails');
     Route::get('/userType/{userType}', 'UserController@showByUserType');
     Route::get('/user/constants', 'UserController@constants');
+    Route::get('/user/{userID}', 'UserController@updateUserStatus');
     CombinedRoute::resourceRoute('/user', 'UserController', []);
     CombinedRoute::resourceRoute('/category', 'CategoryController', []);
     Route::get('/material/constants', 'MaterialController@constants');
@@ -56,6 +57,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');
     Route::get('/supplierlist/{type}','PayeeController@listByType');
+    Route::get('/payee/{payeeID}', 'payeeController@updatepayeeStatus');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
 
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
