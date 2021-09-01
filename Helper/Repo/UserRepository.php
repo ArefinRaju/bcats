@@ -57,6 +57,7 @@ class UserRepository extends EntityRepository
     public function getUsersByProjectId(Request $request, int $projectId): Collection
     {
         return User::where('project_id', $projectId)
+            ->where('status', 1)
             ->whereNotIn('acl', [Acl::createUserRole(Roles::EMPLOYEE)])
             ->get();
     }
