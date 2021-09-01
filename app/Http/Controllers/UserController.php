@@ -86,7 +86,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users      = $this->repo->list($request,$pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($request, $pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, [], 'admin.pages.user.create', Messages::USER_CREATED, ResponseType::CREATED);
@@ -101,7 +101,7 @@ class UserController extends HelperController
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $user       = $this->repo->list($request,$pagination->per_page, $pagination->page);
+        $user       = $this->repo->list($request, $pagination->per_page, $pagination->page);
         return $this->respond($user, [], 'admin.pages.user.index');
     }
 
@@ -116,7 +116,7 @@ class UserController extends HelperController
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $users      = $this->repo->list($request,$pagination->per_page, $pagination->page);
+            $users      = $this->repo->list($request, $pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $users);
         }
         return $this->respond($user, []);
@@ -150,13 +150,13 @@ class UserController extends HelperController
     public function destroy(Request $request, string $id)
     {
         throw new UserFriendlyException(Errors::FORBIDDEN);
-        $this->repo->destroyById($id);
+        /*$this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
-            $materials  = $this->repo->list($request,$pagination->per_page, $pagination->page);
+            $materials  = $this->repo->list($request, $pagination->per_page, $pagination->page);
             return view('admin.pages.user.index')->with('data', $materials);
         }
-        return $this->respond(null, [], 'admin.pages.user.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
+        return $this->respond(null, [], 'admin.pages.user.index', Messages::DESTROYED, ResponseType::NO_CONTENT);*/
     }
 
     private function getRules(Request $request): array
@@ -191,18 +191,17 @@ class UserController extends HelperController
     {
         $user = $this->repo->getById($request, $memberId);
         if (!$this->isAPI()) {
-            $emiRepo                     = new EMIRepository();
-            $emiUserRepo                 = new EmiUserRepository();
-            $role                        = Acl::decodeRole($user->acl);
-            $otp                         = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
-            $emi                         = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
-            $users                       = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
-            $emiList                     = $emiRepo->emiListWithOutPagination($request);
-            $otpList                     = $emiRepo->otpListWithOutPagination($request);
-            $emiTransactionList          = $emiRepo->otpEmiTransactionList($request,$memberId,false);
-            $otpTransactionList          = $emiRepo->otpEmiTransactionList($request,$memberId,true);
+            $emiRepo            = new EMIRepository();
+            $emiUserRepo        = new EmiUserRepository();
+            $role               = Acl::decodeRole($user->acl);
+            $otp                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
+            $emi                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
+            $emiList            = $emiRepo->emiListWithOutPagination($request);
+            $otpList            = $emiRepo->otpListWithOutPagination($request);
+            $emiTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, false);
+            $otpTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, true);
 
-            return $this->respond(compact('user', 'otp', 'emi', 'role', 'users', 'emiList', 'otpList','emiTransactionList','otpTransactionList'), [], 'admin.pages.profile.member');
+            return $this->respond(compact('user', 'otp', 'emi', 'role', 'emiList', 'otpList', 'emiTransactionList', 'otpTransactionList'), [], 'admin.pages.profile.member');
         }
         return $this->respond($user, [], '');
     }
