@@ -17,10 +17,10 @@ class Bootstrap
     {
         (new LoadEnvironmentVariables())->bootstrap($app); // Load Env file
         // Todo : remove this after dev done
-        /*$app->singleton(
+        $app->singleton(
             ExceptionHandler::class,
             CustomExceptionHandler::class
-        );*/
+        );
         $app->register(RepositoryServiceProvider::class); // Load all required Repo
         ConfigInit::init(); // Initiate other config here
         return $app;
