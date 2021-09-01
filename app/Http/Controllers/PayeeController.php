@@ -196,11 +196,15 @@ class PayeeController extends HelperController
      */
     public function updatePayeeStatus(Request $request, int $payeeId)
     {
-        $this->validate($request, UserController::statusRules());
+        $this->validate($request, UserController::statusRules($request));
         /** @var $payee Payee */
         $payee         = $this->repo->getById($request, $payeeId);
         $payee->status = $request->input('status');
         $this->repo->save($payee);
+        if (!self::isAPI()) {
+            $payees = $this->repo->payeeList($request);
+            return view(''); // Todo
+        }
         return $this->respond(['status' => 'success'], [], '');
     }
 

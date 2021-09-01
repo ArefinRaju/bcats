@@ -232,17 +232,24 @@ class UserController extends HelperController
      */
     public function updateUserStatus(Request $request, int $userId)
     {
-        $this->validate($request, self::statusRules());
-
+        $this->validate($request, self::statusRules($request));
         /** @var $user User */
         $user         = $this->repo->getById($request, $userId);
         $user->status = $request->input('status');
         $this->repo->save($user);
+        if (!self::isAPI()) {
+            $payees = $this->repo->getUsersByProjectId($request, $request->user()->project_id);
+            return view(''); // Todo
+        }
         return $this->respond(['status' => 'success'], [], '');
     }
 
-    public static function statusRules(): array
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function statusRules(Request $request): array
     {
+        Acl::authorize($request, Permission::CREATE_PROJECT_USER);
         return [
             'status' => [V::REQUIRED, V::BOOLEAN]
         ];
