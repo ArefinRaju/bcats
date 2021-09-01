@@ -229,6 +229,7 @@ final class Account implements Calculator
     private function creditUserOnHoldAmount(Account $instance): void
     {
         if ($instance->isUserType($instance, Roles::EMPLOYEE, $instance->by_user)) {
+            /** @var $user User */
             $user               = $instance->userRepo->getByIdAndProject($instance->request, $instance->by_user);
             $user->contribution += $instance->amount;
         } else {
@@ -311,6 +312,7 @@ final class Account implements Calculator
      */
     private function isUserType(Account $instance, string $role, int $userId)
     {
+        /** @var $user User */
         $user = $instance->userRepo->getByIdAndProject($instance->request, $userId);
         if (!$user) {
             throw new UserFriendlyException("Wrong Employee", ResponseType::FORBIDDEN);
