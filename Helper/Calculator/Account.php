@@ -64,9 +64,10 @@ final class Account implements Calculator
     /**
      * @throws UserFriendlyException
      */
-    public static function credit(Request $request, int $amount, string $comment = ''): Account
+    public static function credit(Request $request, int $amount, int $fundCollector, string $comment = ''): Account
     {
         $instance           = new Account($request);
+        $instance->by_user  = $fundCollector;
         $instance->type     = Transaction::CREDIT;
         $instance->is_fund  = false;
         $instance->amount   = $instance->negativeChecker($amount);
@@ -244,12 +245,18 @@ final class Account implements Calculator
      */
     private function debitUserOnHoldAmount(Account $instance): void
     {
-        $user = $instance->isUserType($instance, Roles::EMPLOYEE, $instance->request->user()->id);
+        /** @var $user User */
+        $user = $instance->isUserType($instance, Roles::EMPLOYEE, $instance->user_id);
         if ($user) {
             $user->on_hold -= $instance->amount;
         } else {
-            $user          = $instance->userRepo->getByIdAndProject($instance->request, $instance->user_id);
-            $user->on_hold -= $instance->credit;
+            /** @var $user User */
+            $user = $instance->userRepo->getByIdAndProject($instance->request, $instance->by_user);
+            if ($user->on_hold >= $instance->credit) {
+                $user->on_hold -= $instance->credit;
+            } else {
+                throw new UserFriendlyException(Errors::AMOUNT_IS_BIGGER_THAN_DUE, ResponseType::BAD_REQUEST);
+            }
         }
         $instance->userRepo->save($user);
     }

@@ -77,7 +77,7 @@ const id=$('#collectorId').val();
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>By Collector</label>
-                                            <select class="form-control form-control-solid" name="payeeId" id="collectorId">
+                                            <select class="form-control form-control-solid" name="fundCollector" id="collectorId">
                                                 <option value="0">Select Collector</option>
                                                 @foreach($users as $usersItem)
                                                 <option value="{{$usersItem->id}}">{{ $usersItem->name }}</option>

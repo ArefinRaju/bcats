@@ -119,12 +119,13 @@ class AccountController extends HelperController
     public function credit(Request $request)
     {
         $rules = [
-            'amount' => [V::REQUIRED, V::NUMBER],
-            'image'  => [V::SOMETIMES, 'mimes:jpg,bmp,png|max:10240']
+            'amount'        => [V::REQUIRED, V::NUMBER],
+            'fundCollector' => [V::REQUIRED, V::NUMBER],
+            'image'         => [V::SOMETIMES, 'mimes:jpg,bmp,png']
         ];
         $this->validate($request, $rules);
         Acl::authorize($request, Permission::PAY_BILLS);
-        $log = Account::credit($request, $request->input('amount'));
+        $log = Account::credit($request, $request->input('amount'), $request->input('fundCollector'));
         if (!self::isAPI()) {
             $log = $this->repo->getTransactionOfUser($request);
         }
