@@ -429,8 +429,8 @@ CREATE TABLE IF NOT EXISTS `payees` (
 DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
-    `type` varchar(255) NOT NULL,
+    `name` varchar(200) NOT NULL,
+    `type` varchar(200) NOT NULL,
     `budget` decimal(14,2) NOT NULL DEFAULT 0.00,
     `deadline` date NOT NULL,
     `status` varchar(30) NOT NULL,
@@ -457,11 +457,11 @@ INSERT INTO `projects` (`id`, `name`, `type`, `budget`, `deadline`, `status`, `s
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
+    `name` varchar(200) NOT NULL,
     `password` varchar(70) NOT NULL,
     `remember_token` varchar(100) DEFAULT NULL,
     `mobile` varchar(15) NOT NULL,
-    `email` varchar(255) NOT NULL,
+    `email` varchar(200) NOT NULL,
     `email_verified_at` timestamp NULL DEFAULT current_timestamp(),
     `acl` varchar(50) NOT NULL,
     `contribution` decimal(14,2) NOT NULL DEFAULT 0.00,
