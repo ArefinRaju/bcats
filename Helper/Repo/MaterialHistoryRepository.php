@@ -68,24 +68,28 @@ class MaterialHistoryRepository extends EntityRepository
 
     public function debitLatestAfterTrans(int $materialId, int $amount): void
     {
-        $latest                   = MaterialHistory::where('project_id', Request()->user()->project_id)
-                                                   ->where('material_id', $materialId)
-                                                   ->whereNotIn('debit', [0.00])
-                                                   ->orderBy('id', 'desc')
-                                                   ->first();
-        $latest->latestAfterTrans = $amount;
-        $latest->save();
+        $latest = MaterialHistory::where('project_id', Request()->user()->project_id)
+                                 ->where('material_id', $materialId)
+                                 ->whereNotIn('debit', [0.00])
+                                 ->orderBy('id', 'desc')
+                                 ->first();
+        if ($latest) {
+            $latest->latestAfterTrans = $amount;
+            $latest->save();
+        }
     }
 
     public function creditLatestAfterTrans(int $materialId, int $amount): void
     {
-        $latest                   = MaterialHistory::where('project_id', Request()->user()->project_id)
-                                                   ->where('material_id', $materialId)
-                                                   ->whereNotIn('credit', [0.00])
-                                                   ->orderBy('id', 'desc')
-                                                   ->first();
-        $latest->latestAfterTrans = $amount;
-        $latest->save();
+        $latest = MaterialHistory::where('project_id', Request()->user()->project_id)
+                                 ->where('material_id', $materialId)
+                                 ->whereNotIn('credit', [0.00])
+                                 ->orderBy('id', 'desc')
+                                 ->first();
+        if ($latest) {
+            $latest->latestAfterTrans = $amount;
+            $latest->save();
+        }
     }
 }
 
