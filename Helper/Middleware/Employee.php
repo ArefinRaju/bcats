@@ -29,7 +29,7 @@ final class Employee extends ApiMiddleware
         }
 
         // Regular filter
-        if (!Acl::authorize($request, [Permission::CREATE_MANAGER, Permission::CREATE_PROJECT])) {
+        if (!Acl::authorize($request, [Permission::USE_RESOURCE, Permission::VIEW_RESOURCE])) {
             return redirect(url()->previous())->withErrors(Errors::UNAUTHORIZED);
         }
         return $next($request);
