@@ -29,7 +29,11 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', 'AuthController@logout');
-    Route::get('/dashboard', 'AuthController@dashBoard');
+    Route::get('/dashboard', 'AuthController@dashBoard')->name('dashboard');
+});
+
+Route::middleware(['employee'])->group(function () {
+    Route::get('/test', 'AuthController@dashBoard');
 });
 
 Route::get('/supplier/{id}', 'PayeeController@viewSupplier');

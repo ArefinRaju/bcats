@@ -5,10 +5,11 @@ namespace Helper\ACL;
 
 
 use Helper\Constants\Errors;
+use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Illuminate\Http\Request;
 
-class Acl
+final class Acl
 {
     /**
      * @param  Request  $request
@@ -28,12 +29,12 @@ class Acl
                 }
             }
             if (!$out) {
-                throw new UserFriendlyException(Errors::UNAUTHORIZED); // Todo : Use Respond
+                return self::returnFalse();
             }
             return true;
         }
         if (!self::isAuthorized($request, $permissions)) {
-            throw new UserFriendlyException(Errors::UNAUTHORIZED);
+            return self::returnFalse();
         }
         return true;
     }
@@ -51,11 +52,14 @@ class Acl
 
     public static function getUserRole(Request $request): string
     {
-        $role = self::getUser($request)->acl;
+        $role = self::getUser($request)->acl ?? '';
         if (!in_array($role, Roles::values())) {
             // It might be encoded, we are doing double-check
             $role = self::decodeRole($role);
             if (!in_array($role, Roles::values())) {
+                if (!HelperController::isAPI()) {
+                    return redirect('login')->withErrors(Errors::UNAUTHORIZED);
+                }
                 throw new UserFriendlyException(Errors::AUTHENTICATION_TOKEN_MALFORMED);
             }
         }
@@ -83,5 +87,16 @@ class Acl
     {
         $accessList = constant('Helper\ACL\AccessMap::'.self::getUserRole($request));
         return in_array($permission, $accessList);
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    private static function returnFalse(): bool
+    {
+        if (HelperController::isAPI()) {
+            throw new UserFriendlyException(Errors::UNAUTHORIZED);
+        }
+        return false;
     }
 }

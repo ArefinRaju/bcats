@@ -48,16 +48,16 @@ class MaterialHistoryController extends HelperController
 
     public function debitForm(Request $request)
     {
-        $categories      = Category::all();
+        $categories = Category::all();
 //        $materials = $this->materialRepo->materialList($request);
         return view('admin.pages.material_history.debit.create', compact('categories'));
     }
 
     public function demandForm(Request $request)
     {
-        $categoryRepo=new CategoryRepository();
-        $category=$categoryRepo->list();
-        return $this->respond($category,[],'admin.pages.material_history.demand.create');
+        $categoryRepo = new CategoryRepository();
+        $category     = $categoryRepo->list();
+        return $this->respond($category, [], 'admin.pages.material_history.demand.create');
     }
 
     public function stockForm(Request $request)

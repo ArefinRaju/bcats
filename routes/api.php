@@ -56,12 +56,14 @@ Route::middleware(['apiAuth'])->group(function () {
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');
-    Route::get('/supplierlist/{type}','PayeeController@listByType');
+    Route::get('/supplierList/{type}','PayeeController@listByType');
     Route::get('/payee/{payeeID}', 'payeeController@updatepayeeStatus');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
-
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
-    Route::middleware(['employee'])->group(function () {
-        //CombinedRoute::resourceRoute('/material', 'MaterialController', []);
-    });
+});
+
+//Route::get('/test', 'InvoiceController@test');
+
+Route::middleware(['employee'])->group(function () {
+    Route::get('/test', 'InvoiceController@test');
 });

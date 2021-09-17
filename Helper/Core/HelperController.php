@@ -12,7 +12,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -43,8 +42,7 @@ class HelperController extends Controller
                 $data = $data->toArray();
             }
             return self::generateResponse($data, $errors, $message, $this->version, $statusCode, $headers, $paginationParams);
-        }
-        elseif (!empty($errors)) {
+        } elseif (!empty($errors)) {
             return view('admin.dashboard')->withErrors($errors);
         }
         return view($view)->with('data', $data);
@@ -59,10 +57,9 @@ class HelperController extends Controller
         int $statusCode = ResponseType::OK,
         array $headers = [],
         $paginationParams = []
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $response = [
-            'errors'    => $errors ? $errors : new stdClass(),
+            'errors'    => $errors ?: new stdClass(),
             'result'    => $data,
             'message'   => $message,
             'version'   => $version,
@@ -125,13 +122,13 @@ class HelperController extends Controller
     private function getSerializedValidationError(object $validation): string
     {
         $out = '';
-        foreach ($validation->errors()->toArray() as $key => $value) {
-            $out = "{$out} {$value[0]}";
+        foreach ($validation->errors()->toArray() as $value) {
+            $out = "$out $value[0]";
         }
         return $out;
     }
 
-    public function isAPI(): bool
+    public static function isAPI(): bool
     {
         if (Request()->header('content-type') === 'application/json' || explode('/', request()->path())[0] === 'api') {
             return true;
@@ -153,8 +150,7 @@ class HelperController extends Controller
         foreach ($validationRules as $key => $validationRule) {
             if (gettype($validationRule) === 'string' and strpos($validationRule, 'boolean') !== false) {
                 settype($result[$key], 'boolean');
-            }
-            elseif (gettype($validationRule) === 'array' and array_search('boolean', $validationRule, true) !== false) {
+            } elseif (gettype($validationRule) === 'array' and array_search('boolean', $validationRule, true) !== false) {
                 settype($result[$key], 'boolean');
             }
         }

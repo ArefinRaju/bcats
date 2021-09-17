@@ -4,21 +4,19 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\User;
 use Helper\ACL\Acl;
 use Helper\ACL\Roles;
-use Helper\Constants\PayeeType;
-use Helper\Repo\AccountRepository;
-use Helper\Repo\PayeeRepository;
-use Illuminate\Support\Facades\Auth;
 use Helper\Config\ConfigInit;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Errors;
+use Helper\Constants\PayeeType;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Core\JWT;
 use Helper\Core\UserFriendlyException;
+use Helper\Repo\AccountRepository;
 use Helper\Repo\EMIRepository;
+use Helper\Repo\PayeeRepository;
 use Helper\Repo\UserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -26,7 +24,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends HelperController
@@ -45,30 +43,28 @@ class AuthController extends HelperController
 
     public function dashBoard(Request $request)
     {
-
-
         // Get total amount of admin account.
-        $accountRepo=new AccountRepository();
-        $emiRepo =new EMIRepository();
+        $accountRepo = new AccountRepository();
+        $emiRepo     = new EMIRepository();
 
         // Get all Supplier
-        $payeeRepo=new PayeeRepository();
+        $payeeRepo = new PayeeRepository();
 
-        $newUsersData=[
-            'emiDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request),
-            'otpDue'   => $emiRepo->getAllEmiDueByUserAndEmiType($request, true),
+        $newUsersData = [
+            'emiDue' => $emiRepo->getAllEmiDueByUserAndEmiType($request),
+            'otpDue' => $emiRepo->getAllEmiDueByUserAndEmiType($request, true),
         ];
 
-        $data=[
-            'users'=>$this->repo->getAllMember($request),
-            'amountsData'=>$newUsersData,
-            'mainAccountBalance'=>$accountRepo->getMainAccountBalance($request,Acl::createUserRole(Roles::PROJECT_ADMIN)),
-            'mainEmployeeBalance'=>$accountRepo->getEmployeeAccountBalance($request,Acl::createUserRole(Roles::EMPLOYEE)),
-            'payeeCount'=>$payeeRepo->getByType($request,PayeeType::SUPPLIER)->count(),
-            'memberCount'=>$this->repo->getByType($request,Roles::MEMBER)->count(),
-            'constructorCount'=>$payeeRepo->getByType($request,PayeeType::CONTRACTOR)->count()
+        $data = [
+            'users'               => $this->repo->getAllMember($request),
+            'amountsData'         => $newUsersData,
+            'mainAccountBalance'  => $accountRepo->getMainAccountBalance($request, Acl::createUserRole(Roles::PROJECT_ADMIN)),
+            'mainEmployeeBalance' => $accountRepo->getEmployeeAccountBalance($request, Acl::createUserRole(Roles::EMPLOYEE)),
+            'payeeCount'          => $payeeRepo->getByType($request, PayeeType::SUPPLIER)->count(),
+            'memberCount'         => $this->repo->getByType($request, Roles::MEMBER)->count(),
+            'constructorCount'    => $payeeRepo->getByType($request, PayeeType::CONTRACTOR)->count()
         ];
-        return $this->respond($data,[],'admin.dashboard');
+        return $this->respond($data, []);
     }
 
     /**

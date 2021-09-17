@@ -8,7 +8,6 @@ use App\Models\Material;
 use Helper\Constants\CommonValidations as V;
 use Helper\Constants\Enum;
 use Helper\Constants\Errors;
-use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
@@ -37,7 +36,7 @@ class MaterialController extends HelperController
     {
         $rules = $this->commonValidationRules;
         unset($rules['enum'][2]);
-        $validation = $rules['enum'];
+        $validation    = $rules['enum'];
         $rules['enum'] = [
             'rules' => $validation,
             'enums' => Enum::values()
@@ -48,7 +47,7 @@ class MaterialController extends HelperController
     public function constants()
     {
         $result = [];
-        foreach (Enum::values() as $enum){
+        foreach (Enum::values() as $enum) {
             $result[] = ['name' => $enum];
         }
         return $this->respond($result);
@@ -56,17 +55,17 @@ class MaterialController extends HelperController
 
     public function createForm()
     {
-        $data = Enum::toArray();
+        $data         = Enum::toArray();
         $categoryList = Category::all();
         return view('admin.pages.material.create', compact('data', 'categoryList'));
     }
 
     public function editForm($id)
     {
-        $material = Material::find($id);
-        $data     = Enum::toArray();
+        $material     = Material::find($id);
+        $data         = Enum::toArray();
         $categoryList = Category::all();
-        return view('admin.pages.material.edit', compact('data', 'material','categoryList'));
+        return view('admin.pages.material.edit', compact('data', 'material', 'categoryList'));
     }
 
     public function create(Request $request, string $action = null)
@@ -119,12 +118,12 @@ class MaterialController extends HelperController
     public function destroy(Request $request, string $id)
     {
         throw new UserFriendlyException(Errors::FORBIDDEN);
-        $this->repo->destroyById($id);
+        /*$this->repo->destroyById($id);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);
             $materials  = $this->repo->list($pagination->per_page, $pagination->page);
             return view('admin.pages.material.index')->with('data', $materials);
         }
-        return $this->respond(null, [], 'admin.pages.material.index', Messages::DESTROYED, ResponseType::NO_CONTENT);
+        return $this->respond(null, [], 'admin.pages.material.index', Messages::DESTROYED, ResponseType::NO_CONTENT);*/
     }
 }

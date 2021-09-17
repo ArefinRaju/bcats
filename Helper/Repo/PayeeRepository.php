@@ -19,17 +19,23 @@ class PayeeRepository extends EntityRepository
 
     public function getById(Request $request, int $id)
     {
-        return Payee::where('id', $id)->first();
+        return Payee::where('project_id', $request->user()->project_id)
+                    ->where('id', $id)
+                    ->first();
     }
 
     public function list(int $perPage = null, int $page = null)
     {
-        return Payee::orderBy('name', 'asc')->paginate($perPage, ['*'], 'page', $page);
+        return Payee::where('project_id', Request()->user()->project_id)
+                    ->orderBy('name', 'asc')
+                    ->paginate($perPage, ['*'], 'page', $page);
     }
 
     public function supplierList()
     {
-        return Payee::where('type', PayeeType::SUPPLIER)->get();
+        return Payee::where('project_id', Request()->user()->project_id)
+                    ->where('type', PayeeType::SUPPLIER)
+                    ->get();
     }
 
     /**
@@ -43,29 +49,33 @@ class PayeeRepository extends EntityRepository
 
     public function payeeList(Request $request)
     {
-        return Payee::where('project_id', $request->user()->project_id)->get(['id', 'name']);
+        return Payee::where('project_id', $request->user()->project_id)
+                    ->get(['id', 'name']);
     }
+
     public function emoloyeeList(Request $request)
     {
-        return User::where('acl', Acl::createUserRole(strtoupper('employee')))->where('project_id', $request->user()->project_id)->get(['id', 'name']);
+        return User::where('acl', Acl::createUserRole(strtoupper('employee')))
+                   ->where('project_id', $request->user()->project_id)
+                   ->get(['id', 'name']);
     }
 
     public function getSupplier(Request $request, int $id)
     {
         return Payee::leftJoin('invoices', 'payees.id', '=', 'invoices.payee_id')
-            ->select('payees.*')
-            ->where('payees.id', $id)
-            ->where('payees.type', PayeeType::SUPPLIER)
-            ->where('payees.project_id', $request->user()->project_id)
-            ->get();
+                    ->select('payees.*')
+                    ->where('payees.id', $id)
+                    ->where('payees.type', PayeeType::SUPPLIER)
+                    ->where('payees.project_id', $request->user()->project_id)
+                    ->get();
     }
 
     public function isExist(Request $request): bool
     {
         return Payee::where('name', $request->input('name'))
-            ->where('type', $request->input('type'))
-            ->where('project_id', $request->user()->project_id)
-            ->exists();
+                    ->where('type', $request->input('type'))
+                    ->where('project_id', $request->user()->project_id)
+                    ->exists();
     }
 
     public function update(Request $request)
@@ -82,23 +92,22 @@ class PayeeRepository extends EntityRepository
     public function searchSupplier(Request $request)
     {
         return Payee::where(function ($query) {
-            $query->where('name', 'like', '%' . Request()->input('query') . '%')
-                ->orWhere('mobile', 'like', '%' . Request()->input('query') . '%')
-                ->orWhere('address', 'like', '%' . Request()->input('query') . '%');
+            $query->where('name', 'like', '%'.Request()->input('query').'%')
+                  ->orWhere('mobile', 'like', '%'.Request()->input('query').'%')
+                  ->orWhere('address', 'like', '%'.Request()->input('query').'%');
         })
-            ->whereIn('type', [PayeeType::SUPPLIER,PayeeType::EMPLOYEE,PayeeType::CONTRACTOR])
-            ->where('project_id', $request->input('project_id'))
-            ->get();
+                    ->whereIn('type', [PayeeType::SUPPLIER, PayeeType::EMPLOYEE, PayeeType::CONTRACTOR])
+                    ->where('project_id', $request->input('project_id'))
+                    ->get();
     }
 
     public function getByType($request, $supplierType)
     {
-        if (isset($supplierType)){
-            return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')
-                ->where('payees.type', $supplierType)->where('payees.project_id', $request->user()->project_id)->get();
-        }else{
-            return Payee::leftJoin('invoices', 'invoices.payee_id', 'payees.id')->where('payees.project_id', $request->user()->project_id)->get();
+        if (isset($supplierType)) {
+            return Payee::leftJoin('invoices', 'invoices.payee_id', '=', 'payees.id')
+                        ->where('payees.type', $supplierType)->where('payees.project_id', $request->user()->project_id)->get();
+        } else {
+            return Payee::leftJoin('invoices', 'invoices.payee_id', '=', 'payees.id')->where('payees.project_id', $request->user()->project_id)->get();
         }
-
     }
 }

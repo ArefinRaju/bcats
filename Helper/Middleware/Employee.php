@@ -8,14 +8,14 @@ use Closure;
 use Helper\ACL\Acl;
 use Helper\ACL\Permission;
 use Helper\Constants\Errors;
+use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Illuminate\Http\Request;
 
-class Employee
+final class Employee extends ApiMiddleware
 {
     /**
      * Handle an incoming request.
-     *
      * @param  Request  $request
      * @param  Closure  $next
      * @return mixed
@@ -23,9 +23,15 @@ class Employee
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Acl::authorize($request, [Permission::VIEW_RESOURCE, Permission::USE_RESOURCE])) {
-            return $next($request);
+        // Only required for API call
+        if (HelperController::isAPI()) {
+            $request = self::assignAuth($request);
         }
-        throw new UserFriendlyException(Errors::FORBIDDEN);
+
+        // Regular filter
+        if (!Acl::authorize($request, [Permission::CREATE_MANAGER, Permission::CREATE_PROJECT])) {
+            return redirect(url()->previous())->withErrors(Errors::UNAUTHORIZED);
+        }
+        return $next($request);
     }
 }
