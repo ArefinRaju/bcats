@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 
 
 use App\Models\ProjectUser;
-use Helper\ACL\AccessMap;
-use Helper\ACL\Acl;
 use Helper\Constants\CommonValidations as V;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
@@ -37,13 +35,8 @@ class InvoiceController extends HelperController
         return $this->respond($invoices, [], 'admin.pages.payee.invoice');
     }
 
-    /**
-     * @throws UserFriendlyException
-     */
     public function test(Request $request)
     {
-        dd($request->user());
-        dd(Acl::authorize($request, AccessMap::ADMIN));
         return $this->respond([], [], 'admin.dashboard');
     }
 }

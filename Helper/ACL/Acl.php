@@ -23,10 +23,10 @@ final class Acl
         $out = false;
         if (is_array($permissions)) {
             foreach ($permissions as $permission) {
-                if (self::isAuthorized($request, $permission)) {
-                    $out = true;
+                if (!self::isAuthorized($request, $permission)) {
                     break;
                 }
+                $out = true;
             }
             if (!$out) {
                 return self::returnFalse();

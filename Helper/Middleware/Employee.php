@@ -5,8 +5,8 @@ namespace Helper\Middleware;
 
 
 use Closure;
+use Helper\ACL\AccessMap;
 use Helper\ACL\Acl;
-use Helper\ACL\Permission;
 use Helper\Constants\Errors;
 use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
@@ -29,7 +29,7 @@ final class Employee extends ApiMiddleware
         }
 
         // Regular filter
-        if (!Acl::authorize($request, [Permission::USE_RESOURCE, Permission::VIEW_RESOURCE])) {
+        if (!Acl::authorize($request, AccessMap::EMPLOYEE)) {
             return redirect(url()->previous())->withErrors(Errors::UNAUTHORIZED);
         }
         return $next($request);
