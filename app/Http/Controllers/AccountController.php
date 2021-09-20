@@ -196,7 +196,19 @@ final class AccountController extends HelperController
     {
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->supplierTransactions($request, $pagination->per_page, $pagination->page);
+        
+        // dd($transactions);
         return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
+    }
+    
+    // For individula-user-transaction...
+    public function individualTransactionList(Request $request)
+    {
+        $pagination   = $this->paginationManager($request);
+        $transactions = $this->repo->userTransactions($request, $pagination->per_page, $pagination->page);
+
+        // dd($transactions);
+        return $this->respond($transactions, [], 'admin.pages.profile.my_transaction');
     }
 
     public function payEmployeeForm(Request $request)

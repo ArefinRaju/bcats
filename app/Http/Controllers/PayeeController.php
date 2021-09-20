@@ -115,6 +115,7 @@ class PayeeController extends HelperController
     public function viewSupplier(Request $request, int $id)
     {
         $categories      = Category::all();
+
         $supplierRecords = $this->repo->getSupplier($request, $id);
         $supplier        = $supplierRecords[0] ?? null;
         if (empty($supplier)) {

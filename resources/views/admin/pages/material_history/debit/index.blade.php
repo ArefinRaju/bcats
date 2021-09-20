@@ -111,9 +111,9 @@ Debit
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($data as $item)
+                            @foreach($data as $key => $item)
                                 <tr>
-                                    <td>{{$item->id}}</td>
+                                    <td>{{$key+1}}</td>
                                     <td>{{$item->material_name}}</td>
                                     <td>{{$item->user_name}}</td>
                                     <td>{{$item->used." ".$item->enum}}</td>
