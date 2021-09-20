@@ -21,7 +21,9 @@ class MaterialHistoryRepository extends EntityRepository
 
     public function getLatestById(Request $request, int $materialId)
     {
-        return MaterialHistory::where('material_id', $materialId)->orderBy('id', 'desc')->first();
+        return MaterialHistory::where('material_id', $materialId)
+                              ->where('project_id', $request->user()->project_id)
+                              ->orderBy('id', 'desc')->first();
     }
 
     public function getLastRecord(Request $request, int $materialId, int $projectId)

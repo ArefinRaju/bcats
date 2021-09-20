@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Payee;
 use Helper\Route\CombinedRoute;
 use Illuminate\Support\Facades\Route;
-use App\Models\Payee;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,6 @@ use App\Models\Payee;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 
 
 Route::post('/login', 'AuthController@login');
@@ -30,31 +28,79 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', 'AuthController@logout');
     Route::get('/dashboard', 'AuthController@dashBoard')->name('dashboard');
+    Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
+    Route::get('/member/{memberId}', 'UserController@memberDetails');
+    Route::get('/member', 'PayeeController@member');
+    Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
+    Route::get('/memberSearch', 'PayeeController@memberSearch');
+    Route::get('/supplier-search', 'PayeeController@supplierSearch');
+    Route::get('/supplierList/{type?}', 'PayeeController@listByType');
+    Route::get('/userType/{userType}', 'UserController@showByUserType');
+    Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
+    Route::get('memberTransactions/', 'AccountController@memberTransactionList');
+    Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
+    Route::get('my-transaction', 'AccountController@individualTransactionList');
+    Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
+    Route::post('/payPayee', 'AccountController@payPayee');
+    Route::post('/stock', 'MaterialHistoryController@stock');
+    Route::post('/material/current-stock', 'MaterialHistoryController@stock');
+    Route::get('/material/use-material', 'MaterialHistoryController@usedMaterials');
+    Route::get('/payment/create', 'AccountController@payeePaymentForm');
+    Route::post('/debit', 'AccountController@payPayee');
+    Route::get('/addFund', 'AccountController@addFundForm');
+    Route::post('/addFund', 'AccountController@addFund');
+    Route::get('/credit', 'AccountController@creditForm');
+    Route::post('/credit', 'AccountController@credit');
+    Route::get('/credit-list', 'AccountController@creditList');
+    Route::get('/demand', 'AccountController@demandForm');
+    Route::get('/demand-list', 'MaterialHistoryController@demandList');
+    Route::post('/demand', 'AccountController@demand');
+    CombinedRoute::resourceRoute('/product', 'ProductController', []);
+    Route::get('/user-create', 'UserController@createForm');
+    Route::get('/user-edit/{id}', 'UserController@editForm');
+    CombinedRoute::resourceRoute('user', 'UserController', []);
+    Route::post('/user-details-ajax', 'UserController@getUserDataByAjax');
+    Route::get('/payee-create', 'PayeeController@createForm');
+    Route::get('/payee-edit/{id}', 'PayeeController@editForm');
+    CombinedRoute::resourceRoute('payee', 'PayeeController', []);
+    Route::get('/category-create', 'CategoryController@createForm');
+    Route::get('/category-edit/{id}', 'CategoryController@editForm');
+    CombinedRoute::resourceRoute('category', 'CategoryController', []);
+    Route::get('/material-create', 'MaterialController@createForm');
+    Route::get('/material-edit/{id}', 'MaterialController@editForm');
+    CombinedRoute::resourceRoute('material', 'MaterialController', []);
+    Route::get('/debit-material', 'MaterialHistoryController@debitForm');
+    Route::get('/credit-material', 'MaterialHistoryController@creditForm');
+    Route::get('/demand-material', 'MaterialHistoryController@demandForm');
+    Route::get('/material-debit-list', 'MaterialHistoryController@debitList');
+    Route::get('/material-demand-list', 'MaterialHistoryController@demandList');
+    Route::get('/material-credit-list', 'MaterialHistoryController@creditList');
+    Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
+    Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
+    Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');
+    Route::get('/stock', 'MaterialHistoryController@stock');
+    Route::get('/emi-create', 'EMIController@createForm');
+    CombinedRoute::resourceRoute('emi', 'EMIController', []);
+    CombinedRoute::resourceRoute('account', 'AccountController', []);
+    Route::get('/accountOverView', 'AccountController@accountOverview');
+    Route::get('/project-create', 'ProjectController@createForm');
+    Route::get('/project-edit/{id}', 'ProjectController@editForm');
+    CombinedRoute::resourceRoute('project', 'ProjectController', []);
+    Route::get('/payEmployee', 'AccountController@payEmployeeForm');
+    Route::post('/payEmployee', 'AccountController@payEmployee');
+    Route::get('/employeePaymentList', 'AccountController@employeePaymentList');
+    Route::get(
+        '/profile',
+        function () {
+            return view('admin.pages.profile.create');
+        }
+    );
 });
 
 Route::middleware(['employee'])->group(function () {
     Route::get('/test', 'AuthController@dashBoard');
 });
 
-Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
-Route::get('/member/{memberId}', 'UserController@memberDetails');
-Route::get('/member', 'PayeeController@member');
-Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
-Route::get('/memberSearch', 'PayeeController@memberSearch');
-Route::get('/supplier-search', 'PayeeController@supplierSearch');
-Route::get('/supplierList/{type?}', 'PayeeController@listByType');
-Route::get('/userType/{userType}', 'UserController@showByUserType');
-Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
-Route::get('memberTransactions/', 'AccountController@memberTransactionList');
-Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
-Route::get('my-transaction', 'AccountController@individualTransactionList');
-Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
-Route::get(
-    '/profile',
-    function () {
-        return view('admin.pages.profile.create');
-    }
-);
 // Route::get(
 //     '/my-transaction',
 //     function () {
@@ -87,9 +133,6 @@ Route::get(
     }
 );
 
-Route::post('/payPayee', 'AccountController@payPayee');
-Route::post('/stock', 'MaterialHistoryController@stock');
-Route::post('/material/current-stock', 'MaterialHistoryController@stock');
 
 /*Route::get(
     '/material/current-stock',
@@ -103,15 +146,12 @@ Route::get(
         return view('admin.pages.material.used_stock');
     }
 );
-Route::get('/material/use-material', 'MaterialHistoryController@usedMaterials');
 Route::get(
     '/material/required-material',
     function () {
         return view('admin.pages.material.required_material');
     }
 );
-Route::get('/payment/create', 'AccountController@payeePaymentForm');
-Route::post('/debit', 'AccountController@payPayee');
 //Route::get(
 //    '/payment/list',
 //    function () {
@@ -119,15 +159,6 @@ Route::post('/debit', 'AccountController@payPayee');
 //    }
 //);
 
-Route::get('/addFund', 'AccountController@addFundForm');
-Route::post('/addFund', 'AccountController@addFund');
-
-Route::get('/credit', 'AccountController@creditForm');
-Route::post('/credit', 'AccountController@credit');
-Route::get('/credit-list', 'AccountController@creditList');
-Route::get('/demand', 'AccountController@demandForm');
-Route::get('/demand-list', 'MaterialHistoryController@demandList');
-Route::post('/demand', 'AccountController@demand');
 
 Route::get(
     '/emi/unpaid',
@@ -153,53 +184,6 @@ Route::get(
         return view('admin.pages.blank.table');
     }
 );
-CombinedRoute::resourceRoute('/product', 'ProductController', []);
-
-Route::get('/user-create', 'UserController@createForm');
-Route::get('/user-edit/{id}', 'UserController@editForm');
-CombinedRoute::resourceRoute('user', 'UserController', []);
-Route::post('/user-details-ajax','UserController@getUserDataByAjax');
-
-
-Route::get('/payee-create', 'PayeeController@createForm');
-Route::get('/payee-edit/{id}', 'PayeeController@editForm');
-CombinedRoute::resourceRoute('payee', 'PayeeController', []);
-
-Route::get('/category-create', 'CategoryController@createForm');
-Route::get('/category-edit/{id}', 'CategoryController@editForm');
-CombinedRoute::resourceRoute('category', 'CategoryController', []);
-
-Route::get('/material-create', 'MaterialController@createForm');
-Route::get('/material-edit/{id}', 'MaterialController@editForm');
-CombinedRoute::resourceRoute('material', 'MaterialController', []);
-
-
-Route::get('/debit-material', 'MaterialHistoryController@debitForm');
-Route::get('/credit-material', 'MaterialHistoryController@creditForm');
-Route::get('/demand-material', 'MaterialHistoryController@demandForm');
-Route::get('/material-debit-list', 'MaterialHistoryController@debitList');
-Route::get('/material-demand-list', 'MaterialHistoryController@demandList');
-Route::get('/material-credit-list', 'MaterialHistoryController@creditList');
-
-Route::post('/materialHistoryDebit', 'MaterialHistoryController@debit');
-Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
-Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');
-Route::get('/stock', 'MaterialHistoryController@stock');
-
-
-
-
-Route::get('/emi-create', 'EMIController@createForm');
-CombinedRoute::resourceRoute('emi', 'EMIController', []);
-CombinedRoute::resourceRoute('account', 'AccountController', []);
-Route::get('/accountOverView', 'AccountController@accountOverview');
-Route::get('/project-create', 'ProjectController@createForm');
-Route::get('/project-edit/{id}', 'ProjectController@editForm');
-CombinedRoute::resourceRoute('project', 'ProjectController', []);
-
-Route::get('/payEmployee', 'AccountController@payEmployeeForm');
-Route::post('/payEmployee', 'AccountController@payEmployee');
-Route::get('/employeePaymentList', 'AccountController@employeePaymentList');
 
 // No need because material's resourceRoute has list with pagination
 //Route::get('/materials/list',	'MaterialController@materialList');
