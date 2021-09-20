@@ -49,7 +49,6 @@ class MaterialHistoryController extends HelperController
     public function debitForm(Request $request)
     {
         $categories = Category::all();
-//        $materials = $this->materialRepo->materialList($request);
         return view('admin.pages.material_history.debit.create', compact('categories'));
     }
 
@@ -177,16 +176,18 @@ class MaterialHistoryController extends HelperController
         $stockList = [];
         $materials = $this->materialRepo->materialList($request);
 
-        foreach ($materials as $material) {
+        foreach ($materials as $key => $material) {
             $log = $this->repo->getLatestById($request, $material->id);
 
             if (empty($log)) {
                 continue;
             }
+
             $item              = [];
             $item['id']        = $material->id;
             $item['name']      = $material->name;
             $item['enum']      = $material->enum;
+            $item['debit']     = $log->debit;
             $item['total']     = $log->total;
             $item['required']  = $log->required;
             $item['used']      = $log->used;
@@ -194,6 +195,7 @@ class MaterialHistoryController extends HelperController
             $item['comment']   = $log->comment;
             $stockList[]       = Arrays::toObject($item);
         }
+
         return $stockList;
     }
 

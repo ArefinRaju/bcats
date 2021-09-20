@@ -99,9 +99,9 @@ Dashboard
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $item)
+                            @foreach($data as $key => $item)
                             <tr>
-                                <td>{{$item->id}}</td>
+                                <td>{{$key+1}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->required." ".$item->enum}}</td>
                                 <td>{{$item->user_name}}</td>

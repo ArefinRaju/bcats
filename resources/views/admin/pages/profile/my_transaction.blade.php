@@ -91,20 +91,30 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Address</th>
-                                <th>Actions</th>
+                                <th>Member Name</th>
+                                <th>Phone</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Due (Present)</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ali</td>
-                                <td>01710355789</td>
-                                <td>Dhaka</td>
-                                <td nowrap="nowrap"></td>
-                            </tr>
+                            @foreach($data as $key => $transaction)
+                                <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$transaction->name}}</td>
+                                    <td>{{$transaction->mobile}}</td>
+                                    <td>{{$transaction->type}}</td>
+                                    @if($transaction->is_fund)
+                                        <td>{{$transaction->acDue}}</td>
+                                    @else
+                                        <td>{{$transaction->credit}}</td>
+                                    @endif
+                                    <td>{{$transaction->due}}</td>
+                                    <td>{{\Carbon\Carbon::parse($transaction->created_at)->diffForHumans()}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->

@@ -187,9 +187,6 @@ class PayeeController extends HelperController
             }
         }
         $data = $this->repo->getByType($request, $payeeType);
-
-        dd($data);
-
         return $this->respond($data, [], 'admin.pages.payee.suppliersList');
     }
 
@@ -205,7 +202,7 @@ class PayeeController extends HelperController
         $this->repo->save($payee);
         if (!self::isAPI()) {
             $payees = $this->repo->payeeList($request);
-            return view(''); // Todo
+            return view('')->with(['data' => $payees]); // Todo
         }
         return $this->respond(['status' => 'success'], [], '');
     }

@@ -889,10 +889,10 @@
                                 <i class="flaticon2-calendar-3 text-success"></i>
                             </div>
                             <div class="navi-text">
-                                <div class="font-weight-bold">My Transactions</div>
-                                <!-- <div class="text-muted">Account settings and more
-                                    <span class="label label-light-danger label-inline font-weight-bold">update</span>
-                                </div> -->
+                                <div class="font-weight-bold">
+                                    My Transactions
+                                </div>
+                                
                             </div>
                         </div>
                     </a>

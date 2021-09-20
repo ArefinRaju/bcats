@@ -192,11 +192,25 @@ final class AccountController extends HelperController
         return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
     }
 
+    /**
+     * @throws UserFriendlyException
+     */
     public function supplierTransactionList(Request $request)
     {
         $pagination   = $this->paginationManager($request);
         $transactions = $this->repo->supplierTransactions($request, $pagination->per_page, $pagination->page);
         return $this->respond($transactions, [], 'admin.pages.payee.allTransaction');
+    }
+
+    /**
+     * For individual-user-transaction...
+     * @throws UserFriendlyException
+     */
+    public function individualTransactionList(Request $request)
+    {
+        $pagination   = $this->paginationManager($request);
+        $transactions = $this->repo->userTransactions($request, $pagination->per_page, $pagination->page);
+        return $this->respond($transactions, [], 'admin.pages.profile.my_transaction');
     }
 
     public function payEmployeeForm(Request $request)

@@ -47,6 +47,7 @@ Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
 Route::get('memberTransactions/', 'AccountController@memberTransactionList');
 Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
+Route::get('my-transaction', 'AccountController@individualTransactionList');
 Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 Route::get(
     '/profile',
@@ -54,12 +55,12 @@ Route::get(
         return view('admin.pages.profile.create');
     }
 );
-Route::get(
-    '/my-transaction',
-    function () {
-        return view('admin.pages.profile.my_transaction');
-    }
-);
+// Route::get(
+//     '/my-transaction',
+//     function () {
+//         return view('admin.pages.profile.my_transaction');
+//     }
+// );
 Route::get(
     '/my-payment',
     function () {
