@@ -34,7 +34,7 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">invoice List</h3>
+                        <h3 class="card-label">Invoice List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -79,11 +79,6 @@ Dashboard
                             </div>
                             <!--end::Dropdown Menu-->
                         </div>
-                        <!--end::Dropdown-->
-                        <!--begin::Button-->
-                        <a href="{{ url('/payee-create') }}" class="btn btn-primary font-weight-bolder">
-                            <i class="la la-plus"></i>New Record</a>
-                        <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
@@ -92,10 +87,10 @@ Dashboard
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>quantity</th>
-                                <th>paid</th>
-                                <th>due</th>
+                                <th>Material Name</th>
+                                <th>Material Quantity</th>
+                                <th>Paid Amount</th>
+                                <th>Due Amount</th>
 
                             </tr>
                         </thead>

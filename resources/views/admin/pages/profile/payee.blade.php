@@ -76,13 +76,6 @@ Dashboard
                                     <span class="font-weight-bold text-dark-50">I distinguish three main text objectives could be merely to inform people.</span>
                                     <span class="font-weight-bold text-dark-50">A second could be persuade people.You want people to bay objective</span>
                                 </div>
-                                {{-- <div class="d-flex align-items-center w-25 flex-fill float-right mt-lg-12 mt-8">
-                                    <span class="font-weight-bold text-dark-75">Progress</span>
-                                    <div class="progress progress-xs mx-3 w-100">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 63%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <span class="font-weight-bolder text-dark">78%</span>
-                                </div> --}}
                             </div>
                             <!--end::Content-->
                         </div>

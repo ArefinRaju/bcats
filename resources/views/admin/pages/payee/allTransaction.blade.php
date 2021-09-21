@@ -14,7 +14,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">Transaction</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Member Transaction List</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -34,7 +34,8 @@
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                            <h3 class="card-label">Transaction List</h3>
+                            <h3 class="card-label">
+                                Admin,Member & Fund Collector OTP & EMI Transaction List</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
@@ -94,8 +95,9 @@
                                 <th>Member Name</th>
                                 <th>Phone</th>
                                 <th>Type</th>
-                                <th>Amount</th>
-                                <th>Due (Present)</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Due</th>
                                 <th>Date</th>
                             </tr>
                             </thead>
@@ -106,13 +108,10 @@
                                     <td>{{$r->name}}</td>
                                     <td>{{$r->mobile}}</td>
                                     <td>{{$r->type}}</td>
-                                    @if($r->is_fund)
-                                        <td>{{$r->acDue}}</td>
-                                    @else
-                                        <td>{{$r->credit}}</td>
-                                    @endif
+                                    <td>{{$r->debit}}</td>
+                                    <td>{{$r->credit}}</td>
                                     <td>{{$r->due}}</td>
-                                    <td>{{\Carbon\Carbon::parse($r->created_at)->diffForHumans()}}</td>
+                                    <td>{{\Carbon\Carbon::parse($r->created_at)->format('d-F-Y')}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

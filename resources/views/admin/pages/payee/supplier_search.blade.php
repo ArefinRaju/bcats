@@ -36,8 +36,7 @@ Dashboard
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label font-weight-bolder text-dark">Supplier,Employee & Contractor Search</span>
-                                <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
+                                <span class="card-label font-weight-bolder text-dark">Supplier, Employee & Contractor Search For Payment</span>
                             </h3>
                             <div class="card-toolbar">
 
@@ -52,7 +51,7 @@ Dashboard
 
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="searchKeyword" class="form-control form-control-solid" placeholder="Search Keyword">
+                                            <input type="text" v-on:keyup="search_keyword" v-model="searchKeyword" name="searchKeyword" id="searchKeyword" class="form-control form-control-solid" placeholder="Search Name Or Mobile">
                                         </div>
                                         <ul class="list-group" style="position: absolute; width:100% !important;z-index:2;">
                                             <li style="cursor: pointer;" class="list-group-item list-hover" v-for="(result, index) in results">

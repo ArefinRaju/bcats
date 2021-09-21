@@ -37,24 +37,6 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
-{{--                                    <a href="{{ url('payEmployee') }}" class="menu-link">--}}
-{{--                                        <span class="menu-text">Balance Tranfer</span>--}}
-{{--                                        <span class="menu-desc"></span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
-{{--                                    <a href="{{ url('account') }}" class="menu-link">--}}
-{{--                                        <span class="menu-text">My Dues</span>--}}
-{{--                                        <span class="menu-desc"></span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
-{{--                                    <a href="{{ url('account') }}" class="menu-link">--}}
-{{--                                        <span class="menu-text">My Payments</span>--}}
-{{--                                        <span class="menu-desc"></span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
                             </ul>
                         </div>
                     </li>
@@ -97,21 +79,20 @@
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Supplier</span>
+                            <span class="menu-text">Payee</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/payee') }}"
-                                        class="menu-link">
-                                        <span class="menu-text">Supplier List</span>
+                                    <a href="{{ url('/payee') }}" class="menu-link">
+                                        <span class="menu-text">Payee List</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/supplier-search') }}" class="menu-link">
-                                        <span class="menu-text">Supplier Search</span>
+                                    <a href="{{ url('/payee-search') }}" class="menu-link">
+                                        <span class="menu-text">Payee Search</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
@@ -151,99 +132,29 @@
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
-{{--                                    <a href="{{ url('/material/use-material') }}" class="menu-link">--}}
-{{--                                        <span class="menu-text">Use Material</span>--}}
-{{--                                        <span class="menu-desc"></span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
                                     <a href="{{ url('/demand-list') }}" class="menu-link">
                                         <span class="menu-text">Demand List</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
-                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Add Demand</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li> --}}
 
 
                             </ul>
                         </div>
                     </li>
-                    {{-- <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                        data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Payments and EMIs</span>
-                            <i class="menu-arrow"></i>
+
+                    <li class="menu-item menu-item-active" aria-haspopup="true">
+                        <a href="{{ url('emi') }}" class="menu-link">
+                            <span class="menu-text">EMI & OTP List</span>
+                            <span class="menu-desc"></span>
                         </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav"> --}}
-                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/payment/list') }}" class="menu-link">
-                                        <span class="menu-text">Payment List</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li> --}}
-                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/payment/create') }}" class="menu-link">
-                                        <span class="menu-text">Add Payments</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li> --}}
-
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('emi') }}" class="menu-link">
-                                        <span class="menu-text">EMI & OTP List</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('emi-create') }}" class="menu-link">
-                                        <span class="menu-text">Add EMI</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li> --}}
-
-
-                            {{-- </ul>
-                        </div>
-                    </li> --}}
-                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-                        data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                    </li>
+                    <li class="menu-item menu-item-active" aria-haspopup="true">
+                        <a href="{{ url('user') }}" class="menu-link">
                             <span class="menu-text">User</span>
-                            <i class="menu-arrow"></i>
+                            <span class="menu-desc"></span>
                         </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-
-
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/user-create') }}" class="menu-link">
-                                        <span class="menu-text">Add user</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/user') }}" class="menu-link">
-                                        <span class="menu-text"> User List</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="" class="menu-link">
-                                        <span class="menu-text">Profile</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-
-
-                            </ul>
-                        </div>
                     </li>
                     <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
                         data-menu-toggle="click" aria-haspopup="true">
@@ -255,22 +166,22 @@
                             <ul class="menu-subnav">
 
 
-{{--                                <li class="menu-item menu-item-active" aria-haspopup="true">--}}
-{{--                                    <a href="" class="menu-link">--}}
-{{--                                        <span class="menu-text">General</span>--}}
-{{--                                        <span class="menu-desc"></span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
+                                {{-- <li class="menu-item menu-item-active" aria-haspopup="true"> --}}
+                                {{-- <a href="" class="menu-link"> --}}
+                                {{-- <span class="menu-text">General</span> --}}
+                                {{-- <span class="menu-desc"></span> --}}
+                                {{-- </a> --}}
+                                {{-- </li> --}}
 
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('category')}}" class="menu-link">
+                                    <a href="{{ url('category') }}" class="menu-link">
                                         <span class="menu-text">Category</span>
                                         <span class="menu-desc"></span>
                                     </a>
                                 </li>
 
                                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{url('material')}}" class="menu-link">
+                                    <a href="{{ url('material') }}" class="menu-link">
                                         <span class="menu-text">Material</span>
                                         <span class="menu-desc"></span>
                                     </a>
@@ -286,29 +197,6 @@
                             </ul>
                         </div>
                     </li>
-
-                    <!-- <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                        <a href="javascript:;" class="menu-link menu-toggle">
-                            <span class="menu-text">Project</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-active" aria-haspopup="true">
-                                    <a href="{{ url('/project') }}" class="menu-link">
-                                        <span class="menu-text">All Project</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ url('/project-create') }}" class="menu-link">
-                                        <span class="menu-text">Add Project</span>
-                                        <span class="menu-desc"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li> -->
 
                 </ul>
                 <!--end::Header Nav-->
@@ -367,7 +255,8 @@
                                     href="#topbar_notifications_notifications">Alerts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#topbar_notifications_events">Events</a>
+                                <a class="nav-link" data-toggle="tab"
+                                    href="#topbar_notifications_events">Events</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#topbar_notifications_logs">Logs</a>
@@ -858,9 +747,7 @@
                         class="text-white opacity-70 font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
                     <span
                         class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4">{{ Auth::user()->name ?? '' }}</span>
-                    <!-- <span class="symbol symbol-35">
-                        <span class="symbol-label text-white font-size-h5 font-weight-bold bg-white-o-30">S</span>
-                    </span> -->
+
                 </div>
             </div>
             <!--end::Toggle-->
@@ -875,8 +762,7 @@
                     <!--end::Symbol-->
                     <!--begin::Text-->
                     <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">{{ Auth::user()->name ?? '' }}</div>
-                    <!-- <span class="label label-light-success label-lg font-weight-bold label-inline">3 messages</span> -->
-                    <!--end::Text-->
+
                 </div>
                 <div class="separator separator-solid"></div>
                 <!--end::Header-->
@@ -892,7 +778,7 @@
                                 <div class="font-weight-bold">
                                     My Transactions
                                 </div>
-                                
+
                             </div>
                         </div>
                     </a>
@@ -905,7 +791,6 @@
                             </div>
                             <div class="navi-text">
                                 <div class="font-weight-bold">My Payments</div>
-                                <!-- <div class="text-muted">Inbox and tasks</div> -->
                             </div>
                         </div>
                     </a>
@@ -918,7 +803,7 @@
                             </div>
                             <div class="navi-text">
                                 <div class="font-weight-bold">My EMIs</div>
-                                <!-- <div class="text-muted">Logs and notifications</div> -->
+
                             </div>
                         </div>
                     </a>
@@ -931,7 +816,7 @@
                             </div>
                             <div class="navi-text">
                                 <div class="font-weight-bold">My Dues</div>
-                                <!-- <div class="text-muted">latest tasks and projects</div> -->
+
                             </div>
                         </div>
                     </a>
@@ -940,7 +825,8 @@
                     <div class="navi-separator mt-3"></div>
                     <div class="navi-footer px-8 py-5">
                         <a href="/logout" class="btn btn-light-primary font-weight-bold">Sign Out</a>
-                        <a href="{{ url('/user-edit/'.auth()->id()) }}" class="btn btn-light-success font-weight-bold">Profile</a>
+                        <a href="{{ url('/user-edit/' . auth()->id()) }}"
+                            class="btn btn-light-success font-weight-bold">Profile</a>
                     </div>
                     <!--end::Footer-->
                 </div>

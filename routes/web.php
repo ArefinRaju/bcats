@@ -41,7 +41,7 @@ Route::get('/member/{memberId}', 'UserController@memberDetails');
 Route::get('/member', 'PayeeController@member');
 Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
 Route::get('/memberSearch', 'PayeeController@memberSearch');
-Route::get('/supplier-search', 'PayeeController@supplierSearch');
+Route::get('/payee-search', 'PayeeController@supplierSearch');
 Route::get('/supplierList/{type?}', 'PayeeController@listByType');
 Route::get('/userType/{userType}', 'UserController@showByUserType');
 Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
@@ -55,12 +55,7 @@ Route::get(
         return view('admin.pages.profile.create');
     }
 );
-// Route::get(
-//     '/my-transaction',
-//     function () {
-//         return view('admin.pages.profile.my_transaction');
-//     }
-// );
+
 Route::get(
     '/my-payment',
     function () {
@@ -80,7 +75,7 @@ Route::get(
     }
 );
 Route::get(
-    '/pay',
+    '/payee',
     function () {
         $payees = Payee::all();
         return view('admin.pages.building_accounts.add_member_payment', compact('payees'));

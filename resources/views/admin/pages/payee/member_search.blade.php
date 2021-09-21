@@ -14,7 +14,7 @@
                     <!--begin::Heading-->
                     <div class="d-flex flex-column">
                         <!--begin::Title-->
-                        <h2 class="text-white font-weight-bold my-2 mr-5">Project</h2>
+                        <h2 class="text-white font-weight-bold my-2 mr-5">Member Search</h2>
                         <!--end::Title-->
                     </div>
                     <!--end::Heading-->
@@ -36,8 +36,8 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">Member Search</span>
-                                    <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> -->
+                                    <span class="card-label font-weight-bolder text-dark">Search Member For EMI & OTP
+                                        Payment</span>
                                 </h3>
                                 <div class="card-toolbar">
 
@@ -134,6 +134,5 @@
                 });
 
             });
-
         </script>
     @endsection
