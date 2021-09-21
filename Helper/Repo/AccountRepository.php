@@ -7,7 +7,6 @@ namespace Helper\Repo;
 use App\Models\Account;
 use Helper\Constants\Transaction;
 use Illuminate\Http\Request;
-use Auth;
 
 class AccountRepository extends EntityRepository
 {
@@ -59,13 +58,13 @@ class AccountRepository extends EntityRepository
                       ->where('accounts.project_id', $request->user()->project_id)
                       ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
     }
-    
-    // For individula-user-transaction...
+
+    // For individual-user-transaction...
     public function userTransactions(Request $request, ?int $perPage = 10, ?int $page = null)
     {
         return Account::leftJoin('users', 'users.id', 'accounts.user_id')
                       ->whereNotNull('accounts.payee_id')
-                      ->where('accounts.user_id', Auth::user()->id)
+                      ->where('accounts.user_id', $request->user()->id) // We don't use auth as we use same query for api
                       ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
     }
 
