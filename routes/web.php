@@ -25,6 +25,7 @@ Route::middleware(['guest'])->group(function () {
         return view('welcome');
     });
     Route::get('login', 'AuthController@loginPage')->name('login');
+    Route::get('register', 'AuthController@registrationPage')->name('register');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -200,3 +201,19 @@ Route::get('/employeePaymentList', 'AccountController@employeePaymentList');
 //Route::get('/materials/list',	'MaterialController@materialList');
 
 //Route::get('/product',	'ProductController@retrieve');
+
+
+
+//ALL frontend route here....
+Route::get('/', 'FrontendController@index')->name('welcome');
+Route::get('/about', 'FrontendController@about')->name('about');
+Route::get('/faq', 'FrontendController@faq')->name('faq');
+Route::get('/blog', 'FrontendController@blog')->name('blog');
+Route::get('/contact', 'FrontendController@contact')->name('contact');
+Route::get('/privacy/policy', 'FrontendController@privacyPolicy')->name('privacy.policy');
+
+// For blog details pages..
+Route::get('/blog/details', 'FrontendController@blogDetails')->name('blog.details');
+Route::get('/blog/details1', 'FrontendController@blogDetails1')->name('blog.details1');
+Route::get('/blog/details2', 'FrontendController@blogDetails2')->name('blog.details2');
+Route::get('/blog/details3', 'FrontendController@blogDetails3')->name('blog.details3');

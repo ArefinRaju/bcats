@@ -95,6 +95,7 @@
                                 <th>Member Name</th>
                                 <th>Phone</th>
                                 <th>Type</th>
+                                <th>Total</th>
                                 <th>Debit</th>
                                 <th>Credit</th>
                                 <th>Due</th>
@@ -108,6 +109,7 @@
                                     <td>{{$r->name}}</td>
                                     <td>{{$r->mobile}}</td>
                                     <td>{{$r->type}}</td>
+                                    <td>{{$r->total}}</td>
                                     <td>{{$r->debit}}</td>
                                     <td>{{$r->credit}}</td>
                                     <td>{{$r->due}}</td>
