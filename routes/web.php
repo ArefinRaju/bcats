@@ -217,3 +217,5 @@ Route::get('/blog/details', 'FrontendController@blogDetails')->name('blog.detail
 Route::get('/blog/details1', 'FrontendController@blogDetails1')->name('blog.details1');
 Route::get('/blog/details2', 'FrontendController@blogDetails2')->name('blog.details2');
 Route::get('/blog/details3', 'FrontendController@blogDetails3')->name('blog.details3');
+Route::get('blog/details4', [FrontendController::class, 'blogDetails4'])->name('blog.details4');
+Route::get('blog/details5', [FrontendController::class, 'blogDetails5'])->name('blog.details5');
