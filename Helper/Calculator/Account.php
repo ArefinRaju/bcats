@@ -392,10 +392,10 @@ final class Account implements Calculator
     {
         $payee = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
         if (empty($payee)) {
-            HelperController::Error(Errors::RESOURCE_NOT_FOUND);
+            HelperController::Error(Errors::RESOURCE_NOT_FOUND, ResponseType::NO_CONTENT);
         }
         if (!$payee->status) {
-            HelperController::Error(Errors::FORBIDDEN);
+            HelperController::Error(Errors::FORBIDDEN, ResponseType::FORBIDDEN);
         }
         return $payee;
     }
@@ -407,7 +407,7 @@ final class Account implements Calculator
     {
         $amount = $instance->negativeChecker($amount);
         if ($amount < 1 || $instance->oldRecord->total < $amount) {
-            HelperController::Error(Errors::FORBIDDEN);
+            HelperController::Error(Errors::FORBIDDEN, ResponseType::FORBIDDEN);
         }
         return $amount;
     }

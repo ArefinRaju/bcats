@@ -256,9 +256,9 @@ class HelperController extends Controller
     /**
      * @throws UserFriendlyException
      */
-    public static function Error(string $errors){
-        if (HelperController::isAPI()) {
-            throw new UserFriendlyException($errors);
+    public static function Error(string $errors, int $responseType = 200){
+        if (self::isAPI()) {
+            throw new UserFriendlyException($errors, $responseType);
         }
         return redirect(url()->previous())->withErrors($errors);
     }
