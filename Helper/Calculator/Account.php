@@ -14,6 +14,7 @@ use Helper\Constants\Errors;
 use Helper\Constants\PayeeType;
 use Helper\Constants\ResponseType;
 use Helper\Constants\Transaction;
+use Helper\Core\HelperController;
 use Helper\Core\UserFriendlyException;
 use Helper\Repo\AccountRepository;
 use Helper\Repo\EMIRepository;
@@ -133,21 +134,18 @@ final class Account implements Calculator
     /**
      * @throws UserFriendlyException
      */
-    public static function payPayee(Request $request, int $amount, int $payeeId, string $comment = '', ?int $invoiceId = null): Account
+    public static function payPayee(Request $request, int $amount, int $payeeId, string $comment = '', ?int $invoiceId = null)
     {
         $instance            = new Account($request);
+        $instance->payee_id  = $payeeId;
+        $instance->amount    = $instance->amountCheck($instance, $amount);
         $instance->payeeRepo = new PayeeRepository();
-        $payee               = $instance->payeeRepo->getById($instance->request, $payeeId);
-        if (!$payee->status) {
-            throw new UserFriendlyException(Errors::FORBIDDEN);
-        }
-        $instance->type     = Transaction::DEBIT;
-        $instance->is_fund  = false;
-        $instance->payee_id = $payeeId;
-        $instance->amount   = $instance->negativeChecker($amount);
-        $instance->comment  = $request->input('comment') ?? $comment;
-        $instance->debit    = $instance->amount;
-        $instance->due      = $instance->oldRecord->due;
+        $payee               = $instance->getPayee($instance);
+        $instance->type      = Transaction::DEBIT;
+        $instance->is_fund   = false;
+        $instance->comment   = $request->input('comment') ?? $comment;
+        $instance->debit     = $instance->amount;
+        $instance->due       = $instance->oldRecord->due;
         if ($instance->isUserType($instance, Roles::EMPLOYEE, $request->user()->id)) {
             $instance->total    = $instance->oldRecord->total;
             $instance->employee = $instance->oldRecord->employee - $amount;
@@ -383,6 +381,33 @@ final class Account implements Calculator
     {
         if ($amount < 0) {
             return 0;
+        }
+        return $amount;
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    private function getPayee(Account $instance): Payee
+    {
+        $payee = $instance->payeeRepo->getById($instance->request, $instance->payee_id);
+        if (empty($payee)) {
+            HelperController::Error(Errors::RESOURCE_NOT_FOUND);
+        }
+        if (!$payee->status) {
+            HelperController::Error(Errors::FORBIDDEN);
+        }
+        return $payee;
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    private function amountCheck(Account $instance, float $amount): float
+    {
+        $amount = $instance->negativeChecker($amount);
+        if ($amount < 1 || $instance->oldRecord->total < $amount) {
+            HelperController::Error(Errors::FORBIDDEN);
         }
         return $amount;
     }
