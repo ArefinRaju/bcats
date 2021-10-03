@@ -5,8 +5,8 @@ namespace Helper\Middleware;
 use Helper\Constants\Errors;
 use Helper\Constants\JWTTokenStatus;
 use Helper\Constants\ResponseType;
-use Helper\Core\HelperController;
 use Helper\Core\JWT;
+use Helper\Core\UserFriendlyException;
 use Helper\Transform\Strings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,14 +15,17 @@ use Lcobucci\JWT\Token;
 
 class ApiMiddleware
 {
-    public function assignAuth(Request $request)
+    /**
+     * @throws UserFriendlyException
+     */
+    public function assignAuth(Request $request): Request
     {
         $token = $request->header('Authorization');
         if (!$token) {
-            return HelperController::generateResponse(null, [Errors::AUTHENTICATION_FAILED => Errors::AUTHENTICATION_TOKEN_MISSING], Errors::UNAUTHORIZED, 1, ResponseType::NOT_AUTHORIZED);
+            throw new UserFriendlyException(Errors::AUTHENTICATION_TOKEN_MALFORMED, ResponseType::NOT_AUTHORIZED);
         }
         if (!Strings::hasPrefix($token, 'Bearer ')) {
-            return HelperController::generateResponse(null, [Errors::AUTHENTICATION_FAILED => Errors::AUTHENTICATION_TOKEN_MALFORMED], Errors::UNAUTHORIZED, 1, ResponseType::NOT_AUTHORIZED);
+            throw new UserFriendlyException(Errors::AUTHENTICATION_TOKEN_MALFORMED, ResponseType::NOT_AUTHORIZED);
         }
 
         /** @var Token $token */
@@ -48,7 +51,7 @@ class ApiMiddleware
         }
 
         if ($error) {
-            return HelperController::generateResponse(null, [Errors::AUTHENTICATION_FAILED => $error], Errors::REQUEST_FAILED, 1, ResponseType::NOT_AUTHORIZED);
+            throw new UserFriendlyException($error, ResponseType::NOT_AUTHORIZED);
         }
 
         $user = JWT::resolveUserFromToken($token);
