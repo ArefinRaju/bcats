@@ -82,6 +82,16 @@ class AccountRepository extends EntityRepository
                       ->paginate($perPage, ['*'], 'page', $page);
     }
 
+    public function debitList(Request $request, int $perPage = null, int $page = null)
+    {
+        return Account::select('accounts.total', 'accounts.debit', 'accounts.id as account_id', 'user_id', 'accounts.comment', 'users.name', 'accounts.created_at as date')
+                      ->leftJoin('users', 'accounts.user_id', 'users.id')
+                      ->where('accounts.project_id', $request->user()->project_id)
+                      ->where('accounts.type', Transaction::DEBIT)
+                      ->orderBy('accounts.created_at', 'desc')
+                      ->paginate($perPage, ['*'], 'page', $page);
+    }
+
     public function getMainAccountBalance(Request $request, $role)
     {
         return Account::leftJoin('users', 'accounts.user_id', 'users.id')

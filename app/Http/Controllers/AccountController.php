@@ -148,6 +148,16 @@ final class AccountController extends HelperController
     }
 
     /**
+     * @throws UserFriendlyException
+     */
+    public function debitList(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $log        = $this->repo->debitList($request, $pagination->per_page, $pagination->page);
+        return $this->respond($log, [], 'admin.pages.account.credit.index');
+    }
+
+    /**
      * @param  Request  $request
      * @return Application|Factory|JsonResponse|View
      * @throws UserFriendlyException
