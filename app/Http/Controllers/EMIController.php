@@ -74,8 +74,20 @@ class EMIController extends HelperController
     public function list(Request $request)
     {
         $pagination = $this->paginationManager($request);
-        $emis       = $this->repo->list($pagination->per_page, $pagination->page);
-        return $this->respond($emis, [], 'admin.pages.emi.index');
+        $EMIs       = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($EMIs, [], 'admin.pages.emi.index');
+    }
+
+    public function emiList(Request $request)
+    {
+        $EMIs = $this->repo->listByType($request, false);
+        return $this->respond($EMIs);
+    }
+
+    public function otpList(Request $request)
+    {
+        $OTPs = $this->repo->listByType($request, true);
+        return $this->respond($OTPs);
     }
 
     public function update(Request $request, string $id = null)

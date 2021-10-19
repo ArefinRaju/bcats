@@ -205,6 +205,15 @@ final class AccountController extends HelperController
     /**
      * @throws UserFriendlyException
      */
+    public function userTransactionList(Request $request, $userId)
+    {
+        $transactions = $this->repo->memberTransactionsByUserId($request, $userId);
+        return $this->respond($transactions);
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
     public function supplierTransactionList(Request $request)
     {
         $pagination   = $this->paginationManager($request);
