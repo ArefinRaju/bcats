@@ -45,6 +45,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');
     Route::get('/stock', 'MaterialHistoryController@stock');
     Route::get('/materialDebitList', 'MaterialHistoryController@debitList');
+    Route::get('/materialCreditList', 'MaterialHistoryController@creditList');
     CombinedRoute::resourceRoute('/materialHistory', 'MaterialHistoryController', []);
     Route::post('/unpaidEMIs', 'EMIController@unpaidEMIs');
     Route::get('/emiList', 'EMIController@emiList');
@@ -65,6 +66,8 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('/payeeConstants', 'PayeeController@constants');
     Route::get('/supplierList/{type}', 'PayeeController@listByType');
     Route::get('/payee/{payeeID}', 'payeeController@updatepayeeStatus');
+    Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
+    Route::get('supplierTransactions/{supplierId}', 'AccountController@supplierTransactionListBySupplierId');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 });

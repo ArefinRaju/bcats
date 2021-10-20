@@ -62,8 +62,16 @@ class AccountRepository extends EntityRepository
 
     public function supplierTransactions(Request $request, ?int $perPage = 10, ?int $page = null)
     {
-        return Account::leftJoin('users', 'users.id', 'accounts.user_id')
+        return Account::leftJoin('payees', 'payees.id', 'accounts.payee_id')
                       ->whereNotNull('accounts.payee_id')
+                      ->where('accounts.project_id', $request->user()->project_id)
+                      ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function supplierTransactionListBySupplierId(Request $request, int $supplierId, ?int $perPage = 10, ?int $page = null)
+    {
+        return Account::leftJoin('payees', 'payees.id', 'accounts.payee_id')
+                      ->where('accounts.payee_id', $supplierId)
                       ->where('accounts.project_id', $request->user()->project_id)
                       ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
     }

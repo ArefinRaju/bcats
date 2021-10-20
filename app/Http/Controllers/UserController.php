@@ -191,20 +191,21 @@ class UserController extends HelperController
     public function memberDetails(Request $request, int $memberId)
     {
         /** @var User $user */
-        $user = $this->repo->getById($request, $memberId);
+        $user               = $this->repo->getById($request, $memberId);
+        $emiRepo            = new EMIRepository();
+        $emiUserRepo        = new EmiUserRepository();
+        $role               = Acl::decodeRole($user->acl);
+        $otp                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
+        $emi                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
+        $emiList            = $emiRepo->emiListWithOutPagination($request);
+        $otpList            = $emiRepo->otpListWithOutPagination($request);
+        $emiTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, false);
+        $otpTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, true);
+        $result             = compact('user', 'otp', 'emi', 'role', 'emiList', 'otpList', 'emiTransactionList', 'otpTransactionList');
         if (!$this->isAPI()) {
-            $emiRepo            = new EMIRepository();
-            $emiUserRepo        = new EmiUserRepository();
-            $role               = Acl::decodeRole($user->acl);
-            $otp                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
-            $emi                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
-            $emiList            = $emiRepo->emiListWithOutPagination($request);
-            $otpList            = $emiRepo->otpListWithOutPagination($request);
-            $emiTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, false);
-            $otpTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, true);
-            return $this->respond(compact('user', 'otp', 'emi', 'role', 'emiList', 'otpList', 'emiTransactionList', 'otpTransactionList'), [], 'admin.pages.profile.member');
+            return $this->respond($result, [], 'admin.pages.profile.member');
         }
-        return $this->respond($user, [], '');
+        return $this->respond($result, [], '');
     }
 
     public function showByUserType(Request $request, string $userType)

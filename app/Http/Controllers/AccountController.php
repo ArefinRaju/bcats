@@ -222,6 +222,16 @@ final class AccountController extends HelperController
     }
 
     /**
+     * @throws UserFriendlyException
+     */
+    public function supplierTransactionListBySupplierId(Request $request, int $supplierId)
+    {
+        $pagination   = $this->paginationManager($request);
+        $transactions = $this->repo->supplierTransactionListBySupplierId($request, $supplierId, $pagination->per_page, $pagination->page);
+        return $this->respond($transactions);
+    }
+
+    /**
      * For individual-user-transaction...
      * @throws UserFriendlyException
      */
