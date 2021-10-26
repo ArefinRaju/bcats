@@ -61,6 +61,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('/employeePaymentList', 'AccountController@employeePaymentList');
     Route::get('/memberTransactions/{userId}', 'AccountController@userTransactionList');
     Route::get('/debitList', 'AccountController@debitList');
+    Route::get('memberTransactions/', 'AccountController@memberTransactionList');
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');
