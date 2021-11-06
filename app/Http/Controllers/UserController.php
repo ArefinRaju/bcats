@@ -84,6 +84,7 @@ class UserController extends HelperController
         if ($request->user()->acl !== Roles::ADMIN || $request->user()->acl !== Roles::MANAGER) {
             $user->project_id = $request->user()->project_id;
         }
+        
         $this->repo->save($user);
         if (!self::isAPI()) {
             $pagination = $this->paginationManager($request);

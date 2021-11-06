@@ -14,7 +14,7 @@ Dashboard
                 <!--begin::Heading-->
                 <div class="d-flex flex-column">
                     <!--begin::Title-->
-                    <h2 class="text-white font-weight-bold my-2 mr-5">Payee</h2>
+                    <h2 class="text-white font-weight-bold my-2 mr-5">Payee List</h2>
                     <!--end::Title-->
                 </div>
                 <!--end::Heading-->
@@ -34,7 +34,8 @@ Dashboard
                         <span class="card-icon">
                             <i class="flaticon2-favourite text-primary"></i>
                         </span>
-                        <h3 class="card-label">Payee List</h3>
+                        <h3 class="card-label">
+                            Supplier,Employee & Contractor List</h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
@@ -75,6 +76,42 @@ Dashboard
                                             <span class="nav-text">PDF</span>
                                         </a>
                                     </li>
+                                </ul>
+                            </div>
+                            <!--end::Dropdown Menu-->
+                        </div>
+                        <!--end::Dropdown-->
+                        <!--begin::Dropdown-->
+                        <div class="dropdown dropdown-inline mr-2">
+                            <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="la la-download"></i>Select Payee Type
+                            </button>
+                            <!--begin::Dropdown Menu-->
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                <ul class="nav flex-column nav-hover">
+                                    <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2 text-center">
+                                        Choose an
+                                        option:
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('supplierList/SUPPLIER')}}" class="nav-link">
+                                            <i class="nav-icon la la-print"></i>
+                                            <span class="nav-text">SUPPLIER</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('supplierList/EMPLOYEE')}}" class="nav-link">
+                                            <i class="nav-icon la la-print"></i>
+                                            <span class="nav-text">EMPLOYEE</span>
+                                        </a>
+                                    </li> <li class="nav-item">
+                                        <a href="{{url('supplierList/CONTRACTOR')}}" class="nav-link">
+                                            <i class="nav-icon la la-print"></i>
+                                            <span class="nav-text">CONTRACTOR</span>
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </div>
                             <!--end::Dropdown Menu-->

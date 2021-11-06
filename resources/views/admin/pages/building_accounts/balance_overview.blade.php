@@ -129,22 +129,24 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Amount</th>
+                                <th>Current Amount(Tk)</th>
                                 <th>Transection Type</th>
+                                <th>Transection Amount(Tk)</th>
                                 <th>Comment</th>
                                 <th>Date</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($data as $item)
+                            @foreach($data as $key => $item)
                                 <tr>
-                                    <td>{{$item->id}}</td>
+                                    <td>{{$key+1}}</td>
                                     <td>{{$item->total}}</td>
+                                    <td>{{$item->type}}</td>
                                     <td>
                                         @if($item->type === \Helper\Constants\Transaction::CREDIT)
-                                            {{$item->credit . 'tk Credited'}}
+                                            {{$item->credit . ' tk'}}
                                         @elseif($item->type === \Helper\Constants\Transaction::DEBIT)
-                                            {{$item->debit . 'tk Debited'}}
+                                            {{$item->debit . ' tk'}}
                                         @else
                                             {{''}}
                                         @endif
@@ -156,7 +158,7 @@
                                             {{$item->comment}}
                                         @endif
                                     </td>
-                                    <td>{{\Carbon\Carbon::parse($item->created_at)->format('d-F-Y h:i a')}}</td>
+                                    <td>{{\Carbon\Carbon::parse($item->created_at)->format('d-F-Y')}}</td>
                                     {{-- <td nowrap="nowrap"> --}}
                                         {{-- Todo : Add button to show details --}}
                                     {{-- </td> --}}

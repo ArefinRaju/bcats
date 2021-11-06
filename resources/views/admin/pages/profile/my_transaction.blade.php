@@ -94,8 +94,9 @@ Dashboard
                                 <th>Member Name</th>
                                 <th>Phone</th>
                                 <th>Type</th>
-                                <th>Amount</th>
-                                <th>Due (Present)</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Due</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -106,13 +107,10 @@ Dashboard
                                     <td>{{$transaction->name}}</td>
                                     <td>{{$transaction->mobile}}</td>
                                     <td>{{$transaction->type}}</td>
-                                    @if($transaction->is_fund)
-                                        <td>{{$transaction->acDue}}</td>
-                                    @else
-                                        <td>{{$transaction->credit}}</td>
-                                    @endif
+                                    <td>{{$transaction->debit}}</td>
+                                    <td>{{$transaction->credit}}</td>
                                     <td>{{$transaction->due}}</td>
-                                    <td>{{\Carbon\Carbon::parse($transaction->created_at)->diffForHumans()}}</td>
+                                    <td>{{\Carbon\Carbon::parse($transaction->created_at)->format('d-F-Y')}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -23,6 +23,7 @@ Route::middleware(['guest'])->group(function () {
         return view('welcome');
     });
     Route::get('login', 'AuthController@loginPage')->name('login');
+    Route::get('register', 'AuthController@registrationPage')->name('register');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -101,12 +102,27 @@ Route::middleware(['employee'])->group(function () {
     Route::get('/test', 'AuthController@dashBoard');
 });
 
-// Route::get(
-//     '/my-transaction',
-//     function () {
-//         return view('admin.pages.profile.my_transaction');
-//     }
-// );
+
+Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
+Route::get('/member/{memberId}', 'UserController@memberDetails');
+Route::get('/member', 'PayeeController@member');
+Route::get('fetch-sub-category-product-info/{id}', 'PayeeController@fetchSubCategory');
+Route::get('/memberSearch', 'PayeeController@memberSearch');
+Route::get('/payee-search', 'PayeeController@supplierSearch');
+Route::get('/supplierList/{type?}', 'PayeeController@listByType');
+Route::get('/userType/{userType}', 'UserController@showByUserType');
+Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
+Route::get('memberTransactions/', 'AccountController@memberTransactionList');
+Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
+Route::get('my-transaction', 'AccountController@individualTransactionList');
+Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
+Route::get(
+    '/profile',
+    function () {
+        return view('admin.pages.profile.create');
+    }
+);
+
 Route::get(
     '/my-payment',
     function () {
@@ -126,7 +142,7 @@ Route::get(
     }
 );
 Route::get(
-    '/pay',
+    '/payee',
     function () {
         $payees = Payee::all();
         return view('admin.pages.building_accounts.add_member_payment', compact('payees'));
@@ -189,3 +205,21 @@ Route::get(
 //Route::get('/materials/list',	'MaterialController@materialList');
 
 //Route::get('/product',	'ProductController@retrieve');
+
+
+
+//ALL frontend route here....
+Route::get('/', 'FrontendController@index')->name('welcome');
+Route::get('/about', 'FrontendController@about')->name('about');
+Route::get('/faq', 'FrontendController@faq')->name('faq');
+Route::get('/blog', 'FrontendController@blog')->name('blog');
+Route::get('/contact', 'FrontendController@contact')->name('contact');
+Route::get('/privacy/policy', 'FrontendController@privacyPolicy')->name('privacy.policy');
+
+// For blog details pages..
+Route::get('/blog/details', 'FrontendController@blogDetails')->name('blog.details');
+Route::get('/blog/details1', 'FrontendController@blogDetails1')->name('blog.details1');
+Route::get('/blog/details2', 'FrontendController@blogDetails2')->name('blog.details2');
+Route::get('/blog/details3', 'FrontendController@blogDetails3')->name('blog.details3');
+Route::get('blog/details4', [FrontendController::class, 'blogDetails4'])->name('blog.details4');
+Route::get('blog/details5', [FrontendController::class, 'blogDetails5'])->name('blog.details5');
