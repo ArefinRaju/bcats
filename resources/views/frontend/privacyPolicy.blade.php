@@ -4,18 +4,17 @@
 @endsection
 @section('styles')
     <style>
-       
-       .privacy-details .content-heading {
-           padding-bottom: 30px;
-       }
-       
-       .privacy-details .content-heading .content-heading-title{
-           text-decoration: underline;
-       }
-       
-       .privacy-details .content-heading .content-para br{
-           padding-bottom: 15px;
-       }
+        .privacy-details .content-heading {
+            padding-bottom: 30px;
+        }
+
+        .privacy-details .content-heading .content-heading-title {
+            text-decoration: underline;
+        }
+
+        .privacy-details .content-heading .content-para br {
+            padding-bottom: 15px;
+        }
 
     </style>
 @endsection
@@ -27,91 +26,126 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="privacy-details">
                         <div class="content-title pb-5">
-                            <h1 class=" title">Privacy Policy</h1>
+                            <h1 class=" title text-center">Privacy Policy</h1>
                         </div>
                         <div class="content-heading">
-                            <h4 class="content-heading-title">1. Please read it carefully before you start using this Software!</h4>
-                            <p class="content-para mt-3">By using this Software you agree to be tied up by this Privacy Policy. If you do not agree to this Privacy Policy, please do not use this Application. If you have any questions related to the Privacy Policy, please feel free to contact us.</p>
+                            <p class="content-para">Below we set out our privacy policy which will govern the way in
+                                which we process any personal information that you provide to us. We will notify you if the
+                                way in which we process your information is to change at any time.</p>
+                            <p class="content-para">You can access our home page and browse our site without disclosing
+                                your personal data save information collected by cookies that we use (see below).</p>
                         </div>
-                        
+
                         <div class="content-heading">
-                            <h4 class="content-heading-title">2. Contents we publish in Our Softwares</h4>
-                            <p class="content-para mt-3">Here we provide Bangladesh government recognized and trusted newspapers & magazines websites. We display their publicly accessible name & logo only. If you want to read one of them, you've to click on the specific logo and it'll take you to the related website. When you're using their website, we've no more control over them and you've to use them by your own responsibility. In no way we're not responsible for any occurrences there. <br>
-                                But if you find a site as fraud or unexpected, please tell us. We'll immediately delete that one from our list.</p>
+                            <h4 class="content-heading-title">Who may process data?</h4>
+                            <p class="content-para">Your personal information (which includes your name, address and any
+                                other details you provide to us which concern you as an individual) may be processed both by
+                                us and by other companies within our group. Our website also includes a link to Rackspace
+                                and such company may collect personal data about visitors to our site. Each of the companies
+                                authorized to process your information as mentioned above will do so in accordance with this
+                                privacy policy.</p>
                         </div>
-                        
+
                         <div class="content-heading">
-                            <h4 class="content-heading-title"><span>3. Permissions we require to use this Software</h4>
-                            <p class="content-para mt-3">
-                                <span class=" mt-2">3.1. Internet <span><br>
-                                <span class=" mt-2">3.2. Access Internet State <span><br>
-                                <span class=" mt-2">3.3. External Storage <span><br>
-                                <span class=" mt-3">3.4. Access Wifi State <span><br>
-                                <span class=" mt-3">3.5. Google Billing <span><br>
-                                <span class=" mt-3">3.6. Receive Boot Completed <span><br> 
-                                <span class=" mt-3">3.7. Wake Lock 
+                            <h4 class="content-heading-title">Legal Requirements</h4>
+                            <p class="content-para">Bcats may disclose your Personal Data in the good faith belief that
+                                such action is necessary to:</p>
+                            <p class="content-para mt-1">
+                                <span class=" mt-1">• To comply with a legal obligation <span><br>
+                                        <span class=" mt-1">• To protect and defend the rights or property of Byno
+                                            Tech <span><br>
+                                                <span class=" mt-2">• To prevent or investigate possible wrongdoing
+                                                    in connection with the Service<span><br>
+                                                        <span class=" mt-3">• To protect the personal safety of
+                                                            users of the Service or the public <span><br>
+                                                                <span class=" mt-3">• To protect against legal
+                                                                    liability <span><br>
+
                             </p>
                         </div>
-                        
+
                         <div class="content-heading">
-                            <h4 class="content-heading-title">4. Automatic Data collection, Advertising and Analytics</h4>
-                            <p class="content-para mt-3">
-                                <p class=" mb-4">4.1. In this application we don't collect users data. However, advertisers and third party advertising networks may collect, who need to know how you interact with advertising provided in the Application. Advertisers and advertising networks use some of the information collected by the Application, including, but not limited to, Android advertising ID, various identification IDs of your mobile device, your in-app search inquiries and results of them. These third parties may also obtain anonymous information about other applications you've downloaded to your mobile device, the mobile websites you visit, device language settings, device type information, mobile network settings, IP addresses, your non-precise location information, and other information in order to help analyses and serve anonymous targeted advertising on the Application and elsewhere. </p>
-                                <p class=" mb-4">4.2. Moreover, It may uses various third-party analytics tools (Google analytics, Flurry analytics) and other measurement tools to help analyses how visitors use the Application. This information is used to evaluate visitors use of the Application and to compile statistical reports. These tools may also use cookies, web beacons, or similar technologies and collect information, described. </p>
-                                <p class=" mb-4">4.3. Any use of cookies, web beacons, or similar technologies by third-parties is subject to their own privacy policies, not ours, and It disclaims all liability in connection therewith. Moreover, third-parties collect and use information under their own policies (which we have no control over) and which may differ from our own privacy policy set out in this document. Note: if you do not want to be subject to any of the technologies which are integrated in the Application, do not use or access the Application. </p>
-                                <p class=" mb-4">4.4. If you'd like to opt-out from third party use of this type of information, please see the section entitled "Opt-out rights" below.
-                            </p>
+                            <h4 class="content-heading-title">Purpose of processing</h4>
+                            <p class="content-para">We will use your information for the purpose of fulfilling service
+                                orders placed by you, processing any other transactions authorized or made by you with us,
+                                informing you of special offers and providing other marketing information to you which we
+                                think you may find of interest, undertaking services or customer research/development. </p>
+
+                        </div>
+
+                        <div class="content-heading">
+                            <h4 class="content-heading-title">Disclosure of information</h4>
+                            <p class="content-para">In the unlikely event that a liquidator, administrator or receiver is
+                                appointed over us or all or any part of our assets that insolvency practitioner may transfer
+                                your information to a third party purchaser of the business provided that purchaser
+                                undertakes to use your information for the same purposes as set out in this policy. We
+                                undertake not to provide your personal information to third parties save in accordance with
+                                this policy. Your information will not be disclosed to government or local authorities or
+                                other government institutions save as required by law or other binding regulations.</p>
+                        </div>
+
+                        <div class="content-heading">
+                            <h4 class="content-heading-title">Children’s Privacy</h4>
+                            <p class="content-para">Our Service does not address anyone under the age of 18
+                                (“Children”).We do not knowingly collect personally identifiable information from anyone
+                                under the age of 18. If you are a parent or guardian and you are aware that you’re Children
+                                has provided us with Personal Data, please contact us. If we become aware that we have
+                                collected Personal Data from children without verification of parental consent, we take
+                                steps to remove that information from our servers.</p>
+                        </div>
+
+                        <div class="content-heading">
+                            <h4 class="content-heading-title">Cookies</h4>
+                            <p class="content-para">We may send a small file to your computer when you visit our website.
+                                This will enable us to identify your computer, track your behavior on our website and to
+                                identify your particular areas of interest so as to enhance your future visits to this
+                                website. We may use cookies to collect and store personal data and we link information
+                                stored by cookies with personal data you supply to us. Save for the use of cookies, we do
+                                not automatically log data or collect data save for information you specifically provide to
+                                us. You can set your computer browser to reject cookies but this may preclude your use of
+                                certain parts of this website.</p>
+                            <p class="content-para">Third party vendors, including Google, use cookies to serve ads based
+                                on a user's prior visits to your website. Google's use of the DART cookie enables it and its
+                                partners to serve ads to your users based on their visit to your sites and/or other sites on
+                                the Internet. Users may opt out of the use of the DART cookie by visiting the <a
+                                    href="#">advertising opt-out page.</a></p>
+                        </div>
+
+                        <div class="content-heading">
+                            <h4 class="content-heading-title">Security measures</h4>
+                            <p class="content-para">We have implemented security policies, rules and technical measures to protect the personal data that we have under our control from unauthorized access, improper use and disclosure, unauthorized destruction or accidental loss.</p>
+                           
                         </div>
                         
                         <div class="content-heading">
-                            <h4 class="content-heading-title">5. Opt-out rights</h4>
-                            <p class="content-para mt-3">
-                                <p class=" mb-2">5.1. It respects your rights to opt-out of receiving interest based advertising. There are multiple opt-out options for users of this Application: </p>
-                                <p class=" mb-4">(a) Opt-out of all information collection by uninstalling the Application: You can stop all collection of information by the Application easily by uninstalling the Application. You may use the standard uninstall processes as may be available as part of your mobile device or via the mobile application marketplace or network. </p>
-                                <p class=" mb-4">(b) Opt-out might not reach all our advertising partners and even if you opt-out you might still receive some interest based ads. If you want to be certain that no interest based advertising is displayed to you, please do not use the Application.</p>
-                            </p>
+                            <h4 class="content-heading-title">Access to information</h4>
+                            <p class="content-para">You may ask us whether we are storing personal information about you by emailing our admin department via the Contact page and, if you wish and upon payment of a fee of $09, we will provide you with a copy of the personal data we hold about you by email. We may ask for proof of your identity before providing any information and reserve the right to refuse to provide information requested if identity is not established.</p>
                         </div>
                         
                         <div class="content-heading">
-                            <h4 class="content-heading-title">6. Consents</h4>
-                            <p class="content-para mt-3">
-                                By using Application you confirm that you have read this Privacy Policy and give us your consent to third parties to collect, process, and use your information, as described in this Privacy Policy. Without collecting, processing and use of such data you would not be able to use the Application or such use would be limited.
-                            </p>
+                            <h4 class="content-heading-title">Copyright</h4>
+                            <p class="content-para">All website design, text, graphics, the selection and arrangement thereof are Copyright © 2016, bcats.net, ALL RIGHTS RESERVED.</p>
+                        </div>
+                       
+                        <div class="content-heading">
+                            <h4 class="content-heading-title">Trademarks</h4>
+                            <p class="content-para">Bcats.netis a trademark of BCATS or its subsidiaries and may be registered in certain parts of the world.</p>
                         </div>
                         
                         <div class="content-heading">
-                            <h4 class="content-heading-title">7. Security</h4>
-                            <p class="content-para mt-3">
-                                I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
-                            </p>
+                            <h4 class="content-heading-title">Disclaimer of Warranty and Liability</h4>
+                            <p class="content-para">The following provisions may be curtailed or disallowed by the laws of certain jurisdictions. In such case, the terms hereof are to be read as excluding or limiting such term so as to satisfy such law.</p>
+                            <p class="content-para">We do not represent or warrant that the information accessible via this website is accurate, complete or current. We have no liability whatsoever in respect of any use which you make of such information.</p>
+                            <p class="content-para">The information provided on this website has not been written to meet your individual requirements and it is your sole responsibility to satisfy yourself prior to ordering any products or services from us that they are suitable for your purposes.</p>
+                            <p class="content-para">Whilst we make all reasonable attempts to exclude viruses from the website, we cannot ensure such exclusion and no liability is accepted for viruses. Thus, you are recommended to take all appropriate safeguards before downloading information or images from this website.</p>
+                            <p class="content-para">All warranties, express or implied, statutory or otherwise are hereby excluded.</p>
+                            <p class="content-para">Neither we nor any of our employees or affiliated entities will be liable for any kind of damages and howsoever arising including, without limitation, loss of profits, compensatory, consequential, direct, exemplary, incidental, indirect, punitive or special, damages or any liability which you may have to a third party, even if we have been advised of the possibility of such loss.We are not responsible for the direct or indirect consequences of you linking to any other website from this website.</p>
+                        
                         </div>
                         
                         <div class="content-heading">
-                            <h4 class="content-heading-title">8. Links to Other Sites</h4>
-                            <p class="content-para mt-3">
-                                This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services
-                            </p>
-                        </div>
-                        
-                        <div class="content-heading">
-                            <h4 class="content-heading-title">9. Children’s Privacy</h4>
-                            <p class="content-para mt-3">
-                                These Services do not address anyone under the age of 1<span>3. I do not knowingly collect personally identifiable information from children under 1<span>3. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to take necessary actions.
-                            </p>
-                        </div>
-                        
-                        <div class="content-heading">
-                            <h4 class="content-heading-title">10. Changes to This Privacy Policy</h4>
-                            <p class="content-para mt-3">
-                                I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately after they are posted on this page.
-                            </p>
-                        </div>
-                        
-                        <div class="content-heading">
-                            <h4 class="content-heading-title">11. Contact Us</h4>
-                            <p class="content-para mt-3">
-                                If you have any questions or recommendations about our Privacy Policy, do not hesitate to write us to wbsoft.net@gmail.com
-                            </p>
+                            <h4 class="content-heading-title">Consent and inquiries</h4>
+                            <p class="content-para">In order to access the information on this website, you must signal acceptance of the terms and disclaimer set out above. If you do not accept any of these terms, leave this website now. If you have any enquiry or concern about our privacy policy or the way in which we are handling personal data please contact our admin department via the Contact page. If at any time you wish us to cease processing your information please send a message to our admin department and insert "unsubscribe" as the subject heading</p>
                         </div>
 
                     </div>

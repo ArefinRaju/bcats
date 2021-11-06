@@ -40,9 +40,9 @@
                 <div class="single-footer-widget">
                     <h3>Address</h3>
                     <ul class="footer-contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> House# 411, Flat# 3B, Road# 29, New DOHS
+                        <li><i class="fas fa-map-marker-alt"></i> House# 413, Flat# 3B, Road# 30, New DOHS
                             Mohakhali, Dhaka</li>
-                        <li><i class="far fa-envelope"></i> Email: support@amarstudent.com</li>
+                        <li><i class="far fa-envelope"></i> Email: bcats.net@gmail.com</li>
                         <li><i class="fas fa-phone"></i> Phone: +8809696863000</li>
                         <li><i class="fas fa-phone"></i> Phone: +8801774444000</li>
                     </ul>
