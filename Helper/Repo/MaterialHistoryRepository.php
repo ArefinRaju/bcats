@@ -21,7 +21,9 @@ class MaterialHistoryRepository extends EntityRepository
 
     public function getLatestById(Request $request, int $materialId)
     {
-        return MaterialHistory::where('material_id', $materialId)->orderBy('id', 'desc')->first();
+        return MaterialHistory::where('material_id', $materialId)
+                              ->where('project_id', $request->user()->project_id)
+                              ->orderBy('id', 'desc')->first();
     }
 
     public function getLastRecord(Request $request, int $materialId, int $projectId)
@@ -51,6 +53,17 @@ class MaterialHistoryRepository extends EntityRepository
     public function debitList(int $perPage = null, int $page = null)
     {
         return MaterialHistory::where('project_id', Request()->user()->project_id)
+                              ->select(
+                                  'material_histories.id as id',
+                                  'material_histories.user_name',
+                                  'material_histories.material_name',
+                                  'material_histories.total',
+                                  'material_histories.debit',
+                                  'material_histories.used',
+                                  'material_histories.comment',
+                                  'materials.enum',
+                                  'material_histories.updated_at'
+                              )
                               ->leftJoin('materials', 'material_histories.material_id', 'materials.id')
                               ->whereNotIn('debit', [0.00])
                               ->orderBy('material_histories.id', 'desc')

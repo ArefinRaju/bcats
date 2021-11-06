@@ -4,6 +4,7 @@
 namespace Helper\Core;
 
 use Helper\Constants\CommonValidations as V;
+use Helper\Constants\Errors;
 use Helper\Constants\Messages;
 use Helper\Constants\ResponseType;
 use Helper\Transform\Arrays;
@@ -250,5 +251,15 @@ class HelperController extends Controller
     public function destroy(Request $request, string $id)
     {
         throw new NotSupportedException();
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
+    public static function Error(string $errors, int $responseType = 200){
+        if (self::isAPI()) {
+            throw new UserFriendlyException($errors, $responseType);
+        }
+        return redirect(url()->previous())->withErrors($errors);
     }
 }

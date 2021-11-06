@@ -6,10 +6,8 @@ namespace Helper\Repo;
 
 use App\Models\Emi;
 use App\Models\EmiUser;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Account As AccountModel;
 
 class EMIRepository extends EntityRepository
 {
@@ -31,6 +29,13 @@ class EMIRepository extends EntityRepository
                   ->paginate($perPage, ['*'], 'page', $page);
     }
 
+    public function listByType(Request $request, bool $otp = false)
+    {
+        return Emi::where('project_id', Request()->user()->project_id)
+                  ->where('otp', $otp)
+                  ->get();
+    }
+
     public function emiListWithOutPagination(Request $request)
     {
         return Emi::where('project_id', $request->user()->project_id)
@@ -47,15 +52,13 @@ class EMIRepository extends EntityRepository
 
     public function otpEmiTransactionList(Request $request, $memberId, bool $isOtp)
     {
-
-        return EmiUser::leftJoin('accounts','accounts.emi_id','emi_users.emi_id')
-            ->where('emi_users.otp',$isOtp)
-            ->where('accounts.user_id',$memberId)->get();
+        return EmiUser::join('accounts', 'accounts.emi_id', 'emi_users.emi_id')
+                      ->where('emi_users.otp', $isOtp)
+                      ->where('accounts.by_user', $memberId)
+                      ->where('emi_users.user_id', $memberId)
+                      ->get();
     }
-    /**
-     * @param  string  $id
-     * @return bool
-     */
+
     public function destroyById(string $id): bool
     {
         return Emi::destroy($id);
@@ -84,6 +87,7 @@ class EMIRepository extends EntityRepository
                          ->where('emis.otp', $otp)
                          ->sum('emi_users.due');
     }
+
     public function getAllEmiDueByUserAndEmiType(Request $request, bool $otp = false): float
     {
         return (float)Emi::Join('emi_users', 'emis.id', '=', 'emi_users.emi_id')

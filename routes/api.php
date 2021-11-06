@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user',
+Route::middleware('auth:api')->get(
+    '/user',
     function (Request $request) {
         return $request->user();
-    });
+    }
+);
 
 Route::post('/auth/login', 'AuthController@apiLogin');
 
@@ -33,7 +35,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('/member/{memberId}', 'UserController@memberDetails');
     Route::get('/userType/{userType}', 'UserController@showByUserType');
     Route::get('/user/constants', 'UserController@constants');
-    Route::get('/user/{userID}', 'UserController@updateUserStatus');
+    Route::get('/userStatus/{userID}', 'UserController@updateUserStatus');
     CombinedRoute::resourceRoute('/user', 'UserController', []);
     CombinedRoute::resourceRoute('/category', 'CategoryController', []);
     Route::get('/material/constants', 'MaterialController@constants');
@@ -42,8 +44,12 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/materialHistoryCredit', 'MaterialHistoryController@credit');
     Route::post('/materialHistoryDemand', 'MaterialHistoryController@demand');
     Route::get('/stock', 'MaterialHistoryController@stock');
+    Route::get('/materialDebitList', 'MaterialHistoryController@debitList');
+    Route::get('/materialCreditList', 'MaterialHistoryController@creditList');
     CombinedRoute::resourceRoute('/materialHistory', 'MaterialHistoryController', []);
     Route::post('/unpaidEMIs', 'EMIController@unpaidEMIs');
+    Route::get('/emiList', 'EMIController@emiList');
+    Route::get('/otpList', 'EMIController@otpList');
     CombinedRoute::resourceRoute('/emi', 'EMIController', []);
     Route::post('/debit', 'AccountController@payPayee');
     Route::post('/payEmployee', 'AccountController@payEmployee');
@@ -53,11 +59,16 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::post('/demand', 'AccountController@demand');
     Route::get('/transaction/{payee_id}', 'AccountController@transactionList');
     Route::get('/employeePaymentList', 'AccountController@employeePaymentList');
+    Route::get('/memberTransactions/{userId}', 'AccountController@userTransactionList');
+    Route::get('/debitList', 'AccountController@debitList');
+    Route::get('memberTransactions/', 'AccountController@memberTransactionList');
     CombinedRoute::resourceRoute('/account', 'AccountController', []);
     Route::get('/supplier/{id}', 'PayeeController@viewSupplier');
     Route::get('/payeeConstants', 'PayeeController@constants');
-    Route::get('/supplierList/{type}','PayeeController@listByType');
+    Route::get('/supplierList/{type}', 'PayeeController@listByType');
     Route::get('/payee/{payeeID}', 'payeeController@updatepayeeStatus');
+    Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
+    Route::get('supplierTransactions/{supplierId}', 'AccountController@supplierTransactionListBySupplierId');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 });

@@ -4,6 +4,8 @@
 namespace Helper\Transform;
 
 
+use Exception;
+
 class Strings
 {
     public static function hasPrefix(String $haystack, String $needle): bool
@@ -20,6 +22,9 @@ class Strings
         return $haystack;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function uuidv4(): String
     {
         $data    = random_bytes(16);

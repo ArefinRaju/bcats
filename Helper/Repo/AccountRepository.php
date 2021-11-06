@@ -51,10 +51,27 @@ class AccountRepository extends EntityRepository
                       ->paginate($perPage, ['*'], 'page', $page);
     }
 
+    public function memberTransactionsByUserId(Request $request, int $userId)
+    {
+        return Account::select('accounts.*')
+                      ->leftJoin('users', 'users.id', 'accounts.by_user')
+                      ->where('accounts.by_user', $userId)
+                      ->orderBy('accounts.id', 'desc')
+                      ->get();
+    }
+
     public function supplierTransactions(Request $request, ?int $perPage = 10, ?int $page = null)
     {
-        return Account::leftJoin('users', 'users.id', 'accounts.user_id')
+        return Account::leftJoin('payees', 'payees.id', 'accounts.payee_id')
                       ->whereNotNull('accounts.payee_id')
+                      ->where('accounts.project_id', $request->user()->project_id)
+                      ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function supplierTransactionListBySupplierId(Request $request, int $supplierId, ?int $perPage = 10, ?int $page = null)
+    {
+        return Account::leftJoin('payees', 'payees.id', 'accounts.payee_id')
+                      ->where('accounts.payee_id', $supplierId)
                       ->where('accounts.project_id', $request->user()->project_id)
                       ->orderBy('accounts.id', 'desc')->paginate($perPage, ['*'], 'page', $page);
     }
@@ -79,6 +96,16 @@ class AccountRepository extends EntityRepository
     {
         return Account::leftJoin('users', 'accounts.user_id', 'users.id')
                       ->where('accounts.project_id', $request->user()->project_id)
+                      ->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function debitList(Request $request, int $perPage = null, int $page = null)
+    {
+        return Account::select('accounts.total', 'accounts.debit', 'accounts.id as account_id', 'user_id', 'accounts.comment', 'users.name', 'accounts.created_at as date')
+                      ->leftJoin('users', 'accounts.user_id', 'users.id')
+                      ->where('accounts.project_id', $request->user()->project_id)
+                      ->where('accounts.type', Transaction::DEBIT)
+                      ->orderBy('accounts.created_at', 'desc')
                       ->paginate($perPage, ['*'], 'page', $page);
     }
 

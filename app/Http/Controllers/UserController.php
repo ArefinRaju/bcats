@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Helper\ACL\AccessMap;
 use Helper\ACL\Acl;
 use Helper\ACL\Permission;
 use Helper\ACL\Roles;
@@ -34,7 +35,7 @@ class UserController extends HelperController
         $this->setResource(User::class);
         $this->commonValidationRules = [
             'name'     => [V::REQUIRED, ...V::NAME],
-            'email'    => [V::REQUIRED, V::EMAIL],
+            'email'    => [V::REQUIRED, V::EMAIL, 'unique:users'],
             'password' => [V::SOMETIMES, V::REQUIRED, ...V::PASS],
             'mobile'   => [V::REQUIRED, ...V::PHONE]
         ];
@@ -77,7 +78,7 @@ class UserController extends HelperController
     public function create(Request $request, string $action = null)
     {
         // Todo : check name, role(Admin not allowed) and email and throw proper error
-        Acl::authorize($request, [Permission::CREATE_MANAGER, Permission::CREATE_PROJECT_USER]);
+        Acl::authorize($request, AccessMap::PROJECT_ADMIN);
         $user = new User();
         $user = $this->filterAssign($request, $user);
         if ($request->user()->acl !== Roles::ADMIN || $request->user()->acl !== Roles::MANAGER) {
@@ -190,26 +191,27 @@ class UserController extends HelperController
 
     public function memberDetails(Request $request, int $memberId)
     {
-        $user = $this->repo->getById($request, $memberId);
+        /** @var User $user */
+        $user               = $this->repo->getById($request, $memberId);
+        $emiRepo            = new EMIRepository();
+        $emiUserRepo        = new EmiUserRepository();
+        $role               = Acl::decodeRole($user->acl);
+        $otp                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
+        $emi                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
+        $emiList            = $emiRepo->emiListWithOutPagination($request);
+        $otpList            = $emiRepo->otpListWithOutPagination($request);
+        $emiTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, false);
+        $otpTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, true);
+        $result             = compact('user', 'otp', 'emi', 'role', 'emiList', 'otpList', 'emiTransactionList', 'otpTransactionList');
         if (!$this->isAPI()) {
-            $emiRepo            = new EMIRepository();
-            $emiUserRepo        = new EmiUserRepository();
-            $role               = Acl::decodeRole($user->acl);
-            $otp                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, true);
-            $emi                = $emiUserRepo->getEmiByEmiTypeAndStatus($request, $memberId, false);
-            $emiList            = $emiRepo->emiListWithOutPagination($request);
-            $otpList            = $emiRepo->otpListWithOutPagination($request);
-            $emiTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, false);
-            $otpTransactionList = $emiRepo->otpEmiTransactionList($request, $memberId, true);
-
-            return $this->respond(compact('user', 'otp', 'emi', 'role', 'emiList', 'otpList', 'emiTransactionList', 'otpTransactionList'), [], 'admin.pages.profile.member');
+            return $this->respond($result, [], 'admin.pages.profile.member');
         }
-        return $this->respond($user, [], '');
+        return $this->respond($result, [], '');
     }
 
     public function showByUserType(Request $request, string $userType)
     {
-        $users        = $this->repo->getAllMember($request);
+        $users        = $this->repo->getByType($request, $userType);
         $emiRepo      = new EMIRepository();
         $newUsersData = [];
 
