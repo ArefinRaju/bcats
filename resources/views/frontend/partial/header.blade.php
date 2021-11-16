@@ -35,10 +35,6 @@
                                     <button  class="primary-btn text-dark support-btn disabled"> লগ-ইন</button>
                                 </a>
 
-                                <a class=" text-black font-weight-bold" style="color: black !important;" href="{{ route('register') }}">
-                                    <button id="signup" class="primary-btn text-dark support-btn disabled"> সাইন-আপ</button>
-                                </a>
-
                             @endauth
                         </div>
                     @endif

@@ -24,6 +24,7 @@
 
     <script src="https://kit.fontawesome.com/4b5d72e539.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('frontend/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
     <style>
         .main-banner {
             height: 700px;
@@ -169,11 +170,6 @@
                                             <button id="login_btn" class="primary-btn text-dark support-btn disabled">
                                                 লগ-ইন</button>
                                         </a>
-                                        <a class=" text-black font-weight-bold" style="color: black !important;"
-                                            href="{{ route('register') }}">
-                                            <button id="signup" class="primary-btn text-dark support-btn disabled">
-                                                সাইন-আপ</button>
-                                        </a>
 
                                     @endauth
                                 </div>
@@ -194,7 +190,7 @@
                                 <p>ভবন নির্মাণ করতে গিয়ে চিন্তায় পড়েছেন ? কিভাবে শুরু থেকে শেষ পর্যন্ত এই বিশাল কর্মকাণ্ডের ব্যবস্থাপনা পরিচালনা করবেন ? আপনার চিন্তার অবসান করতে এসে গেছে 
                                     <span class="main_text">"BCATS"</span> । <span class="main_text">"BCATS"</span>  এর মাধ্যমে আপনি প্রতিদিনের হিসাব-নিকাশ সংরক্ষণ করতে পারেন এক নিমিষেই। কন্ট্রাক্টর এবং সাপ্লাইয়ারের পেমেন্ট দেয়া, মালামালের ব্যবহার ও মজুদের পরিমাণ সংরক্ষণ করা , সমিতির সদস্যদের কিস্তির হিসাব রাখা সহ কনস্ট্রাকশন সাইট এর যাবতীয় হিসাব নিকাশ রাখতে পারেন খুব সহজেই। আপনার ভবন নির্মাণ কাজের ডিজিটাল সমাধানের জন্য আজই ব্যবহার করুন
                                      <span class="main_text">"BCATS"</span> ।</p>
-                                <a href="#" class="btn primary-btn get_started">সাইন-আপ করুন</a>
+                                <a href="#" class="btn primary-btn get_started">লগ-ইন করুন</a>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="right-banner-img" style="width: 80%; margin: auto;">
@@ -271,10 +267,10 @@
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-lg-6">
                     <div class="section-title">
-                        <h2>Cloud Hosting Services </h2>
+                        <h2><span class="main_text">"BCATS"</span> এর সুবিধা
+                            বর্তমান  </h2>
                         <div class="bar"></div>
-                        <p><span
-                            class="main_text">"BCATS"</span> এর সুবিধা বর্তমান ডিজিটালাইজেশনের সময় আপনার ভবনের হিসাব-নিকাশ ডিজিটাল সংরক্ষণ করে বিধায় এটা যেমন হারিয়ে যাবে না তেমন নষ্ট হয়ে যাবে না বিকাশের মাধ্যমে যে সুবিধা গুলি পাব ।</p>
+                        <p><span class="main_text">"BCATS"</span> এর সুবিধা বর্তমান ডিজিটালাইজেশনের সময় "BCATS" আপনার ভবনের হিসাব-নিকাশ ডিজিটালভাবে  সংরক্ষণ করে, বিধায় এটা যেমন হারিয়ে যাবে না তেমনি নষ্টও হবে না। "BCATS" এর মাধ্যমে যে সুবিধা গুলি পাওয়া যাবে </p>
                     </div>
                     <div class="row">
 
@@ -384,10 +380,9 @@
 
                 <div class="col-lg-6">
                     <div class="section-title">
-                        <h2>Design &amp; Development</h2>
+                        <h2>ভবন নির্মাণ ব্যবস্থাপনা</h2>
                         <div class="bar"></div>
-                        <p><span
-                            class="main_text">"BCATS"</span> এর সুবিধা বর্তমান ডিজিটালাইজেশনের সময় আপনার ভবনের হিসাব-নিকাশ ডিজিটাল সংরক্ষণ করে  বিধায় এটা যেমন হারিয়ে যাবে না তেমন নষ্ট হয়ে যাবে না "BCATS" এর মাধ্যমে যে সুবিধা গুলি পাব</p>
+                        <p> নির্মাণাধীন সাইট যেমনই হোক না কেনো একক ব্যক্তি, সমিতি অথবা ডেভলপার দ্বারা পরিচালিত হয়।  প্রতিটি সাইটের দৈনন্দিন কাজের হিসাব, কি পরিমান ইট বালু সিমেন্ট ব্যবহার করা হলো, কোন সাপ্লায়ার কি পরিমান মাল প্রদান করল তার চালান আপলোড করা ,কাকে কত টাকা প্রদান করা হলো তার পে স্লিপ সহ সবকিছু ডিজিটালভাবে <span class="main_text">"BCATS"</span> এর মাধ্যমে সংরক্ষণ করুন।</p>
                     </div>
                     <div class="row">
 
@@ -458,9 +453,9 @@
     <div class="features-area ptb-80 bg-f7fafd">
         <div class="container">
             <div class="section-title">
-                <h2><span class="main_text">"BCATS"</span> এর হিসাব সংরক্ষণ :</h2>
+                <h2><span class="main_text">"BCATS"</span> এর হিসাব সংরক্ষণ </h2>
                 <div class="bar"></div>
-                <p><span class="main_text">"BCATS"</span> একটি সহজ বান্ধব সফটওয়্যার। এছাড়াও
+                <p><span class="main_text">"BCATS"</span> একটি সহজ এবং ব্যাবহারকারীবান্ধব সফটওয়্যার। এছাড়াও
                     নিম্নোক্ত ফিচারগুলো <span class="main_text">"BCATS"</span> কে ব্যবহারকারীদের জন্য
                     সর্বাপেক্ষা উপযোগী করে তোলে</p>
             </div>
@@ -534,11 +529,10 @@
     <!-- blog area -->
     <div class="blog-area">
         <div class="container">
-            <div class="section-title">
-                <h2>আমাদের নতুন ব্লগ</h2>
+            <div class="section-title mt-4">
+                <h2><span class="main_text"> "BCATS"</span> এর ব্লগগুলো পড়ুন  </h2>
                 <div class="bar"></div>
-                <p>"আমার স্টুডেন্ট" একটি সহজ ও শিক্ষক বান্ধব সফটওয়্যার। এছাড়াও আমার স্টডেন্টের নতুন নতুন ব্লগ গোলোকে
-                    এখানে দেখানো হইয়ে থাকে..</p>
+                <p><span class="main_text"> "BCATS"</span> সফটওয়্যার ব্যবহারের পাশাপাশি সঠিক ভাবে ভবন নির্মাণের জন্য নিম্নোক্ত বিষয় গুলো গুরুত্বপূর্ণ</p>
             </div>
             <div class="row p-4">
 
@@ -655,7 +649,7 @@
                 <div class="single-footer-widget">
                     <h3>Address</h3>
                     <ul class="footer-contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> House# 413, Flat# 3B, Road# 30, New DOHS
+                        <li><i class="fas fa-map-marker-alt"></i> House# 433, Flat# 3B, Road# 30, New DOHS
                             Mohakhali, Dhaka</li>
                         <li><i class="far fa-envelope"></i> Email: bcats.net@gmail.com</li>
                         <li><i class="fas fa-phone"></i> Phone: +8809696863000</li>
