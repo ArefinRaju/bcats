@@ -540,7 +540,7 @@
                     <div class="single-blog-post rounded">
                         <div class="blog-img">
                             <a href="{{ route('blog.details') }}">
-                                <img src="{{ asset('frontend/images/teacher3.png') }}" alt="blog img"
+                                <img src="{{ asset('frontend/images/promise.png') }}" alt="blog img"
                                     style="height: 250px; width: 100%;">
                             </a>
                             <div class="date">
@@ -548,10 +548,9 @@
                             </div>
                         </div>
                         <div class="blog-post-content">
-                            <h3><a href="{{ route('blog.details') }}">একজন ভালো শিক্ষকের গুণাবলী ...</a></h3>
+                            <h3><a href="{{ route('blog.details') }}">সঠিক Consultant নির্বাচন করুন ...</a></h3>
                             <span>by <a href="#">admin</a></span>
-                            <p>জন অ্যাডামস শিক্ষককে “Maker of Man” বলে অভিহিত করেছেন। তিনি আরো বলেছেন ” শিক্ষক হলেন
-                                জাতির আলোকবর্তিকাবাহি ...</p>
+                            <p>একটি নির্দিষ্ট এরিয়ায় ভবন নির্মাণের ক্ষেত্রে সরকারি কিছু নিয়ম-নীতি মেনে ভবন নির্মাণ করতে হয়, অঞ্চল ভেদে নিয়মের তারতম্য রয়েছে সুতরাং যিনি ভবনটি নির্মাণ করবেন তাকে এমন একজন অভিজ্ঞ ব্যক্তি কে তার ভবনের ডিজাইন এর দায়িত্ব দিতে হবে ...</p>
                             <a class="read-more-btn" href="{{ route('blog.details') }}">Read More <i
                                     class="fas fa-arrow-right"></i></a>
                         </div>
@@ -562,7 +561,7 @@
                     <div class="single-blog-post rounded">
                         <div class="blog-img">
                             <a href="{{ route('blog.details1') }}">
-                                <img src="{{ asset('frontend/images/coaching.png') }}" alt="blog img"
+                                <img src="{{ asset('frontend/images/planing.jpg') }}" alt="blog img"
                                     style="height: 250px; width: 100%;">
                             </a>
                             <div class="date">
@@ -570,10 +569,9 @@
                             </div>
                         </div>
                         <div class="blog-post-content">
-                            <h3><a href="{{ route('blog.details1') }}">কোচিং ম্যানেজমেন্ট এর গুরুত্ব...</a></h3>
+                            <h3><a href="{{ route('blog.details1') }}">সাইটে নির্মাণকাজ শুরুর আগে যা করণীয়...</a></h3>
                             <span>by <a href="#">admin</a></span>
-                            <p>যদি একজন সফল কোচিং সেন্টারের উদ্যোক্তা হতে চান তাহলে সবচেয়ে গুরুত্বপূর্ণ যে বিষয়টি
-                                সম্পর্কে আপনাকে জানতে হবে তা হল...</p>
+                            <p>যেকোনো সাইটে ভবন নির্মাণ কাজ শুরু করার আগে অনেকগুলো বিষয়ে  প্রস্তুতি নেওয়া ও সেই অনুযায়ী কাজ করা প্রয়োজন, যেমন যদি আপনার সাইটটি জনমানব কোলাহল যুক্ত জায়গা থেকে দূরে হয় তাহলে সেখানে অনেক ধরনের সুবিধা পাওয়ার সীমাবদ্ধ তৈরি হবে...</p>
                             <a class="read-more-btn" href="{{ route('blog.details1') }}">Read More <i
                                     class="fas fa-arrow-right"></i></a>
                         </div>
@@ -584,7 +582,7 @@
                     <div class="single-blog-post rounded">
                         <div class="blog-img">
                             <a href="{{ route('blog.details2') }}">
-                                <img src="{{ asset('frontend/images/coaching-software.png') }}" alt="blog img"
+                                <img src="{{ asset('frontend/images/construction.png') }}" alt="blog img"
                                     style="height: 250px; width: 100%;">
                             </a>
                             <div class="date">
@@ -592,10 +590,10 @@
                             </div>
                         </div>
                         <div class="blog-post-content">
-                            <h3><a href="{{ route('blog.details2') }}">সফটওয়্যার কিভাবে সাহয্য করতে পারে...?</a>
+                            <h3><a href="{{ route('blog.details2') }}">কিভাবে ভবন নির্মাণ কাজ শুরু করবে..</a>
                             </h3>
                             <span>by <a href="#">admin</a></span>
-                            <p>বর্তমান যুগ প্রযুক্তির যুগ । মানুষের বেডরুম থেকে শুরু করে....
+                            <p>ভবন নির্মাণ কাজ শুরু করার সময় প্রথমেই  কনসালটেন্ট এর সাথে বসে কাজের বিষয় কিভাবে শুরু করতে হবে সে বিষয়ে বিস্তারিত পরামর্শ নিতে হবে এবং ড্রইং টা ভালোভাবে বুঝে নিতে হবে এরপর সাইটের কাজ পরিচালনা করার জন্য ....
                             </p>
                             <a class="read-more-btn" href="{{ route('blog.details2') }}">Read More <i
                                     class="fas fa-arrow-right"></i></a>
