@@ -28,6 +28,16 @@ class InvoiceController extends HelperController
     /**
      * @throws UserFriendlyException
      */
+    public function list(Request $request)
+    {
+        $pagination = $this->paginationManager($request);
+        $invoices   = $this->repo->list($pagination->per_page, $pagination->page);
+        return $this->respond($invoices);
+    }
+
+    /**
+     * @throws UserFriendlyException
+     */
     public function listByPayee(Request $request, int $payee_id)
     {
         $pagination = $this->paginationManager($request);

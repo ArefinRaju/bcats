@@ -70,6 +70,7 @@ Route::middleware(['apiAuth'])->group(function () {
     Route::get('supplierTransactions/', 'AccountController@supplierTransactionList');
     Route::get('supplierTransactions/{supplierId}', 'AccountController@supplierTransactionListBySupplierId');
     CombinedRoute::resourceRoute('/payee', 'PayeeController', []);
+    Route::get('/invoice', 'InvoiceController@list');
     Route::get('/invoice/{payee_id}', 'InvoiceController@listByPayee');
 });
 

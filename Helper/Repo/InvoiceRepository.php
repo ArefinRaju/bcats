@@ -35,6 +35,13 @@ class InvoiceRepository extends EntityRepository
         return $this->save($invoice);
     }
 
+    public function list(int $perPage = null, int $page = null)
+    {
+        return Invoice::where('project_id', Request()->user()->project_id)
+                      ->orderBy('id', 'desc')
+                      ->paginate($perPage, ['*'], 'page', $page);
+    }
+
     public function payeeList(Request $request)
     {
         return Invoice::where('payee_id', $request->input('payeeId'))
